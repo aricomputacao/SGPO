@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:un="http://xmlns.jcp.org/jsf/composite/componentes/paginas/cadastro_basico/unidade_medida"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+
+
+    <ui:define name="corpo">
+        <h:form id="frm_cad" prependId="false" >
+            <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label['unidade_medida']}"  btn_cancelar="false" btn_excluir="false"  acao_limpar="#{unidadeMedidaMB.init()}" 
+                                     btn_ativar="false"  acao_salvar="#{unidadeMedidaMB.salvar()}"  btn_salvar_update="frm_cad"
+                                      >
+                
+                <un:cadastroUnidadeMedida id="compCadastro" />
+
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" closable="true"   header="#{label['consulta_unidade_federativa']}" id="dialogCosUf" modal="true"  widgetVar="dialogConUf">
+            <h:form>
+                <un:consultaUnidadeMedida id="compConsulta" acao_butao="#{unidadeFederativaConsultaMB.consultarPaisOuNome()}" con_update="@form:compConsulta:tabela"  render_edit="false" />
+            </h:form>
+        </p:dialog>
+    </ui:define>
+   
+
+</ui:composition>
+

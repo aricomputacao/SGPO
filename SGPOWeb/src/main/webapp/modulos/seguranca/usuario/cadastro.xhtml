@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:seg="http://xmlns.jcp.org/jsf/composite/componentes/paginas/seguranca/usuario"
+                xmlns:nuc="http://xmlns.jcp.org/jsf/composite/componentes/paginas/centro/socio"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+
+
+    <ui:define name="corpo">
+        <h:form id="frm_cad" prependId="false" >
+            <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label.cadastro_usuario}" btn_cancelar="false" btn_excluir="false"  acao_limpar="#{usuarioMB.init()}" 
+                                     btn_ativar="false"  acao_salvar="#{usuarioMB.salvar()}"  btn_salvar_update="frm_cad"
+                                      >
+                
+                <seg:cadastroUsuario id="compCadastro" />
+
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" closable="true"   header="#{label.consulta_socio}" id="dialogCosNuc" modal="true"  widgetVar="dialogCosNuc">
+            <h:form id="frm_dialogCosNuc">
+                <nuc:consultaSocio  render_ativ="false" render_edit="false" id="compConsulta" sel_con_update=":frm_dialogCosNuc:compConsulta:fielCon" >
+                    <p:commandButton actionListener="#{usuarioMB.setarSocio(p)}" oncomplete="PF('dialogCosNuc').hide()" 
+                                     update=":frm_cad:pnlPadrao:compCadastro:usr_soc:input" icon="fa fa-check-square"/>
+                </nuc:consultaSocio> 
+            </h:form>
+        </p:dialog>
+    </ui:define>
+   
+
+</ui:composition>
+

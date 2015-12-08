@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:un="http://xmlns.jcp.org/jsf/composite/componentes/paginas/cadastro_basico/unidade_medida"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/componentes/util"
+                xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:input="http://xmlns.jcp.org/jsf/composite/componentes/inputs">
+
+    <ui:define name="corpo">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <p:tabView id="tabV" class="ContainerIndent">
+
+                    <div class="EmptyBox20"></div>
+                    <p:tab title="Home">
+                        <p:blockUI block="@(.ui-tabs)" widgetVar="blk">
+                            <p:graphicImage library="images" name="carregar.gif"/>
+                        </p:blockUI>
+                        <div class="Container40   Responsive" style="float: left">
+                            <div class="ContainerIndent">
+
+                                <p:panel    >
+                                    <i class="icon-paste Fleft Fs24   hardblue "></i>
+                                    <div class="Fs24 Fleft  Wid70">#{label.impressoes_secretaria}</div>                                       
+                                    <p:separator styleClass="Wid100"></p:separator>
+
+                                    <h:form id="frm_btns_rel">
+                                        <div class="Container50 Responsive ">
+                                            <div class="ContainerIndent  ">
+                                                <p:commandLink   actionListener="#{socioMB.geraImpressaoFiqueLigado()}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                                                    <p:panel class="panel-index">
+                                                        <div class="Wid100 TexAlCenter Fleft">
+                                                            <div class="ContainerIndent">
+                                                                <i class="icon-fax Wid90  Fleft Fs40  hardblue "></i>
+                                                                <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.relatorio_fique_ligado}</span>
+                                                            </div>
+
+                                                        </div>
+                                                    </p:panel>
+                                                </p:commandLink>
+                                            </div>
+                                        </div>
+                                        <div class="Container50 Responsive ">
+                                            <div class="ContainerIndent ">
+                                                <p:commandLink  onclick="PF('dialogMes').show()"  >
+                                                    <p:panel class="panel-index">
+                                                        <div class="Wid100 TexAlCenter Fleft">
+                                                            <div class="ContainerIndent">
+                                                                <i class="icon-smile Wid90  Fleft Fs40   hardblue "></i>
+                                                                <span class="Fs15 Wid100 FontLight fontBoldItalic gray">#{label.aniversariantes_mes}</span>
+                                                            </div>
+                                                        </div>
+                                                    </p:panel>
+                                                </p:commandLink>
+                                            </div>
+                                        </div>
+                                        <div class="Container50 Responsive ">
+                                            <div class="ContainerIndent ">
+                                                <p:commandLink  onclick="PF('dialogAgMes').show()"  >
+                                                    <p:panel class="panel-index">
+                                                        <div class="Wid100 TexAlCenter Fleft">
+                                                            <div class="ContainerIndent">
+                                                                <i class="icon-clipboard Wid90  Fleft Fs40   hardblue "></i>
+                                                                <span class="Fs15 Wid100 FontLight fontBoldItalic gray">#{label.agenda}</span>
+                                                            </div>
+                                                        </div>
+                                                    </p:panel>
+                                                </p:commandLink>
+                                            </div>
+                                        </div>
+                                        <div class="Container50 Responsive ">
+                                            <div class="ContainerIndent ">
+                                                <p:commandLink  onclick="PF('dialogMes').show()"  >
+                                                    <p:panel class="panel-index">
+                                                        <div class="Wid100 TexAlCenter Fleft">
+                                                            <div class="ContainerIndent">
+                                                                <i class="icon-snow Wid90  Fleft Fs40   hardblue "></i>
+                                                                <span class="Fs15 Wid100 FontLight fontBoldItalic gray">#{label.sessoes}</span>
+                                                            </div>
+                                                        </div>
+                                                    </p:panel>
+                                                </p:commandLink>
+                                            </div>
+                                        </div>
+
+                                    </h:form>
+                                </p:panel>
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="Container60 Responsive">
+                            <h:form id="frm_c" prependId="false" >
+                                <div class="ContainerIndent">
+                                    <p:panel style="min-height: 300px;">
+
+                                        <i class="icon-th-list Fleft Fs24   hardblue "></i>
+                                        <div class="Fs24 Fleft  Wid70">#{label.quadro_sessao_dirigente}</div>                                       
+                                        <p:separator styleClass="Wid100"></p:separator>
+                                        <div class="Fleft  Container100">
+                                            <comp:input_label_data lab_valor="#{label.inicio}" inp_valor="#{sessaoDirigenteMB.dataInicio}" inp_class_tamanho="25"/>
+                                            <comp:input_label_data lab_valor="#{label.fim}" inp_valor="#{sessaoDirigenteMB.dataFim}" inp_class_tamanho="25"/>
+                                            <btn:commandButton_consulta class="btnOutro" componente_to_update="@form"  inp_class_tamanho="30" acao_butao="#{sessaoDirigenteMB.consultarSessaoDirigenteMestre()}"/>
+                                        </div>                                       
+                                        <p:separator styleClass="Wid100"></p:separator>
+
+                                        <p:dataTable value="#{sessaoDirigenteMB.listaDeSessaoDirigentes}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+                                                     rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')  }"
+                                                     rowIndexVar="rowIx" emptyMessage="#{msg.consulta_vazia}"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15"  reflow="true">
+                                            <p:column headerText="#{label.dirigente}">
+                                                <componentes:outputText value="#{p.nomeDoDirigente()}"/>
+                                            </p:column>
+                                            <p:column headerText="#{label.escala}">
+                                                <componentes:outputText value="#{p.quantidadeSessaoEscala}"/>
+                                            </p:column>
+                                            <p:column headerText="#{label.extra}">
+                                                <componentes:outputText value="#{p.quantidadeSessaoExtra}"/>
+                                            </p:column>
+                                            <p:column headerText="#{label.instrutiva}">
+                                                <componentes:outputText value="#{p.quantidadeSessaoInstrutiva}"/>
+                                            </p:column>
+                                            <p:column headerText="#{label.carater}">
+                                                <componentes:outputText value="#{p.quantidadeSessaoCarater}"/>
+                                            </p:column>
+                                            <p:column headerText="#{label.direcao}">
+                                                <componentes:outputText value="#{p.quantidadeSessaoDirecao}"/>
+                                            </p:column>
+                                            <p:column headerText="#{label.mestre}">
+                                                <componentes:outputText value="#{p.quantidadeSessaoMestres}"/>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                    </p:panel>
+                                </div>
+                            </h:form>
+                        </div>
+
+
+                    </p:tab>
+                    <p:tab title="#{label.agenda}">
+                        <div class="Container100 Responsive">
+                            <util:agendaEventos id="compAgenda"/>
+                        </div>
+                    </p:tab>
+                </p:tabView>
+            </div>
+        </div>
+
+
+
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form prependId="false" id="frmDialog" >
+            <p:dialog widgetVar="caixaDialogo" id="dialogCaixa"
+                      header="Evento"  width="800"
+                      resizable="false" position="bottom"
+                      showEffect="clip" hideEffect="clip">  
+                <h:panelGroup id="eventDetails"   layout="block" >
+                    <comp:selectOneLabel inp_valor="#{agendaDeEventosMB.evento.tipoEvento}" lab_valor="#{label.tipo_evento}" inp_class_tamanho="90" inp_require="true" >
+                        <f:selectItems value="#{agendaDeEventosMB.listaDeTiposDeEventos}" var="es" itemLabel="#{es}" itemValue="#{es}"/>
+                    </comp:selectOneLabel>
+                    <comp:selectOneLabel inp_valor="#{agendaDeEventosMB.evento.nucleo}" lab_valor="#{label.nucleo}" sel_converter="indexConverter" inp_require="true" inp_class_tamanho="90" >
+                        <f:selectItems value="#{agendaDeEventosMB.listaDeNucleos}" var="nuc" itemLabel="#{nuc.nome}" itemValue="#{nuc}"/>
+                    </comp:selectOneLabel>
+                    <comp:input_label inp_valor="#{agendaDeEventosMB.evento.titulo}" lab_valor="#{label.titulo}" inp_class_tamanho="90" inp_require="true" />
+                    <comp:textarea_label  inp_valor="#{agendaDeEventosMB.evento.descricao}" lab_valor="#{label.descricao}"  inp_class_tamanho="90" inp_require="true" />
+                    <comp:input_label_data inp_valor="#{agendaDeEventosMB.evento.dataInicio}" inp_calendar_pattern="dd/MM/yyyy HH:mm" lab_valor="#{label.inicio}" inp_class_tamanho="30" inp_require="true"/>
+                    <comp:input_label_data inp_valor="#{agendaDeEventosMB.evento.dataFim}" inp_calendar_pattern="dd/MM/yyyy HH:mm" lab_valor="#{label.fim}" inp_class_tamanho="30" inp_require="true"/>
+                    <div class="EmptyBox20" />
+                    <div>
+                        <p:commandButton  class="Fright btnSalvar" value="#{label.salvar}"  icon="fa fa-floppy-o fa-lg" actionListener="#{agendaDeEventosMB.salvar()}"  oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();" 
+                                          update="@(form)"   />  
+                        <p:commandButton  class="Fleft btnExcluir" value="#{label.excluir}"  icon="fa fa-trash-o fa-lg" actionListener="#{agendaDeEventosMB.excluir()}"  oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();" 
+                                          update="@(form)"   >
+                            <p:confirm header="#{label.excluir}" message="#{msg.confirmacao}" icon="ui-icon-alert"  />
+
+                        </p:commandButton>  
+                    </div>
+                </h:panelGroup>
+            </p:dialog>  
+        </h:form>
+
+        <p:dialog class="Container100 Responsive" header="#{label.data}" id="dialogMes" modal="true" widgetVar="dialogMes" showEffect="fade"  width="400">
+            <h:form id="frm_btns_mes">
+                <input:selectOneLabel inp_valor="#{socioMB.mes}" lab_valor="#{label.mes}" >
+                    <f:selectItems value="#{socioMB.listaDeMeses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}" />
+                </input:selectOneLabel>
+                <a class="EmptyBox30 " />
+                <p:commandButton class="Container100" icon="fa fa-print fa-lg" actionListener="#{socioMB.geraImpressaoAniversariantes()}"
+                                 onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()" value="#{label.imprimir}" />
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog class="Container100 Responsive" header="#{label.data}" id="dialogAgMes" modal="true" widgetVar="dialogAgMes" showEffect="fade"  
+                  position="center"  width="400">
+            <h:form id="frm_btns_age">
+                <comp:input_label_data inp_valor="#{agendaDeEventosMB.dataInicio}" inp_class_tamanho="40" lab_valor="#{label.data_inicial}" />
+                <comp:input_label_data inp_valor="#{agendaDeEventosMB.dataFim}" inp_class_tamanho="40" lab_valor="#{label.data_final}" />
+                <p:commandButton class="Container100" icon="fa fa-print fa-lg" actionListener="#{agendaDeEventosMB.geraImpressaoAgenda()}"
+                                 onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()" value="#{label.imprimir}" />
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+

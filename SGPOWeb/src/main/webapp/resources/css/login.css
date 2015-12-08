@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.transparencia {
+    filter:alpha(opacity=70) ! important;
+    opacity: 0.7 ! important;
+    -moz-opacity:0.7 ! important;
+    -webkit-opacity:0.7 ! important;
+}
+
+
+
+.back-login{
+    /*background: url("#{resource['images/imgB.jpg']}") no-repeat center center fixed;*/ 
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#88bfe8+0,70b0e0+100;Blue+3D+%2317 */
+    background: rgb(136,191,232); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(136,191,232,1) 0%, rgba(112,176,224,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(136,191,232,1) 0%,rgba(112,176,224,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(136,191,232,1) 0%,rgba(112,176,224,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88bfe8', endColorstr='#70b0e0',GradientType=0 ); /* IE6-9 */
+
+
+}
+.back-login0{
+    /*     background: url("#{resource['images/imgB.jpg']}") no-repeat center center fixed; 
+         Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#88bfe8+0,70b0e0+100;Blue+3D+%2317 
+        background: rgb(136,191,232);  Old browsers 
+        background: -moz-linear-gradient(top,  rgba(136,191,232,1) 0%, rgba(112,176,224,1) 100%);  FF3.6-15 
+        background: -webkit-linear-gradient(top,  rgba(136,191,232,1) 0%,rgba(112,176,224,1) 100%);  Chrome10-25,Safari5.1-6 
+        background: linear-gradient(to bottom,  rgba(136,191,232,1) 0%,rgba(112,176,224,1) 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ 
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88bfe8', endColorstr='#70b0e0',GradientType=0 );  IE6-9 */
+
+
+    background: url("#{resource['images/imgB0.jpg']}") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:11;
+    width:100%;
+    height:100%;
+    filter: alpha(opacity=65);
+}
+.back-login1{
+    background: url("#{resource['images/imgB1.jpg']}") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:11;
+    width:100%;
+    height:100%;
+    filter: alpha(opacity=65);
+}
+.back-login2{
+    background: url("#{resource['images/imgB2.jpg']}") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    top:0;
+    left:0;
+    z-index:11;
+    width:100%;
+    height:100%;
+    filter: alpha(opacity=65);
+}
+.back-login3{
+    background: url("#{resource['images/imgB3.jpg']}") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    top:0;
+    left:0;
+    z-index:11;
+    width:100%;
+    height:100%;
+    filter: alpha(opacity=65);
+}
+
+
+.circulo {
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&amp;1+0,0+100;White+to+Transparent */
+    background: url("#{resource['images/pessoa.png']}") no-repeat center center, -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+    background: url("#{resource['images/pessoa.png']}") no-repeat center center, -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: url("#{resource['images/pessoa.png']}") no-repeat center center, linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+
+
+    border-radius: 60px;
+    border: none;
+    padding: 60px; 
+    width: 7px;
+    height: 1px; 
+
+}
+
+.lg{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&amp;1+0,0+100;White+to+Transparent */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+    background:  -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background:  linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);
+    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);
+    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);
+
+
+    border: none;
+}

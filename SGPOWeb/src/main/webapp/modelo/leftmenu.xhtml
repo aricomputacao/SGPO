@@ -1,0 +1,89 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ps="http://primefaces.org/sentinel"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <div id="layout-menubar" class="Unselectable fontRegular">
+        <div class="layout-menubarinner-box" id="buttonArea">
+            <a href="#" id="layout-menubar-resize" class="BordRad3" title="Menu Resize"><i class="icon-th-list-2"></i></a>
+            <a href="#" id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i class="icon-menu"></i></a>
+        </div>
+        <h:form>
+            <ps:menu id="sm_leftmenu">
+                <p:menuitem id="sm_dashboard" value="#{label.inicio}" icon="icon-home-outline" outcome="#{cadastro_basico.inicio}" containerStyleClass="layout-menubar-active"/>
+                <p:submenu label="#{label.cadastro}" icon="icon-database" >
+                    <p:submenu label="#{label['pais']}" icon="icon-globe-inv" >
+                        <p:menuitem value="#{label['consulta']}" icon="icon-th-list-outline" outcome="#{cadastro_basico.pais_consulta}"/>
+                    </p:submenu>
+
+                    <p:submenu label="#{label.pessoa}" icon="icon-male" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{cadastro_basico.pessoa_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{centro.nucleo_consulta}"/>
+                    </p:submenu>
+                </p:submenu>
+                <p:submenu label="#{label.centro}" icon="icon-empire" >
+                    <p:submenu label="#{label.regiao}" icon="icon-leaf-1" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{centro.regiao_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{centro.regiao_consulta}"/>
+                    </p:submenu>
+                    <p:submenu label="#{label.nucleo}" icon=" icon-leaf" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{centro.nucleo_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{centro.nucleo_consulta}"/>
+                    </p:submenu>
+                    <p:submenu label="#{label.socio}" icon="icon-child" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{centro.socio_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{centro.socio_consulta}"/>
+                    </p:submenu>
+
+                    <p:submenu label="#{label.cargo}" icon="icon-credit-card-1" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{centro.cargo_socio_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{centro.cargo_socio_consulta}"/>
+                    </p:submenu>
+                </p:submenu>
+
+
+                <p:submenu label="#{label.modulo_secretaria}" icon="icon-briefcase" >
+                    <p:submenu label="#{label.assitencia}" icon="icon-bookmark-1">
+                        <p:submenu label="#{label.sessao}" icon="icon-snow" >
+                            <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{secretaria.sessao_cadastro}"/>
+                            <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{secretaria.sessao_consulta}"/>
+                        </p:submenu>
+                        <p:submenu label="#{label.estoque}" icon="icon-tint" >
+                            <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{secretaria.sessao_cadastro}"/>
+                            <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{secretaria.sessao_consulta}"/>
+                        </p:submenu>
+                        <p:submenu label="#{label.registro_entrada}" icon=" icon-plus-circled" >
+                            <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{secretaria.sessao_cadastro}"/>
+                            <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{secretaria.sessao_consulta}"/>
+                            <p:menuitem value="#{label.tipo_entrada}" icon="icon-plus" outcome="#{secretaria.sessao_cadastro}"/>
+
+                        </p:submenu>
+                        <p:submenu label="#{label.registro_saida}" icon="icon-minus-circled" >
+                            <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{secretaria.sessao_cadastro}"/>
+                            <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{secretaria.sessao_consulta}"/>
+                            <p:menuitem value="#{label.tipo_saida}" icon="icon-minus" outcome="#{secretaria.sessao_cadastro}"/>
+
+                        </p:submenu>
+                    </p:submenu>
+                    <p:submenu label="#{label.relatorio}" icon="icon-newspaper" >
+                        <p:menuitem value="#{label.relatorio_fique_ligado}"  icon="fa fa-print fa-lg"  actionListener="#{socioMB.geraImpressaoFiqueLigado()}"  
+                                    onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{secretaria.sessao_consulta}"/>
+                    </p:submenu>
+
+                </p:submenu>
+
+                <p:submenu label="#{label.modulo_seguranca}" icon="icon-lock-open-alt" >
+                    <p:submenu label="#{label.usuario}" icon="icon-users" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{seguranca.usuario_cadastro}"/>
+                    </p:submenu>
+                </p:submenu>
+            </ps:menu>
+        </h:form>
+
+    </div>
+
+</ui:composition>
