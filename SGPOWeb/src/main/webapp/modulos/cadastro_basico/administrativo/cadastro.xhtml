@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pessoa="http://xmlns.jcp.org/jsf/composite/componentes/paginas/cadastro_basico/pessoa"
+                xmlns:pas="http://xmlns.jcp.org/jsf/composite/componentes/paginas/cadastro_basico/pais"
+                xmlns:prof="http://xmlns.jcp.org/jsf/composite/componentes/paginas/cadastro_basico/profissao"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <ui:define name="corpo">
+        <h:form id="frm_cad" prependId="false" >
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false"  acao_cancelar="#{socioMB.init()}" 
+                                     acao_excluir="#{socioMB.init()}"  acao_salvar="#{socioMB.salvar()}"
+                                      btn_limpar="false" cabecalho="#{label.cadastro_pessoa}" >
+                <pessoa:cadastroPessoa id="compCadastro"/>
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" closable="true" header="#{label.consulta_cep}" id="ce" modal="true"  widgetVar="dialogCep">
+         
+        </p:dialog>
+        <p:dialog showEffect="fade" closable="true"   header="#{label.consulta_pessoa}" id="dialogConPes" modal="true"  widgetVar="dialogConPes">
+            <h:form>
+               
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" closable="true"   header="#{label.consulta_pais}" id="dialogConPas" modal="true"  widgetVar="dialogConPas">
+            <h:form>
+                <pas:consultaPais componente_to_update="@(.ui-datatable)" acao_butao_selecionar="#{socioMB.consultarUfPor(p)}" 
+                                  target="#{socioMB.pais}" btn_selecionar_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:input_pais:input 
+                                  :frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_uf:selOne" dialogHide="PF('dialogConPas').hide()"    />
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" closable="true"  class="Container Responsive"   header="#{label.consulta_profissao}" id="dialogConProf" modal="true"  widgetVar="dialogConProf">
+            <h:form>
+                <prof:consultaProfissao componente_to_update="@(.ui-datatable)" acao_butao_selecionar="#{socioMB.setarProfissao(pr)}" target="#{socioMB.pessoa.profissao}" acao_butao="#{socioMB.consutarProfissoes()}" 
+                                        btn_selecionar_update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:input_prof:input" dialogHide="PF('dialogConProf').hide()"    />
+               
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+
