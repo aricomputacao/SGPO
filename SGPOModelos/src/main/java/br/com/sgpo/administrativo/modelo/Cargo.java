@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.cadastrobasico.modelo;
+package br.com.sgpo.administrativo.modelo;
 
+import br.com.sgpo.utilitarios.CpfCnpjUtil;
+import br.com.sgpo.utilitarios.MetodosUtilitariosData;
+import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -13,46 +16,40 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.NotEmpty;
-
-
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
- * @author Ari
+ * @author ari
  */
 @Entity
-@Table(name = "unidade_medida", schema = "cadastro_basico")
+@Table(name = "cargo", schema = "administrativo")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class UnidadeDeMedida implements Serializable {
+public class Cargo implements Serializable {
 
     @Id
-    @Column(name = "udm_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @NotNull
+    @Column(name = "car_id", nullable = false)
+    private Integer id;
 
-    @NotEmpty
-    @Column(name = "udm_nome", nullable = false, unique = true)
-    private String nome;
+    @NotBlank
+    @Column(name = "car_nome", nullable = false, unique = true)
+    private String  nome;
 
-    @NotEmpty
-    @Column(name = "udm_abreviacao", nullable = false, unique = true, length = 5)
-    private String abreviacao;
+    @Column(name = "car_descricao",length = 1024)
+    private String descricao;
 
-    @Column(name = "udm_ativo", nullable = false,columnDefinition = "boolean default true")
-    private boolean ativo;
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
-   
 
     public String getNome() {
         return nome;
@@ -62,43 +59,44 @@ public class UnidadeDeMedida implements Serializable {
         this.nome = nome;
     }
 
-    public String getAbreviacao() {
-        return abreviacao;
+    public String getDescricao() {
+        return   descricao;
     }
 
-    public void setAbreviacao(String abreviacao) {
-        this.abreviacao = abreviacao;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UnidadeDeMedida other = (UnidadeDeMedida) obj;
+        final Cargo other = (Cargo) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
+    
+    
+
+    
+    
     
     
 }
