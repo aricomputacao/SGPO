@@ -8,6 +8,7 @@ package br.com.sgpo.administrativo.managedbean;
 import br.com.sgpo.administrativo.controller.CargoController;
 import br.com.sgpo.administrativo.modelo.Cargo;
 import br.com.sgpo.utilitario.BeanGenerico;
+import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -42,6 +43,17 @@ public class CargoMB extends BeanGenerico implements Serializable{
         criarListaDeCamposDaConsulta();
     }
 
+    
+    public void salvar(){
+        try {
+            cargoController.salvar(cargo);
+            MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_SUCESSO, cargo.getNome());
+            init();
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(CargoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void consultar(){
         try {

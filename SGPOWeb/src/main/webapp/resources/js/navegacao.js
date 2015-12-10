@@ -40,38 +40,6 @@ var setarFocu = function (id) {
 
 
 
-var mudarImagem = function () {
-    var bd = $("body");
-    var div = $("#divLog");
-    
-    div.fadeOut();
-    bd.fadeOut();
-
-    if (bd.hasClass("back-login0")) {
-        bd.removeClass("back-login0");
-        bd.addClass("back-login1");
-        
-    } else if (bd.hasClass("back-login1")) {
-        bd.removeClass("back-login1");
-        bd.addClass("back-login2");
-
-    }else if (bd.hasClass("back-login2")) {
-        bd.removeClass("back-login2");
-        bd.addClass("back-login3");
-
-    } else if (bd.hasClass("back-login3")) {
-        bd.removeClass("back-login3");
-        bd.addClass("back-login0");
-
-    }
-
-    bd.fadeIn();
-    div.fadeIn();
-    
-
-};
-
-
 
 
 

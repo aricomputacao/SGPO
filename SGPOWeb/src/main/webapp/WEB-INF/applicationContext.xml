@@ -12,14 +12,14 @@
         <intercept-url pattern="/modulos/**" access="ROLE_SIS"/> 
     </http> 
     <authentication-manager> 
-        <authentication-provider>
+<!--        <authentication-provider>
             <password-encoder hash="md5"/>
             <jdbc-user-service data-source-ref="dataSource"
                                    users-by-username-query="SELECT u.usr_login ,u.usr_senha,u.usr_ativo from seguranca.usuario u
                                                             WHERE  (u.usr_ativo = TRUE) and (u.usr_login = ?)"
                                    authorities-by-username-query="SELECT u.usr_login, 'ROLE_SIS' from seguranca.usuario u WHERE  (u.usr_login = ?)"
             />
-        </authentication-provider>
+        </authentication-provider>-->
         <authentication-provider>
             <user-service>
                 <user name="adm" password="123" authorities="ROLE_SIS" />
@@ -28,7 +28,7 @@
     </authentication-manager>
 
 
-    <b:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <b:property  name="jndiName" value="java:jboss/datasources/PostgreSQLDS"/>
-    </b:bean>
+<!--    <b:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <b:property  name="jndiName" value="java:jboss/datasources/sgpo"/>
+    </b:bean>-->
 </b:beans>

@@ -183,7 +183,13 @@
     box-shadow: -9px 8px 20px -3px rgba(117,121,186,0.84);
 }
 
+.ui-messages-info,
+.ui-message-info{
+    background-color: #F2FCFA  !important;
+    color: #339957 ! important;
+    border-color: #A6EDDB !important
 
+}
 @media (max-width: 500px) {
     #full{
         display: none;

@@ -20,7 +20,7 @@ import javax.persistence.Query;
  */
 public abstract class DAOGenerico<T, PK extends Serializable> implements Serializable {
 
-    @PersistenceContext(unitName = "sisdelta_PU")
+    @PersistenceContext(unitName = "sgpo_pu")
     private EntityManager em;
     private final Class<T> entityClass;
 

@@ -43,12 +43,12 @@
             <var>label</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>br.com.sgpo.arquivos.mensagens</base-name>
+            <base-name>br.com.sgpo.utilitarios.arquivos.mensagens</base-name>
             <var>msg</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>br.com.sgpo.arquivos.cadastro_basico</base-name>
-            <var>cadastro_basico</var>
+            <base-name>br.com.sgpo.arquivos.administrativo</base-name>
+            <var>administrativo</var>
         </resource-bundle>
         <resource-bundle>
             <base-name>br.com.sgpo.arquivos.seguranca</base-name>

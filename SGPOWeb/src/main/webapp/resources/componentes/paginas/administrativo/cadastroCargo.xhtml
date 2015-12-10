@@ -15,8 +15,8 @@
     <composite:implementation>
         <p:fieldset>
             <h:panelGroup layout="block" class="Container100 Responsive">
-                <inputs:input_label id="inpNom" inp_class_tamanho="60" inp_valor="#{cargoMB.cargo.nome}" lab_valor="nnn"/>
-                <inputs:input_label id="inpAbr" inp_class_tamanho="40" inp_valor="#{unidadeMedidaMB.unidadeDeMedida.abreviacao}" lab_valor="#{label['sigla']}"/>
+                <inputs:input_label id="inpNom" inp_class_tamanho="60" inp_valor="#{cargoMB.cargo.nome}" lab_valor="#{label.nome}"/>
+                <inputs:input_label id="inpAbr" inp_class_tamanho="40" inp_valor="#{cargoMB.cargo.descricao}" lab_valor="#{label.descricao}"/>
             </h:panelGroup>
         </p:fieldset>
     </composite:implementation>

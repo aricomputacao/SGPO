@@ -46,15 +46,15 @@ public class UtilitarioNavegacaoMB extends BeanGenerico implements Serializable 
 //
 //    }
 //
-//    public String logout() {
-//        return getNomeSistema() + "/j_spring_security_logout";
-//    }
+    public String logout() {
+        return getNomeSistema() + "/j_spring_security_logout";
+    }
 //
-//    public static ExternalContext getContexto() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        ExternalContext external = context.getExternalContext();
-//        return external;
-//    }
+    public static ExternalContext getContexto() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext external = context.getExternalContext();
+        return external;
+    }
 //
 //    @Override
 //    protected Map<String, Object> getCampo() {

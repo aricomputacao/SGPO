@@ -11,7 +11,6 @@ import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Stereotype;
 import javax.inject.Inject;
 
 /**

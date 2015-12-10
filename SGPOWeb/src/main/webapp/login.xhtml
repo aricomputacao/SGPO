@@ -6,9 +6,10 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Nome do Sistema</title>
+        <title>#{label.sigla_sistema}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-
+        <link rel="shortcut icon"  href="resources/images/logo.ico"  />
+        <link rel="icon" type="image/svg" href="sentinel-layout/images/LOGO.svg" />
         <h:outputScript name="js/layout.js" library="sentinel-layout" />
         <h:outputScript name="navegacao.js" library="js" />
         <script type="text/javaScript">  
@@ -18,40 +19,42 @@
 
     </h:head>
 
-    <h:body class="fontRegular back-login0 "  onload="setarFocu('login')">
-        <h:form>
+    <h:body class="fontRegular back-login"  onload="setarFocu('login')">
 
-            <p:poll interval="10"  onstart="mudarImagem()"   />
-
-
-        </h:form>
         <div  id="divLog"      >
-            <p:panel  class="lg Container100 MaxWid500 Fnone MarAuto MarTopPerc10 TexAlCenter ">
-                <div class="EmptyBox50"/> 
-                <div class="circulo  MarAuto TexAlCenter transparencia  PaddingTopPercent5 ">
+            <p:panel  class="lg Container100 MaxWid500 Fnone MarAuto MarTopPerc5 TexAlCenter ">
+                <div class="Container100 " style="margin-left: 130px" >
+                    <p:graphicImage class="Fleft" height="70" library="sentinel-layout" name="images/LOGO.svg"/>
+                    <div class="softblue Fleft FontTitilliumBoldItalic Fs50"  >#{label.sigla_sistema}</div>
+
                 </div>
+
+                <div class="softgray FontTitilliumSemiBoldItalic Fs25"  >#{label.titulo_sistema}</div>
+                <hr/>
+                <div class="EmptyBox20"/>
+
                 <div class="Container80 MaxWid500 Fnone MarAuto TexAlCenter  ">
-                    <!--                    <a href="href='http://www.freepik.com/free-vector/hands-connecting_766600.htm'" id="login-logo">
-                                            <h:graphicImage name="images/LOGO.svg" height="78" styleClass="Fleft" library="sentinel-layout"/>
-                                        </a>-->
-                    <p class="gray Fs25 FontTitilliumRegular fontItalic " >Identificação do Usuário</p>
+
+                    <p class="Fs25 FontTitilliumSemiBoldItalic white" >Identificação do Usuário</p>
                 </div>
                 <!-- LOGIN BOX COVER START -->
-                <form action="j_spring_security_check" method="post"  >
-                    <div class="Container80 Fnone transparencia MarAuto  MarTop5 TexAlCenter TabContent" id="TAB1">
-                        <h:panelGroup layout="block" rendered="#{param.erro}">
-                            <div  class="TexAlCenter Animated05 BoxSizeBorder BordRad5 TabBtnActiveLeft Container100 Fnone MarAuto FontLight  red">
-                                <i class="icon-attention"></i>#{msg.usuario_senha_invalido}
-                            </div>
-                            <div class="EmptyBox10"></div>
-                        </h:panelGroup>
-                        <p:inputText  placeholder="Login" widgetVar="login" id="j_username" styleClass="Container80 Fnone MarAuto Fs18"/>
-                        <div class="EmptyBox10"></div>
-                        <p:password  placeholder="Password" styleClass="Container80 Fnone MarAuto Fs18" id="j_password" feedback="false"/>
-                        <div class="EmptyBox10"></div>
-                        <h:commandButton id="btnLogin"  styleClass="Fs23 btnLogin FontTitilliumSemiBoldItalic"   value="Entrar"  />
-                        <div class="EmptyBox50"></div>
+                <form action="j_spring_security_check" method="post" style="margin-left: 30px"  >
+
+                    <div style="margin-left: 50px;margin-bottom: 5px" class="MarRight10 circulo Fleft  TexAlCenter    "/>
+                    <div class="Container50  Fleft Fnone   transparencia   TexAlCenter " id="TAB1">
+                        <p:inputText  placeholder="Login" widgetVar="login" id="j_username" styleClass=" Container96 Fnone  Fs18"/>
+                        <div class="EmptyBox5"></div>
+                        <p:password  placeholder="Password" styleClass="Container96 Fnone  Fs18" id="j_password" feedback="false"/>
                     </div>
+                    <h:panelGroup layout="block" rendered="#{param.erro}">
+                        <div  class="TexAlCenter  Animated05 BoxSizeBorder BordRad5 TabBtnActiveLeft Container100 Fnone MarAuto FontLight  red">
+                            <i class="icon-attention"></i>#{msg.usuario_senha_invalido}
+                        </div>
+                        <div class="EmptyBox10"></div>
+                    </h:panelGroup>
+                    <div class="EmptyBox20"></div>
+                    <h:commandButton id="btnLogin"   styleClass=" Fs23 btnLogin   FontTitilliumSemiBoldItalic"   value="Entrar"  />
+                    <div class="EmptyBox30"></div>
                 </form>
             </p:panel>
         </div>
