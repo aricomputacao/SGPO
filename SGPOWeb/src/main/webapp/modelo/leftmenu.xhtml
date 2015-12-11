@@ -14,9 +14,13 @@
         <h:form>
             <ps:menu id="sm_leftmenu">
                 <p:menuitem id="sm_dashboard" value="#{label.inicio}" icon="icon-home-outline" outcome="#{administrativo.inicio}" containerStyleClass="layout-menubar-active"/>
-                <p:submenu label="#{label.administrativo}" icon="icon-database" >
+                <p:submenu label="#{label.administrativo}" icon="icon-bank" >
                     <p:submenu label="#{label.cargo}" icon="icon-credit-card-1" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{administrativo.cargo_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{administrativo.cargo_consulta}"/>
+                    </p:submenu>
+                    <p:submenu label="#{label.cliente}" icon=" icon-vcard" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{administrativo.cliente_cadastro}"/>
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{administrativo.cargo_consulta}"/>
                     </p:submenu>
                 </p:submenu>

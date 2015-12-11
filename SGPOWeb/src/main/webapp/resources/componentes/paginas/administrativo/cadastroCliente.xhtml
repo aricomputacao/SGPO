@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Cadastro" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+
+        <panels:panel titulo="#{label.dados_pessoais}" id="pnlDadPes" class="fieldDad">
+            <p:focus context="pnlDadPes" for="selSex"/>
+            <h:panelGroup layout="block"  class="Container100 Responsive" >
+                <inputs:selectOneRadio id="selSex" inp_valor="#{clienteMB.cliente.tipoCliente}" lab_valor="#{label.tipo_cliente}" inp_class_tamanho="80" inp_require="true"   >
+                    <f:selectItems value="#{clienteMB.listaDeTiposDeCliente}" var="sx" itemLabel="#{sx.descricao}" itemValue="#{sx}"/>
+                </inputs:selectOneRadio>
+                <inputs:input_label id="lblCPF"    inp_class_tamanho="20" inp_require="true" lab_valor="#{label.documento}"
+                                    inp_valor="#{clienteMB.cliente.documento}" />
+                <inputs:input_label inp_valor="#{clienteMB.cliente.nome}" lab_valor="#{label.nome}" inp_require="true" inp_class_tamanho="70" />
+
+            </h:panelGroup>
+            
+            
+        </panels:panel>
+
+        <panels:panel titulo="#{label.contatos}">
+            <div class="Container100 Responsive">
+                <inputs:input_label inp_valor="#{clienteMB.cliente.email}" lab_valor="#{label.email}" inp_class_tamanho="40"  />
+                <inputs:inputMask_label inp_mascara="(99)9999-9999"  inp_valor="#{clienteMB.cliente.telefone}"  lab_valor="#{label.telefone_residencial}" inp_class_tamanho="20"  />
+                <inputs:inputMask_label inp_mascara="(99)9999-9999" inp_valor="#{clienteMB.cliente.celular}" lab_valor="#{label.telefone_celular}" inp_class_tamanho="20"  />
+            </div>
+        </panels:panel>
+
+        <panels:panel  titulo="#{label.endereco}" id="pnlEndereco">
+            <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
+                <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{clienteMB.cliente.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
+                <inputs:selectOneLabel  inp_valor="#{clienteMB.cliente.endereco.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"
+                                        sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:selOne" 
+                                        ajax_listener="#{clienteMB.consultarMuncipioPorUf()}" >
+                    <f:selectItems value="#{clienteMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>
+                </inputs:selectOneLabel>
+                <inputs:selectOneLabel  inp_valor="#{clienteMB.cliente.endereco.municipio}" id="sel_mun" lab_valor="#{label.municipio}" 
+                                        sel_converter="indexConverter" inp_class_tamanho="20"  >
+                    <f:selectItems value="#{clienteMB.listaDeMunicpios}" var="mu" itemLabel="#{mu.nome}" itemValue="#{mu}"/>
+                </inputs:selectOneLabel>
+               
+                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.numero}" lab_valor="#{label.numero}" inp_require="true" inp_class_tamanho="20" />
+                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.complemento}" lab_valor="#{label.complemento}" inp_require="true" inp_class_tamanho="80" />
+            </h:panelGroup>
+        </panels:panel>
+
+      
+    </composite:implementation>
+</ui:composition>
+
+
+
+
