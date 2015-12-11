@@ -2,6 +2,7 @@ package br.com.sgpo.utilitario.mensagens;
 
 import br.com.sgpo.utilitarios.ResourceUtil;
 import java.io.Serializable;
+import java.text.MessageFormat;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -9,7 +10,7 @@ import javax.faces.context.FacesContext;
  *
  * @author ari
  */
-public  class MensagensUtil implements Serializable {
+public class MensagensUtil implements Serializable {
 
     public static final String ARQUIVO_RECEBIDO = "arquivo_recebido";
     public static final String CEP_NAO_ENCONTRADO = "cep_nao_encontrado";
@@ -28,20 +29,30 @@ public  class MensagensUtil implements Serializable {
     public static final String EXCLUIR_SUCESSO = "excluir_sucesso";
     public static final String EXCLUIR_FALHA = "excluir_falha";
 
-    
+    private static String lerMensagensComParamentros(String idMensagem, Object... params) {
+        return MessageFormat.format(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS), params);
+    }
 
     public static void enviarMessageInfo(String idMensagem) {
-        System.out.println(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
-        enviarMenssagem(null, FacesMessage.SEVERITY_INFO, "Informação", ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_INFO, ResourceUtil.lerBundle("informacao", ResourceUtil.LABEL),
+                ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+    }
+
+    public static void enviarMessageParamentroInfo(String idMensagem, Object... params) {
+        enviarMenssagem(null, FacesMessage.SEVERITY_INFO, ResourceUtil.lerBundle("informacao", ResourceUtil.LABEL),
+                lerMensagensComParamentros(idMensagem, params));
     }
 
     public static void enviarMessageWarn(String idMensagem) {
-        enviarMenssagem(null, FacesMessage.SEVERITY_WARN, "Atenção", ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_WARN, ResourceUtil.lerBundle("atencao", ResourceUtil.LABEL), ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
     }
 
     public static void enviarMessageFatal(String idMensagem) {
-        enviarMenssagem(null, FacesMessage.SEVERITY_FATAL, "Fatal", ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_FATAL, ResourceUtil.lerBundle("fatal", ResourceUtil.LABEL),
+                ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
     }
+
+  
 
     public static void enviarMessageErro(String idMensagem, Exception erro, String nomeClasse) {
         enviarMenssagem(null, FacesMessage.SEVERITY_ERROR, "Erro", ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
@@ -62,11 +73,8 @@ public  class MensagensUtil implements Serializable {
         c.addMessage(clientId, m);
     }
 
-   
-    
-
     public static void main(String[] args) {
-      
+
 //        System.out.println(MensagensUtil.getMsg("confirmacao", MensagensUtil.MENSAGENS, new Locale("pt","Br")));
 //        System.out.println(ResourceUtil.lerBundle("confirmacao",ResourceUtil.MENSAGENS,new Locale("en", "US")));
     }

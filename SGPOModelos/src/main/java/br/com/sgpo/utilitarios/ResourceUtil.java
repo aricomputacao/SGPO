@@ -10,8 +10,8 @@ import javax.faces.context.FacesContext;
  */
 public abstract class ResourceUtil {
 
-    public static final String MENSAGENS = "br.com.sisdelta.utilitarios.arquivos.mensagens";
-    public static final String LABEL = "br.com.sisdelta.utilitarios.arquivos.label";
+    public static final String MENSAGENS = "br.com.sgpo.utilitarios.arquivos.mensagens";
+    public static final String LABEL = "br.com.sgpo.utilitarios.arquivos.label";
 
     public static String lerBundle(String messageId, String resource) {
         ResourceBundle bundle = null;
