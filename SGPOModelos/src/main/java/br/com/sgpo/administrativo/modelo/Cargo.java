@@ -5,18 +5,18 @@
  */
 package br.com.sgpo.administrativo.modelo;
 
-import br.com.sgpo.utilitarios.CpfCnpjUtil;
-import br.com.sgpo.utilitarios.MetodosUtilitariosData;
-import br.com.sgpo.utilitarios.StringUtil;
+import br.com.sgpo.administrativo.enumeration.TipoCargo;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
@@ -42,6 +42,20 @@ public class Cargo implements Serializable {
     @Column(name = "car_descricao",length = 1024)
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "car_tipo",nullable = false)
+    private TipoCargo tipoCargo;
+
+    public TipoCargo getTipoCargo() {
+        return tipoCargo;
+    }
+
+    public void setTipoCargo(TipoCargo tipoCargo) {
+        this.tipoCargo = tipoCargo;
+    }
+    
+    
+    
     public Integer getId() {
         return id;
     }
