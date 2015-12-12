@@ -20,12 +20,14 @@
         <panels:panel titulo="#{label.dados_pessoais}" id="pnlDadPes" class="fieldDad">
             <p:focus context="pnlDadPes" for="selSex"/>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
-                <inputs:selectOneRadio id="selSex" inp_valor="#{clienteMB.cliente.tipoCliente}" lab_valor="#{label.tipo_cliente}" inp_class_tamanho="80" inp_require="true"   >
+                <inputs:selectOneRadio id="selSex" ajax_render="true" ajax_listener="#{clienteMB.processarRenderRepresentante()}" sel_update="@form"
+                                       inp_valor="#{clienteMB.cliente.tipoCliente}" lab_valor="#{label.tipo_cliente}" inp_class_tamanho="80" inp_require="true"   >
                     <f:selectItems value="#{clienteMB.listaDeTiposDeCliente}" var="sx" itemLabel="#{sx.descricao}" itemValue="#{sx}"/>
                 </inputs:selectOneRadio>
                 <inputs:input_label id="lblCPF"    inp_class_tamanho="20" inp_require="true" lab_valor="#{label.documento}"
                                     inp_valor="#{clienteMB.cliente.documento}" />
                 <inputs:input_label inp_valor="#{clienteMB.cliente.nome}" lab_valor="#{label.nome}" inp_require="true" inp_class_tamanho="70" />
+                <inputs:input_label id="compRepre" rendered="#{clienteMB.renderizarRepresentante}" inp_valor="#{clienteMB.cliente.representante}" lab_valor="#{label.nome} #{label.representante}" inp_require="true" inp_class_tamanho="70" />
 
             </h:panelGroup>
             
@@ -43,9 +45,10 @@
         <panels:panel  titulo="#{label.endereco}" id="pnlEndereco">
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
                 <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{clienteMB.cliente.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
-                <inputs:selectOneLabel  inp_valor="#{clienteMB.cliente.endereco.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"
+                <inputs:selectOneLabel  inp_valor="#{clienteMB.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"
                                         sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:selOne" 
                                         ajax_listener="#{clienteMB.consultarMuncipioPorUf()}" >
+                    <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{clienteMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>
                 </inputs:selectOneLabel>
                 <inputs:selectOneLabel  inp_valor="#{clienteMB.cliente.endereco.municipio}" id="sel_mun" lab_valor="#{label.municipio}" 
@@ -55,8 +58,8 @@
                
                 <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="50" />
                 <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
-                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.numero}" lab_valor="#{label.numero}" inp_require="true" inp_class_tamanho="20" />
-                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.complemento}" lab_valor="#{label.complemento}" inp_require="true" inp_class_tamanho="80" />
+                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="20" />
+                <inputs:input_label inp_valor="#{clienteMB.cliente.endereco.complemento}" lab_valor="#{label.complemento}"  inp_class_tamanho="80" />
             </h:panelGroup>
         </panels:panel>
 

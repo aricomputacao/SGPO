@@ -15,6 +15,10 @@
         <composite:attribute id="inp_valor" name="inp_valor" shortDescription="Valor do input" required="true"/>
         <composite:attribute id="inp_class" name="inp_class_tamanho" shortDescription="Tamanho do input pela classe Container" default="100"/>
         <composite:attribute id="inp_require" name="inp_require" default="false" />
+        <composite:attribute id="ajax_render" name="ajax_render" default="false" />
+        <composite:attribute id="sel_update" name="sel_update" default="@this" />
+        <composite:attribute id="ajax_listener" name="ajax_listener" method-signature="java.lang.Void action()" default="none" />
+
 
 
     </composite:interface>
@@ -23,9 +27,12 @@
             <div class="ContainerIndent">
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
                 <div>
-                    <p:selectOneRadio style="width: 90%"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
+                    <p:selectOneRadio style="width: 90%"   value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
                         <composite:insertChildren />
+                        <f:ajax event="click" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
+
                     </p:selectOneRadio>
+
                 </div>
             </div>
         </div>

@@ -10,11 +10,16 @@ import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
 import br.com.sgpo.administrativo.enumeration.TipoCliente;
 import br.com.sgpo.administrativo.modelo.Cliente;
+import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Municipio;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
+import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
+import br.com.sgpo.utilitario.relatorio.RelatorioSession;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +36,8 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class ClienteMB  extends BeanGenerico implements Serializable{
-    
+public class ClienteMB extends BeanGenerico implements Serializable {
+
     @Inject
     private ClienteController clienteController;
     @Inject
@@ -41,9 +46,10 @@ public class ClienteMB  extends BeanGenerico implements Serializable{
     private UnidadeFederativaController unidadeFederativaController;
     private Cliente cliente;
     private UnidadeFederativa unidadeFederativa;
-    
+    private List<Cliente> listaDeClientes;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
     private List<Municipio> listaDeMunicpios;
+    private boolean renderizarRepresentante;
 
     @PostConstruct
     @Override
@@ -54,20 +60,23 @@ public class ClienteMB  extends BeanGenerico implements Serializable{
             if (cliente == null) {
                 cliente = new Cliente();
                 unidadeFederativa = new UnidadeFederativa();
-            }else{
+                cliente.setEndereco(new Endereco());
+            } else {
                 unidadeFederativa = cliente.getEndereco().getUnidadeFederativa();
+               consultarMuncipioPorUf();
+
             }
-            
+            listaDeClientes = new ArrayList<>();
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
         } catch (Exception ex) {
             Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    public void salvar(){
+
+    public void salvar() {
         try {
-            clienteController.salvarouAtualizar(cliente);
+            clienteController.salvar(cliente);
             MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_SUCESSO, cliente.getNome());
             init();
         } catch (Exception ex) {
@@ -76,19 +85,42 @@ public class ClienteMB  extends BeanGenerico implements Serializable{
         }
     }
 
+    public void consultarCliente() {
+        try {
+            listaDeClientes = clienteController.consultarLike(getCampoConsuta(), getValorCampoConsuta().toUpperCase());
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+     public void geraImpressaoClientes() {
+        try {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeClientes, m, PastasRelatorio.RESOURCE_ADMINISTRATIVO, PastasRelatorio.REL_ADMINISTRATIVO_CLIENTE, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
+    
     @Override
     protected Map<String, Object> getCampo() {
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("Nome", "nome");
-        map.put("tipo", "tipoCliente");
+        map.put("Documento", "documento");
         return map;
     }
-    
-    public void consultarMuncipioPorUf(){
+
+    public void processarRenderRepresentante() {
+        renderizarRepresentante = cliente.getTipoCliente().equals(TipoCliente.PESSOA_JURIDICA)
+                || cliente.getTipoCliente().equals(TipoCliente.INSTITUICAO_PUBLICA);
+    }
+
+    public void consultarMuncipioPorUf() {
         listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
     }
-    
-    public TipoCliente[] getListaDeTiposDeCliente(){
+
+    public TipoCliente[] getListaDeTiposDeCliente() {
         return TipoCliente.values();
     }
 
@@ -107,6 +139,21 @@ public class ClienteMB  extends BeanGenerico implements Serializable{
     public List<Municipio> getListaDeMunicpios() {
         return listaDeMunicpios;
     }
-    
-    
+
+    public boolean isRenderizarRepresentante() {
+        return renderizarRepresentante;
+    }
+
+    public UnidadeFederativa getUnidadeFederativa() {
+        return unidadeFederativa;
+    }
+
+    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
+        this.unidadeFederativa = unidadeFederativa;
+    }
+
+    public List<Cliente> getListaDeClientes() {
+        return listaDeClientes;
+    }
+
 }

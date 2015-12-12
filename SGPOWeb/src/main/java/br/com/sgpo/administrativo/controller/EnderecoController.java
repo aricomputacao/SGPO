@@ -5,7 +5,7 @@
  */
 package br.com.sgpo.administrativo.controller;
 
-import br.com.sgpo.administrativo.DAO.LogradouroDAO;
+import br.com.sgpo.administrativo.DAO.EnderecoDAO;
 import br.com.sgpo.administrativo.DAO.MunicipioDAO;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Municipio;
@@ -20,10 +20,10 @@ import javax.inject.Inject;
  * @author ari
  */
 @Stateless
-public class LogradouroController extends ControllerGenerico<Endereco, Long> implements Serializable {
+public class EnderecoController extends ControllerGenerico<Endereco, Long> implements Serializable {
 
     @Inject
-    private LogradouroDAO dao;
+    private EnderecoDAO dao;
     @Inject
     private MunicipioDAO municipioDAO;
 
@@ -34,24 +34,26 @@ public class LogradouroController extends ControllerGenerico<Endereco, Long> imp
     }
 
     
-      public Endereco buscarOuCriarLogradouroPor(String unidadeFederativa, String nomeCidade, String cep, String nomeLogradouro, String tipoLogradouro, String bairro) throws Exception {
+      public Endereco buscarOuCriarLogradouroPor(String unidadeFederativa, String nomeCidade, String cep, String nomeLogradouro,  String bairro,String numero,String complemento) throws Exception {
 //        Logradouro logradouro = daoConsulta.buscarPor(unidadeFederativa, nomeCidade, cep, nomeLogradouro, tipoLogradouro, bairro);
-        Endereco logradouro = dao.buscarPor(nomeCidade, cep, nomeLogradouro, bairro);
+        Endereco endereco = dao.buscarPor(nomeCidade, cep, nomeLogradouro, bairro,numero,complemento);
 
-        if (logradouro.getId() != null) {
-            return logradouro;
+        if (endereco.getId() != null) {
+            return endereco;
         } else {
             Municipio cidade = municipioDAO.buscarPor(nomeCidade, unidadeFederativa);
 
             if (cidade.getId() == null) {
                 throw new Exception("Não existe cidade cadastrada!");
             }
-            logradouro.setMunicipio(cidade);
-            logradouro.setCep(cep);
-            logradouro.setBairro(bairro);
-            logradouro.setNome(nomeLogradouro);
+            endereco.setMunicipio(cidade);
+            endereco.setCep(cep);
+            endereco.setBairro(bairro);
+            endereco.setNome(nomeLogradouro);
+            endereco.setNumero(numero);
+            endereco.setComplemento(complemento);
 
-            return salvarComRetorno(logradouro);
+            return salvarComRetorno(endereco);
         }
     }
 
