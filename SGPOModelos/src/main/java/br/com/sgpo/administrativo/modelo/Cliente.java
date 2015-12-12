@@ -100,7 +100,7 @@ public class Cliente implements Serializable {
     }
 
     public void setDocumento(String documento) {
-        this.documento = documento;
+        this.documento = StringUtil.removerCaracteresEspeciais(documento);
     }
 
     public String getTelefone() {

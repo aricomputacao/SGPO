@@ -6,6 +6,7 @@
 package br.com.sgpo.utilitarios;
 
 import java.io.File;
+import java.text.Normalizer;
 import java.util.Arrays;
 
 /**
@@ -42,13 +43,18 @@ public class StringUtil {
         return sb.toString();
 
     }
+    
+    public static String removerCaracteresEspeciais(String st) {
+        
+        return st.replaceAll("[^a-zZ-Z0-9 ]", "");
+      }
 
     public static void main(String[] args) {
 
-        System.out.println(StringUtil.formatarTelefone("36110665"));
-        System.out.println(StringUtil.formatarTelefone("8836110665"));
-        System.out.println(StringUtil.formatarTelefone("88936110665"));
-        System.out.println(StringUtil.formatarTelefone("936110665"));
+        System.out.println(StringUtil.removerCaracteresEspeciais("005.222.403-13"));
+//        System.out.println(StringUtil.formatarTelefone("8836110665"));
+//        System.out.println(StringUtil.formatarTelefone("88936110665"));
+//        System.out.println(StringUtil.formatarTelefone("936110665"));
 
 //        String[] s = StringUtil.quebrarStringPorSeparador("-", "tarefa_teste-fdsddf-rewwer");
 //        System.out.println(s[0]);

@@ -164,7 +164,7 @@ public class Endereco implements Serializable {
 
     @Override
     public String toString() {
-        return "CEP: " + cep + ", Rua: " + nome + ", Bairro: " + bairro + " " + municipio.getNome()+"-"+municipio.getUnidadeFederativa().getSigla() ;
+        return "CEP: " + cep + ", Rua: " + nome +", "+numero+", "+complemento  + ", Bairro: " + bairro + " " + municipio.getNome()+"-"+municipio.getUnidadeFederativa().getSigla() ;
     }
 
 }

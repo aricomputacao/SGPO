@@ -21,7 +21,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 /**
  * Classe do Projeto ******* - Criado em 16/05/2013 -
  *
- * @author Gilmário
  */
 @ManagedBean
 @ViewScoped
@@ -46,7 +45,7 @@ public class AssistentedeRelatorio implements Serializable {
         try {
             String separator = System.getProperty("file.separator"); 
 
-            parametros.put("img", getDiretorioReal("resources"+separator+"images"+separator+"logo-oficial-cebudv.png"));
+            parametros.put("img", getDiretorioReal("resources"+separator+"images"+separator+"LOGO.svg"));
             parametros.put("relatorio", nomeRelatorio);
             parametros.put("SUBREPORT_DIR", getDiretorioReal(pastaRelatorio) + separator);
             parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
