@@ -6,6 +6,7 @@
 package br.com.sgpo.administrativo.managedbean;
 
 import br.com.sgpo.administrativo.controller.CargoController;
+import br.com.sgpo.administrativo.enumeration.TipoCargo;
 import br.com.sgpo.administrativo.modelo.Cargo;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
@@ -82,6 +83,8 @@ public class CargoMB extends BeanGenerico implements Serializable{
         return listaDeCargos;
     }
     
-    
+    public TipoCargo[] getListaDeTiposDeCargos(){
+        return TipoCargo.values();
+    }
     
 }

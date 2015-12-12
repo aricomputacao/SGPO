@@ -15,7 +15,10 @@
     <composite:implementation>
         <p:fieldset>
             <h:panelGroup layout="block" class="Container100 Responsive">
-                <inputs:input_label id="inpNom" inp_class_tamanho="60" inp_valor="#{cargoMB.cargo.nome}" lab_valor="#{label.nome}"/>
+                <inputs:selectOneRadio inp_valor="#{cargoMB.cargo.tipoCargo}" inp_class_tamanho="90" lab_valor="#{label.tipo} #{label.cargo}" inp_require="true">
+                    <f:selectItems value="#{cargoMB.listaDeTiposDeCargos}" var="tp" itemLabel="#{tp.descricao}" itemValue="#{tp}"/>
+                </inputs:selectOneRadio>
+                <inputs:input_label id="inpNom" inp_class_tamanho="60" inp_require="true" inp_valor="#{cargoMB.cargo.nome}" lab_valor="#{label.nome}"/>
                 <inputs:input_label id="inpAbr" inp_class_tamanho="40" inp_valor="#{cargoMB.cargo.descricao}" lab_valor="#{label.descricao}"/>
             </h:panelGroup>
         </p:fieldset>
