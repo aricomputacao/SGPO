@@ -20,9 +20,9 @@ import org.primefaces.model.UploadedFile;
  */
 public class ManipuladorDeArquivo {
 
-    public static final String PATH_NOTIFICACOES_WINDOWS = "C:" + File.separator;
-    public static final String PATH_NOTIFICACOES_LINUX = "/" + File.separator;
-//    public static final String PASTA_PECAS = "pecas" + SEPARADOR;
+    public static final String PATH_WINDOWS = "C:" + File.separator;
+    public static final String PATH_LINUX = "/" + File.separator;
+    public static final String PASTA_LOGOS = "logos" + File.separator;
 //    public static final String PASTA_NOTIFICACOES = "notificacoes" + SEPARADOR;
 //    public static final String PATH_FILES = "pecas" + SEPARADOR + "documentos";
 
@@ -36,9 +36,9 @@ public class ManipuladorDeArquivo {
 
     public static String retornaDiretorioDoSistemaOperacional() {
         if (ehLinux()) {
-            return PATH_NOTIFICACOES_LINUX;
+            return PATH_LINUX;
         } else {
-            return PATH_NOTIFICACOES_WINDOWS;
+            return PATH_WINDOWS;
         }
     }
 
@@ -61,9 +61,9 @@ public class ManipuladorDeArquivo {
      * @throws Exception
      */
     private static void gravaArquivo(String rotuloDaPasta, String identificadorPasta, String nomeArquivo, byte[] conteudo) throws IOException, Exception {
-        File pastaGeral = new File(PATH_NOTIFICACOES_WINDOWS + rotuloDaPasta + identificadorPasta);
+        File pastaGeral = new File(PATH_WINDOWS + rotuloDaPasta + identificadorPasta);
         if (ehLinux()) {
-            pastaGeral = new File(PATH_NOTIFICACOES_LINUX + rotuloDaPasta + identificadorPasta);
+            pastaGeral = new File(PATH_LINUX + rotuloDaPasta + identificadorPasta);
         }
 
         if (!pastaGeral.exists()) {
@@ -99,15 +99,30 @@ public class ManipuladorDeArquivo {
         writer.flush();
     }
 
-// Listar os arquivos de uma pasta
-    /**
-     *
-     * @param rotuloDaPasta nome da pasta que identifica o tipo de arquivo
-     * @param pasta pasta com identificador único
-     * @return
-     */
-    public static List<File> aquivos(String rotuloDaPasta, String pasta) {
-        String relativo = retornaDiretorioDoSistemaOperacional() + rotuloDaPasta + pasta;
+    private static void gravaArquivo(String pasta, String arquivoComExtensao, byte[] conteudo) throws IOException {
+
+        File pastaGeral = new File(pasta);
+        File arquivo = new File(pasta + File.separator + arquivoComExtensao);
+        if (ehLinux()) {
+            pastaGeral = new File(pasta);
+        }
+
+        if (!pastaGeral.exists()) {
+            if (!pastaGeral.mkdirs()) {
+                throw new IOException("Erro ao cria pasta relativa");
+            }
+        }
+        if (arquivo.exists()) {
+            arquivo.delete();
+        }
+
+        FileOutputStream writer = new FileOutputStream(arquivo);
+        writer.write(conteudo);
+        writer.flush();
+    }
+
+    public static List<File> listaDeArquivosDaPasta(String pasta) {
+        String relativo = retornaDiretorioDoSistemaOperacional() + pasta;
         File f = new File(relativo);
         if (f.exists()) {
             return Arrays.asList(f.listFiles());
@@ -123,76 +138,10 @@ public class ManipuladorDeArquivo {
     }
 
     //Grava Arquivo localmente
-    public static void gravarArquivoLocalmente(String caminhoCompletoDoArquivo, byte[] conteudoArquivo) throws IOException {
-        ManipuladorDeArquivo.gravaArquivo(caminhoCompletoDoArquivo, conteudoArquivo);
+    public static void gravarArquivoLocalmente(String pasta, String arquivoComExtensao, byte[] conteudo) throws IOException {
+        ManipuladorDeArquivo.gravaArquivo(pasta, arquivoComExtensao, conteudo);
     }
 
-    /**
-     * Criar o arquivo com os dados(bytes) do banco
-     *
-     * @param file
-     * @param pasta
-     * @param nomeArquivo
-     * @param conteudoArquivo
-     * @throws Exception
-     */
-//    private static void criarArquivoCasoNaoExista(File file,String pecaOuNotificacao,String pasta, String nomeArquivo, byte[] conteudoArquivo) throws Exception {
-//        if (!file.exists()) {
-//            ManipuladorDeArquivo.gravaArquivo(pecaOuNotificacao,pasta, nomeArquivo, conteudoArquivo);
-//        }
-//    }
-    /**
-     * O arquivo deve ser passado com extenção
-     *
-     * @param rotuloDaPasta
-     * @param conteudoArquivo
-     * @return
-     */
-//    public static String checarExistenciaDoArquivoNaPasta(String pecaOuNotificacao,String pasta, String nomeArquivo, byte[] conteudoArquivo) throws Exception {
-//        File file;
-//
-//        String caminho = pecaOuNotificacao.concat(pasta.concat(SEPARADOR.concat(nomeArquivo)));
-//
-//        if (ehLinux()) {
-//            file = new File(PATH_NOTIFICACOES_LINUX + SEPARADOR + caminho);
-//        } else {
-//            file = new File(PATH_NOTIFICACOES_WINDOWS + SEPARADOR + caminho);
-//
-//        }
-//        if (!file.exists()) {
-//            ManipuladorDeArquivo.gravaArquivo(pecaOuNotificacao,pasta, nomeArquivo, conteudoArquivo);
-//        }
-//        return file.getAbsolutePath();
-//
-//    }
-//
-//    public static String caminhoDoArquivo(String pecaOuNotificacao,String pasta, String nome) {
-//        File pastaGeral = new File(PATH_NOTIFICACOES_WINDOWS + pecaOuNotificacao + pasta);
-//        if (ehLinux()) {
-//            pastaGeral = new File(PATH_NOTIFICACOES_LINUX + pecaOuNotificacao + pasta);
-//        }
-//        return pastaGeral + SEPARADOR + nome;
-//    }
-//    public static String diretorioRelativoNotificacao(String diretorioRealDaAplicacao) {
-//        String localAbs = diretorioRealDaAplicacao;
-//        String relativo = localAbs.substring(0, localAbs.lastIndexOf(SEPARADOR));
-//        relativo = relativo.substring(0, relativo.lastIndexOf(SEPARADOR));
-//        relativo = relativo.substring(0, relativo.lastIndexOf(SEPARADOR));
-//
-//        if (ehLinux()) {
-//            return relativo + SEPARADOR + PATH_NOTIFICACOES_LINUX;
-//        } else {
-//            return relativo + SEPARADOR + PATH_NOTIFICACOES_WINDOWS;
-//        }
-//
-//    }
-//
-//    public static String diretorioRelativo() {
-//        String localAbs = new AssistentedeRelatorio().getDiretorioReal(File.separator);
-//        String relativo = localAbs.substring(0, localAbs.lastIndexOf(File.separator));
-//        relativo = relativo.substring(0, relativo.lastIndexOf(File.separator));
-//        relativo = relativo.substring(0, relativo.lastIndexOf(File.separator));
-//        return relativo + File.separator + PATH_FILES;
-//
-//    }
+   
+
 }

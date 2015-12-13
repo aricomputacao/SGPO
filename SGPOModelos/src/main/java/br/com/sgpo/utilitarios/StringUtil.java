@@ -8,6 +8,7 @@ package br.com.sgpo.utilitarios;
 import java.io.File;
 import java.text.Normalizer;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -50,8 +51,13 @@ public class StringUtil {
       }
 
     public static void main(String[] args) {
+        List<File> listaDeArquivosDaPasta = ManipuladorDeArquivo.listaDeArquivosDaPasta(ManipuladorDeArquivo.PASTA_LOGOS);
 
-        System.out.println(StringUtil.removerCaracteresEspeciais("005.222.403-13"));
+        for (File file : listaDeArquivosDaPasta) {
+            System.out.println(file.getName());
+        }
+
+//        System.out.println(StringUtil.removerCaracteresEspeciais("005.222.403-13"));
 //        System.out.println(StringUtil.formatarTelefone("8836110665"));
 //        System.out.println(StringUtil.formatarTelefone("88936110665"));
 //        System.out.println(StringUtil.formatarTelefone("936110665"));
