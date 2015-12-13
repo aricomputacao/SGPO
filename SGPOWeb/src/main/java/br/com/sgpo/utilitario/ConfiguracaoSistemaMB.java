@@ -6,12 +6,10 @@
 package br.com.sgpo.utilitario;
 
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Inject;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -19,7 +17,7 @@ import javax.inject.Inject;
  */
 @Singleton
 @Startup
-public class ConfiguracaoSistemaMB implements Serializable{
+public class ConfiguracaoSistemaMB implements Serializable {
 //    @Inject
 //    private UsuarioController usuarioController;
 //    
@@ -32,4 +30,28 @@ public class ConfiguracaoSistemaMB implements Serializable{
 //            Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
+    
+    private boolean processadoImagemLogo;
+
+    public String getDiretorioReal(String diretorio) {
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath(diretorio);
+
+    }
+
+    @PostConstruct
+    public void init() {
+       processadoImagemLogo =false;
+    }
+    
+    public void marcarImagemLogoComoProcessada(){
+        processadoImagemLogo = true;
+        
+    }
+
+    public boolean isProcessadoImagemLogo() {
+        return processadoImagemLogo;
+    }
+    
+    
+
 }

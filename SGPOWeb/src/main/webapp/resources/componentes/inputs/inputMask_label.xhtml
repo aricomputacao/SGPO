@@ -29,8 +29,8 @@
                                  styleClass="Wid90" value="#{cc.attrs.inp_valor}" >
                         <c:if test="#{cc.attrs.inp_validador != 'none'}">
                             <f:validator validatorId="#{cc.attrs.inp_validador}" for="input" rendered="#{cc.attrs.inp_validador}"/>
+                            <p:ajax event="blur" update="@this"/>
                         </c:if>
-                        <p:ajax event="blur" update="@this"/>
                     </p:inputMask>
                 </div>
             </div>

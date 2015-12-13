@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <composite:interface id="interCon">
+
+    </composite:interface>
+    <composite:implementation>
+        <p:fieldset>
+            <panels:panel  titulo="#{label.dados} #{label.empresa}" id="pnlNucleo">
+
+                <h:panelGroup  layout="block" class="Container100 Responsive">
+                    
+                    <inputs:inputMask_label inp_mascara="99.999.999/9999-99" inp_validador="CNPJValidador" id="inpCnpf" inp_class_tamanho="30" inp_valor="#{empresaMB.empresa.cnpj}" inp_require="true" lab_valor="#{label.cnpj}"/>
+                    <inputs:input_label id="inpNom" inp_class_tamanho="90" inp_valor="#{empresaMB.empresa.nome}" inp_require="true" lab_valor="#{label.nome}"/>
+                    <div class="EmptyBox5" />
+                    <p:commandButton icon="fa fa-pencil fa-lg "  title="#{label.incluir} #{label.assinatura} #{label.representante}" onclick="PF('dialogoAssinat').show()" immediate="true"/>
+                </h:panelGroup>
+
+            </panels:panel>
+            <panels:panel titulo="#{label.contatos}">
+                <div class="Container100 Responsive">
+                    <inputs:input_label inp_valor="#{empresaMB.empresa.email}" lab_valor="#{label.email}" inp_class_tamanho="40"  />
+                    <inputs:inputMask_label inp_mascara="(99)9999-9999"  inp_valor="#{empresaMB.empresa.telefone}"  lab_valor="#{label.telefone_trabalho}" inp_class_tamanho="20"  />
+                    <inputs:inputMask_label inp_mascara="(99)9999-9999" inp_valor="#{empresaMB.empresa.celular}" lab_valor="#{label.telefone_trabalho}" inp_class_tamanho="20"  />
+                </div>
+            </panels:panel>
+
+            <panels:panel  titulo="#{label.endereco}" id="pnlEndereco">
+                <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
+                    <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{empresaMB.empresa.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
+                    <inputs:selectOneLabel  inp_valor="#{empresaMB.uf}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true" 
+                                            sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:selOne" 
+                                            ajax_listener="#{empresaMB.consultarMuncipioPorUf()}" >
+                        <f:selectItem value="#{null}" itemLabel="-----Selecione-----" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{empresaMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>
+                    </inputs:selectOneLabel>
+                    <inputs:selectOneLabel  inp_valor="#{empresaMB.empresa.endereco.municipio}" id="sel_mun" lab_valor="#{label.municipio}" 
+                                            sel_converter="indexConverter" inp_class_tamanho="20"  >
+                        <f:selectItems value="#{empresaMB.listaDeMunicipios}" var="mu" itemLabel="#{mu.nome}" itemValue="#{mu}"/>
+                    </inputs:selectOneLabel>
+                    <inputs:input_label inp_valor="#{empresaMB.empresa.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="40" />
+                    <inputs:input_label inp_valor="#{empresaMB.empresa.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="30" />
+                    <inputs:input_label inp_valor="#{empresaMB.empresa.endereco.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="30" />
+                    <inputs:input_label inp_valor="#{empresaMB.empresa.endereco.complemento}" lab_valor="#{label.complemento}" inp_class_tamanho="30" />
+                </h:panelGroup>
+            </panels:panel>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

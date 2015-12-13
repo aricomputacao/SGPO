@@ -9,6 +9,7 @@
     <class>br.com.sgpo.administrativo.modelo.Municipio</class>
     <class>br.com.sgpo.administrativo.modelo.UnidadeDeMedida</class>
     <class>br.com.sgpo.administrativo.modelo.UnidadeFederativa</class>
+    <class>br.com.sgpo.administrativo.modelo.Empresa</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

@@ -15,10 +15,10 @@
             <p:blockUI block="@(form)" trigger=":frm_cons:pnlPadrao:btn_print" widgetVar="blk">
                 <p:graphicImage library="images" name="carregar.gif"/>
             </p:blockUI>
-            <componentes:panelPadrao id="pnlPadrao" cabecalho=" #{label.consulta} #{label.cliente}" acao_limpar="#{clienteMB.init()}" render_sep_1="false" btn_excluir="false" 
+            <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label.consulta} #{label.empresa}" acao_limpar="#{empresaMB.init()}" render_sep_1="false" btn_excluir="false" 
                                      btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{clienteMB.geraImpressaoClientes()}" 
                                      dialog_cadastro="dialogCadastro" btn_imprimir="TRUE" btn_dialog_rel="false" btn_salvar_update="false">
-                <carg:consultaCliente id="compConsulta"  componente_to_update="@form:pnlPadrao:compConsulta:tabela"  />
+                <carg:consultaEmpresa id="compConsulta"  componente_to_update="@form:pnlPadrao:compConsulta:tabela"  />
             </componentes:panelPadrao>
         </h:form>
     </ui:define>

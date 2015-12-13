@@ -21,6 +21,9 @@
 
     <h:body class="fontRegular back-login"  onload="setarFocu('login')">
 
+        <h:form>
+            <p:commandButton value="teste" actionListener="#{configuracaoSistemaMB.addArquivosLogo()}"/>
+        </h:form>
         <div  id="divLog"      >
             <p:panel  class="lg Container100 MaxWid500 Fnone  MarAuto MarTopPerc5 TexAlCenter ">
                 <div class="Container80 MaxWid500 Fnone MarAuto TexAlCenter  ">
@@ -44,7 +47,7 @@
                 </div>
                 <!-- LOGIN BOX COVER START -->
                 <form action="j_spring_security_check" method="post"   >
-
+                    
                     <h:panelGroup layout="block" rendered="#{param.erro}">
                         <div  class="TexAlCenter softBrownBack Animated05 BoxSizeBorder BordRad5 TabBtnActiveLeft Container100 Fnone MarAuto FontLight  red">
                             <i class="icon-attention"></i>#{msg.usuario_senha_invalido}
