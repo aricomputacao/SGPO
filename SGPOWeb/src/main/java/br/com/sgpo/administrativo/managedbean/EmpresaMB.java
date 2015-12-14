@@ -70,6 +70,7 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
             uf = new UnidadeFederativa();
             if (empresa == null) {
                 empresa = new Empresa();
+                empresa.setAtivo(true);
                 empresa.setEndereco(new Endereco());
             } else {
                 uf = empresa.getEndereco().getUnidadeFederativa();
@@ -91,6 +92,17 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
             empresaController.addLogo(empresa.getNome(), logo, getDiretorioReal("resources" + separator + "images"));
             MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_SUCESSO, empresa.getNome());
             init();
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void desativarEmpresa(){
+        try {
+            empresa.setAtivo(false);
+            empresaController.atualizar(empresa);
+            MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_ATUALIZADO, "teress","rewe");
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
             Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
