@@ -54,7 +54,7 @@
                                 <p:ajax event="click" immediate="true" update="@form"/>
                             </p:commandButton>
                             <p:commandButton rendered="#{cc.attrs.btn_dialog_rel}" immediate="true" onclick="PF('#{cc.attrs.dialog_rel}').show();" class="btn-menu btnOutro"  title="#{label.relatorio}" icon="fa  fa-list-alt fa-lg " />
-                            <p:commandButton rendered="#{cc.attrs.btn_excluir}" update="@form" class="btn-menu" title="#{label['excluir']}" icon="fa fa-trash fa-lg" actionListener="#{cc.attrs.acao_excluir}" >
+                            <p:commandButton rendered="#{cc.attrs.btn_excluir}" update="@form" class="btn-menu btnExcluir" title="#{label['excluir']}" icon="fa fa-trash fa-lg" actionListener="#{cc.attrs.acao_excluir}" >
                                 <p:confirm header="#{label['excluir']}" message="#{msg['confirmacao']}" icon="fa fa-warning fa-lg  "  />
                             </p:commandButton>
                             <botao:commandButtonAtivarDesativar acao_butao="#{cc.attrs.acao_ativar}" rendered="#{cc.attrs.btn_ativar}" renderizar_btn="#{cc.attrs.tipo_btn_ativo}" id="comBtn" classe="btn-menu" componente_to_update="@(form)" />

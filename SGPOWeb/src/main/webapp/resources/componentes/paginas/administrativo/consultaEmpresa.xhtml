@@ -28,7 +28,7 @@
         </p:fieldset>
         <p:fieldset>
             <p:dataTable value="#{empresaMB.listaDeEmpresas}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
-                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                         rowStyleClass="#{p.ativo ? (empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') : (empty rowIx or rowIx mod 2 ne 0 ? 'linha-desativada-even-row' : 'linha-desativada-odd-row')  }"
                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  reflow="true">
@@ -49,7 +49,7 @@
                 </p:rowExpansion>
                 <p:column headerText="#{label.acao}" width="10%">
                     <composite:insertChildren/>
-                    <botao:commandButton_editar rendered="#{cc.attrs.render_edit}" acao_butao="#{clienteMB.escreverRegistroNasessaoNavegarParaEditar(p,administrativo.cliente_cadastro,'cliente')}" componente_to_update="@(form)" renderizar_btn="true" />
+                    <botao:commandButton_editar rendered="#{cc.attrs.render_edit}" acao_butao="#{empresaMB.escreverRegistroNasessaoNavegarParaEditar(p,administrativo.empresa_cadastro,'empresa')}" componente_to_update="@(form)" renderizar_btn="true" />
 
                   
                 </p:column>
