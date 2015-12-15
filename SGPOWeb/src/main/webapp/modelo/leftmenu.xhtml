@@ -23,6 +23,10 @@
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{administrativo.cliente_cadastro}"/>
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{administrativo.cliente_consulta}"/>
                     </p:submenu>
+                    <p:submenu label="#{label.fornecedor}" icon=" icon-vcard" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{administrativo.fornecedor_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{administrativo.fornecedor_consulta}"/>
+                    </p:submenu>
                     <p:submenu label="#{label.empresa}" icon=" icon-bank" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{administrativo.empresa_cadastro}"/>
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{administrativo.empresa_consulta}"/>

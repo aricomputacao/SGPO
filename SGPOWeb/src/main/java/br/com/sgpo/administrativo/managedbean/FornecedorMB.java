@@ -14,6 +14,9 @@ import br.com.sgpo.administrativo.modelo.Municipio;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitario.relatorio.RelatorioSession;
+import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
+import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +61,7 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
                 fornecedor = new Fornecedor();
                 unidadeFederativa = new UnidadeFederativa();
                 fornecedor.setEndereço(new Endereco());
+                
             } else {
                 unidadeFederativa = fornecedor.getEndereço().getUnidadeFederativa();
                 consultarMuncipioPorUf();
@@ -82,20 +86,34 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
 
     public void consultarFornecedor() {
         try {
-//            listaDeFornecedor = fornecedorController.consultarLike(getCampoConsuta(), getValorCampoConsuta().toUpperCase());
+            listaDeFornecedor = fornecedorController.consultarLike(getCampoConsuta(), getValorCampoConsuta());
         } catch (Exception ex) {
             Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void consultarMuncipioPorUf() {
+        listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
+    }
+    
+    public void geraImpressaoFornecedor() {
+        try {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFornecedor, m, PastasRelatorio.RESOURCE_ADMINISTRATIVO, PastasRelatorio.REL_ADMINISTRATIVO_FORNECEDOR, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
         }
     }
 
     @Override
     protected Map<String, Object> getCampo() {
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("Nome", "nome");
+        return map;
     }
-
-    private void consultarMuncipioPorUf() {
-        listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
-    }
+    
+   
 
     public List<UnidadeFederativa> getListaDeUnidadeFederativas() {
         return listaDeUnidadeFederativas;

@@ -8,11 +8,13 @@ package br.com.sgpo.administrativo.DAO;
 import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.utilitario.DAOGenerico;
 import java.io.Serializable;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Giancarlo
  */
+@Stateless 
 public class FornecedorDAO extends DAOGenerico<Fornecedor, Long> implements Serializable{
     
     public FornecedorDAO() {

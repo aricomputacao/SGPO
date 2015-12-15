@@ -14,6 +14,7 @@ public abstract class PastasRelatorio {
     //relatórios do módulo administrativo
     public static final String RESOURCE_ADMINISTRATIVO = "WEB-INF/relatorios/administrativo";
     public static final String REL_ADMINISTRATIVO_CLIENTE = "/WEB-INF/relatorios/administrativo/rel_clientes.jasper";
+    public static final String REL_ADMINISTRATIVO_FORNECEDOR = "/WEB-INF/relatorios/administrativo/rel_fornecedor.jasper";
 
   
 
