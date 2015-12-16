@@ -112,5 +112,12 @@ public class Colaborador implements Serializable{
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Colaborador{" + "cargo=" + cargo + '}';
+    }
+    
+    
     
 }

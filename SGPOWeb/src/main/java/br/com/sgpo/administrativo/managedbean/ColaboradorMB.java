@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.administrativo.managedbean;
 
+import br.com.sgpo.administrativo.controller.CargoController;
 import br.com.sgpo.administrativo.controller.ColaboradorController;
 import br.com.sgpo.administrativo.modelo.Cargo;
 import br.com.sgpo.administrativo.modelo.Colaborador;
@@ -12,12 +13,14 @@ import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -28,9 +31,14 @@ import javax.inject.Named;
 @ViewScoped
 public class ColaboradorMB extends BeanGenerico implements Serializable {
 
+    @Inject
     private ColaboradorController colaboradorcontroller;
+    @Inject
+    private CargoController cargoController;
+    
     private Colaborador colaborador;
     private List<Colaborador> listaDeColaborador;
+    private List<Cargo> listaDeCargo;
 
     @PostConstruct
     @Override
@@ -43,6 +51,7 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
                 colaborador.setCargo(new Cargo());
             }
             listaDeColaborador = new ArrayList<>();
+            listaDeCargo = cargoController.consultarTodosOrdenadorPor("nome");
         } catch (Exception ex) {
             Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,10 +67,47 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void consultarColaborador() {
+        try {
+            listaDeColaborador = colaboradorcontroller.consultarLike(getCampoConsuta(), getValorCampoConsuta().toUpperCase());
+        } catch (Exception ex) {
+            Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     protected Map<String, Object> getCampo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("Nome", "nome");
+        map.put("Cpf", "cpf");
+        return map;
     }
+    
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
+    public List<Colaborador> getListaDeColaborador() {
+        return listaDeColaborador;
+    }
+
+    public void setListaDeColaborador(List<Colaborador> listaDeColaborador) {
+        this.listaDeColaborador = listaDeColaborador;
+    }
+
+    public List<Cargo> getListaDeCargo() {
+        return listaDeCargo;
+    }
+
+    public void setListaDeCargo(List<Cargo> listaDeCargo) {
+        this.listaDeCargo = listaDeCargo;
+    }
+    
+    
 
 }

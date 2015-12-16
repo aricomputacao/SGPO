@@ -31,6 +31,10 @@
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{administrativo.empresa_cadastro}"/>
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{administrativo.empresa_consulta}"/>
                     </p:submenu>
+                    <p:submenu label="#{label.colaborador}" icon=" icon-bank" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" outcome="#{administrativo.colaborador_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" outcome="#{administrativo.colaborador_consulta}"/>
+                    </p:submenu>
                 </p:submenu>
                
                 <p:submenu label="#{label.modulo_seguranca}" icon="icon-lock-open-alt" >

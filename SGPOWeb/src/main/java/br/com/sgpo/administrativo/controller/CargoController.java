@@ -6,6 +6,7 @@
 package br.com.sgpo.administrativo.controller;
 
 import br.com.sgpo.administrativo.DAO.CargoDAO;
+import br.com.sgpo.administrativo.enumeration.TipoCargo;
 import br.com.sgpo.administrativo.modelo.Cargo;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
@@ -28,5 +29,4 @@ public class CargoController extends ControllerGenerico<Cargo, Integer> implemen
     protected void inicializaDAO() {
         setDAO(dao);
     }
-    
 }
