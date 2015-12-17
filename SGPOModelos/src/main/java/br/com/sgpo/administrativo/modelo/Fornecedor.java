@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.administrativo.modelo;
 
+import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -80,7 +81,7 @@ public class Fornecedor implements Serializable {
     }
 
     public String getTelefone() {
-        return telefone;
+        return StringUtil.formatarTelefone(telefone);
     }
 
     public void setTelefone(String telefone) {
@@ -92,7 +93,7 @@ public class Fornecedor implements Serializable {
     }
 
     public void setCelular(String celular) {
-        this.celular = celular;
+        this.celular = StringUtil.formatarTelefone(celular);
     }
 
     public Endereco getEndereço() {

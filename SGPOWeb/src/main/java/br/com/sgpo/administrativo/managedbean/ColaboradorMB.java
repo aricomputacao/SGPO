@@ -68,6 +68,17 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
         }
     }
     
+    public void desativarEmpresa(){
+        try {
+            colaborador.setAtivo(false);
+            colaboradorcontroller.atualizar(colaborador);
+            MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_ATUALIZADO, "teress","rewe");
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void consultarColaborador() {
         try {
             listaDeColaborador = colaboradorcontroller.consultarLike(getCampoConsuta(), getValorCampoConsuta().toUpperCase());

@@ -20,7 +20,7 @@
             <h:panelGroup layout="block"  class="Container100 Responsive" >
                 <inputs:input_label inp_valor="#{colaboradorMB.colaborador.nome}" lab_valor="#{label.nome}" inp_require="true" inp_class_tamanho="50" />
                 <inputs:inputMask_label inp_mascara="999.999.999-99" inp_validador="CPFValidador" id="inpCnpf" inp_class_tamanho="20" inp_valor="#{colaboradorMB.colaborador.cpf}" inp_require="true" lab_valor="#{label.cpf}"/>
-                <inputs:selectOneLabel  inp_valor="#{colaboradorMB.colaborador.cargo.nome}" id="sel_car" lab_valor="#{label.cargo}"  ajax_render="true"
+                <inputs:selectOneLabel  inp_valor="#{colaboradorMB.colaborador.cargo}" id="sel_car" lab_valor="#{label.cargo}"  ajax_render="true"
                                         sel_converter="indexConverter" inp_class_tamanho="20">
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{colaboradorMB.listaDeCargo}" var="cg" itemLabel="#{cg.nome}" itemValue="#{cg}"/>

@@ -11,7 +11,7 @@
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{colaboradorMB.init()}" 
-                                     acao_excluir="#{colaboradorMB.init()}" btn_excluir="false"  acao_salvar="#{colaboradorMB.salvar()}" 
+                                     acao_excluir="#{colaboradorMB.desativarEmpresa()}" btn_excluir="#{colaboradorMB.colaborador.ativo}"   acao_salvar="#{colaboradorMB.salvar()}"  
                                    
                                      btn_limpar="true" cabecalho="#{label.cadastro} #{label.colaborador}" btn_imprimir="false" btn_ativar="false"
                                      btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{colaboradorMB.init()}" >

@@ -12,7 +12,7 @@
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
 
     <composite:interface>
-        <composite:attribute name="acao_butao" method-signature="java.lang.Void action()" default="#{colaboradorMB.consultarCliente()}"/>
+        <composite:attribute name="acao_butao" method-signature="java.lang.Void action()" default="#{colaboradorMB.consultarColaborador()}"/>
         <composite:attribute name="componente_to_update"  shortDescription="componete atualizado apos selecionar a linha" default="@form" />
         <composite:attribute name="render_edit"   default="true" />
 
@@ -28,7 +28,7 @@
         </p:fieldset>
         <p:fieldset>
             <p:dataTable value="#{colaboradorMB.listaDeColaborador}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="c" rows="10"
-                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                         rowStyleClass="#{p.ativo ? (empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') : (empty rowIx or rowIx mod 2 ne 0 ? 'linha-desativada-even-row' : 'linha-desativada-odd-row')  }"
                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  reflow="true">
