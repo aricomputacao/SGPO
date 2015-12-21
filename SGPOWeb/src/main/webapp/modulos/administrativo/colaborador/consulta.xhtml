@@ -16,7 +16,7 @@
                 <p:graphicImage library="images" name="carregar.gif"/>
             </p:blockUI>
             <componentes:panelPadrao id="pnlPadrao" cabecalho=" #{label.consulta} #{label.colaborador}" acao_limpar="#{colaboradorMB.init()}" render_sep_1="false" btn_excluir="false" 
-                                     btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{colaboradorMB.geraImpressaoFornecedor()}" 
+                                     btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{colaboradorMB.geraImpressaoColaborador()}" 
                                      dialog_cadastro="dialogCadastro" btn_imprimir="TRUE" btn_dialog_rel="false" btn_salvar_update="false">
                 <col:consultaColaborador id="compConsulta"  componente_to_update="@form:pnlPadrao:compConsulta:tabela"  />
             </componentes:panelPadrao>

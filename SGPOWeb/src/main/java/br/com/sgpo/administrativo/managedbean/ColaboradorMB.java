@@ -11,6 +11,9 @@ import br.com.sgpo.administrativo.modelo.Cargo;
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitario.relatorio.RelatorioSession;
+import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
+import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +51,7 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
             colaborador = (Colaborador) lerRegistroDaSessao("colaborador");
             if(colaborador == null){
                 colaborador = new Colaborador();
+                colaborador.setAtivo(true);
                 colaborador.setCargo(new Cargo());
             }
             listaDeColaborador = new ArrayList<>();
@@ -68,7 +72,17 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
         }
     }
     
-    public void desativarEmpresa(){
+    public void geraImpressaoColaborador() {
+        try {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeColaborador, m, PastasRelatorio.RESOURCE_ADMINISTRATIVO, PastasRelatorio.REL_ADMINISTRATIVO_COLABORADOR, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
+    
+    public void desativarColaborador(){
         try {
             colaborador.setAtivo(false);
             colaboradorcontroller.atualizar(colaborador);
