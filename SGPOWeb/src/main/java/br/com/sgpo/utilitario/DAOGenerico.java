@@ -66,6 +66,11 @@ public abstract class DAOGenerico<T, PK extends Serializable> implements Seriali
                 .setParameter("vl", "%" + valor.toUpperCase() + "%").getResultList();
     }
 
+    public List<T> consultarAtivo(String nomeCampo, String valor, String ativo) throws Exception {
+        return em.createQuery("FROM " + getEntityClass().getName() + " where UPPER(" + nomeCampo + ") like :vl and " + ativo)
+                .setParameter("vl", "%" + valor.toUpperCase() + "%").getResultList();
+    }
+
     public List<T> consultarTodos(String ordem, String campo, String valor) throws Exception {
         return em.createQuery("SELECT a FROM " + getEntityClass().getName() + " a WHERE a." + campo + " like :valor order by a." + ordem)
                 .setParameter("valor", valor + "%").getResultList();
@@ -75,8 +80,6 @@ public abstract class DAOGenerico<T, PK extends Serializable> implements Seriali
         return getEm().createQuery("SELECT t FROM " + getEntityClass().getName() + " t WHERE t." + campo + " like :sugest ORDER BY t." + campo)
                 .setParameter("sugest", sugest + "%").setMaxResults(numeroResultados).getResultList();
     }
-    
-     
 
     protected Class getEntityClass() {
         return entityClass;
