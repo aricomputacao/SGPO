@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.administrativo.modelo;
 
+import br.com.sgpo.utilitarios.CpfCnpjUtil;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -65,7 +66,7 @@ public class Colaborador implements Serializable{
     }
 
     public String getCpf() {
-        return cpf;
+        return CpfCnpjUtil.formataCPF(cpf);
     }
 
     public void setCpf(String cpf) {
