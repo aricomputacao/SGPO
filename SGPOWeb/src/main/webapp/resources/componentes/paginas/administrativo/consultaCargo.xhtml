@@ -44,11 +44,7 @@
                 <p:column headerText="#{label.descricao}">
                     <componentes:outputText value="#{p.descricao}"/>
                 </p:column>
-                <p:column headerText="#{label.acao}">
-                    <botao:commandButton_selecionar_acao acao_butao="#{cc.attrs.acao_butao_selecionar}"  componente_to_update="#{cc.attrs.btn_selecionar_update}" renderizar_btn="#{cc.attrs.renderizar_btn_selecionar}" 
-                                                         complete="#{cc.attrs.dialogHide}" target="#{cc.attrs.target}" value="#{p}">
-                    </botao:commandButton_selecionar_acao>
-                </p:column>
+               
             </p:dataTable>
         </p:fieldset>
     </composite:implementation>
