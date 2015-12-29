@@ -18,13 +18,9 @@
         <div class="ContainerIndent Responsive">
             <h:form id="frm_home" prependId="false" styleClass="painelAgendas">
                
-                <p:messages id="mensagens" showDetail="true" />
-                <p:fieldset>
-                        <comp:input_label_data inp_valor="#{agendaDeEventosMB.dataInicio}" inp_class_tamanho="20" lab_valor="#{label.data_inicial}" />
-                        <comp:input_label_data inp_valor="#{agendaDeEventosMB.dataFim}" inp_class_tamanho="20" lab_valor="#{label.data_final}" />
-                        <btn:commandButton_imprimir acao_butao="#{agendaDeEventosMB.geraImpressaoAgenda()}" componente_to_update="@(this)" inp_class_tamanho="20"/>
-                </p:fieldset>
-                <p:schedule widgetVar="meucalendario" tooltip="true" style="width: 100%"  
+                <p:messages id="mensagens" showDetail="true" closable="true"  />
+             
+                <p:schedule widgetVar="meucalendario" tooltip="true"  
                             value="#{agendaDeEventosMB.eventModel}" id="sch" timeZone="#{initParam.timezone}" 
                             clientTimeZone="false" locale="#{localeController.currentLocale}" timeFormat="HH:mm"   >
 

@@ -16,52 +16,20 @@
     <ui:define name="corpo">
         <div class="Container100">
             <div class="ContainerIndent">
-                <p:tabView id="tabV" class="ContainerIndent">
 
-                    <div class="EmptyBox20"></div>
-                    <p:tab title="Home">
-                        <p:blockUI block="@(.ui-tabs)" widgetVar="blk">
-                            <p:graphicImage library="images" name="carregar.gif"/>
-                        </p:blockUI>
-                        <div class="Container40   Responsive" style="float: left">
-                            <div class="ContainerIndent">
+                <div class="Container100 Responsive">
+                    <h:form id="frm_c" prependId="false" >
+                        <div class="ContainerIndent">
+                            <p:panel >
 
-                                <p:panel    >
-                                    
-                                    <i class="icon-paste Fleft Fs24   hardblue "></i>
-                                    <div class="Fs24 Fleft  Wid70">#{label.impressoes_secretaria}</div>                                       
-                                    <p:separator styleClass="Wid100"></p:separator>
-
-                                    <h:form id="frm_btns_rel">
-
-                                    </h:form>
-                                </p:panel>
-                            </div>
-
+                                <i class="icon-calendar-outlilne Fleft Fs30   red "></i>
+                                <div class="Fs30 Fleft  Wid70 hardblue">#{label.agenda_eventos}</div>                                       
+                                <p:separator styleClass="Wid100"></p:separator>
+                                <util:agendaEventos id="compAgenda"/>
+                            </p:panel>
                         </div>
-
-
-                        <div class="Container60 Responsive">
-                            <h:form id="frm_c" prependId="false" >
-                                <div class="ContainerIndent">
-                                    <p:panel style="min-height: 300px;">
-
-                                        <i class="icon-th-list Fleft Fs24   hardblue "></i>
-                                        <div class="Fs24 Fleft  Wid70">#{label.quadro_sessao_dirigente}</div>                                       
-                                        <p:separator styleClass="Wid100"></p:separator>
-                                    </p:panel>
-                                </div>
-                            </h:form>
-                        </div>
-
-
-                    </p:tab>
-                    <p:tab title="#{label.agenda}">
-                        <div class="Container100 Responsive">
-                            <!--<util:agendaEventos id="compAgenda"/>-->
-                        </div>
-                    </p:tab>
-                </p:tabView>
+                    </h:form>
+                </div>
             </div>
         </div>
 
@@ -69,7 +37,33 @@
 
     </ui:define>
     <ui:define name="dialog">
-       
+        <h:form prependId="false" id="frmDialog" >
+            <p:dialog widgetVar="caixaDialogo" id="dialogCaixa"
+                      header="Evento"  width="800"
+                      resizable="false"
+                      showEffect="clip" hideEffect="clip">  
+                <h:panelGroup id="eventDetails" layout="block" >
+                    <comp:selectOneLabel inp_valor="#{agendaDeEventosMB.evento.tipoEvento}" lab_valor="#{label.tipo_evento}" inp_class_tamanho="90" inp_require="true" >
+                        <f:selectItems value="#{agendaDeEventosMB.listaDeTiposDeEventos}" var="es" itemLabel="#{es.descricao}" itemValue="#{es}"/>
+                    </comp:selectOneLabel>
+
+                    <comp:input_label inp_valor="#{agendaDeEventosMB.evento.titulo}" lab_valor="#{label.titulo}" inp_class_tamanho="90" inp_require="true" />
+                    <comp:textarea_label  inp_valor="#{agendaDeEventosMB.evento.descricao}" lab_valor="#{label.descricao}"  inp_class_tamanho="90" inp_require="true" />
+                    <comp:input_label_data inp_valor="#{agendaDeEventosMB.evento.dataInicio}" inp_calendar_pattern="MM/dd/yyyy HH:mm" lab_valor="#{label.inicio}" inp_class_tamanho="30" inp_require="true"/>
+                    <comp:input_label_data inp_valor="#{agendaDeEventosMB.evento.dataFim}" inp_calendar_pattern="MM/dd/yyyy HH:mm" lab_valor="#{label.fim}" inp_class_tamanho="30" inp_require="true"/>
+                    <div class="EmptyBox20" />
+                    <div>
+                        <p:commandButton  class="Fright btnSalvar" value="#{label.salvar}"  icon="fa fa-floppy-o " actionListener="#{agendaDeEventosMB.salvar()}"  oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();" 
+                                          update="@(form)"   />  
+                        <p:commandButton  class="Fleft btnExcluir" value="#{label.excluir}"  icon="fa fa-trash-o " actionListener="#{agendaDeEventosMB.excluir()}"  oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();" 
+                                          update="@(form)"   >
+                            <p:confirm header="#{label.excluir}" message="#{msg.confirmacao}" icon="ui-icon-alert"  />
+
+                        </p:commandButton>  
+                    </div>
+                </h:panelGroup>
+            </p:dialog>  
+        </h:form>
     </ui:define>
 </ui:composition>
 
