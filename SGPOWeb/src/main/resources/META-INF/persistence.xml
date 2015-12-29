@@ -12,6 +12,10 @@
     <class>br.com.sgpo.administrativo.modelo.Empresa</class>
     <class>br.com.sgpo.administrativo.modelo.Fornecedor</class>
     <class>br.com.sgpo.administrativo.modelo.Colaborador</class>
+    <class>br.com.sgpo.engenharia.modelo.Item</class>
+    <class>br.com.sgpo.financeiro.modelo.Cotacao</class>
+    <class>br.com.sgpo.financeiro.modelo.ItemCotacao</class>
+    <class>br.com.sgpo.seguranca.modelo.Modulo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
@@ -28,8 +26,8 @@
 
                     <div class="Responsive Container100 "  >
                         <p:graphicImage   height="33" library="sentinel-layout" name="images/LOGO.svg"/>
-                        <i class="softblue Fnone Fs40">#{label.sigla_sistema}</i>
-
+                        <i class="softblue Fnone Fs40">#{label.sigla_sistema} </i>
+                        
                     </div>
                 </div>
 
@@ -41,7 +39,7 @@
                 <div   class=" Fnone MarAuto circulo    TexAlCenter    "/>
                 <div class="Container80 MaxWid500 Fnone MarAuto TexAlCenter  ">
 
-                    <p class="Fs25 FontLight  white" >Identificação do Usuário</p>
+                    <p class="Fs25 FontLight  white" >#{configuracaoSistemaMB.paraCarregarNoLogin}</p>
                 </div>
                 <!-- LOGIN BOX COVER START -->
                 <form action="j_spring_security_check" method="post"   >

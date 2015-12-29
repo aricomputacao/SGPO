@@ -50,8 +50,6 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
     private UnidadeFederativaController unidadeFederativaController;
     @Inject
     private MunicipioController municipioController;
-    @Inject
-    private ConfiguracaoSistemaMB configuracaoSistemaMB;
     private UnidadeFederativa uf;
     private Empresa empresa;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
@@ -79,7 +77,6 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
             }
             listaDeClientes = new ArrayList<>();
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
-            addArquivosLogo();
         } catch (Exception ex) {
             Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,29 +136,7 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
         return map;
     }
 
-    public void addArquivosLogo() {
-        List<File> listaDeArquivosDaPasta = ManipuladorDeArquivo.listaDeArquivosDaPasta(ManipuladorDeArquivo.PASTA_LOGOS);
-        if (!configuracaoSistemaMB.isProcessadoImagemLogo()) {
 
-            try {
-                for (File file : listaDeArquivosDaPasta) {
-                    InputStream is = null;
-                    byte[] buffer = null;
-
-                    is = new FileInputStream(file);
-                    buffer = new byte[is.available()];
-                    is.read(buffer);
-                    is.close();
-                    ManipuladorDeArquivo.gravarArquivoLocalmente(getDiretorioReal("resources" + separator + "images"), file.getName(), buffer);
-
-                }
-                configuracaoSistemaMB.marcarImagemLogoComoProcessada();
-            } catch (IOException ex) {
-                Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-    }
 
     public UnidadeFederativa getUf() {
         return uf;

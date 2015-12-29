@@ -5,53 +5,97 @@
  */
 package br.com.sgpo.utilitario;
 
+import br.com.sgpo.administrativo.managedbean.EmpresaMB;
+import br.com.sgpo.seguranca.controller.ModuloController;
+import br.com.sgpo.seguranca.modelo.Modulo;
+import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
+import java.io.File;
+import static java.io.File.separator;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 /**
  *
  * @author Ari
  */
-@Singleton
-@Startup
+
+
+@ApplicationScoped
+@Named
 public class ConfiguracaoSistemaMB implements Serializable {
-//    @Inject
-//    private UsuarioController usuarioController;
-//    
-//    
-//    @PostConstruct
-//    public void init(){
-//        try {
-//            usuarioController.criarUsuarioAdministrador();
-//        } catch (Exception ex) {
-//            Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-    
-    private boolean processadoImagemLogo;
+
+    @Inject
+    private ModuloController moduloController;
+    private final String paraCarregarNoLogin = "Identificação do Usuário";
+
+    @PostConstruct
+    public void init() {
+        
+        criarModulos();
+        addArquivosLogo();
+    }
 
     public String getDiretorioReal(String diretorio) {
         return FacesContext.getCurrentInstance().getExternalContext().getRealPath(diretorio);
 
     }
 
-    @PostConstruct
-    public void init() {
-       processadoImagemLogo =false;
-    }
-    
-    public void marcarImagemLogoComoProcessada(){
-        processadoImagemLogo = true;
-        
+    private void criarModulos() {
+        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.modulos");
+        Enumeration<String> modulos = bundle.getKeys();
+        while (modulos.hasMoreElements()) {
+            String string = modulos.nextElement();
+            String nome = bundle.getString(string);
+            try {
+                if (!moduloController.existeModulo(nome)) {
+                    Modulo m = new Modulo();
+                    m.setNome(nome);
+                    moduloController.salvar(m);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
-    public boolean isProcessadoImagemLogo() {
-        return processadoImagemLogo;
+    private void addArquivosLogo() {
+        List<File> listaDeArquivosDaPasta = ManipuladorDeArquivo.listaDeArquivosDaPasta(ManipuladorDeArquivo.PASTA_LOGOS);
+
+        try {
+            for (File file : listaDeArquivosDaPasta) {
+                InputStream is = null;
+                byte[] buffer = null;
+
+                is = new FileInputStream(file);
+                buffer = new byte[is.available()];
+                is.read(buffer);
+                is.close();
+                ManipuladorDeArquivo.gravarArquivoLocalmente(getDiretorioReal("resources" + separator + "images"), file.getName(), buffer);
+
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-    
+
+    public String getParaCarregarNoLogin() {
+        return paraCarregarNoLogin;
+    }
+
     
 
 }
