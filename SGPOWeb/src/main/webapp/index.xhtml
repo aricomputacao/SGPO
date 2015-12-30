@@ -15,22 +15,42 @@
 
     <ui:define name="corpo">
         <div class="Container100">
-            <div class="ContainerIndent">
+            <p:tabView class="ContainerIndent Responsive" id="tabView">
+                <p:tab id="tabDash" title="#{label.dados}" class=" Responsive">
+                    <div class="Container60   Responsive" style="float: left">
+                        <h:form id="frm_dash" prependId="false" >
+                            <div class="ContainerIndent ">
 
-                <div class="Container100 Responsive">
+                                <util:dadosInicial id="compDados"/>
+                            </div>
+                        </h:form>
+                    </div>
+                    <div class="Container40   Responsive" style="float: left">
+                        <h:form id="frm_graf" prependId="false" >
+
+                            <div class="ContainerIndent ">
+                                <i class="icon-chart Fleft Fs30   red "></i>
+                                <div class="Fs30 Fleft  Wid70 hardblue fontItalic">#{label.concluidos}</div>                                       
+                                <p:separator styleClass="Wid100"></p:separator>
+                                <p:fieldset widgetVar="fielGraf" >
+                                    <p:selectOneRadio value="#{dadosInicialMB.ano}"  class="Wid10  "  >
+                                        <f:selectItems value="#{dadosInicialMB.listaDeAnos}" var="an" itemValue="#{an}" itemLabel="#{an}"/>
+                                    </p:selectOneRadio>
+                                    <p:chart type="line" model="#{dadosInicialMB.lineModel}"   widgetVar="graf" style="height: 100%"/>
+                                </p:fieldset>
+                            </div>
+                        </h:form>
+                    </div>
+                </p:tab>
+                <p:tab id="tabAgenda" title="#{label.agenda}" class="Container100 Responsive">
                     <h:form id="frm_c" prependId="false" >
                         <div class="ContainerIndent">
-                            <p:panel >
 
-                                <i class="icon-calendar-outlilne Fleft Fs30   red "></i>
-                                <div class="Fs30 Fleft  Wid70 hardblue">#{label.agenda_eventos}</div>                                       
-                                <p:separator styleClass="Wid100"></p:separator>
-                                <util:agendaEventos id="compAgenda"/>
-                            </p:panel>
+                            <util:agendaEventos id="compAgenda"/>
                         </div>
                     </h:form>
-                </div>
-            </div>
+                </p:tab>
+            </p:tabView>
         </div>
 
 

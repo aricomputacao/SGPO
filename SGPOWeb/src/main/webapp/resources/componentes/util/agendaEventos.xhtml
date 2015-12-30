@@ -15,11 +15,14 @@
 
     </composite:interface>
     <composite:implementation id="compo">
+        <i class="icon-calendar-outlilne Fleft Fs30   red "></i>
+        <div class="Fs30 Fleft  Wid70 hardblue fontItalic">#{label.agenda_eventos}</div>                                       
+        <p:separator styleClass="Wid100"></p:separator>
         <div class="ContainerIndent Responsive">
             <h:form id="frm_home" prependId="false" styleClass="painelAgendas">
-               
+
                 <p:messages id="mensagens" showDetail="true" closable="true"  />
-             
+
                 <p:schedule widgetVar="meucalendario" tooltip="true"  
                             value="#{agendaDeEventosMB.eventModel}" id="sch" timeZone="#{initParam.timezone}" 
                             clientTimeZone="false" locale="#{localeController.currentLocale}" timeFormat="HH:mm"   >
