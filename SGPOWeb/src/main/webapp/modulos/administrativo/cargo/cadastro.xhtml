@@ -12,7 +12,7 @@
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
-                                      acao_cancelar="#{cargoMB.init()}" 
+                                     acao_cancelar="#{cargoMB.init()}" btn_dialog_rel="false" render_sep_3="false" 
                                      acao_excluir="#{cargoMB.init()}"  acao_salvar="#{cargoMB.salvar()}"
                                      btn_limpar="false" cabecalho="#{label.cadastro_cargo}" >
                 <pessoa:cadastroCargo id="compCadastro"/>

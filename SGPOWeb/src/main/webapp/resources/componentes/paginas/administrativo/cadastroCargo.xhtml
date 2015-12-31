@@ -13,7 +13,7 @@
 
     </composite:interface>
     <composite:implementation>
-        <p:fieldset>
+        <p:fieldset legend="#{label.dados}" toggleable="true">
             <h:panelGroup layout="block" class="Container100 Responsive">
                 <inputs:selectOneRadio inp_valor="#{cargoMB.cargo.tipoCargo}" inp_class_tamanho="90" lab_valor="#{label.tipo} #{label.cargo}" inp_require="true">
                     <f:selectItems value="#{cargoMB.listaDeTiposDeCargos}" var="tp" itemLabel="#{tp.descricao}" itemValue="#{tp}"/>

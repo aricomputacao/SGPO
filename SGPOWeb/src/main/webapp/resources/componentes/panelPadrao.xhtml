@@ -49,7 +49,7 @@
                                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
                             </h:panelGroup>
                             <p:commandButton widgetVar="btn_salvar" id="btn_salvar" rendered="#{cc.attrs.btn_salvar}" class="btn-menu btnSalvar" update="#{cc.attrs.btn_salvar_update}" title="#{label['salvar']}" icon="fa fa-floppy-o fa-lg " actionListener="#{cc.attrs.acao_salvar}" />
-                            <p:commandButton widgetVar="btn_cancelar"  rendered="#{cc.attrs.btn_cancelar}" update="@form" immediate="true" class="btn-menu" title="#{label['cancelar']}" actionListener="#{cc.attrs.acao_cancelar}" icon="fa fa-ban fa-lg " >
+                            <p:commandButton widgetVar="btn_cancelar" id="btn_cancelar"  rendered="#{cc.attrs.btn_cancelar}" update="@form" immediate="true" class="btn-menu btnCancelar" title="#{label['cancelar']}" actionListener="#{cc.attrs.acao_cancelar}" icon="fa fa-ban fa-lg " >
                                 <p:confirm header="#{label['cancelar']}" message="#{msg['confirmacao']}" icon="fa fa-warning fa-lg  "   />
                                 <p:ajax event="click" immediate="true" update="@form"/>
                             </p:commandButton>
