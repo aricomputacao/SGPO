@@ -15,30 +15,25 @@
 
     <ui:define name="corpo">
         <div class="Container100">
-            <p:tabView class="ContainerIndent Responsive" id="tabView">
+            <p:tabView class="ContainerIndent Responsive tabView-inicio" id="tabView">
                 <p:tab id="tabDash" title="#{label.dados}" class=" Responsive">
-                    <div class="Container60   Responsive" style="float: left">
-                        <h:form id="frm_dash" prependId="false" >
-                            <div class="ContainerIndent ">
+                    <h:form id="frm_dash"  prependId="false" >
+                        <util:dadosInicial id="compDadosPro"/>
+                    </h:form>
 
-                                <util:dadosInicial id="compDados"/>
-                            </div>
-                        </h:form>
-                    </div>
-                    <div class="Container40   Responsive" style="float: left">
-                        <h:form id="frm_graf" prependId="false" >
+                    <div class="Container100   Responsive" style="float: left">
+                        <h:form id="frm_graf" class="ContainerIndent " prependId="false" >
+                            <p:panel>
 
-                            <div class="ContainerIndent ">
                                 <i class="icon-chart Fleft Fs30   red "></i>
                                 <div class="Fs30 Fleft  Wid70 hardblue fontItalic">#{label.concluidos}</div>                                       
-                                <p:separator styleClass="Wid100"></p:separator>
-                                <p:fieldset widgetVar="fielGraf" >
-                                    <p:selectOneRadio value="#{dadosInicialMB.ano}"  class="Wid10  "  >
-                                        <f:selectItems value="#{dadosInicialMB.listaDeAnos}" var="an" itemValue="#{an}" itemLabel="#{an}"/>
-                                    </p:selectOneRadio>
-                                    <p:chart type="line" model="#{dadosInicialMB.lineModel}"   widgetVar="graf" style="height: 100%"/>
-                                </p:fieldset>
-                            </div>
+                            </p:panel>
+                            <p:fieldset widgetVar="fielGraf" >
+                                <p:selectOneRadio value="#{dadosInicialMB.ano}"  class="Wid10  "  >
+                                    <f:selectItems value="#{dadosInicialMB.listaDeAnos}" var="an" itemValue="#{an}" itemLabel="#{an}"/>
+                                </p:selectOneRadio>
+                                <p:chart type="line" model="#{dadosInicialMB.lineModel}"   widgetVar="graf" style="height: 100%"/>
+                            </p:fieldset>
                         </h:form>
                     </div>
                 </p:tab>
@@ -53,6 +48,7 @@
             </p:tabView>
         </div>
 
+    <h:outputStylesheet name="dadosInicial.css" library="css" />
 
 
     </ui:define>
@@ -85,5 +81,6 @@
             </p:dialog>  
         </h:form>
     </ui:define>
+
 </ui:composition>
 

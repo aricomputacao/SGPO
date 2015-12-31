@@ -27,6 +27,7 @@ import org.primefaces.model.chart.LineChartModel;
 public class DadosInicialMB implements Serializable {
 
     private List<String> listaString;
+    private List<String> listaString2;
     private LineChartModel lineModel;
     private Integer ano;
    
@@ -36,10 +37,13 @@ public class DadosInicialMB implements Serializable {
         ano = 2015;
         createLineModels();
         listaString = new ArrayList<>();
+        listaString2 = new ArrayList<>();
         String a;
         for (int i = 0; i < 10; i++) {
-            a = "Projeto ".concat(String.valueOf(i));
+            a = "Projeto: ".concat(String.valueOf(i+1));
             listaString.add(a);
+            a = "Obra: ".concat(String.valueOf(i+1));
+            listaString2.add(a);
         }
 
     }
@@ -47,15 +51,15 @@ public class DadosInicialMB implements Serializable {
     private void createLineModels() {
 
         lineModel = initCategoryModel();
-        lineModel.setTitle("Projetos | Obras");
+        lineModel.setTitle("(Projetos | Obras)");
         lineModel.setLegendPosition("e");
         lineModel.setShowPointLabels(true);
-        lineModel.getAxes().put(AxisType.X, new CategoryAxis("Mes"));
+        lineModel.getAxes().put(AxisType.X, new CategoryAxis("(Mes)"));
         Axis yAxis = lineModel.getAxis(AxisType.Y);
         yAxis = lineModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Quantidades");
+        yAxis.setLabel("(Quantidades)");
         yAxis.setMin(0);
-        yAxis.setMax(40);
+        yAxis.setMax(28);
     }
 
     private LineChartModel initCategoryModel() {
@@ -112,5 +116,10 @@ public class DadosInicialMB implements Serializable {
     public List<Integer> getListaDeAnos(){
        return Mes.ABRIL.getAnos();
     }
+
+    public List<String> getListaString2() {
+        return listaString2;
+    }
            
+    
 }
