@@ -6,8 +6,10 @@
 package br.com.sgpo.utilitarios;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -142,6 +144,35 @@ public class ManipuladorDeArquivo {
         ManipuladorDeArquivo.gravaArquivo(pasta, arquivoComExtensao, conteudo);
     }
 
-   
+    public static byte[] lerArquivoEmByte(String caminhoCompletoComExtensao) throws IOException {
+        if (caminhoCompletoComExtensao != null) {
+            File file = new File(caminhoCompletoComExtensao);
+
+            InputStream is = null;
+            byte[] buffer = null;
+
+            is = new FileInputStream(file);
+            buffer = new byte[is.available()];
+            is.close();
+
+            return buffer;
+        }
+        return null;
+
+    }
+
+    public static boolean checarSeExisteExcluir(String caminhoCompletoComExtensao) {
+        if (caminhoCompletoComExtensao != null) {
+            File file = new File(caminhoCompletoComExtensao);
+            if (file.exists()) {
+                file.delete();
+                return true;
+            }
+            return false;
+
+        }
+        return false;
+
+    }
 
 }
