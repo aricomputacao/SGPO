@@ -56,8 +56,7 @@
 }
 
 
-
-.ui-panel .ui-panel-titlebar{
+  .ui-panel-titlebar{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6bba70+0,6bba70+100;Green+Flat+%234 */
     background: rgb(107,186,112) ! important; /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(107,186,112,1) 0%, rgba(107,186,112,1) 100%) ! important; /* FF3.6-15 */
