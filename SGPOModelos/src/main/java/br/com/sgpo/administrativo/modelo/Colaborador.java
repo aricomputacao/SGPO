@@ -94,19 +94,19 @@ public class Colaborador implements Serializable{
     }
 
     public String getTelefone() {
-        return StringUtil.removerCaracteresEspeciais(telefone);
+        return StringUtil.formatarTelefone(telefone);
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        this.telefone = StringUtil.removerCaracteresEspeciais(telefone);
     }
 
     public String getCelular() {
-        return StringUtil.removerCaracteresEspeciais(celular);
+        return StringUtil.formatarTelefone(celular);
     }
 
     public void setCelular(String celular) {
-        this.celular = celular;
+        this.celular = StringUtil.removerCaracteresEspeciais(celular);
     }
     
     public Cargo getCargo() {
