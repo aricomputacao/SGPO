@@ -6,6 +6,7 @@
 package br.com.sgpo.administrativo.modelo;
 
 import br.com.sgpo.utilitarios.CpfCnpjUtil;
+import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -41,6 +43,16 @@ public class Colaborador implements Serializable{
     @NotBlank
     @Column(name = "col_cpf", nullable = false, unique = true)
     private String cpf;
+    
+    @Email
+    @Column(name = "col_email")
+    private String email;
+    
+    @Column(name = "col_telefone")
+    private String telefone;
+    
+    @Column(name = "col_celular")
+    private String celular;
     
     @ManyToOne
     @JoinColumn(name = "car_id", referencedColumnName = "car_id")
@@ -70,9 +82,33 @@ public class Colaborador implements Serializable{
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = StringUtil.removerCaracteresEspeciais(cpf);
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return StringUtil.removerCaracteresEspeciais(telefone);
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCelular() {
+        return StringUtil.removerCaracteresEspeciais(celular);
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+    
     public Cargo getCargo() {
         return cargo;
     }

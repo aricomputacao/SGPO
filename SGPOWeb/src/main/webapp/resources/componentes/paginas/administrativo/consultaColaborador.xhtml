@@ -42,10 +42,19 @@
                 <p:column headerText="#{label.cpf}">
                     <componentes:outputText value="#{c.cpf}"/>
                 </p:column>
+                <p:rowExpansion>
+                    <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
+                        <componentes:outputText value="#{label.email}" />
+                        <componentes:outputText tipo="d" value="#{c.email}" />
+                        <componentes:outputText value="#{label.telefone_residencial}" />
+                        <componentes:outputText  value="#{c.telefone}" />
+                        <componentes:outputText value="#{label.telefone_celular}" />
+                        <componentes:outputText  value="#{c.celular}" />
+                    </p:panelGrid>
+                </p:rowExpansion>
                 <p:column headerText="#{label.acao}" width="10%">
                     <composite:insertChildren/>
                     <botao:commandButton_editar rendered="#{cc.attrs.render_edit}" acao_butao="#{colaboradorMB.escreverRegistroNasessaoNavegarParaEditar(c,administrativo.colaborador_cadastro,'colaborador')}" componente_to_update="@(form)" renderizar_btn="true" />
-                    <botao:commandButtonAtivarDesativar rendered="#{cc.attrs.render_edit}" acao_butao="#{colaboradorMB.desativarColaborador()}" componente_to_update="@(form)" renderizar_btn="true" />
                 </p:column>
             </p:dataTable>
         </p:fieldset>
