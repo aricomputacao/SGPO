@@ -63,7 +63,7 @@ public class ClienteMB extends BeanGenerico implements Serializable {
                 cliente.setEndereco(new Endereco());
             } else {
                 unidadeFederativa = cliente.getEndereco().getUnidadeFederativa();
-               consultarMuncipioPorUf();
+                consultarMuncipioPorUf();
 
             }
             listaDeClientes = new ArrayList<>();
@@ -93,7 +93,7 @@ public class ClienteMB extends BeanGenerico implements Serializable {
         }
     }
 
-     public void geraImpressaoClientes() {
+    public void geraImpressaoClientes() {
         try {
             Map<String, Object> m = new HashMap<>();
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeClientes, m, PastasRelatorio.RESOURCE_ADMINISTRATIVO, PastasRelatorio.REL_ADMINISTRATIVO_CLIENTE, "");
@@ -102,7 +102,7 @@ public class ClienteMB extends BeanGenerico implements Serializable {
 //            erroCliente.adicionaErro(e);
         }
     }
-    
+
     @Override
     protected Map<String, Object> getCampo() {
         Map<String, Object> map = new HashMap<>();

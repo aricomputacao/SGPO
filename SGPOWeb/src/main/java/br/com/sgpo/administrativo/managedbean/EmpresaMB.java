@@ -14,14 +14,12 @@ import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Municipio;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
 import br.com.sgpo.utilitario.BeanGenerico;
-import br.com.sgpo.utilitario.ConfiguracaoSistemaMB;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitario.relatorio.RelatorioSession;
 import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
-import java.io.File;
+import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
+import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import static java.io.File.separator;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,6 +70,7 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
                 empresa.setEndereco(new Endereco());
             } else {
                 uf = empresa.getEndereco().getUnidadeFederativa();
+                logo = ManipuladorDeArquivo.lerArquivoEmByte(getDiretorioReal("resources" + separator + "images"+separator+empresa.getNome()+".png"));
                 consultarMuncipioPorUf();
 
             }
@@ -127,6 +126,8 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
             Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     
 
     @Override
     protected Map<String, Object> getCampo() {

@@ -45,8 +45,8 @@
 
                     <p:toolbar class="toobarMenu"  style="border: none">
                         <f:facet name="left">
-                            <h:panelGroup layout="block" rendered="#{cc.attrs.render_sep_1}" class="ui-separator" >
-                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                            <h:panelGroup layout="block" rendered="#{cc.attrs.render_sep_1}" class="ui-separator red" >
+                                <span class="ui-icon ui-icon-grip-dotted-vertical red" />
                             </h:panelGroup>
                             <p:commandButton widgetVar="btn_salvar" id="btn_salvar" rendered="#{cc.attrs.btn_salvar}" class="btn-menu btnSalvar" update="#{cc.attrs.btn_salvar_update}" title="#{label['salvar']}" icon="fa fa-floppy-o fa-lg " actionListener="#{cc.attrs.acao_salvar}" />
                             <p:commandButton widgetVar="btn_cancelar" id="btn_cancelar"  rendered="#{cc.attrs.btn_cancelar}" update="@form" immediate="true" class="btn-menu btnCancelar" title="#{label['cancelar']}" actionListener="#{cc.attrs.acao_cancelar}" icon="fa fa-ban fa-lg " >
@@ -59,13 +59,13 @@
                             </p:commandButton>
                             <botao:commandButtonAtivarDesativar acao_butao="#{cc.attrs.acao_ativar}" rendered="#{cc.attrs.btn_ativar}" renderizar_btn="#{cc.attrs.tipo_btn_ativo}" id="comBtn" classe="btn-menu" componente_to_update="@(form)" />
                             <h:panelGroup layout="block" rendered="#{cc.attrs.render_sep_2}" class="ui-separator" >
-                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                <span class="ui-icon ui-icon-grip-dotted-vertical red" />
                             </h:panelGroup>
 
                             <p:commandButton rendered="#{cc.attrs.btn_limpar}" update="@form" actionListener="#{cc.attrs.acao_limpar}" class="btn-menu btnLimpar" title="#{label.limpar}" immediate="true" icon="fa fa-refresh fa-lg " />
                             <p:commandButton rendered="#{cc.attrs.btn_imprimir}" actionListener="#{cc.attrs.acao_imprimir}" class="btn-menu btnImprimir" title="#{label.imprimir}" icon="fa fa-print fa-lg "  id="btn_print" oncomplete="popup('/sgpo/RelatorioServlet.pdf')" update="@form"/>
-                            <h:panelGroup layout="block" rendered="#{cc.attrs.render_sep_3}" class="ui-separator" >
-                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                            <h:panelGroup layout="block" rendered="#{cc.attrs.render_sep_3}" class="ui-separator hardblue" >
+                                <span class="ui-icon ui-icon-grip-dotted-vertical hardblue" />
                             </h:panelGroup>
                         </f:facet>
 
