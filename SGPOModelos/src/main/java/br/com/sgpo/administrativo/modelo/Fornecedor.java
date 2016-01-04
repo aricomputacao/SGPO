@@ -51,7 +51,7 @@ public class Fornecedor implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
-    private Endereco endereço;
+    private Endereco endereco;
     
     @Column(name = "for_representante")
     private String representante;
@@ -97,11 +97,11 @@ public class Fornecedor implements Serializable {
     }
 
     public Endereco getEndereço() {
-        return endereço;
+        return endereco;
     }
 
     public void setEndereço(Endereco endereço) {
-        this.endereço = endereço;
+        this.endereco = endereço;
     }
 
     public String getRepresentante() {
