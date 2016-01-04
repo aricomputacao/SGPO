@@ -96,12 +96,12 @@ public class Fornecedor implements Serializable {
         this.celular = StringUtil.formatarTelefone(celular);
     }
 
-    public Endereco getEndereço() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereço(Endereco endereço) {
-        this.endereco = endereço;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public String getRepresentante() {
