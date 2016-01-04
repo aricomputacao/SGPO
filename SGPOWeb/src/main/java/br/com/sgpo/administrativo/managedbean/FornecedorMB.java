@@ -60,10 +60,10 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
             if (fornecedor == null) {
                 fornecedor = new Fornecedor();
                 unidadeFederativa = new UnidadeFederativa();
-                fornecedor.setEndereço(new Endereco());
+                fornecedor.setEndereco(new Endereco());
                 
             } else {
-                unidadeFederativa = fornecedor.getEndereço().getUnidadeFederativa();
+                unidadeFederativa = fornecedor.getEndereco().getUnidadeFederativa();
                 consultarMuncipioPorUf();
             }
             listaDeFornecedor = new ArrayList<>();

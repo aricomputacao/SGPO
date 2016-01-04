@@ -33,9 +33,9 @@ public class FornecedorController extends ControllerGenerico<Fornecedor, Long> i
     }
     
     public void salvar(Fornecedor fr) throws Exception{
-        fr.setEndereço(enderecoController.buscarOuCriarLogradouroPor(fr.getEndereço().getAbreviacaoUnidadeFederativa(), fr.getEndereço().getNomeDaCidade(),
-               fr.getEndereço().getCep(), fr.getEndereço().getNome(), fr.getEndereço().getBairro(),fr.getEndereço().getNumero(),
-               fr.getEndereço().getComplemento()));
+        fr.setEndereco(enderecoController.buscarOuCriarLogradouroPor(fr.getEndereco().getAbreviacaoUnidadeFederativa(), fr.getEndereco().getNomeDaCidade(),
+               fr.getEndereco().getCep(), fr.getEndereco().getNome(), fr.getEndereco().getBairro(),fr.getEndereco().getNumero(),
+               fr.getEndereco().getComplemento()));
         dao.atualizar(fr); 
     }
     
