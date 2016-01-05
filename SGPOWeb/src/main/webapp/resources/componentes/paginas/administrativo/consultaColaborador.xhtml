@@ -28,7 +28,7 @@
         </p:fieldset>
         <p:fieldset>
             <p:dataTable value="#{colaboradorMB.listaDeColaborador}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="c" rows="10"
-                         rowStyleClass="#{p.ativo ? (empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') : (empty rowIx or rowIx mod 2 ne 0 ? 'linha-desativada-even-row' : 'linha-desativada-odd-row')  }"
+                         rowStyleClass="#{c.ativo ? (empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') : (empty rowIx or rowIx mod 2 ne 0 ? 'linha-desativada-even-row' : 'linha-desativada-odd-row')  }"
                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  reflow="true">
