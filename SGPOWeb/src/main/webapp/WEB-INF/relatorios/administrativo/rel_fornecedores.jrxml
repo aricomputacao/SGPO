@@ -18,9 +18,6 @@
 	<field name="email" class="java.lang.String">
 		<fieldDescription><![CDATA[email]]></fieldDescription>
 	</field>
-	<field name="endereço" class="br.com.sgpo.administrativo.modelo.Endereco">
-		<fieldDescription><![CDATA[endereço]]></fieldDescription>
-	</field>
 	<field name="nome" class="java.lang.String">
 		<fieldDescription><![CDATA[nome]]></fieldDescription>
 	</field>
@@ -29,6 +26,9 @@
 	</field>
 	<field name="telefone" class="java.lang.String">
 		<fieldDescription><![CDATA[telefone]]></fieldDescription>
+	</field>
+	<field name="endereco" class="br.com.sgpo.administrativo.modelo.Endereco">
+		<fieldDescription><![CDATA[endereco]]></fieldDescription>
 	</field>
 	<title>
 		<band height="56" splitType="Stretch">
@@ -86,8 +86,9 @@
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="308" y="0" width="100" height="20" uuid="37152130-f5be-4d1b-b302-af0ec7d5fa95"/>
-				<textFieldExpression><![CDATA[$F{endereço}.getNome()]]></textFieldExpression>
+				<reportElement x="308" y="0" width="247" height="20" uuid="9dc3ded3-852c-4ccd-8d84-bf6552ee744f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{endereco}.toString()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -33,22 +33,22 @@
 
         <panels:panel  titulo="#{label.endereco}" id="pnlEndereco">
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
-                <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{fornecedorMB.fornecedor.endereço.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
+                <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{fornecedorMB.fornecedor.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
                 <inputs:selectOneLabel  inp_valor="#{fornecedorMB.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"
                                         sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:selOne" 
                                         ajax_listener="#{fornecedorMB.consultarMuncipioPorUf()}" >
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{fornecedorMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>
                 </inputs:selectOneLabel>
-                <inputs:selectOneLabel  inp_valor="#{fornecedorMB.fornecedor.endereço.municipio}" id="sel_mun" lab_valor="#{label.municipio}" 
+                <inputs:selectOneLabel  inp_valor="#{fornecedorMB.fornecedor.endereco.municipio}" id="sel_mun" lab_valor="#{label.municipio}" 
                                         sel_converter="indexConverter" inp_class_tamanho="20"  >
                     <f:selectItems value="#{fornecedorMB.listaDeMunicpios}" var="mu" itemLabel="#{mu.nome}" itemValue="#{mu}"/>
                 </inputs:selectOneLabel>
                
-                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereço.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="50" />
-                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereço.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
-                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereço.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="20" />
-                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereço.complemento}" lab_valor="#{label.complemento}"  inp_class_tamanho="80" />
+                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereco.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="20" />
+                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereco.complemento}" lab_valor="#{label.complemento}"  inp_class_tamanho="80" />
             </h:panelGroup>
         </panels:panel>
 
