@@ -30,8 +30,6 @@ import javax.inject.Inject;
  *
  * @author Ari
  */
-
-
 @ApplicationScoped
 @Named
 public class ConfiguracaoSistemaMB implements Serializable {
@@ -42,33 +40,14 @@ public class ConfiguracaoSistemaMB implements Serializable {
 
     @PostConstruct
     public void init() {
-        
-        criarModulos();
+
+        moduloController.criarModulos();
         addArquivosLogo();
     }
 
     public String getDiretorioReal(String diretorio) {
         return FacesContext.getCurrentInstance().getExternalContext().getRealPath(diretorio);
 
-    }
-
-    private void criarModulos() {
-        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.modulos");
-        Enumeration<String> modulos = bundle.getKeys();
-        while (modulos.hasMoreElements()) {
-            String string = modulos.nextElement();
-            String nome = bundle.getString(string);
-            try {
-                if (!moduloController.existeModulo(nome)) {
-                    Modulo m = new Modulo();
-                    m.setNome(nome);
-                    moduloController.salvar(m);
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
     }
 
     private void addArquivosLogo() {
@@ -95,7 +74,5 @@ public class ConfiguracaoSistemaMB implements Serializable {
     public String getParaCarregarNoLogin() {
         return paraCarregarNoLogin;
     }
-
-    
 
 }
