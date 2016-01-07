@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="sgpo_pu" transaction-type="JTA">
-        <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
-  
-      <!--<jta-data-source>java:jboss/datasources/sgpo</jta-data-source>-->
+    <!--<jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>-->
+    <jta-data-source>java:jboss/datasources/sgpo</jta-data-source>
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>br.com.sgpo.administrativo.modelo.Cargo</class>
     <class>br.com.sgpo.administrativo.modelo.Cliente</class>
@@ -19,6 +18,7 @@
     <class>br.com.sgpo.financeiro.modelo.ItemCotacao</class>
     <class>br.com.sgpo.seguranca.modelo.Modulo</class>
     <class>br.com.sgpo.administrativo.modelo.Evento</class>
+    <class>br.com.sgpo.seguranca.modelo.Usuario</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->
