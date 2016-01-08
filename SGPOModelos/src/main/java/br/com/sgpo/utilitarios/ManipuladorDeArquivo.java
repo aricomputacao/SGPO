@@ -25,9 +25,16 @@ public class ManipuladorDeArquivo {
     public static final String PATH_WINDOWS = "C:" + File.separator;
     public static final String PATH_LINUX = "/" + File.separator;
     public static final String PASTA_LOGOS = "logos" + File.separator;
-//    public static final String PASTA_NOTIFICACOES = "notificacoes" + SEPARADOR;
-//    public static final String PATH_FILES = "pecas" + SEPARADOR + "documentos";
 
+    
+      public static String getDiretorioLogos(){
+        if (ehLinux()) {
+            return PATH_LINUX+PASTA_LOGOS;
+        }else{
+            return PATH_WINDOWS+PASTA_LOGOS;
+        }
+    }
+    
     private static boolean ehLinux() {
         String os = System.getProperties().getProperty("os.name").toLowerCase();
         if (os.contains("windows")) {
