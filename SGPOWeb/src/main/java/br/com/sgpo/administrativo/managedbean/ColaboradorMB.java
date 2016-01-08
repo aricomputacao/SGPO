@@ -106,7 +106,7 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
     protected Map<String, Object> getCampo() {
         Map<String, Object> map = new HashMap<>();
         map.put("Nome", "nome");
-        map.put("Cpf", "cpf");
+        map.put("CPF", "cpf");
         return map;
     }
     

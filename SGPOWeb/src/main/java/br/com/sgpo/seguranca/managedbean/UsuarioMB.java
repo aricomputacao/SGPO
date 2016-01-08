@@ -14,6 +14,7 @@ import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,7 +30,7 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class UsuarioMB extends BeanGenerico implements Serializable{
+public class UsuarioMB extends BeanGenerico implements Serializable {
 
     @Inject
     private UtilitarioNavegacaoMB navegacaoMB;
@@ -37,12 +38,10 @@ public class UsuarioMB extends BeanGenerico implements Serializable{
     private UsuarioController usuarioController;
     @Inject
     private ColaboradorController colaboradorController;
-    
     private List<Usuario> listaUsuarios;
-    private List<Colaborador> listaColaborador;
-    
     private Usuario usuario;
     
+
     @PostConstruct
     @Override
     public void init() {
@@ -52,13 +51,12 @@ public class UsuarioMB extends BeanGenerico implements Serializable{
             usuario.setAtivo(true);
         }
         listaUsuarios = new ArrayList<>();
-        listaColaborador = new ArrayList<>();
+        criarListaDeCamposDaConsulta();
     }
-    
-    
-    public void salvar(){
+
+    public void salvar() {
         try {
-            usuarioController.salvarouAtualizar(usuario);
+            usuarioController.salvar(usuario);
             init();
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
@@ -66,21 +64,24 @@ public class UsuarioMB extends BeanGenerico implements Serializable{
             Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void setarColaborador(Colaborador c){
-        usuario.setColaborador(c);
-    }
-    
-    public void consultarFornecedor(){
+
+    public void ativarOuDesativarUsuario(Usuario u) {
         try {
-            listaColaborador = colaboradorController.consultarLike(getCampoConsuta(), getValorCampoConsuta());
+            usuarioController.ativarOuDesativar(u);
+            MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_ATUALIZADO, usuario.getLogin());
         } catch (Exception ex) {
+            MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_FALHA, usuario.getLogin());
             Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    public void consultarUsuarios(){
+
+   
+
+    public void setarColaborador(Colaborador c) {
+        usuario.setColaborador(c);
+    }
+
+    public void consultarUsuarios() {
         try {
             listaUsuarios = usuarioController.consultarLike(getCampoConsuta(), getValorCampoConsuta());
         } catch (Exception ex) {
@@ -90,15 +91,14 @@ public class UsuarioMB extends BeanGenerico implements Serializable{
 
     @Override
     protected Map<String, Object> getCampo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("Nome", "colaborador.nome");
+       
+        return map;
     }
 
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
-    }
-
-    public List<Colaborador> getListaColaborador() {
-        return listaColaborador;
     }
 
     public Usuario getUsuario() {
@@ -108,6 +108,5 @@ public class UsuarioMB extends BeanGenerico implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
+
 }

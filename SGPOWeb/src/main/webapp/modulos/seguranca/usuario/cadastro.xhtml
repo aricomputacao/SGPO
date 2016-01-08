@@ -13,11 +13,10 @@
     <ui:define name="corpo">
 
         <h:form id="frm_cad" prependId="false" >
-            <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
-                                     acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
-
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{usuarioMB.init()}" 
+                                     acao_excluir="#{usuarioMB.init()}" btn_excluir="false"  acao_salvar="#{usuarioMB.salvar()}" 
                                      btn_limpar="true" cabecalho="#{label.cadastro} #{label.usuario}" btn_imprimir="false" btn_ativar="false"
-                                     btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{clienteMB.init()}" >
+                                     btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{usuarioMB.init()}" >
                 <usr:cadastroUsuario id="compCadastro"/>
             </componentes:panelPadrao>
         </h:form>

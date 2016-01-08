@@ -17,10 +17,9 @@
             <h:panelGroup layout="block" class="Container100 Responsive">
                 <inputs:input_label_btn_click id="inputCol" inp_valor="#{usuarioMB.usuario.colaborador.nome}" lab_valor="#{label.colaborador}" 
                                               btn_onclick="PF('dialogColaborador').show()" btn_immediate="true" btn_update="@(form)" inp_require="true"  
-                                              btn_titulo="#{label.colaborador}" inp_readonly="true" inp_class_tamanho="40"/>
+                                              btn_titulo="#{label.colaborador}" inp_readonly="true" inp_class_tamanho="80"/>
                 
-                <inputs:input_label id="inpNom" inp_class_tamanho="60" inp_require="true" inp_valor="#{cargoMB.cargo.nome}" lab_valor="#{label.nome}"/>
-                <inputs:input_label id="inpAbr" inp_class_tamanho="40" inp_valor="#{cargoMB.cargo.descricao}" lab_valor="#{label.descricao}"/>
+                <inputs:input_label id="inpLog" inp_class_tamanho="60" inp_require="true" inp_valor="#{usuarioMB.usuario.login}" lab_valor="#{label.login}"/>
             </h:panelGroup>
         </p:fieldset>
     </composite:implementation>

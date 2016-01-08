@@ -9,6 +9,7 @@ import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.DAOGenerico;
 import java.io.Serializable;
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -19,6 +20,13 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> implements Serializab
     
     public UsuarioDAO() {
         super(Usuario.class);
+    }
+
+    public Usuario usuarioLogin(String usr) {
+        TypedQuery<Usuario> tq;
+        tq = getEm().createQuery("SELECT u FROM Usuario u WHERE u.login = :log AND u.ativo = true", Usuario.class)
+                .setParameter("log", usr);
+        return tq.getResultList().isEmpty() ? new Usuario() : tq.getSingleResult();
     }
     
 }

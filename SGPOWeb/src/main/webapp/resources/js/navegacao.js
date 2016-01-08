@@ -43,6 +43,8 @@ var setarFocu = function (id) {
 
 
 
+
+
 function setee(div) {
 
 //    var todosPacientes = document.getElementById("tabela");

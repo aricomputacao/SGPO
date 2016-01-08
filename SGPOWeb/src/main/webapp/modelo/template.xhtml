@@ -3,6 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:util="http://xmlns.jcp.org/jsf/composite/componentes/util"
       xmlns:p="http://primefaces.org/ui">
     <f:view locale="#{localeController.currentLocale}"  contentType="text/html; charset=UTF-8" encoding="UTF-8">
         <h:head>
@@ -44,18 +45,8 @@
                         <ui:insert name="dialog">
 
                         </ui:insert>
-                        <p:dialog id="dialogIdioma" header="#{label.configuracao_idioma}" widgetVar="dialogIdioma" showEffect="fade" class="Container Responsive"   >
-                            <h:form>
-                                <p:commandLink actionListener="#{localeController.portugueseLocale()}"  update="@(form)" immediate="true">
-                                    <p:graphicImage library="images"  name="bra.jpg" width="95" height="95"/>
-                                </p:commandLink>
-                                <p:commandLink actionListener="#{localeController.englishLocale()}" update="@(form)"  immediate="true">
-                                    <p:graphicImage library="images"  name="usa.jpg" width="100" height="100" />
-                                </p:commandLink>
-                            </h:form>
-
-                        </p:dialog>
-
+                        <util:dialogIdioma/>
+                        <util:dialogAlterarSenha id="compAltSen"/>
                     </div>
                 </div>
                 <ui:insert name="confirme">
