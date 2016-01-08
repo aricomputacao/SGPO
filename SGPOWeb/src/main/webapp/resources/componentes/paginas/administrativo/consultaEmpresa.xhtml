@@ -33,8 +33,10 @@
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  reflow="true">
 
-                <p:column width="5%">
-                    <p:rowToggler  />
+                <p:column width="5%" headerText="#{label.logo}">
+                    <div class="BordRad15 TexAlCenter MarAuto" style="border: #adadad solid 1px ;border-radius: 60px;background: #f2ecfd" >
+                        <p:graphicImage library="images" width="42" height="42" class=" BordRad15 MarTop5 border-radius: 60px;"    name="#{p.nome.toLowerCase()}.png"  />
+                    </div>
                 </p:column>
                 <p:column headerText="#{label.documento}">
                     <componentes:outputText value="#{p.cnpj}"/>
@@ -42,16 +44,12 @@
                 <p:column headerText="#{label.nome}">
                     <componentes:outputText value="#{p.nome}"/>
                 </p:column>
-                <p:rowExpansion>
-                    <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
-                        <p:graphicImage library="images"   name="#{p.nome.toLowerCase()}.png"/>
-                    </p:panelGrid>
-                </p:rowExpansion>
+
                 <p:column headerText="#{label.acao}" width="10%">
                     <composite:insertChildren/>
                     <botao:commandButton_editar rendered="#{cc.attrs.render_edit}" acao_butao="#{empresaMB.escreverRegistroNasessaoNavegarParaEditar(p,administrativo.empresa_cadastro,'empresa')}" componente_to_update="@(form)" renderizar_btn="true" />
 
-                  
+
                 </p:column>
             </p:dataTable>
         </p:fieldset>

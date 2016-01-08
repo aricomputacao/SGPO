@@ -71,29 +71,34 @@ public class UsuarioController extends ControllerGenerico<Usuario, Long> impleme
     }
 
     public void criarUsuarioAdministrado() throws Exception {
-        Cargo cargo = new Cargo();
-        cargo.setDescricao("Administrador do Sistema");
-        cargo.setNome("Administrador do Sistema");
-        cargo.setTipoCargo(TipoCargo.OUTRO);
-        cargo = cargoDAO.atualizarGerenciar(cargo);
-        System.out.println("-------------------------------------------Cargo Admin incluido---------------------------------------");
+        Cargo cargo = cargoDAO.buscarPorNome("Administrador do Sistema");
+        if (cargo.getId() == null) {
+            cargo.setDescricao("Administrador do Sistema");
+            cargo.setNome("Administrador do Sistema");
+            cargo.setTipoCargo(TipoCargo.OUTRO);
+            cargo = cargoDAO.atualizarGerenciar(cargo);
+            System.out.println("-------------------------------------------Cargo Admin incluido---------------------------------------");
+        }
 
-        Colaborador col = new Colaborador();
-        col.setAtivo(false);
-        col.setCargo(cargo);
-        col.setCpf("11111111111111");
-        col.setEmail("adm@ss.com");
-        col.setNome("Administrador do Sistema");
-        col = colaboradorDAO.atualizarGerenciar(col);
-        System.out.println("-------------------------------------------Colaborador Admin incluido---------------------------------------");
+        Colaborador col = colaboradorDAO.buscarPorNome("Administrador do Sistema");
+        if (col.getId() == null) {
+            col.setAtivo(false);
+            col.setCargo(cargo);
+            col.setCpf("11111111111111");
+            col.setEmail("adm@ss.com");
+            col.setNome("Administrador do Sistema");
+            col = colaboradorDAO.atualizarGerenciar(col);
+            System.out.println("-------------------------------------------Colaborador Admin incluido---------------------------------------");
+        }
 
-        Usuario usuario = new Usuario();
-        usuario.setColaborador(col);
-        usuario.setAtivo(true);
-        usuario.setLogin("adm");
-        usuario.setSenha("1234");
-        System.out.println("-------------------------------------------Usuário  Admin incluido---------------------------------------");
-
-        dao.atualizar(usuario);
+        Usuario usuario = dao.usuarioLogin("adm");
+        if (usuario.getId() == null) {
+            usuario.setColaborador(col);
+            usuario.setAtivo(true);
+            usuario.setLogin("adm");
+            usuario.setSenha("1234");
+            System.out.println("-------------------------------------------Usuário  Admin incluido---------------------------------------");
+            dao.atualizar(usuario);
+        }
     }
 }

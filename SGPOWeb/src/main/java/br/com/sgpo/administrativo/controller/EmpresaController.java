@@ -46,7 +46,7 @@ public class EmpresaController extends ControllerGenerico<Empresa, Long> impleme
 
     public void addLogo(String nomeDaEmpresa, byte[] conteudo, String diretorioRealLogo) throws IOException {
         //Nome da pasta q salva as imagens no hd
-        String nomeDaPasta = ManipuladorDeArquivo.PATH_LINUX + ManipuladorDeArquivo.PASTA_LOGOS;
+        String nomeDaPasta = ManipuladorDeArquivo.PATH_LINUX + ManipuladorDeArquivo.getDiretorioLogos();
         
         String nomeArquivoComExt = (nomeDaEmpresa + ".png").trim().toLowerCase();
         

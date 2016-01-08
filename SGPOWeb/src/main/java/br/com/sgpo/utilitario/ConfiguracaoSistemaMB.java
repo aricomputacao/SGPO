@@ -8,7 +8,6 @@ package br.com.sgpo.utilitario;
 import br.com.sgpo.administrativo.managedbean.EmpresaMB;
 import br.com.sgpo.seguranca.controller.ModuloController;
 import br.com.sgpo.seguranca.controller.UsuarioController;
-import br.com.sgpo.seguranca.modelo.Modulo;
 import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
 import java.io.File;
 import static java.io.File.separator;
@@ -16,9 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -59,7 +56,7 @@ public class ConfiguracaoSistemaMB implements Serializable {
     }
 
     private void addArquivosLogo() {
-        List<File> listaDeArquivosDaPasta = ManipuladorDeArquivo.listaDeArquivosDaPasta(ManipuladorDeArquivo.PASTA_LOGOS);
+        List<File> listaDeArquivosDaPasta = ManipuladorDeArquivo.listaDeArquivosDaPasta(ManipuladorDeArquivo.getDiretorioLogos());
 
         try {
             for (File file : listaDeArquivosDaPasta) {

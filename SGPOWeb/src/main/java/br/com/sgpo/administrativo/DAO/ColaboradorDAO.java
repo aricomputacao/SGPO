@@ -9,6 +9,7 @@ import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.utilitario.DAOGenerico;
 import java.io.Serializable;
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -20,5 +21,14 @@ public class ColaboradorDAO extends DAOGenerico<Colaborador, Long> implements Se
     public ColaboradorDAO() {
         super(Colaborador.class);
     }
+
+    public Colaborador buscarPorNome(String nome) {
+         TypedQuery<Colaborador> tq;
+        tq = getEm().createQuery("SELECT c FROM Colaborador c WHERE c.nome = :nome", Colaborador.class)
+                .setParameter("nome", nome);
+        
+        return tq.getResultList().isEmpty() ? new Colaborador() : tq.getSingleResult();
+    }
     
+     
 }
