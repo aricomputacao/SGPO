@@ -11,11 +11,9 @@ import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import br.com.sgpo.utilitarios.CriptografiaSenha;
 import java.io.Serializable;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -42,14 +40,10 @@ public class UtilitarioNavegacaoMB implements Serializable {
 
     @PostConstruct
     public void init() {
-        if (!getContexto().getRemoteUser().equals("adm")) {
-
-            usuarioLogado = usuarioController.usuarioLogin(getContexto().getRemoteUser());
-            if (usuarioLogado.getId() == null) {
-                logout();
-            }
+        usuarioLogado = usuarioController.usuarioLogin(getContexto().getRemoteUser());
+        if (usuarioLogado.getId() == null) {
+            logout();
         }
-
     }
 
     public void alterarSenha() {

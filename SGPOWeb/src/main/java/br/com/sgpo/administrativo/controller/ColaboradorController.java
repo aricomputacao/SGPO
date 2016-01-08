@@ -39,4 +39,5 @@ public class ColaboradorController extends ControllerGenerico<Colaborador, Long>
        dao.atualizar(col);    
     }
     
+    
 }

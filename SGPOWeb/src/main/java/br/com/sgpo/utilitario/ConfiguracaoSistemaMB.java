@@ -7,6 +7,7 @@ package br.com.sgpo.utilitario;
 
 import br.com.sgpo.administrativo.managedbean.EmpresaMB;
 import br.com.sgpo.seguranca.controller.ModuloController;
+import br.com.sgpo.seguranca.controller.UsuarioController;
 import br.com.sgpo.seguranca.modelo.Modulo;
 import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
 import java.io.File;
@@ -36,13 +37,20 @@ public class ConfiguracaoSistemaMB implements Serializable {
 
     @Inject
     private ModuloController moduloController;
+    @Inject
+    private UsuarioController usuarioController;
     private final String paraCarregarNoLogin = "Identificação do Usuário";
 
     @PostConstruct
     public void init() {
 
-        moduloController.criarModulos();
-        addArquivosLogo();
+        try {
+            usuarioController.criarUsuarioAdministrado();
+            moduloController.criarModulos();
+            addArquivosLogo();
+        } catch (Exception ex) {
+            Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getDiretorioReal(String diretorio) {
