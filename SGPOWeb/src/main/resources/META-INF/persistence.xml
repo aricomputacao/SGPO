@@ -19,6 +19,8 @@
     <class>br.com.sgpo.seguranca.modelo.Modulo</class>
     <class>br.com.sgpo.administrativo.modelo.Evento</class>
     <class>br.com.sgpo.seguranca.modelo.Usuario</class>
+    <class>br.com.sgpo.seguranca.modelo.Tarefa</class>
+    <class>br.com.sgpo.seguranca.modelo.Permissao</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

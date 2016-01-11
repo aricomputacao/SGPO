@@ -5,12 +5,17 @@
  */
 package br.com.sgpo.utilitario;
 
+import br.com.sgpo.seguranca.controller.PermissaoController;
 import br.com.sgpo.seguranca.controller.UsuarioController;
 import br.com.sgpo.seguranca.managedbean.UsuarioMB;
+import br.com.sgpo.seguranca.modelo.Permissao;
 import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import br.com.sgpo.utilitarios.CriptografiaSenha;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -33,16 +38,103 @@ public class UtilitarioNavegacaoMB implements Serializable {
 
     @Inject
     private UsuarioController usuarioController;
+    @Inject
+    private PermissaoController permissaoController;
     private Usuario usuarioLogado;
+    private List<Permissao> listaDePermissaoDoUsuario;
+    private final Map<String, Permissao> menu;
+
     private String senhaAtual;
     private String novaSenha;
     private String confirmaSenha;
 
+    public UtilitarioNavegacaoMB() {
+        menu = new HashMap<>();
+    }
+
     @PostConstruct
     public void init() {
-        usuarioLogado = usuarioController.usuarioLogin(getContexto().getRemoteUser());
-        if (usuarioLogado.getId() == null) {
-            logout();
+        try {
+            usuarioLogado = usuarioController.usuarioLogin(getContexto().getRemoteUser());
+            if (usuarioLogado.getId() == null) {
+                logout();
+            } else {
+                listaDePermissaoDoUsuario = permissaoController.consultarTodos("id", "usuario.colaborador.nome", getUsuarioLogado().getNomeDoColaborador());
+                popularMenu();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UtilitarioNavegacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void popularMenu() {
+        for (Permissao p : listaDePermissaoDoUsuario) {
+            menu.put(p.getTarefa().getDescricao(), p);
+        }
+    }
+
+    public boolean permissaoExiste(String tarNome) {
+        if (menu.containsKey(tarNome)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+
+    public boolean existePermissaoModuloAdministrativo() {
+        for (Permissao p : listaDePermissaoDoUsuario) {
+            if (p.getTarefa().getModulo().getNome().equals("ADMINISTRATIVO")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean existePermissaoModuloSeguranca() {
+        for (Permissao p : listaDePermissaoDoUsuario) {
+            if (p.getTarefa().getModulo().getNome().equals("SEGURANÇA")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param tarNome
+     * @return
+     */
+    public boolean permissaoIncluir(String tarNome) {
+        if (menu.containsKey(tarNome)) {
+            return menu.get(tarNome).isIncluir();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean permissaoConsultar(String tarNome) {
+        if (menu.containsKey(tarNome)) {
+            return menu.get(tarNome).isConsultar();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean permissaoEditar(String tarNome) {
+        if (menu.containsKey(tarNome)) {
+            return menu.get(tarNome).isEditar();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean permissaoExcluir(String tarNome) {
+        if (menu.containsKey(tarNome)) {
+            return menu.get(tarNome).isExcluir();
+        } else {
+            return false;
         }
     }
 

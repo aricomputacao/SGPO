@@ -56,4 +56,8 @@ public class ModuloController extends ControllerGenerico<Modulo, Long> implement
 
         }
     }
+    
+    public Modulo pegarModuloPor(String nome){
+        return dao.pegarModuloPor(nome);
+    }
 }

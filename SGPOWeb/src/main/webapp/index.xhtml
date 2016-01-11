@@ -16,7 +16,7 @@
     <ui:define name="corpo">
         <div class="Container100">
             <p:tabView class="ContainerIndent Responsive tabView-inicio" id="tabView">
-                <p:tab id="tabDash" title="#{label.dados}" class=" Responsive">
+                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.inicio)}" id="tabDash" title="#{label.dados}" class=" Responsive">
                     <h:form id="frm_dash"  prependId="false" >
                         <util:dadosInicial id="compDadosPro"/>
                     </h:form>

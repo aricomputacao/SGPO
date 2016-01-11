@@ -28,4 +28,13 @@ public class ModuloDAO extends DAOGenerico<Modulo, Long> implements Serializable
                 .setParameter("nome", nome);
         return !q.getResultList().isEmpty();
     }
+    
+    public Modulo pegarModuloPor(String nome) {
+        TypedQuery<Modulo> q;
+        q = getEm().createQuery("SELECT m from Modulo m WHERE m.nome = :nome", Modulo.class)
+                .setParameter("nome", nome);
+        return q.getResultList().isEmpty() ? new Modulo() : q.getSingleResult();
+    }
+    
+    
 }
