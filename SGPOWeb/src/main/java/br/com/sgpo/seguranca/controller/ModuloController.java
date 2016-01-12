@@ -23,41 +23,37 @@ import javax.inject.Inject;
  * @author ari
  */
 @Stateless
-public class ModuloController extends ControllerGenerico<Modulo, Long> implements Serializable{
+public class ModuloController extends ControllerGenerico<Modulo, Long> implements Serializable {
 
     @Inject
     private ModuloDAO dao;
-    
+
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
-    
-    public boolean existeModulo(String nome){
+
+    public boolean existeModulo(String nome) {
         return dao.existeModulo(nome);
     }
-    
-    public void criarModulos() {
+
+    public void criarModulos() throws Exception {
         ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.modulos");
         Enumeration<String> modulos = bundle.getKeys();
         while (modulos.hasMoreElements()) {
             String string = modulos.nextElement();
             String nome = bundle.getString(string);
-            try {
-                if (!existeModulo(nome)) {
-                    Modulo m = new Modulo();
-                    m.setNome(nome);
-                    salvar(m);
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
+            if (!existeModulo(nome)) {
+                Modulo m = new Modulo();
+                m.setNome(nome);
+                salvar(m);
             }
 
         }
     }
-    
-    public Modulo pegarModuloPor(String nome){
+
+    public Modulo pegarModuloPor(String nome) {
         return dao.pegarModuloPor(nome);
     }
 }

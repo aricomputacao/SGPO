@@ -46,12 +46,12 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
         }
     }
 
-    public void criarTarefas() {
+    public void criarTarefas() throws Exception {
         criarTarefaModSeguranca();
         criarTarefaModAdministrativo();
     }
 
-    private void criarTarefaModSeguranca() {
+    private void criarTarefaModSeguranca() throws Exception {
         System.out.println("--------------------------------------Criando Tarefas Mod Segurança------------------------------------------");
         ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.seguranca");
         Enumeration<String> tarefa = bundle.getKeys();
@@ -59,7 +59,6 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
             Modulo md = moduloController.pegarModuloPor("SEGURANÇA");
             String nome = tarefa.nextElement();
             String descricao = bundle.getString(nome);
-            try {
                 if (!dao.existeTarefa(nome)) {
                     Tarefa taf = new Tarefa();
                     taf.setModulo(md);
@@ -67,14 +66,12 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
                     taf.setDescricao(descricao);
                     salvar(taf);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
 
         }
     }
 
-    private void criarTarefaModAdministrativo() {
+    private void criarTarefaModAdministrativo() throws Exception {
         System.out.println("--------------------------------------Criando Tarefas Mod Administrativo------------------------------------------");
         ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.administrativo");
         Enumeration<String> tarefa = bundle.getKeys();
@@ -82,7 +79,6 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
             Modulo md = moduloController.pegarModuloPor("ADMINISTRATIVO");
             String nome = tarefa.nextElement();
             String descricao = bundle.getString(nome);
-            try {
                 if (!dao.existeTarefa(nome)) {
                     Tarefa taf = new Tarefa();
                     taf.setModulo(md);
@@ -90,9 +86,6 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
                     taf.setDescricao(descricao);
                     salvar(taf);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(ConfiguracaoSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
         }
     }
