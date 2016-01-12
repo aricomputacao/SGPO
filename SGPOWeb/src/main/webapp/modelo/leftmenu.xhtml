@@ -56,6 +56,10 @@
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(seguranca.usuario_consulta)}"  outcome="#{seguranca.usuario_consulta}"/>
 
                     </p:submenu>
+                    <p:submenu label="#{label.permissao}" icon="icon-cog"   rendered="#{utilitarioNavegacaoMB.permissaoExiste(seguranca.gerenciar_permissao) }">
+                        <p:menuitem value="#{label.gerenciar} #{label.permissao}" icon="icon-wrench-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(seguranca.gerenciar_permissao)}" outcome="#{seguranca.gerenciar_permissao}"/>
+
+                    </p:submenu>
                 </p:submenu>
             </ps:menu>
         </h:form>

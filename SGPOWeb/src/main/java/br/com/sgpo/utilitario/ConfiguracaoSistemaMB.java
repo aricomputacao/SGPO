@@ -65,7 +65,6 @@ public class ConfiguracaoSistemaMB implements Serializable {
 
     private void addArquivosLogo() {
         List<File> listaDeArquivosDaPasta = ManipuladorDeArquivo.listaDeArquivosDaPasta(ManipuladorDeArquivo.getDiretorioLogos());
-
         try {
             for (File file : listaDeArquivosDaPasta) {
                 InputStream is = null;

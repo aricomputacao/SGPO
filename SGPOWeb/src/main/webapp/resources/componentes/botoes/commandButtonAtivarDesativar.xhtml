@@ -21,7 +21,7 @@
         </p:commandButton>
         <p:commandButton icon="fa fa-unlock " class="#{cc.attrs.classe} btnTabDesativar" id="btnAtv"   onmousedown="setee(this)" title="#{label['ativar']}"  
                          rendered="#{not cc.attrs.renderizar_btn}" update="#{cc.attrs.componente_to_update}" actionListener="#{cc.attrs.acao_butao}" >
-            <p:confirm header="#{label.ativacao}" message="#{msg.confirmacao}" icon="fa fa-question-circle fa-lg"  />
+            <p:confirm header="#{label.ativacao}" message="#{msg.confirmacao}" icon="fa fa-question-circle "  />
         </p:commandButton>
     </composite:implementation>
 </ui:composition>

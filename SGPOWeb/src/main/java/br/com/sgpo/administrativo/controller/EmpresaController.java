@@ -45,23 +45,26 @@ public class EmpresaController extends ControllerGenerico<Empresa, Long> impleme
     }
 
     public void addLogo(String nomeDaEmpresa, byte[] conteudo, String diretorioRealLogo) throws IOException {
-        //Nome da pasta q salva as imagens no hd
-        String nomeDaPasta = ManipuladorDeArquivo.PATH_LINUX + ManipuladorDeArquivo.getDiretorioLogos();
-        
-        String nomeArquivoComExt = (nomeDaEmpresa + ".png").trim().toLowerCase();
-        
-        //Remove do local
-        ManipuladorDeArquivo.checarSeExisteExcluir(nomeDaPasta + File.separator + nomeArquivoComExt);
-       
-        //Remove do resource
-        ManipuladorDeArquivo.checarSeExisteExcluir(diretorioRealLogo + File.separator + nomeArquivoComExt);
-       
-        //Grava no local
-        ManipuladorDeArquivo.gravarArquivoLocalmente(nomeDaPasta, nomeArquivoComExt, conteudo);
+        if (conteudo != null) {
 
-        //GRava no resource
-        ManipuladorDeArquivo.gravarArquivoLocalmente(diretorioRealLogo, nomeArquivoComExt, conteudo);
+            //Nome da pasta q salva as imagens no hd
+            String nomeDaPasta = ManipuladorDeArquivo.PATH_LINUX + ManipuladorDeArquivo.getDiretorioLogos();
 
+            String nomeArquivoComExt = (nomeDaEmpresa + ".png").trim().toLowerCase();
+
+            //Remove do local
+            ManipuladorDeArquivo.checarSeExisteExcluir(nomeDaPasta + File.separator + nomeArquivoComExt);
+
+            //Remove do resource
+            ManipuladorDeArquivo.checarSeExisteExcluir(diretorioRealLogo + File.separator + nomeArquivoComExt);
+
+            //Grava no local
+            ManipuladorDeArquivo.gravarArquivoLocalmente(nomeDaPasta, nomeArquivoComExt, conteudo);
+
+            //GRava no resource
+            ManipuladorDeArquivo.gravarArquivoLocalmente(diretorioRealLogo, nomeArquivoComExt, conteudo);
+
+        }
 //        //Joga o arquivo para dentro da pasta da aplicação 
 //        String arq = diretorioRealLogo+separator+nomeArquivoComExt.trim().toLowerCase();
 //        FileOutputStream img = new FileOutputStream(arq);

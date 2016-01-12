@@ -10,6 +10,7 @@ import br.com.sgpo.seguranca.modelo.Permissao;
 import br.com.sgpo.seguranca.modelo.Tarefa;
 import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.ControllerGenerico;
+import groovy.util.PermutationGenerator;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -29,6 +30,7 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
     private TarefaController tarefaController;
     @Inject
     private UsuarioController usuarioController;
+   
 
     @PostConstruct
     @Override
@@ -42,7 +44,7 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
         Usuario usuario = usuarioController.usuarioLogin("adm");
         
         for (Tarefa taf : listaTarefas) {
-            Permissao per = new Permissao();
+            Permissao per = dao.buscarPor(usuario, taf);
             per.setTarefa(taf);
             per.setUsuario(usuario);
             per.setConsultar(true);
@@ -53,6 +55,26 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
             dao.atualizar(per);
         }
 
+    }
+    
+    public List<Permissao> buscarPermissao(Usuario usr){
+        return dao.buscarPor(usr);
+        
+    }
+
+    public void clonarAcessos(Usuario usuarioAlvo, Usuario usuarioClonado) throws Exception {
+        List<Permissao> listaDePermissaos = dao.buscarPor(usuarioClonado);
+        for (Permissao p : listaDePermissaos) {
+            Permissao per = dao.buscarPor(usuarioAlvo,p.getTarefa());
+            per.setConsultar(p.isConsultar());
+            per.setEditar(p.isEditar());
+            per.setExcluir(p.isExcluir());
+            per.setIncluir(p.isIncluir());
+            per.setUsuario(usuarioAlvo);
+            per.setTarefa(p.getTarefa());
+            
+            dao.atualizar(per);
+        }
     }
 
 }

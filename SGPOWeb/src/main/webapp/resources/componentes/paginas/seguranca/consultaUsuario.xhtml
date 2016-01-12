@@ -45,7 +45,7 @@
                     <componentes:outputText value="#{p.colaborador.email}"/>
                 </p:column>
                 
-                <p:column headerText="#{label.acao}" width="10%">
+                <p:column headerText="#{label.acao}" width="10%" class="TexAlCenter">
                     <botao:commandButton_editar rendered="#{cc.attrs.render_edit}" acao_butao="#{usuarioMB.escreverRegistroNasessaoNavegarParaEditar(p,seguranca.usuario_cadastro,'usuario')}" componente_to_update="@(form)" renderizar_btn="true" />
                     <composite:insertChildren/>
 

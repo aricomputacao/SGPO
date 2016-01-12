@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:usr="http://xmlns.jcp.org/jsf/composite/componentes/paginas/seguranca"
+
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+
+        <h:form id="frm_cad" prependId="false" >
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{gerenciarPermissaoMB.init()}" 
+                                     acao_excluir="#{gerenciarPermissaoMB.init()}" btn_excluir="false"  acao_salvar="#{usuarioMB.salvar()}" 
+                                     btn_limpar="true" cabecalho="#{label.gerenciar} #{label.permissao_usuario} " btn_imprimir="false" btn_ativar="false"
+                                     btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{gerenciarPermissaoMB.init()}" >
+                <usr:gerenciarPermissao id="compCadastro" />
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog" id="dialogs">
+        <p:dialog showEffect="fade" position="center center"   header="#{label.usuario}" id="dialogoAssinat" modal="true" hideEffect="fade" widgetVar="dialogUsuario">
+            <h:form id="frm_usr" >
+                <usr:consultaUsuario id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{gerenciarPermissaoMB.setarUsuario(p)}" icon="fa fa-check-square-o" update="@(form)" onclick="PF('dialogUsuario').hide()" />
+                </usr:consultaUsuario>
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center"   header="#{label.permissao}" id="dialogPermissao" modal="true" hideEffect="fade" widgetVar="dialogPermissao">
+            <h:form prependId="false" id="frm_permissao" >
+                <p:commandButton value="#{label.atualizar} #{label.permissao}" class="ContainerIndent Responsive" icon="fa fa-refresh" actionListener="#{gerenciarPermissaoMB.salvar()}" update=":frm_cad" />
+                <div class="EmptyBox20 MarTop10 Container100" />
+                <p:panelGrid columns="2" layout="grid" columnClasses="label,value"  id="grd_per" >
+                    <h:outputText value="Incluir: "/>
+                    <p:selectBooleanCheckbox value="#{gerenciarPermissaoMB.permissao.incluir}"/>
+                    <h:outputText value="Excluir: "/>
+                    <p:selectBooleanCheckbox value="#{gerenciarPermissaoMB.permissao.excluir}"/>
+                    <h:outputText value="Editar: "/>
+                    <p:selectBooleanCheckbox value="#{gerenciarPermissaoMB.permissao.editar}"/> 
+                    <h:outputText value="Consulta: "/>
+                    <p:selectBooleanCheckbox value="#{gerenciarPermissaoMB.permissao.consultar}"/>
+                </p:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>
+
