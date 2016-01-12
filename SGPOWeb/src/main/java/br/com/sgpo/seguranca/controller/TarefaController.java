@@ -53,7 +53,7 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
 
     private void criarTarefaModSeguranca() throws Exception {
         System.out.println("--------------------------------------Criando Tarefas Mod Segurança------------------------------------------");
-        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.seguranca");
+        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sisdelta.arquivos.seguranca");
         Enumeration<String> tarefa = bundle.getKeys();
         while (tarefa.hasMoreElements()) {
             Modulo md = moduloController.pegarModuloPor("SEGURANÇA");
