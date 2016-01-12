@@ -6,20 +6,27 @@
 package br.com.sgpo.seguranca.modelo;
 
 import br.com.sgpo.administrativo.modelo.Colaborador;
+import br.com.sgpo.administrativo.modelo.Empresa;
 import br.com.sgpo.utilitarios.CriptografiaSenha;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -42,19 +49,23 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "col_id", referencedColumnName = "col_id", nullable = false)
     private Colaborador colaborador;
 
-    
     @Length(min = 6)
     @NotBlank
-    @Column(name = "usr_senha",nullable = false,length = 512)
+    @Column(name = "usr_senha", nullable = false, length = 512)
     private String senha;
-    
+
     @NotBlank
-    @Column(name = "usr_login",nullable = false,length = 512,unique = true)
+    @Column(name = "usr_login", nullable = false, length = 512, unique = true)
     private String login;
-    
+
     @NotNull
-    @Column(name = "usr_ativo",nullable = false)
-    private boolean  ativo;
+    @Column(name = "usr_ativo", nullable = false)
+    private boolean ativo;
+
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private List<Empresa> empresas;
 
     public Long getId() {
         return id;
@@ -62,6 +73,24 @@ public class Usuario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Empresa> getEmpresas() {
+        return Collections.unmodifiableList(empresas);
+    }
+
+    public void setEmpresas(List<Empresa> empresas) {
+        this.empresas = empresas;
+    }
+
+    public void addEmpresa(Empresa empresa) {
+        empresas.add(empresa);
+    }
+
+    public void removerEmpresa(Empresa empresa) {
+        if (empresas.contains(empresa)) {
+            empresas.remove(empresa);
+        }
     }
 
     public Colaborador getColaborador() {
@@ -95,10 +124,13 @@ public class Usuario implements Serializable {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
-    
-    public String getNomeDoColaborador(){
-        return this.colaborador.getNome();
+
+    public String getNomeDoColaborador() {
+        if (this.colaborador != null) {
+
+            return this.colaborador.getNome();
+        }
+        return "";
     }
 
     @Override
@@ -125,8 +157,5 @@ public class Usuario implements Serializable {
         }
         return true;
     }
-    
-    
-    
-    
+
 }

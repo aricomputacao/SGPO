@@ -131,7 +131,7 @@ public class ManipuladorDeArquivo {
     }
 
     public static List<File> listaDeArquivosDaPasta(String pasta) {
-        String relativo = retornaDiretorioDoSistemaOperacional() + pasta;
+        String relativo =  pasta;
         File f = new File(relativo);
         if (f.exists()) {
             return Arrays.asList(f.listFiles());
