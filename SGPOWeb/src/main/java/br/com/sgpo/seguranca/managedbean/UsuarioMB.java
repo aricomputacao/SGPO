@@ -33,11 +33,8 @@ import javax.inject.Named;
 public class UsuarioMB extends BeanGenerico implements Serializable {
 
     @Inject
-    private UtilitarioNavegacaoMB navegacaoMB;
-    @Inject
     private UsuarioController usuarioController;
-    @Inject
-    private ColaboradorController colaboradorController;
+   
     private List<Usuario> listaUsuarios;
     private Usuario usuario;
     
