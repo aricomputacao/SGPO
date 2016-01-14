@@ -60,10 +60,10 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
         List<TarefaPermissaoDTO> listDTO = new ArrayList<>();
         //roda todas as taredas 
         for (Tarefa taf : tarefas) {
+            contem = false;
             TarefaPermissaoDTO dto = new TarefaPermissaoDTO();
             //roda para saber se tem as taredas nas permissões
             for (Permissao per : permissoes) {
-                contem = false;
                 if (per.getTarefa().equals(taf)) {
                     dto.setTarefa(taf);
                     dto.setConsultar(per.isConsultar());
@@ -73,9 +73,10 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
 
                     listDTO.add(dto);
                     contem = true;
+                    break;
                 }
             }
-            
+
             if (!contem) {
                 dto.setTarefa(taf);
                 listDTO.add(dto);

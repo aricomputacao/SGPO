@@ -81,6 +81,7 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
         try {
             permissaoController.salvarouAtualizar(permissao);
             listaDePermissao = permissaoController.buscarPermissao(usuario);
+            consultarTarefasPorModulos();
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -90,9 +91,11 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
 
     public void incluirPermissao() {
         try {
-           listaDePermissao.add(permissaoController.incluirPermissao(tarefaPermissaoDTO, usuario));
+            permissao = permissaoController.incluirPermissao(tarefaPermissaoDTO, usuario);
+            listaDePermissao.remove(permissao);
+            listaDePermissao.add(permissao);
             tarefaPermissaoDTO = new TarefaPermissaoDTO();
-            
+            permissao = new Permissao();
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -103,6 +106,8 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
     public void clonarPermissoes(Usuario u) {
         try {
             permissaoController.clonarAcessos(usuario, u);
+            listaDePermissao = permissaoController.buscarPermissao(usuario);
+            
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -138,9 +143,9 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
         }
 
     }
-    
-    public void setaTarefaPermissao(TarefaPermissaoDTO t){
-        tarefaPermissaoDTO =t;
+
+    public void setaTarefaPermissao(TarefaPermissaoDTO t) {
+        tarefaPermissaoDTO = t;
     }
 
     public void addEmpresa(Empresa e) {
@@ -224,7 +229,5 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
     public void setTarefaPermissaoDTO(TarefaPermissaoDTO tarefaPermissaoDTO) {
         this.tarefaPermissaoDTO = tarefaPermissaoDTO;
     }
-    
-    
 
 }

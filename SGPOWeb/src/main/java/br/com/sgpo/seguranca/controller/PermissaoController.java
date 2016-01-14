@@ -83,6 +83,7 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
         permissao.setConsultar(tar.isConsultar());
         permissao.setEditar(tar.isEditar());
         permissao.setIncluir(tar.isIncluir());
+        permissao.setExcluir(tar.isExcluir());
         permissao.setUsuario(usuario);
 
         return dao.atualizarGerenciar(permissao);

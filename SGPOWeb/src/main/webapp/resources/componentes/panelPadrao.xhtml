@@ -36,7 +36,7 @@
     <composite:implementation id="compPanel">
 
         <p:panel id="panelPrincipal" class="ContainerIndent cabecalho"   header="#{cc.attrs.cabecalho}"  >
-       
+
             <f:facet name="header" id="fieldMenu">
 
                 <p:outputLabel value="#{cc.attrs.cabecalho}" class="FontTitilliumBoldItalic cabecalho"/>
@@ -96,7 +96,9 @@
 
                 </div>
             </f:facet>
-            <p:messages  autoUpdate="true" closable="true"   showDetail="true" showSummary="false"  />
+            <!--<p:messages  autoUpdate="true" closable="true"   showDetail="true" showSummary="false"  />-->
+            <p:growl autoUpdate="true"   showSummary="true" />
+
             <composite:insertChildren id="filhoPanelPrincipal" />
         </p:panel>
     </composite:implementation>

@@ -198,7 +198,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', end
 }
 
 .ui-messages-info,
-.ui-message-info{
+.ui-message-info,
+.ui-growl-message{
     background-color: #F2FCFA  !important;
     color: #339957 ! important;
     border-color: #A6EDDB !important

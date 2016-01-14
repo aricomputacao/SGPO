@@ -15,15 +15,16 @@
 
         <h:form id="frm_cad" prependId="false" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{gerenciarPermissaoMB.init()}" 
-                                     acao_excluir="#{gerenciarPermissaoMB.init()}" btn_excluir="false"  acao_salvar="#{usuarioMB.salvar()}" 
-                                     btn_limpar="true" cabecalho="#{label.gerenciar} #{label.permissao_usuario} " btn_imprimir="false" btn_ativar="false"
+                                     acao_excluir="#{gerenciarPermissaoMB.init()}" btn_excluir="false"  btn_salvar="false" render_sep_1="false" render_sep_2="false"
+                                     render_sep_3="false" btn_limpar="false" acao_salvar="#{gerenciarPermissaoMB.init()}" 
+                                     cabecalho="#{label.gerenciar} #{label.permissao_usuario} " btn_imprimir="false" btn_ativar="false"
                                      btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{gerenciarPermissaoMB.init()}" >
                 <usr:gerenciarPermissao id="compCadastro" />
             </componentes:panelPadrao>
         </h:form>
     </ui:define>
     <ui:define name="dialog" id="dialogs">
-        <p:dialog showEffect="fade" position="center center"   header="#{label.usuario}" id="dialogoAssinat" modal="true" hideEffect="fade" widgetVar="dialogUsuario">
+        <p:dialog showEffect="fade" position="center center"   header="#{label.usuario} " id="dialogoAssinat" modal="true" hideEffect="fade" widgetVar="dialogUsuario">
             <h:form id="frm_usr" >
                 <usr:consultaUsuario id="compUsr"  componente_to_update="@form" render_edit="false" >
                     <p:commandButton actionListener="#{gerenciarPermissaoMB.setarUsuario(p)}" icon="fa fa-check-square-o" update="@(form)" onclick="PF('dialogUsuario').hide()" />
@@ -55,25 +56,26 @@
                     <div class="Fleft Container100 fontBoldItalic Fs25 hardblue">
                         &bull; #{gerenciarPermissaoMB.tarefaPermissaoDTO.tarefa.nome}
                     </div>  
-                    <div class="Container100 MarBot10" style="border: 1px #083359 dashed" />
+                    <div class="Container100 MarBot10" style="border: 1px #CDCDCD dashed" />
                     <div class="Container25 Fleft">
-                        <p:outputLabel value="#{label.incluir}" class="Fleft MarAuto"/>
-                        <p:selectBooleanCheckbox class="Fleft MarAuto"  value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.incluir}"/>
+                        <p:outputLabel value="&bull; #{label.incluir}" class="Fleft MarAuto FontBold "/>
+                        <p:selectBooleanCheckbox class="Fleft MarAuto FontBold Fs20"  value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.incluir}"/>
                     </div>
                     <div class="Container25 Fleft" >
-                        <p:outputLabel value="#{label.excluir}" class="Fleft MarAuto"/>
-                        <p:selectBooleanCheckbox  class="Fleft MarAuto" value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.excluir}"/>
+                        <p:outputLabel value="&bull; #{label.excluir}" class="Fleft MarAuto FontBold "/>
+                        <p:selectBooleanCheckbox  class="Fleft MarAuto FontBold Fs20" value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.excluir}"/>
                     </div>
                     <div  class="Container25 Fleft">
-                        <p:outputLabel value="#{label.editar}" class="Fleft MarAuto"/>
-                        <p:selectBooleanCheckbox  class="Fleft MarAuto" value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.editar}"/>
+                        <p:outputLabel value="&bull; #{label.editar}" class="Fleft MarAuto FontBold "/>
+                        <p:selectBooleanCheckbox  class="Fleft MarAuto FontBold Fs20" value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.editar}"/>
                     </div>
                     <div  class="Container25 Fleft">
-                        <p:outputLabel value="#{label.consulta}r" class="Fleft MarAuto"/>
-                        <p:selectBooleanCheckbox  class="Fleft MarAuto" value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.consultar}"/>
+                        <p:outputLabel value="&bull; #{label.consulta}r" class="Fleft MarAuto FontBold "/>
+                        <p:selectBooleanCheckbox  class="Fleft MarAuto FontBold Fs20" value="#{gerenciarPermissaoMB.tarefaPermissaoDTO.consultar}"/>
                     </div>
+                    <div class="Container100 MarBot10" style="border: 1px #CDCDCD dashed" />
 
-                    <p:commandButton value="#{label.salvar}" class="Fright GreenButton MarTop5" icon="fa fa-check-circle"  actionListener="#{gerenciarPermissaoMB.incluirPermissao()}" update="@(form)"/>
+                    <p:commandButton value="#{label.salvar}" class="Fright  MarTop5 " icon="fa fa-save"  actionListener="#{gerenciarPermissaoMB.incluirPermissao()}" update="@(form)"/>
                 </p:fieldset>
                 <p:dataTable value="#{gerenciarPermissaoMB.listaDeTarefaPermissao}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="5"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')  }"
@@ -105,7 +107,7 @@
                     </p:column>
                     <p:column headerText="#{label.acao}" width="5%" class="TexAlCenter">
                         <p:commandButton  update="frm_tarefa_dto" actionListener="#{gerenciarPermissaoMB.setaTarefaPermissao(t)}" 
-                                          icon="fa fa-plus-circle " class="btnSalvar"/>
+                                          icon="fa fa-check-circle " class="btnSalvar"/>
                     </p:column>
                 </p:dataTable>
 
