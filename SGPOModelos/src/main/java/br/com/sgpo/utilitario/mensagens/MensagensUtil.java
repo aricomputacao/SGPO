@@ -28,19 +28,20 @@ public class MensagensUtil implements Serializable {
     public static final String SERVIDOR_INDISPONIVEL = "servidor_indisponivel";
     public static final String EXCLUIR_SUCESSO = "excluir_sucesso";
     public static final String EXCLUIR_FALHA = "excluir_falha";
+    private String msg;
 
     private static String lerMensagensComParamentros(String idMensagem, Object... params) {
         return MessageFormat.format(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS), params);
     }
 
     public static void enviarMessageInfo(String idMensagem) {
-        enviarMenssagem(null, FacesMessage.SEVERITY_INFO, ResourceUtil.lerBundle("informacao", ResourceUtil.LABEL),
-                ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        String msg = ResourceUtil.lerBundle("informacao", ResourceUtil.LABEL).concat(" : ").concat(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_INFO, msg, ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
     }
 
     public static void enviarMessageParamentroInfo(String idMensagem, Object... params) {
-        enviarMenssagem(null, FacesMessage.SEVERITY_INFO, ResourceUtil.lerBundle("informacao", ResourceUtil.LABEL),
-                lerMensagensComParamentros(idMensagem, params));
+        String msg = ResourceUtil.lerBundle("informacao", ResourceUtil.LABEL).concat(" : ").concat(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_INFO, msg, lerMensagensComParamentros(idMensagem, params));
     }
 
     public static void enviarMessageWarn(String idMensagem) {
@@ -48,14 +49,13 @@ public class MensagensUtil implements Serializable {
     }
 
     public static void enviarMessageFatal(String idMensagem) {
-        enviarMenssagem(null, FacesMessage.SEVERITY_FATAL, ResourceUtil.lerBundle("fatal", ResourceUtil.LABEL),
-                ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        String msg = ResourceUtil.lerBundle("fatal", ResourceUtil.LABEL).concat(" : ").concat(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_FATAL, msg, ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
     }
 
-  
-
     public static void enviarMessageErro(String idMensagem, Exception erro, String nomeClasse) {
-        enviarMenssagem(null, FacesMessage.SEVERITY_ERROR, "Erro", ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+                String msg = ResourceUtil.lerBundle("erro", ResourceUtil.LABEL).concat(" : ").concat(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_ERROR, msg, ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
 
     }
 
