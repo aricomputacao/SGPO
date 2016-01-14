@@ -12,6 +12,7 @@ public abstract class ResourceUtil {
 
     public static final String MENSAGENS = "br.com.sgpo.utilitarios.arquivos.mensagens";
     public static final String LABEL = "br.com.sgpo.utilitarios.arquivos.label";
+    public static final String MODULO = "br.com.sgpo.arquivos.modulos";
 
     public static String lerBundle(String messageId, String resource) {
         ResourceBundle bundle = null;
