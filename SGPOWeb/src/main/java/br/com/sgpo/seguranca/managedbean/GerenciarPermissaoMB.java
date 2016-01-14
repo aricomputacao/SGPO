@@ -7,9 +7,12 @@ package br.com.sgpo.seguranca.managedbean;
 
 import br.com.sgpo.administrativo.controller.EmpresaController;
 import br.com.sgpo.administrativo.modelo.Empresa;
+import br.com.sgpo.seguranca.controller.ModuloController;
 import br.com.sgpo.seguranca.controller.PermissaoController;
 import br.com.sgpo.seguranca.controller.TarefaController;
 import br.com.sgpo.seguranca.controller.UsuarioController;
+import br.com.sgpo.seguranca.enumaration.TarefaPermissaoDTO;
+import br.com.sgpo.seguranca.modelo.Modulo;
 import br.com.sgpo.seguranca.modelo.Permissao;
 import br.com.sgpo.seguranca.modelo.Tarefa;
 import br.com.sgpo.seguranca.modelo.Usuario;
@@ -44,15 +47,18 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
     @Inject
     private EmpresaController empresaController;
     @Inject
-    private UtilitarioNavegacaoMB navegacaoMB;
+    private ModuloController moduloController;
 
     private List<Permissao> listaDePermissao;
     private List<Tarefa> listaDeTarefas;
     private List<Empresa> listaDeEmpresas;
+    private List<Modulo> listaDeModulos;
+    private List<TarefaPermissaoDTO> listaDeTarefaPermissao;
 
     private Permissao permissao;
     private Usuario usuario;
     private Usuario usuarioClonado;
+    private TarefaPermissaoDTO tarefaPermissaoDTO;
 
     @PostConstruct
     @Override
@@ -62,17 +68,31 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
             usuario = new Usuario();
             usuario.setEmpresas(new ArrayList<>());
             usuarioClonado = new Usuario();
-            listaDeTarefas = tarefaController.consultarTodosOrdenadorPor("modulo.nome");
+            tarefaPermissaoDTO = new TarefaPermissaoDTO();
+            listaDeModulos = moduloController.consultarTodosOrdenadorPor("nome");
+            listaDeTarefaPermissao = new ArrayList<>();
         } catch (Exception ex) {
             Logger.getLogger(GerenciarPermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public void salvar() {
+    public void editarPermissao() {
         try {
             permissaoController.salvarouAtualizar(permissao);
             listaDePermissao = permissaoController.buscarPermissao(usuario);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(GerenciarPermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void incluirPermissao() {
+        try {
+           listaDePermissao.add(permissaoController.incluirPermissao(tarefaPermissaoDTO, usuario));
+            tarefaPermissaoDTO = new TarefaPermissaoDTO();
+            
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -86,6 +106,15 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(GerenciarPermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void consultarTarefasPorModulos() {
+        try {
+            listaDeTarefas = tarefaController.consultarLike("modulo.nome", getValorCampoConsuta());
+            listaDeTarefaPermissao = tarefaController.retornarTarefasPermissao(listaDeTarefas, listaDePermissao);
+        } catch (Exception ex) {
             Logger.getLogger(GerenciarPermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -108,6 +137,10 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
             Logger.getLogger(GerenciarPermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    public void setaTarefaPermissao(TarefaPermissaoDTO t){
+        tarefaPermissaoDTO =t;
     }
 
     public void addEmpresa(Empresa e) {
@@ -171,5 +204,27 @@ public class GerenciarPermissaoMB extends BeanGenerico implements Serializable {
     public void setUsuarioClonado(Usuario usuarioClonado) {
         this.usuarioClonado = usuarioClonado;
     }
+
+    public List<Modulo> getListaDeModulos() {
+        return listaDeModulos;
+    }
+
+    public List<TarefaPermissaoDTO> getListaDeTarefaPermissao() {
+        return listaDeTarefaPermissao;
+    }
+
+    public void setListaDeTarefaPermissao(List<TarefaPermissaoDTO> listaDeTarefaPermissao) {
+        this.listaDeTarefaPermissao = listaDeTarefaPermissao;
+    }
+
+    public TarefaPermissaoDTO getTarefaPermissaoDTO() {
+        return tarefaPermissaoDTO;
+    }
+
+    public void setTarefaPermissaoDTO(TarefaPermissaoDTO tarefaPermissaoDTO) {
+        this.tarefaPermissaoDTO = tarefaPermissaoDTO;
+    }
+    
+    
 
 }

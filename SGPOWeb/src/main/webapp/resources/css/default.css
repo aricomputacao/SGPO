@@ -64,12 +64,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', end
 .ui-panel-titlebar{
 
     background: #00a86b ! important; /* Old browsers */
-    /*    background: rgb(41,154,11) ! important;  Old browsers 
-        background: -moz-linear-gradient(top,  rgba(41,154,11,1) 0%, rgba(41,154,11,1) 100%) ! important;  FF3.6-15 
-        background: -webkit-linear-gradient(top,  rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%) ! important;  Chrome10-25,Safari5.1-6 
-        background: linear-gradient(to bottom,  rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%) ! important;  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ 
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#299a0b', endColorstr='#299a0b',GradientType=0 ) ! important;  IE6-9 */
-
     border: solid 1px #4CAF50 ! important;
 
 } 

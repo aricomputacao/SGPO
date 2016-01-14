@@ -6,6 +6,7 @@
 package br.com.sgpo.seguranca.controller;
 
 import br.com.sgpo.seguranca.DAO.PermissaoDAO;
+import br.com.sgpo.seguranca.enumaration.TarefaPermissaoDTO;
 import br.com.sgpo.seguranca.modelo.Permissao;
 import br.com.sgpo.seguranca.modelo.Tarefa;
 import br.com.sgpo.seguranca.modelo.Usuario;
@@ -30,7 +31,6 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
     private TarefaController tarefaController;
     @Inject
     private UsuarioController usuarioController;
-   
 
     @PostConstruct
     @Override
@@ -42,7 +42,7 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
         System.out.println("--------------------------------------Criando Permissões ADM------------------------------------------");
         List<Tarefa> listaTarefas = tarefaController.consultarTodosOrdenadorPor("id");
         Usuario usuario = usuarioController.usuarioLogin("adm");
-        
+
         for (Tarefa taf : listaTarefas) {
             Permissao per = dao.buscarPor(usuario, taf);
             per.setTarefa(taf);
@@ -51,30 +51,41 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
             per.setEditar(true);
             per.setExcluir(true);
             per.setIncluir(true);
-            
+
             dao.atualizar(per);
         }
 
     }
-    
-    public List<Permissao> buscarPermissao(Usuario usr){
+
+    public List<Permissao> buscarPermissao(Usuario usr) {
         return dao.buscarPor(usr);
-        
+
     }
 
     public void clonarAcessos(Usuario usuarioAlvo, Usuario usuarioClonado) throws Exception {
         List<Permissao> listaDePermissaos = dao.buscarPor(usuarioClonado);
         for (Permissao p : listaDePermissaos) {
-            Permissao per = dao.buscarPor(usuarioAlvo,p.getTarefa());
+            Permissao per = dao.buscarPor(usuarioAlvo, p.getTarefa());
             per.setConsultar(p.isConsultar());
             per.setEditar(p.isEditar());
             per.setExcluir(p.isExcluir());
             per.setIncluir(p.isIncluir());
             per.setUsuario(usuarioAlvo);
             per.setTarefa(p.getTarefa());
-            
+
             dao.atualizar(per);
         }
+    }
+
+    public Permissao incluirPermissao(TarefaPermissaoDTO tar, Usuario usuario) throws Exception {
+        Permissao permissao = dao.buscarPor(usuario, tar.getTarefa());
+        permissao.setTarefa(tar.getTarefa());
+        permissao.setConsultar(tar.isConsultar());
+        permissao.setEditar(tar.isEditar());
+        permissao.setIncluir(tar.isIncluir());
+        permissao.setUsuario(usuario);
+
+        return dao.atualizarGerenciar(permissao);
     }
 
 }

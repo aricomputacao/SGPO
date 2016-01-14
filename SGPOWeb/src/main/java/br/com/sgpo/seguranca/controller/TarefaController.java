@@ -6,11 +6,15 @@
 package br.com.sgpo.seguranca.controller;
 
 import br.com.sgpo.seguranca.DAO.TarefaDAO;
+import br.com.sgpo.seguranca.enumaration.TarefaPermissaoDTO;
 import br.com.sgpo.seguranca.modelo.Modulo;
+import br.com.sgpo.seguranca.modelo.Permissao;
 import br.com.sgpo.seguranca.modelo.Tarefa;
 import br.com.sgpo.utilitario.ConfiguracaoSistemaMB;
 import br.com.sgpo.utilitario.ControllerGenerico;
+import br.com.sgpo.utilitarios.ResourceUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,7 +43,7 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
     }
 
     public List<Tarefa> consultarPorModulo(String nomeModulo) throws Exception {
-        if ("".equals(nomeModulo) || nomeModulo == null ) {
+        if ("".equals(nomeModulo) || nomeModulo == null) {
             return dao.consultarTodosOrdenadosPor("modulo.nome");
         } else {
             return dao.consultarLike("modulo.nome", nomeModulo);
@@ -51,22 +55,51 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
         criarTarefaModAdministrativo();
     }
 
+    public List<TarefaPermissaoDTO> retornarTarefasPermissao(List<Tarefa> tarefas, List<Permissao> permissoes) {
+        boolean contem = false;
+        List<TarefaPermissaoDTO> listDTO = new ArrayList<>();
+        //roda todas as taredas 
+        for (Tarefa taf : tarefas) {
+            TarefaPermissaoDTO dto = new TarefaPermissaoDTO();
+            //roda para saber se tem as taredas nas permissões
+            for (Permissao per : permissoes) {
+                contem = false;
+                if (per.getTarefa().equals(taf)) {
+                    dto.setTarefa(taf);
+                    dto.setConsultar(per.isConsultar());
+                    dto.setEditar(per.isEditar());
+                    dto.setExcluir(per.isExcluir());
+                    dto.setIncluir(per.isIncluir());
+
+                    listDTO.add(dto);
+                    contem = true;
+                }
+            }
+            
+            if (!contem) {
+                dto.setTarefa(taf);
+                listDTO.add(dto);
+            }
+
+        }
+        return listDTO;
+    }
+
     private void criarTarefaModSeguranca() throws Exception {
         System.out.println("--------------------------------------Criando Tarefas Mod Segurança------------------------------------------");
-        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sisdelta.arquivos.seguranca");
+        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.seguranca");
         Enumeration<String> tarefa = bundle.getKeys();
         while (tarefa.hasMoreElements()) {
-            Modulo md = moduloController.pegarModuloPor("SEGURANÇA");
+            Modulo md = moduloController.pegarModuloPor(ResourceUtil.lerBundle("seguranca", ResourceUtil.MODULO));
             String nome = tarefa.nextElement();
             String descricao = bundle.getString(nome);
-                if (!dao.existeTarefa(nome)) {
-                    Tarefa taf = new Tarefa();
-                    taf.setModulo(md);
-                    taf.setNome(nome);
-                    taf.setDescricao(descricao);
-                    salvar(taf);
-                }
-            
+            if (!dao.existeTarefa(nome)) {
+                Tarefa taf = new Tarefa();
+                taf.setModulo(md);
+                taf.setNome(nome);
+                taf.setDescricao(descricao);
+                salvar(taf);
+            }
 
         }
     }
@@ -76,16 +109,17 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
         ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.administrativo");
         Enumeration<String> tarefa = bundle.getKeys();
         while (tarefa.hasMoreElements()) {
-            Modulo md = moduloController.pegarModuloPor("ADMINISTRATIVO");
+            Modulo md = moduloController.pegarModuloPor(ResourceUtil.lerBundle("administrativo", ResourceUtil.MODULO));
+
             String nome = tarefa.nextElement();
             String descricao = bundle.getString(nome);
-                if (!dao.existeTarefa(nome)) {
-                    Tarefa taf = new Tarefa();
-                    taf.setModulo(md);
-                    taf.setNome(nome);
-                    taf.setDescricao(descricao);
-                    salvar(taf);
-                }
+            if (!dao.existeTarefa(nome)) {
+                Tarefa taf = new Tarefa();
+                taf.setModulo(md);
+                taf.setNome(nome);
+                taf.setDescricao(descricao);
+                salvar(taf);
+            }
 
         }
     }
