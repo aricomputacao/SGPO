@@ -50,9 +50,9 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade"  position="bottom"  dynamic="true" header="#{label.tarefa}" id="dialogTarefa" modal="true" hideEffect="fade" widgetVar="dialogTarefa">
+        <p:dialog showEffect="fade"  position="bottom" closeOnEscape="true"  dynamic="true" header="#{label.tarefa}" id="dialogTarefa" modal="true" hideEffect="fade" widgetVar="dialogTarefa">
             <h:form prependId="false" id="frm_tarefa_dto"  class="Responsive ContainerIndent" >
-                <p:fieldset  legend="#{label.tarefa} #{label.selecionada}" class="ContainerIndent" >
+                <p:fieldset  legend="#{label.tarefa} #{label.selecionada}"  >
                     <div class="Fleft Container100 fontBoldItalic Fs25 hardblue">
                         &bull; #{gerenciarPermissaoMB.tarefaPermissaoDTO.tarefa.nome}
                     </div>  
