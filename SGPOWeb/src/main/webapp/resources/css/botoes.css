@@ -159,7 +159,7 @@
 
 
 .btnSalvar .ui-button-text {
-   border: none ! important;
+    border: none ! important;
     box-shadow: none ! important;
     color: #ffffff ! important;
     text-shadow: 0 -1px 0 white ! important;
@@ -292,7 +292,7 @@
 .btnExcluir .ui-button-text{
     border: none ! important;
     color: #ffffff ! important;
-    
+
     text-shadow: 0 -1px 0 white ! important;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3019+0,cf0404+100;Red+3D */
     background: #ff3019 ! important; /* Old browsers */
@@ -308,7 +308,7 @@
 
 }
 .btnCancelar .ui-button-text{
-   border: none ! important;
+    border: none ! important;
     box-shadow: none ! important;
     color: #ffffff ! important;
     text-shadow: 0 -1px 0 white ! important;
@@ -353,4 +353,21 @@
     background: -ms-linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ff3019 0%,#cf0404 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* IE6-8 */
+}
+
+.atalho{
+    border: none ! important;
+    text-decoration: none ! important;
+    color: #0e2704 ! important;
+   
+   
+}
+.atalho-f1{
+    background: #ccd9c7 ! important;
+   
+   
+}
+.atalho-f2{
+    background: #89c4ff ! important;
+
 }

@@ -71,9 +71,13 @@ public abstract class DAOGenerico<T, PK extends Serializable> implements Seriali
                 .setParameter("vl", "%" + valor.toUpperCase() + "%").getResultList();
     }
 
-    public List<T> consultarTodos(String ordem, String campo, String valor) throws Exception {
+    public List<T> consultarLikeTodos(String ordem, String campo, String valor) throws Exception {
         return em.createQuery("SELECT a FROM " + getEntityClass().getName() + " a WHERE a." + campo + " like :valor order by a." + ordem)
                 .setParameter("valor", valor + "%").getResultList();
+    }
+    public List<T> consultarIgualTodos(String ordem, String campo, String valor) throws Exception {
+        return em.createQuery("SELECT a FROM " + getEntityClass().getName() + " a WHERE a." + campo + " = :valor order by a." + ordem)
+                .setParameter("valor", valor ).getResultList();
     }
 
     public List<T> pesquisaAutoComplete(String ordem, String campo, String sugest, int numeroResultados) throws Exception {

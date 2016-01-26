@@ -13,12 +13,14 @@
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
 
     <composite:interface id="interCon">
-        
+
     </composite:interface>
     <composite:implementation  >
+        <btn:commandLinksAtalhos acao_click_F1="PF('dialogoAssinat').show()" immediate_F1="true" render_F1="true" title_F1="Add Conta" render_F2="true" />
         <panels:panel titulo="#{label.dados_fornecedor}" id="pnlDadPes" class="fieldDad">
-            <h:panelGroup layout="block"  class="Container100 Responsive" >
-                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.nome}" lab_valor="#{label.nome}" inp_require="true" inp_class_tamanho="70" />
+            <h:panelGroup layout="block"  id="divDados" class="Container100 Responsive" >
+                <p:focus context="divDados" />
+                <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.nome}"  lab_valor="#{label.nome}" inp_require="true" inp_class_tamanho="70" />
                 <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.representante}" lab_valor="#{label.nome} #{label.representante}" inp_require="true" inp_class_tamanho="70" />
             </h:panelGroup>
         </panels:panel>
@@ -44,7 +46,7 @@
                                         sel_converter="indexConverter" inp_class_tamanho="20"  >
                     <f:selectItems value="#{fornecedorMB.listaDeMunicpios}" var="mu" itemLabel="#{mu.nome}" itemValue="#{mu}"/>
                 </inputs:selectOneLabel>
-               
+
                 <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="50" />
                 <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
                 <inputs:input_label inp_valor="#{fornecedorMB.fornecedor.endereco.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="20" />
@@ -52,7 +54,7 @@
             </h:panelGroup>
         </panels:panel>
 
-      
+
     </composite:implementation>
 </ui:composition>
 

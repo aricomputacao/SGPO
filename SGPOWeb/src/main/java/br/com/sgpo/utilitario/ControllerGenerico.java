@@ -104,7 +104,7 @@ public abstract class ControllerGenerico<T, PK extends Serializable>  implements
      * @throws Exception
      */
     public List<T> consultarTodos(String ordem, String campo, String valor) throws Exception {
-        return dao.consultarTodos(ordem, campo, valor);
+        return dao.consultarLikeTodos(ordem, campo, valor);
     }
 
     /**

@@ -5,23 +5,35 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:fornecedor="http://xmlns.jcp.org/jsf/composite/componentes/paginas/administrativo"
-              
-                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad" prependId="false" >
-            <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{fornecedorMB.init()}" 
-                                     acao_excluir="#{fornecedorMB.init()}" btn_excluir="false"  acao_salvar="#{fornecedorMB.salvar()}" 
-                                   
-                                     btn_limpar="true" cabecalho="#{label.cadastro} #{label.fornecedor}" btn_imprimir="false" btn_ativar="false"
-                                     btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{fornecedorMB.init()}" >
-                <fornecedor:cadastroFornecedor id="compCadastro"/>
-            </componentes:panelPadrao>
+        <h:form id="frm_cad"  prependId="false"  >
+            <div  onkeydown="atalhoF1('dialogoAssinat')">
+                <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{fornecedorMB.init()}" 
+                                         acao_excluir="#{fornecedorMB.init()}" btn_excluir="false"  acao_salvar="#{fornecedorMB.salvar()}" 
+
+                                         btn_limpar="true" cabecalho="#{label.cadastro} #{label.fornecedor}" btn_imprimir="false" btn_ativar="false"
+                                         btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{fornecedorMB.init()}" >
+                 
+
+                    <fornecedor:cadastroFornecedor id="compCadastro"/>
+                </componentes:panelPadrao>
+            </div>
         </h:form>
     </ui:define>
     <ui:define name="dialog" id="dialogs">
-      
-        
+
+
+        <p:dialog showEffect="fade" position="center center"   header="#{label.logo}" id="dialogoAssinat" modal="true" hideEffect="fade" widgetVar="dialogoAssinat">
+            <h:form >
+
+
+
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

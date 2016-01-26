@@ -8,6 +8,7 @@ package br.com.sgpo.administrativo.managedbean;
 import br.com.sgpo.administrativo.controller.FornecedorController;
 import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
+import br.com.sgpo.administrativo.modelo.ContaFornecedor;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.administrativo.modelo.Municipio;
@@ -47,8 +48,10 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
     @Inject
     private UnidadeFederativaController unidadeFederativaController;
     private UnidadeFederativa unidadeFederativa;
+    private ContaFornecedor contaFornecedor;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
     private List<Municipio> listaDeMunicpios;
+    private List<ContaFornecedor> listaDeContaFornecedor;
     private boolean renderizarRepresentante;
 
     @PostConstruct
@@ -65,7 +68,9 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
             } else {
                 unidadeFederativa = fornecedor.getEndereco().getUnidadeFederativa();
                 consultarMuncipioPorUf();
+                listaDeContaFornecedor = fornecedorController.consultarContasPor(fornecedor);
             }
+            contaFornecedor = new ContaFornecedor();
             listaDeFornecedor = new ArrayList<>();
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
         } catch (Exception ex) {
@@ -145,6 +150,18 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
 
     public List<Fornecedor> getListaDeFornecedor() {
         return listaDeFornecedor;
+    }
+
+    public List<ContaFornecedor> getListaDeContaFornecedor() {
+        return listaDeContaFornecedor;
+    }
+
+    public ContaFornecedor getContaFornecedor() {
+        return contaFornecedor;
+    }
+
+    public void setContaFornecedor(ContaFornecedor contaFornecedor) {
+        this.contaFornecedor = contaFornecedor;
     }
     
     
