@@ -21,36 +21,35 @@ import javax.inject.Inject;
  * @author Giancarlo
  */
 @Stateless
-public class FornecedorController extends ControllerGenerico<Fornecedor, Long> implements Serializable{
+public class FornecedorController extends ControllerGenerico<Fornecedor, Long> implements Serializable {
 
     @Inject
     private FornecedorDAO dao;
     @Inject
     private ContaFornecedorDAO contaDAO;
-    
+
     @Inject
     private EnderecoController enderecoController;
-    
+
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
-    
-    @Override
-    public void salvar(Fornecedor fr) throws Exception{
+
+    public Fornecedor salvarGenreciar(Fornecedor fr) throws Exception {
         fr.setEndereco(enderecoController.buscarOuCriarLogradouroPor(fr.getEndereco().getAbreviacaoUnidadeFederativa(), fr.getEndereco().getNomeDaCidade(),
-               fr.getEndereco().getCep(), fr.getEndereco().getNome(), fr.getEndereco().getBairro(),fr.getEndereco().getNumero(),
-               fr.getEndereco().getComplemento()));
-        dao.atualizar(fr); 
+                fr.getEndereco().getCep(), fr.getEndereco().getNome(), fr.getEndereco().getBairro(), fr.getEndereco().getNumero(),
+                fr.getEndereco().getComplemento()));
+        return dao.atualizarGerenciar(fr);
     }
-    
-    public void salvarConta(ContaFornecedor cf) throws Exception{
+
+    public void addConta(ContaFornecedor cf) throws Exception {
         contaDAO.atualizar(cf);
-    } 
-    
-    public List<ContaFornecedor> consultarContasPor(Fornecedor f) throws Exception{
+    }
+
+    public List<ContaFornecedor> consultarContasPor(Fornecedor f) throws Exception {
         return contaDAO.consultarIgualTodos("id", "fornecedor.nome", f.getNome());
     }
-    
+
 }

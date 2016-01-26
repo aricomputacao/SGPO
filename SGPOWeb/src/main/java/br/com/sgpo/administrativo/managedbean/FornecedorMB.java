@@ -53,6 +53,7 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
     private List<Municipio> listaDeMunicpios;
     private List<ContaFornecedor> listaDeContaFornecedor;
     private boolean renderizarRepresentante;
+    private boolean renderizarAtalhos;
 
     @PostConstruct
     @Override
@@ -61,11 +62,14 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
             criarListaDeCamposDaConsulta();
             fornecedor = (Fornecedor) lerRegistroDaSessao("fornecedor");
             if (fornecedor == null) {
+                renderizarAtalhos = false;
                 fornecedor = new Fornecedor();
                 unidadeFederativa = new UnidadeFederativa();
                 fornecedor.setEndereco(new Endereco());
+                listaDeContaFornecedor = new ArrayList<>();
                 
             } else {
+                renderizarAtalhos = true;
                 unidadeFederativa = fornecedor.getEndereco().getUnidadeFederativa();
                 consultarMuncipioPorUf();
                 listaDeContaFornecedor = fornecedorController.consultarContasPor(fornecedor);
@@ -80,13 +84,27 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
 
     public void salvar() {
         try {
-            fornecedorController.salvar(fornecedor);
+            fornecedor = fornecedorController.salvarGenreciar(fornecedor);
+            renderizarAtalhos = true;
             MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_SUCESSO, fornecedor.getNome());
-            init();
+//            init();
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
             Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void addConta(){
+        try {
+            contaFornecedor.setFornecedor(fornecedor);
+            listaDeContaFornecedor.add(contaFornecedor);
+            fornecedorController.addConta(contaFornecedor);
+            contaFornecedor = new ContaFornecedor();
+        } catch (Exception ex) {
+            Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     public void consultarFornecedor() {
@@ -110,6 +128,9 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
 //            erroCliente.adicionaErro(e);
         }
     }
+    
+    
+ 
 
     @Override
     protected Map<String, Object> getCampo() {
@@ -162,6 +183,10 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
 
     public void setContaFornecedor(ContaFornecedor contaFornecedor) {
         this.contaFornecedor = contaFornecedor;
+    }
+
+    public boolean isRenderizarAtalhos() {
+        return renderizarAtalhos;
     }
     
     
