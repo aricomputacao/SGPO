@@ -43,6 +43,12 @@
                     </p:submenu>
 
                 </p:submenu>
+                <p:submenu label="#{label.modulo_engenharia}" icon="icon-codeopen" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloEngenharia()}" >
+                    <p:submenu label="#{label.tipo_projeto}" icon="icon-spread" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.tipo_projeto_cadastro)}" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.tipo_projeto_cadastro}"/>
+                    </p:submenu>
+
+                </p:submenu>
                 <p:submenu label="#{label.modulo_seguranca}" icon="icon-lock-open-alt" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloSeguranca()}" >
                     <p:submenu label="#{label.modulo}" icon="icon-cubes" rendered="#{utilitarioNavegacaoMB.permissaoExiste(seguranca.modulo_consulta)}" >
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(seguranca.modulo_consulta)}"  outcome="#{seguranca.modulo_consulta}"/>

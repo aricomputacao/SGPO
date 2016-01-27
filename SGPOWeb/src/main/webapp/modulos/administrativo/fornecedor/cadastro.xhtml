@@ -22,8 +22,6 @@
                                          btn_limpar="true" acao_limpar="#{fornecedorMB.init()}" cabecalho="#{label.cadastro} #{label.fornecedor}" btn_imprimir="false" btn_ativar="false"
                                          btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{fornecedorMB.init()}" >
                     
-                    <btn:commandLinksAtalhos acao_click_F1="PF('dialogoAssinat').show()"   render_F1="#{fornecedorMB.renderizarAtalhos}" 
-                                             title_F1="#{label.adicionar} #{label.conta}" update_F1=":frm_conta" immediate_F1="true" render_F2="#{fornecedorMB.renderizarAtalhos}" />
                     <fornecedor:cadastroFornecedor id="compCadastro"/>
                 </componentes:panelPadrao>
             </div>
@@ -45,7 +43,7 @@
                 </panels:panel>
 
 
-                <panels:panel  titulo="#{label.conta} #{label.registradas}">
+                <panels:panel  titulo="#{label.conta}s #{label.registradas}">
                     <p:dataTable value="#{fornecedorMB.listaDeContaFornecedor}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
                                  rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')  }"
                                  rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
@@ -64,8 +62,8 @@
                         </p:column>
 
                         <p:column headerText="#{label.acao}" width="10%">
-                            <composite:insertChildren/>
-
+                            
+                            <btn:commandButtonExcluir acao_butao="#{fornecedorMB.excluirConta(p)}" class="#{label.conta}" immediate="true" componente_to_update="@form" renderizar_btn="true" />
 
                         </p:column>
                     </p:dataTable>

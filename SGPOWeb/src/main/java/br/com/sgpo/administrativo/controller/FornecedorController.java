@@ -52,4 +52,9 @@ public class FornecedorController extends ControllerGenerico<Fornecedor, Long> i
         return contaDAO.consultarIgualTodos("id", "fornecedor.nome", f.getNome());
     }
 
+    public void remverContaFornecedor(ContaFornecedor cf) throws Exception{
+        cf = contaDAO.gerenciar(cf.getId());
+        contaDAO.excluir(cf);
+    }
+    
 }

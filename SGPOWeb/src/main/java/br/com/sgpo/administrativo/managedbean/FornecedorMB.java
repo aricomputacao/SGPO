@@ -103,9 +103,16 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
     }
+    
+    public void excluirConta(ContaFornecedor cf){
+        try {
+            listaDeContaFornecedor.remove(cf);
+            fornecedorController.remverContaFornecedor(cf);
+        } catch (Exception ex) {
+            Logger.getLogger(FornecedorMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
 
     public void consultarFornecedor() {
         try {

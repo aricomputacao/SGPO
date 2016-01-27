@@ -100,6 +100,14 @@ public class UtilitarioNavegacaoMB implements Serializable {
         }
         return false;
     }
+    public boolean existePermissaoModuloEngenharia() {
+        for (Permissao p : listaDePermissaoDoUsuario) {
+            if (p.getTarefa().getModulo().getNome().equals("ENGENHARIA")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      *

@@ -53,6 +53,7 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
     public void criarTarefas() throws Exception {
         criarTarefaModSeguranca();
         criarTarefaModAdministrativo();
+        criarTarefaModEngenharia();
     }
 
     public List<TarefaPermissaoDTO> retornarTarefasPermissao(List<Tarefa> tarefas, List<Permissao> permissoes) {
@@ -92,6 +93,24 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
         Enumeration<String> tarefa = bundle.getKeys();
         while (tarefa.hasMoreElements()) {
             Modulo md = moduloController.pegarModuloPor(ResourceUtil.lerBundle("seguranca", ResourceUtil.MODULO));
+            String nome = tarefa.nextElement();
+            String descricao = bundle.getString(nome);
+            if (!dao.existeTarefa(nome)) {
+                Tarefa taf = new Tarefa();
+                taf.setModulo(md);
+                taf.setNome(nome);
+                taf.setDescricao(descricao);
+                salvar(taf);
+            }
+
+        }
+    }
+    private void criarTarefaModEngenharia() throws Exception {
+        System.out.println("--------------------------------------Criando Tarefas Mod Engenharia------------------------------------------");
+        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.engenharia");
+        Enumeration<String> tarefa = bundle.getKeys();
+        while (tarefa.hasMoreElements()) {
+            Modulo md = moduloController.pegarModuloPor(ResourceUtil.lerBundle("engenharia", ResourceUtil.MODULO));
             String nome = tarefa.nextElement();
             String descricao = bundle.getString(nome);
             if (!dao.existeTarefa(nome)) {
