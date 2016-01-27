@@ -3,30 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.administrativo.enumeration;
+package br.com.sgpo.engenharia.enumeration;
 
 /**
  *
  * @author ari
  */
-public enum TipoCargo {
-    PRESIDENTE("Presidente"),
-    GERENTE("Gerente"),
-    ESTAGIARIO("Estagiário"),
-    SUPERVISOR("Supervisor"),
-    FUNCIONARIO("Funcionário"),
-    ENGENHEIRO("Engenheiro"),
-    OUTRO("Outro");
+public enum FaseProjeto {
+    
+    CONCLUIDO("Concluido"),EM_ANDAMENTO("Em Andamento");
     
     private final String descricao;
 
-    private TipoCargo(String descricao) {
+    private FaseProjeto(String descricao) {
         this.descricao = descricao;
+    
     }
 
     public String getDescricao() {
         return descricao;
     }
+   
     
     
 }
