@@ -14,6 +14,7 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Cadastro" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute id="form" name="form" default=":frm_cad" shortDescription="Form que esta inserido o componentes" />
     </composite:interface>
     <composite:implementation  >
 
@@ -46,7 +47,7 @@
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
                 <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{clienteMB.cliente.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
                 <inputs:selectOneLabel  inp_valor="#{clienteMB.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"
-                                        sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:selOne" 
+                                        sel_converter="indexConverter" inp_class_tamanho="20" sel_update="#{cc.attrs.form}:pnlPadrao:compCadastro:pnlEndereco:sel_mun:input" 
                                         ajax_listener="#{clienteMB.consultarMuncipioPorUf()}" >
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{clienteMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>

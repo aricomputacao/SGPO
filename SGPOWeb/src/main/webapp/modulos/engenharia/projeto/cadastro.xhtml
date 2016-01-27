@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:eng="http://xmlns.jcp.org/jsf/composite/componentes/paginas/engenharia"
+                xmlns:adm="http://xmlns.jcp.org/jsf/composite/componentes/paginas/administrativo"
+
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <ui:define name="corpo">
+        <h:form id="frm_cad" prependId="false" >
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                     acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                     acao_excluir="#{projetoMB.init()}"  acao_salvar="#{tipoProjetoMB.salvar()}"
+                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" >
+                <eng:cadastroProjeto id="compCadastro"/>
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" position="center center"   header="#{label.usuario} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
+            <h:form id="frm_usr" >
+                <adm:consultaCliente id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{projetoMB.setarCliente(p)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_cli:input" onclick="PF('dialogCliente').hide()" />
+                </adm:consultaCliente>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="50%"   header="#{label.usuario} " id="dialogResponsavel" modal="true" hideEffect="fade" widgetVar="dialogResponsavel">
+            <h:form id="frm_col" >
+                <adm:consultaColaborador id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{projetoMB.setarResponsavel(c)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_resp:input" onclick="PF('dialogResponsavel').hide()" />
+                </adm:consultaColaborador>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center"   header="#{label.usuario} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
+            <h:form id="frm_cad_cli" >
+                <componentes:panelPadraoDialog id="pnlPadrao" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
+                                         acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
+
+                                         btn_limpar="true" cabecalho="#{label.cadastro} #{label.cliente}" btn_imprimir="false" btn_ativar="false"
+                                         btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{clienteMB.init()}" >
+                    <adm:cadastroCliente id="compCadastro" form=":frm_cad_cli"  />
+                </componentes:panelPadraoDialog>
+
+
+            </h:form>
+        </p:dialog>
+        
+       
+    </ui:define>
+
+</ui:composition>
+

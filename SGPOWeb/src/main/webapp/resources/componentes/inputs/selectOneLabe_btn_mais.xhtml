@@ -19,31 +19,31 @@
         <composite:attribute id="sel_update" name="sel_update" default="@this" shortDescription="Caso precise atualizar algo passar o componeten q precisa ser atualizado" />
         <composite:attribute id="ajax_render" name="ajax_render" default="false" shortDescription="Caso queira executar alguma requisição ajax" />
         <composite:attribute id="ajax_listener" name="ajax_listener" method-signature="java.lang.Void action()" default="none" shortDescription="Qual metodo executa no ajax" />
+        <composite:attribute id="btn_onclick_plus" name="btn_onclick_plus" required="true" shortDescription="Click para abrir a tela do btn mais" />
 
 
 
     </composite:interface>
     <composite:implementation id="compConsulta">
         <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho} Responsive">
-            <h:panelGroup layout="block" class="ContainerIndent">
+            <h:panelGroup layout="block" class="ContainerIndent " style="margin-top: 2px" >
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
-                <div>
+                <p:panelGrid  layout="grid"  columns="2" style="border-color: white;width: 100%" >
                     <c:if test="#{cc.attrs.sel_converter == 'none'}">
-
-                        <p:selectOneMenu style="width: 90%" value="#{cc.attrs.inp_valor}" id="input"  required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu  value="#{cc.attrs.inp_valor}" style="width: 100%" id="input"  required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
-
                         </p:selectOneMenu>
                     </c:if>
+
                     <c:if test="#{cc.attrs.sel_converter != 'none'}">
-
-                        <p:selectOneMenu style="width: 90%" converter="#{indexConverter}"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu style="width: 100%" converter="#{indexConverter}"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
                         </p:selectOneMenu>
                     </c:if>
-                </div>
+                    <p:commandButton  icon="fa fa-plus-circle" title="#{label.adicionar}" class="btnForm " onclick="#{cc.attrs.btn_onclick_plus}" immediate="true" />
+                </p:panelGrid>
             </h:panelGroup>
         </div>
     </composite:implementation>

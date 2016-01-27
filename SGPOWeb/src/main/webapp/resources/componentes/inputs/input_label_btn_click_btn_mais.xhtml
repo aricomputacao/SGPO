@@ -24,20 +24,24 @@
         <!--<composite:attribute id="btn_acao" name="btn_acao" method-signature="java.lang.Void action()" />-->
         <composite:attribute id="btn_onclick" name="btn_onclick" default="" />
         <composite:attribute id="btn_titulo" name="btn_titulo" default="" />
+        <composite:attribute id="btn_onclick_plus" name="btn_onclick_plus" required="true" shortDescription="Click para abrir a tela do btn mais" />
 
     </composite:interface>
     <composite:implementation id="compConsulta">
         <div class="Container#{cc.attrs.inp_class_tamanho} Responsive">
-            <div class="ContainerIndent">
+            <h:panelGroup layout="block" class="ContainerIndent">
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
                 <div>
                     <p:inputText  styleClass="Wid70" id="input" required="#{cc.attrs.inp_require}"  maxlength="#{cc.attrs.inp_tamanho_maximo}"
                                   value="#{cc.attrs.inp_valor}" readonly="#{cc.attrs.inp_readonly}"   />
-                    <p:commandButton process="#{cc.attrs.btn_process}" onclick="#{cc.attrs.btn_onclick}" type="button"  icon="#{cc.attrs.btn_icon}" update="#{cc.attrs.btn_update}" title="#{cc.attrs.btn_titulo}"/>
-                    <p:commandButton icon="fa fa-plus-circle"/>
+                  
+                    <p:commandButton process="#{cc.attrs.btn_process}"  onclick="#{cc.attrs.btn_onclick}" type="button" class="btnForm"  
+                                     icon="#{cc.attrs.btn_icon}" update="#{cc.attrs.btn_update}" title="#{cc.attrs.btn_titulo}"/>
+                  
+                    <p:commandButton icon="fa fa-plus-circle" title="#{label.adicionar}" class="btnForm" onclick="#{cc.attrs.btn_onclick_plus}" immediate="true" />
 
                 </div>
-            </div>
+            </h:panelGroup>
         </div>
     </composite:implementation>
 </ui:composition>
