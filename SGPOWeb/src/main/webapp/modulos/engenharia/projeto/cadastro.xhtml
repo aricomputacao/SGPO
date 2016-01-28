@@ -58,9 +58,9 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.logo}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
-            <h:form enctype="multipart/form-data">
-                <eng:consultaDocumentoProjeto/>
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.gerenciar} #{label.documento}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
+            <h:form enctype="multipart/form-data" prependId="false" id="frm_doc">
+                <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
             </h:form>
         </p:dialog>
 

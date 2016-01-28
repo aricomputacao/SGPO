@@ -16,7 +16,10 @@ import br.com.sgpo.engenharia.modelo.DocumentoProjeto;
 import br.com.sgpo.engenharia.modelo.Projeto;
 import br.com.sgpo.engenharia.modelo.TipoProjeto;
 import br.com.sgpo.utilitario.BeanGenerico;
+import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitarios.StringUtil;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +32,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -39,6 +43,8 @@ import org.primefaces.model.UploadedFile;
 @ViewScoped
 public class ProjetoMB extends BeanGenerico implements Serializable {
 
+    @Inject
+    private UtilitarioNavegacaoMB navegacaoMB;
     @Inject
     private ProjetoController projetoController;
     @Inject
@@ -98,9 +104,11 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     public void addDocumento() {
         try {
             documento.setProjeto(projeto);
+            documento.setUsuario(navegacaoMB.getUsuarioLogado());
             documentoProjetoController.addDocumento(documento, docTemporario);
-            listaDeDocumentos.add(documento);
+            listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
             documento = new DocumentoProjeto();
+            docTemporario = null;
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageFatal(MensagensUtil.REGISTRO_FALHA);
@@ -111,12 +119,29 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     public void fileUploud(FileUploadEvent event) {
         try {
             docTemporario = event.getFile().getContents();
+            documento.setNome(StringUtil.removeAccentos(event.getFile().getFileName()).trim().replaceAll(documento.getExtencaoArquivo().getExtencao(), ""));
         } catch (Exception ex) {
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-  
+
+    public StreamedContent download(DocumentoProjeto dp) {
+        try {
+            dp.setAtivo(false);
+            documentoProjetoController.atualizar(dp);
+            listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
+            return dp.download();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void setarDocumento(DocumentoProjeto dp) {
+        documento = dp;
+    }
 
     public boolean renderAtalho() {
         return projeto.getId() != null;

@@ -20,48 +20,52 @@
 
     </composite:interface>
     <composite:implementation>
-        <p:commandButton value="teste" actionListener="#{projetoMB.addDocumento()}" />
         <panels:panel titulo="#{label.dados} #{label.documento}" id="pnlDadPes" class="fieldDad">
-            <h:panelGroup layout="block"  class="Container100 Responsive" >
-                <p:focus context="pnlDadPes" for="lbl"/>
-
-                <inputs:input_label id="lbl"    inp_class_tamanho="50" inp_require="true" lab_valor="#{label.nome}" inp_valor="#{projetoMB.documento.nome}" />
-
+            <h:panelGroup layout="block" id="divDoc" class="Container100 Responsive" >
+                <p:focus context="divDoc" />
                 <inputs:selectOneLabel id="selExt" inp_valor="#{projetoMB.documento.extencaoArquivo}" lab_valor="#{label.extencao}" inp_class_tamanho="20" inp_require="true"   >
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{projetoMB.listaDeExtencao}" var="ex" itemLabel="#{ex}" itemValue="#{ex}"/>
                 </inputs:selectOneLabel>
+                <inputs:input_label inp_valor="#{projetoMB.documento.descricao}" lab_valor="#{label.descricao}" inp_require="true" inp_class_tamanho="96" />
+            </h:panelGroup>
+            <h:panelGroup layout="block"  class="Container100 Responsive" >
 
-                <inputs:input_label inp_valor="#{projetoMB.documento.descricao}" lab_valor="#{label.descricao}" inp_require="true" inp_class_tamanho="50" />
 
-                <p:fileUpload id="carDoc" style="margin: 10px" class="Container96" mode="advanced" fileLimit="1" fileUploadListener="#{projetoMB.fileUploud}" 
-                              value="#{projetoMB.arquivoUpload}" sizeLimit="10485760" invalidSizeMessage="#{msg.limite_excediro}"
+                <p:fileUpload id="carDoc"  class="Container96 Fright" mode="advanced"  fileLimit="1" fileUploadListener="#{projetoMB.fileUploud}" 
+                              value="#{projetoMB.arquivoUpload}" sizeLimit="90485760"  invalidSizeMessage="#{msg.limite_excediro}"
                               cancelLabel="#{label.cancelar}" label="#{label.carregar_arquivo}" uploadLabel="#{label.enviar_arquivo}" 
-                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  skinSimple="true"  previewWidth="100"  />
+                              allowTypes="/(\.|\/)(jpe?g|png|dwg|dxf|dwf|xls|xlsx|doc|docx|pdf)$/" invalidFileMessage="#{msg.tipo_arquivo_invalido}" skinSimple="true"  previewWidth="100" />
 
+                <p:commandButton value="#{label.salvar} #{label.documento}" icon="fa fa-floppy-o" class="Fright" update="@form" actionListener="#{projetoMB.addDocumento()}" />
             </h:panelGroup>
         </panels:panel>
-        <p:fieldset>
-            <p:dataTable value="#{projetoMB.listaDeDocumentos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+        <p:fieldset id="fieldCon">
+            <p:dataTable value="#{projetoMB.listaDeDocumentos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="5"
                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  reflow="true">
 
 
-                <p:column headerText="#{label.tipo}" class="TexAlCenter">
+                <p:column headerText="#{label.nome}" >
                     <componentes:outputText value="#{p.nome}"/>
                 </p:column>
-                <p:column headerText="#{label.descricao}" class="TexAlCenter">
+                <p:column headerText="#{label.descricao}" >
                     <componentes:outputText value="#{p.descricao}"/>
                 </p:column>
-
-
-                <p:column headerText="#{label.acao}" width="10%">
-                    <p:commandButton title="#{label.download}" ajax="false" immediate="true" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-download">
-                        <p:fileDownload value="#{p.download()}"  />
+                <p:column headerText="#{label.data} #{label.upload}" width="10%" class="TexAlCenter">
+                    <componentes:outputText value="#{p.dataUpload}" tipo="d"/>
+                </p:column>
+                <p:column headerText="#{label.usuario}" class="TexAlCenter">
+                    <componentes:outputText value="#{p.usuario.nomeDoColaborador}" />
+                </p:column>
+                <p:column headerText="#{label.acao}" width="10%" >
+                    <p:commandButton title="#{label.download}" ajax="false" update=":frm_doc:compConDocProjeto:tabela" rendered="#{p.ativo}" immediate="true" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-download">
+                        <p:fileDownload value="#{projetoMB.download(p)}"  />
                     </p:commandButton>
-
+                    <botao:commandButton_editar acao_butao="#{projetoMB.setarDocumento(p)}" componente_to_update="@form" renderizar_btn="true" />
+                    
                 </p:column>
             </p:dataTable>
         </p:fieldset>
