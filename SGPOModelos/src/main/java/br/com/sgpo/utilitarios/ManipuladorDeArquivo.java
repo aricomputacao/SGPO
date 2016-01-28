@@ -5,16 +5,18 @@
  */
 package br.com.sgpo.utilitarios;
 
+import br.com.sgpo.engenharia.enumeration.TipoExtencaoArquivo;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -25,16 +27,24 @@ public class ManipuladorDeArquivo {
     public static final String PATH_WINDOWS = "C:" + File.separator;
     public static final String PATH_LINUX = "/" + File.separator;
     public static final String PASTA_LOGOS = "logos" + File.separator;
+    public static final String PASTA_DOCUMENTOS_PROJETO = "documentos" + File.separator;
 
-    
-      public static String getDiretorioLogos(){
+    public static String getDiretorioLogos() {
         if (ehLinux()) {
-            return PATH_LINUX+PASTA_LOGOS;
-        }else{
-            return PATH_WINDOWS+PASTA_LOGOS;
+            return PATH_LINUX + PASTA_LOGOS;
+        } else {
+            return PATH_WINDOWS + PASTA_LOGOS;
         }
     }
-    
+
+    public static String getDiretorioDocumentos() {
+        if (ehLinux()) {
+            return PATH_LINUX + PASTA_DOCUMENTOS_PROJETO;
+        } else {
+            return PATH_WINDOWS + PASTA_DOCUMENTOS_PROJETO;
+        }
+    }
+
     private static boolean ehLinux() {
         String os = System.getProperties().getProperty("os.name").toLowerCase();
         if (os.contains("windows")) {
@@ -86,6 +96,8 @@ public class ManipuladorDeArquivo {
         try (FileOutputStream writer = new FileOutputStream(pastaGeral + File.separator + nomeArquivo)) {
             writer.write(conteudo);
             writer.flush();
+            writer.close();
+
         }
     }
 
@@ -106,6 +118,7 @@ public class ManipuladorDeArquivo {
         FileOutputStream writer = new FileOutputStream(caminhoCompletoDoArquivo);
         writer.write(conteudo);
         writer.flush();
+        writer.close();
     }
 
     private static void gravaArquivo(String pasta, String arquivoComExtensao, byte[] conteudo) throws IOException {
@@ -131,7 +144,7 @@ public class ManipuladorDeArquivo {
     }
 
     public static List<File> listaDeArquivosDaPasta(String pasta) {
-        String relativo =  pasta;
+        String relativo = pasta;
         File f = new File(relativo);
         if (f.exists()) {
             return Arrays.asList(f.listFiles());
@@ -141,9 +154,8 @@ public class ManipuladorDeArquivo {
     }
 
     //Grava Arquivo localmente
-    public static void gravarArquivoLocalmente(FileUploadEvent event, String rotuloDaPasta, String pasta) throws IOException, Exception {
-        UploadedFile f = event.getFile();
-        ManipuladorDeArquivo.gravaArquivo(rotuloDaPasta, pasta, f.getFileName(), f.getContents());
+    public static void gravarArquivoLocalmente(String nomeCompletoComExtencao, byte[] conteudo) throws IOException {
+        ManipuladorDeArquivo.gravaArquivo(nomeCompletoComExtencao, conteudo);
     }
 
     //Grava Arquivo localmente
@@ -180,6 +192,14 @@ public class ManipuladorDeArquivo {
         }
         return false;
 
+    }
+
+    public static StreamedContent download(String caminhoCompleto, String nomeArquivoComExtencao, TipoExtencaoArquivo extencaoArquivo) throws FileNotFoundException {
+        StreamedContent file;
+        InputStream stream = new FileInputStream(caminhoCompleto);
+        file = new DefaultStreamedContent(stream, extencaoArquivo.getMime(), nomeArquivoComExtencao);
+
+        return file;
     }
 
 }
