@@ -5,7 +5,7 @@
  */
 package br.com.sgpo.administrativo.modelo;
 
-import br.com.sgpo.utilitarios.RemoveCaracteresUtil;
+import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -100,7 +100,7 @@ public class Endereco implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = RemoveCaracteresUtil.removeAccentos(nome.toUpperCase());
+        this.nome = StringUtil.removeAccentos(nome.toUpperCase());
     }
 
     public String getBairro() {
@@ -108,7 +108,7 @@ public class Endereco implements Serializable {
     }
 
     public void setBairro(String bairro) {
-        this.bairro = RemoveCaracteresUtil.removeAccentos(bairro.toUpperCase());
+        this.bairro = StringUtil.removeAccentos(bairro.toUpperCase());
     }
 
  

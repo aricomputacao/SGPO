@@ -6,10 +6,12 @@
 package br.com.sgpo.engenharia.modelo;
 
 import br.com.sgpo.engenharia.enumeration.TipoExtencaoArquivo;
+import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.annotation.Resources;
 import javax.persistence.Column;
@@ -22,6 +24,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -33,32 +37,52 @@ import org.primefaces.model.StreamedContent;
  * @author ari
  */
 @Entity
-@Table(name = "documento_projeto",schema = "engenharia")
+@Table(name = "documento_projeto", schema = "engenharia")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class DocumentoProjeto implements Serializable{
-    
+public class DocumentoProjeto implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "dop_id",nullable = false)
+    @Column(name = "dop_id", nullable = false)
     private Long id;
-    
+
     @NotEmpty
-    @Column(name = "dop_nome",nullable = false,unique = true)
+    @Column(name = "dop_nome", nullable = false, unique = true)
     private String nome;
-    
-    @Column(name = "dop_descricao",length = 1024)
+
+    @Column(name = "dop_descricao", length = 1024)
     private String descricao;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "pro_id",referencedColumnName = "pro_id",nullable = false)
+    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
     private Projeto projeto;
-    
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "dop_extencao",nullable = false)
+    @Column(name = "dop_extencao", nullable = false)
     private TipoExtencaoArquivo extencaoArquivo;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id", nullable = false)
+    private Usuario usuario;
+
+    @Column(name = "dop_ativo", nullable = false)
+    private boolean ativo;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "dop_data")
+    private Date dataUpload;
+
+    public Date getDataUpload() {
+        return dataUpload;
+    }
+
+    public void setDataUpload(Date dataUpload) {
+        this.dataUpload = dataUpload;
+    }
+    
     
     
     public Long getId() {
@@ -100,8 +124,22 @@ public class DocumentoProjeto implements Serializable{
     public void setExtencaoArquivo(TipoExtencaoArquivo extencaoArquivo) {
         this.extencaoArquivo = extencaoArquivo;
     }
-    
-    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 
     @Override
     public int hashCode() {
@@ -127,24 +165,28 @@ public class DocumentoProjeto implements Serializable{
         }
         return true;
     }
-    
-    
-    private String getNomeDoArquivo(){
-        return this.nome.concat(this.id.toString());
+
+    private String getNomeDoArquivo() {
+        return this.nome;
     }
-    public String getNomeDoArquivoComExtencao(){
-        return this.nome.concat(this.id.toString().concat(extencaoArquivo.getExtencao()));
+
+    public String getNomeDoArquivoComExtencao() {
+        return this.nome.concat(extencaoArquivo.getExtencao());
     }
-    
-    public String getCaminhoArquivo(){
-        return ManipuladorDeArquivo.getDiretorioDocumentos()
+
+    public String getCaminhoArquivoComExtencao() {
+        return getDiretorioDoArquivo().concat(File.separator)
                 .concat(getNomeDoArquivo())
                 .concat(this.extencaoArquivo.getExtencao());
     }
-    
-    public StreamedContent download() throws FileNotFoundException{
-        return ManipuladorDeArquivo.download(getCaminhoArquivo(),getNomeDoArquivoComExtencao(), extencaoArquivo);
+
+    public String getDiretorioDoArquivo() {
+        return ManipuladorDeArquivo.getDiretorioDocumentos()
+                .concat(this.projeto.getId().toString());
     }
-    
-    
+
+    public StreamedContent download() throws FileNotFoundException {
+        return ManipuladorDeArquivo.download(getCaminhoArquivoComExtencao(), getNomeDoArquivoComExtencao(), extencaoArquivo);
+    }
+
 }

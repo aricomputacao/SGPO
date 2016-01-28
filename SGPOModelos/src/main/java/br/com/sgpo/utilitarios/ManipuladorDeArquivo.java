@@ -68,57 +68,49 @@ public class ManipuladorDeArquivo {
         }
     }
 
-    /**
-     * Metódo para gravar arquivo localmente
-     *
-     * @param rotuloDaPasta nome do tipo de arquivos que seão gravados dentro da
-     * pasta
-     * @param identificadorPasta identificador único dauqla sub pasta
-     * @param nomeArquivo
-     * @param conteudo
-     * @throws IOException
-     * @throws Exception
-     */
-    private static void gravaArquivo(String rotuloDaPasta, String identificadorPasta, String nomeArquivo, byte[] conteudo) throws IOException, Exception {
-        File pastaGeral = new File(PATH_WINDOWS + rotuloDaPasta + identificadorPasta);
-        if (ehLinux()) {
-            pastaGeral = new File(PATH_LINUX + rotuloDaPasta + identificadorPasta);
-        }
-
-        if (!pastaGeral.exists()) {
-            if (!pastaGeral.mkdirs()) {
-                throw new Exception("Erro ao cria pasta relativa");
-            }
-        } else {
-            pastaGeral.delete();
-        }
-
-        try (FileOutputStream writer = new FileOutputStream(pastaGeral + File.separator + nomeArquivo)) {
-            writer.write(conteudo);
-            writer.flush();
-            writer.close();
-
-        }
-    }
-
-    private static void gravaArquivo(String caminhoCompletoDoArquivo, byte[] conteudo) throws IOException {
+//    /**
+//     * Metódo para gravar arquivo localmente
+//     *
+//     * @param rotuloDaPasta nome do tipo de arquivos que seão gravados dentro da
+//     * pasta
+//     * @param identificadorPasta identificador único dauqla sub pasta
+//     * @param nomeArquivo
+//     * @param conteudo
+//     * @throws IOException
+//     * @throws Exception
+//     */
+//    private static void gravaArquivo(String rotuloDaPasta, String identificadorPasta, String nomeArquivo, byte[] conteudo) throws IOException, Exception {
+//        File pastaGeral = new File(PATH_WINDOWS + rotuloDaPasta + identificadorPasta);
+//        if (ehLinux()) {
+//            pastaGeral = new File(PATH_LINUX + rotuloDaPasta + identificadorPasta);
+//        }
+//
+//        if (!pastaGeral.exists()) {
+//            if (!pastaGeral.mkdirs()) {
+//                throw new Exception("Erro ao cria pasta relativa");
+//            }
+//        } else {
+//            pastaGeral.delete();
+//        }
+//
+//        try (FileOutputStream writer = new FileOutputStream(pastaGeral + File.separator + nomeArquivo)) {
+//            writer.write(conteudo);
+//            writer.flush();
+//            writer.close();
+//
+//        }
+//    }
+    private static void criaroDiretorio(String caminhoCompletoDoArquivo) throws IOException {
         File pastaGeral = new File(caminhoCompletoDoArquivo);
-        if (ehLinux()) {
-            pastaGeral = new File(caminhoCompletoDoArquivo);
-        }
+
+        pastaGeral = new File(caminhoCompletoDoArquivo);
 
         if (!pastaGeral.exists()) {
             if (!pastaGeral.mkdirs()) {
                 throw new IOException("Erro ao cria pasta relativa");
             }
-        } else {
-            pastaGeral.delete();
         }
 
-        FileOutputStream writer = new FileOutputStream(caminhoCompletoDoArquivo);
-        writer.write(conteudo);
-        writer.flush();
-        writer.close();
     }
 
     private static void gravaArquivo(String pasta, String arquivoComExtensao, byte[] conteudo) throws IOException {
@@ -153,9 +145,9 @@ public class ManipuladorDeArquivo {
         }
     }
 
-    //Grava Arquivo localmente
-    public static void gravarArquivoLocalmente(String nomeCompletoComExtencao, byte[] conteudo) throws IOException {
-        ManipuladorDeArquivo.gravaArquivo(nomeCompletoComExtencao, conteudo);
+    //Criar pasta para o arquivo
+    public static void criarDiretorioLocal(String nomeCompletoComExtencao) throws IOException {
+        ManipuladorDeArquivo.criaroDiretorio(nomeCompletoComExtencao);
     }
 
     //Grava Arquivo localmente

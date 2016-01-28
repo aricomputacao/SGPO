@@ -4,7 +4,7 @@
  */
 package br.com.sgpo.administrativo.modelo;
 
-import br.com.sgpo.utilitarios.RemoveCaracteresUtil;
+import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -61,7 +61,7 @@ public class UnidadeFederativa implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = RemoveCaracteresUtil.removeAccentos(nome.toUpperCase());
+        this.nome = StringUtil.removeAccentos(nome.toUpperCase());
     }
 
     public String getSigla() {
@@ -69,7 +69,7 @@ public class UnidadeFederativa implements Serializable {
     }
 
     public void setSigla(String sigla) {
-        this.sigla = RemoveCaracteresUtil.removeAccentos(sigla.toUpperCase());
+        this.sigla = StringUtil.removeAccentos(sigla.toUpperCase());
     }
 
    

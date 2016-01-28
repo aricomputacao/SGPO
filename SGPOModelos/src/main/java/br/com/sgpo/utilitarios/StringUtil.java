@@ -5,10 +5,7 @@
  */
 package br.com.sgpo.utilitarios;
 
-import java.io.File;
 import java.text.Normalizer;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *
@@ -50,12 +47,12 @@ public class StringUtil {
         return st.replaceAll("[^a-zZ-Z0-9 ]", "");
       }
 
+    
+     public static String removeAccentos(String texto) {
+        return Normalizer.normalize(texto, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+    }
     public static void main(String[] args) {
-        List<File> listaDeArquivosDaPasta = ManipuladorDeArquivo.listaDeArquivosDaPasta(ManipuladorDeArquivo.PASTA_LOGOS);
-
-        for (File file : listaDeArquivosDaPasta) {
-            System.out.println(file.getName());
-        }
+          System.out.println(removerCaracteresEspeciais("j´so´ss´s´sáá´$$###"));
 
 //        System.out.println(StringUtil.removerCaracteresEspeciais("005.222.403-13"));
 //        System.out.println(StringUtil.formatarTelefone("8836110665"));

@@ -4,7 +4,7 @@
  */
 package br.com.sgpo.administrativo.modelo;
 
-import br.com.sgpo.utilitarios.RemoveCaracteresUtil;
+import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -72,7 +72,7 @@ public class Municipio implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = RemoveCaracteresUtil.removeAccentos(nome.toUpperCase());
+        this.nome = StringUtil.removeAccentos(nome.toUpperCase());
     }
 
     public UnidadeFederativa getUnidadeFederativa() {
