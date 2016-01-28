@@ -22,11 +22,19 @@ public class ProjetoController extends ControllerGenerico<Projeto, Long> impleme
     
     @Inject
     private ProjetoDAO dao;
+  
 
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
+
+    public Projeto salvarGerenciar(Projeto projeto) {
+        return dao.atualizarGerenciar(projeto);
+    }
+    
+    
+     
     
 }

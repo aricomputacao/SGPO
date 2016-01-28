@@ -4,13 +4,10 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
-                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
-                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
-                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs">
 
     <composite:interface id="interCon">
 
@@ -18,25 +15,33 @@
     <composite:implementation  >
         <panels:panel titulo="#{label.dados} #{label.do} #{label.projeto} " id="pnlDadPes" class="fieldDad">
             <h:panelGroup layout="block"  class="Container100 Responsive" >
-                <inputs:input_label_data inp_valor="#{projetoMB.projeto.dataInicio}" lab_valor="#{label.data_inicial}" inp_require="true"  inp_class_tamanho="10"/>
+                <inputs:input_label_data inp_valor="#{projetoMB.projeto.dataInicio}" lab_valor="#{label.data_inicial}" inp_require="true"  inp_class_tamanho="20"/>
                 <inputs:selectOneLabel inp_valor="#{projetoMB.projeto.tipo}" id="sel_car" lab_valor="#{label.tipo}"  sel_converter="indexConverter" inp_class_tamanho="20">
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{projetoMB.listaTipoProjetos}" var="cg" itemLabel="#{cg.nome}" itemValue="#{cg}"/>
                 </inputs:selectOneLabel>
-                <inputs:input_label inp_valor="#{projetoMB.projeto.nome}" lab_valor="#{label.nome}" inp_require="true"   inp_class_tamanho="33" />
-                <inputs:selectOneLabel  inp_valor="#{projetoMB.projeto.fase}" id="sel_fas" lab_valor="#{label.fase}"  inp_class_tamanho="20">
+                
+                <inputs:selectOneLabel inp_valor="#{projetoMB.projeto.empresa}" id="sel_emp" lab_valor="#{label.empresa}"  sel_converter="indexConverter" inp_class_tamanho="33">
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
+                    <f:selectItems value="#{utilitarioNavegacaoMB.usuarioLogado.empresas}" var="em" itemLabel="#{em.nome}" itemValue="#{em}"/>
+                </inputs:selectOneLabel>
+                
+                <inputs:selectOneLabel  inp_valor="#{projetoMB.projeto.fase}" id="sel_fas" lab_valor="#{label.fase}"  inp_class_tamanho="20">
                     <f:selectItems value="#{projetoMB.listaDeFasesProjeto}" var="fa" itemLabel="#{fa.descricao}" itemValue="#{fa}"/>
                 </inputs:selectOneLabel>
-                <inputs:input_label inp_valor="#{projetoMB.projeto.numero}" lab_valor="#{label.numero}"   inp_class_tamanho="10" />
+                
+            </h:panelGroup>
+            <h:panelGroup layout="block"  class="Container100 Responsive" >
+                <inputs:input_label inp_valor="#{projetoMB.projeto.nome}" lab_valor="#{label.nome}" inp_require="true"   inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{projetoMB.projeto.numero}" lab_valor="#{label.numero}"   inp_class_tamanho="20" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
                 <inputs:input_label_btn_click_btn_mais inp_valor="#{projetoMB.projeto.cliente.nome}" id="inp_cli" lab_valor="#{label.cliente}" inp_readonly="true" inp_require="true" 
-                                                       btn_immediate="true" btn_onclick="PF('dialogCliente').show()" btn_process="@this" inp_class_tamanho="30" 
+                                                       btn_immediate="true" btn_onclick="PF('dialogCliente').show()" btn_process="@this" inp_class_tamanho="50" 
                                                        btn_onclick_plus="PF('dialogCadCliente').show()" />
                 
                 <inputs:input_label_btn_click inp_valor="#{projetoMB.projeto.responsavel.nome}" id="inp_resp" lab_valor="#{label.responsavel}" inp_readonly="true" inp_require="true" 
-                                                       btn_immediate="true" btn_onclick="PF('dialogResponsavel').show()" btn_process="@this" inp_class_tamanho="30" />
+                                                       btn_immediate="true" btn_onclick="PF('dialogResponsavel').show()" btn_process="@this" inp_class_tamanho="50" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
                 <inputs:textarea_label inp_valor="#{projetoMB.projeto.observacao}" lab_valor="#{label.observacao}" inp_class_tamanho="100" inp_blur="btn_salvar" inp_tamanho_maximo="1024" />

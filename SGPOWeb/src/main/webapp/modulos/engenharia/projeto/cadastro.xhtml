@@ -7,21 +7,29 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:eng="http://xmlns.jcp.org/jsf/composite/componentes/paginas/engenharia"
                 xmlns:adm="http://xmlns.jcp.org/jsf/composite/componentes/paginas/administrativo"
-
-                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" >
-            <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
-                                     acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
-                                     acao_excluir="#{projetoMB.init()}"  acao_salvar="#{tipoProjetoMB.salvar()}"
-                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" >
-                <eng:cadastroProjeto id="compCadastro"/>
-            </componentes:panelPadrao>
+            <div  onkeydown="atalhoF1('dialogoDocum')">
+
+                <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
+                                         acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" >
+                    <btn:commandLinksAtalhos acao_click_F1="PF('dialogoDocum').show()"   render_F1="#{projetoMB.renderAtalho()}" 
+                                             title_F1="#{label.adicionar} #{label.conta}" update_F1=":frm_cad" immediate_F1="true" render_F2="false" />
+                    <eng:cadastroProjeto id="compCadastro"/>
+                </componentes:panelPadrao>
+            </div>
         </h:form>
     </ui:define>
     <ui:define name="dialog">
-        <p:dialog showEffect="fade" position="center center"   header="#{label.usuario} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.usuario} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
             <h:form id="frm_usr" >
                 <adm:consultaCliente id="compUsr"  componente_to_update="@form" render_edit="false" >
                     <p:commandButton actionListener="#{projetoMB.setarCliente(p)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_cli:input" onclick="PF('dialogCliente').hide()" />
@@ -29,7 +37,7 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="50%"   header="#{label.usuario} " id="dialogResponsavel" modal="true" hideEffect="fade" widgetVar="dialogResponsavel">
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.usuario} " id="dialogResponsavel" modal="true" hideEffect="fade" widgetVar="dialogResponsavel">
             <h:form id="frm_col" >
                 <adm:consultaColaborador id="compUsr"  componente_to_update="@form" render_edit="false" >
                     <p:commandButton actionListener="#{projetoMB.setarResponsavel(c)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_resp:input" onclick="PF('dialogResponsavel').hide()" />
@@ -37,21 +45,25 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center"   header="#{label.usuario} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.usuario} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
             <h:form id="frm_cad_cli" >
                 <componentes:panelPadraoDialog id="pnlPadrao" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
-                                         acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
+                                               acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
 
-                                         btn_limpar="true" cabecalho="#{label.cadastro} #{label.cliente}" btn_imprimir="false" btn_ativar="false"
-                                         btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{clienteMB.init()}" >
+                                               btn_limpar="true" cabecalho="#{label.cadastro} #{label.cliente}" btn_imprimir="false" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{clienteMB.init()}" >
                     <adm:cadastroCliente id="compCadastro" form=":frm_cad_cli"  />
                 </componentes:panelPadraoDialog>
 
 
             </h:form>
         </p:dialog>
-        
-       
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.logo}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
+            <h:form enctype="multipart/form-data">
+                <eng:consultaDocumentoProjeto/>
+            </h:form>
+        </p:dialog>
+
     </ui:define>
 
 </ui:composition>

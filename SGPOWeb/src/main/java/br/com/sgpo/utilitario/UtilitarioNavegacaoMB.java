@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.utilitario;
 
+import br.com.sgpo.administrativo.modelo.Empresa;
 import br.com.sgpo.seguranca.controller.PermissaoController;
 import br.com.sgpo.seguranca.controller.UsuarioController;
 import br.com.sgpo.seguranca.managedbean.UsuarioMB;
@@ -40,10 +41,11 @@ public class UtilitarioNavegacaoMB implements Serializable {
     private UsuarioController usuarioController;
     @Inject
     private PermissaoController permissaoController;
+   
     private Usuario usuarioLogado;
     private List<Permissao> listaDePermissaoDoUsuario;
     private final Map<String, Permissao> menu;
-
+    private List<Empresa> listaEmpresasDoUsuario;
     private String senhaAtual;
     private String novaSenha;
     private String confirmaSenha;
@@ -60,6 +62,7 @@ public class UtilitarioNavegacaoMB implements Serializable {
                 logout();
             } else {
                 listaDePermissaoDoUsuario = permissaoController.consultarTodos("id", "usuario.colaborador.nome", getUsuarioLogado().getNomeDoColaborador());
+                
                 popularMenu();
             }
         } catch (Exception ex) {

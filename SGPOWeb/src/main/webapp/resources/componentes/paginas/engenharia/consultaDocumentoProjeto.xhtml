@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:botao="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <composite:interface>
+        <composite:attribute name="acao_butao" method-signature="java.lang.Void action()" default="#{clienteMB.consultarCliente()}"/>
+        <composite:attribute name="componente_to_update"  shortDescription="componete atualizado apos selecionar a linha" default="@form" />
+        <composite:attribute name="render_edit"   default="true" />
+
+
+    </composite:interface>
+    <composite:implementation>
+        <p:commandButton value="teste" actionListener="#{projetoMB.addDocumento()}" />
+        <panels:panel titulo="#{label.dados} #{label.documento}" id="pnlDadPes" class="fieldDad">
+            <h:panelGroup layout="block"  class="Container100 Responsive" >
+                <p:focus context="pnlDadPes" for="lbl"/>
+
+                <inputs:input_label id="lbl"    inp_class_tamanho="50" inp_require="true" lab_valor="#{label.nome}" inp_valor="#{projetoMB.documento.nome}" />
+
+                <inputs:selectOneLabel id="selExt" inp_valor="#{projetoMB.documento.extencaoArquivo}" lab_valor="#{label.extencao}" inp_class_tamanho="20" inp_require="true"   >
+                    <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
+                    <f:selectItems value="#{projetoMB.listaDeExtencao}" var="ex" itemLabel="#{ex}" itemValue="#{ex}"/>
+                </inputs:selectOneLabel>
+
+                <inputs:input_label inp_valor="#{projetoMB.documento.descricao}" lab_valor="#{label.descricao}" inp_require="true" inp_class_tamanho="50" />
+
+                <p:fileUpload id="carDoc" style="margin: 10px" class="Container96" mode="advanced" fileLimit="1" fileUploadListener="#{projetoMB.fileUploud}" 
+                              value="#{projetoMB.arquivoUpload}" sizeLimit="10485760" invalidSizeMessage="#{msg.limite_excediro}"
+                              cancelLabel="#{label.cancelar}" label="#{label.carregar_arquivo}" uploadLabel="#{label.enviar_arquivo}" 
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  skinSimple="true"  previewWidth="100"  />
+
+            </h:panelGroup>
+        </panels:panel>
+        <p:fieldset>
+            <p:dataTable value="#{projetoMB.listaDeDocumentos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                <p:column headerText="#{label.tipo}" class="TexAlCenter">
+                    <componentes:outputText value="#{p.nome}"/>
+                </p:column>
+                <p:column headerText="#{label.descricao}" class="TexAlCenter">
+                    <componentes:outputText value="#{p.descricao}"/>
+                </p:column>
+
+
+                <p:column headerText="#{label.acao}" width="10%">
+                    <p:commandButton title="#{label.download}" ajax="false" immediate="true" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-download">
+                        <p:fileDownload value="#{p.download()}"  />
+                    </p:commandButton>
+
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

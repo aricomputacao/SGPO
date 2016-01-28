@@ -43,15 +43,15 @@
                     </p:submenu>
 
                 </p:submenu>
-                <p:submenu label="#{label.modulo_engenharia}" icon="icon-codeopen" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloEngenharia()}" >
+                <p:submenu label="#{label.modulo_engenharia}" icon="icon-cubes" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloEngenharia()}" >
                     <p:submenu label="#{label.tipo_projeto}" icon="icon-spread" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.tipo_projeto_cadastro)}" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.tipo_projeto_cadastro}"/>
                     </p:submenu>
 
-                    <p:submenu label=" #{label.projeto}" icon="icon-cubes "  rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_cadastro) 
+                    <p:submenu label=" #{label.projeto}" icon="icon-codeopen "  rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_cadastro) 
                                          or utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_consulta) }" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_cadastro)}" outcome="#{engenharia.projeto_cadastro}"/>
-                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_consulta)}" outcome="#{engenharia.projeto_cadastro}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_consulta)}" outcome="#{engenharia.projeto_consulta}"/>
                     </p:submenu>
 
                 </p:submenu>

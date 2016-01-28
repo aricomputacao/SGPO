@@ -120,14 +120,10 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
     public void fileUploud(FileUploadEvent event) {
         try {
             logo = event.getFile().getContents();
-
-//            MenssagemUtil.enaddMessageInfo(NavegacaoMB.getMsg("salvar_processo", MenssagemUtil.MENSAGENS));
         } catch (Exception ex) {
             Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     
 
     @Override
     protected Map<String, Object> getCampo() {

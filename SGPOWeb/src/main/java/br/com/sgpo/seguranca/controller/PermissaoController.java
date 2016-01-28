@@ -5,6 +5,8 @@
  */
 package br.com.sgpo.seguranca.controller;
 
+import br.com.sgpo.administrativo.controller.EmpresaController;
+import br.com.sgpo.administrativo.modelo.Empresa;
 import br.com.sgpo.seguranca.DAO.PermissaoDAO;
 import br.com.sgpo.seguranca.enumaration.TarefaPermissaoDTO;
 import br.com.sgpo.seguranca.modelo.Permissao;
@@ -31,6 +33,8 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
     private TarefaController tarefaController;
     @Inject
     private UsuarioController usuarioController;
+    @Inject
+    private EmpresaController empresaController;
 
     @PostConstruct
     @Override
@@ -43,6 +47,8 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
         List<Tarefa> listaTarefas = tarefaController.consultarTodosOrdenadorPor("id");
         Usuario usuario = usuarioController.usuarioLogin("adm");
 
+        List<Empresa> listDeEmpresas = empresaController.consultarTodosOrdenadorPor("nome");
+
         for (Tarefa taf : listaTarefas) {
             Permissao per = dao.buscarPor(usuario, taf);
             per.setTarefa(taf);
@@ -54,6 +60,13 @@ public class PermissaoController extends ControllerGenerico<Permissao, Long> imp
 
             dao.atualizar(per);
         }
+        for (Empresa em : listDeEmpresas) {
+            if (!usuario.getEmpresas().contains(em)) {
+                usuario.addEmpresa(em);
+
+            }
+        }
+        usuarioController.atualizar(usuario);
 
     }
 

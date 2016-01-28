@@ -2,7 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
 
 nextFocus = (function (id) {
     var tecla = (event.keyCode ? event.keyCode : event.which);
