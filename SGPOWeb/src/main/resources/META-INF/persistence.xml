@@ -26,6 +26,7 @@
     <class>br.com.sgpo.engenharia.modelo.Projeto</class>
     <class>br.com.sgpo.engenharia.modelo.DocumentoProjeto</class>
     <class>br.com.sgpo.engenharia.modelo.MovimentacaoDocumento</class>
+    <class>br.com.sgpo.engenharia.modelo.MovimentacaoProjeto</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

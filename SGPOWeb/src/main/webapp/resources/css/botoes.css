@@ -245,14 +245,8 @@
     box-shadow: none ! important;
     color: #ffffff ! important;
 
-    background: rgba(134,174,204,1) ! important;
-    background: -moz-linear-gradient(-45deg, rgba(134,174,204,1) 0%, rgba(212,228,239,1) 100%) ! important;
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(134,174,204,1)), color-stop(100%, rgba(212,228,239,1))) ! important;
-    background: -webkit-linear-gradient(-45deg, rgba(134,174,204,1) 0%, rgba(212,228,239,1) 100%) ! important;
-    background: -o-linear-gradient(-45deg, rgba(134,174,204,1) 0%, rgba(212,228,239,1) 100%) ! important;
-    background: -ms-linear-gradient(-45deg, rgba(134,174,204,1) 0%, rgba(212,228,239,1) 100%) ! important;
-    background: linear-gradient(135deg, rgba(134,174,204,1) 0%, rgba(212,228,239,1) 100%) ! important;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#86aecc', endColorstr='#d4e4ef', GradientType=1 ) ! important;
+    background: #3b9dff ! important;
+    
 
 }
 .btnLimpar .ui-button-text {
@@ -311,10 +305,9 @@
 
 }
 .btnCancelar .ui-button-text{
+    color: #ffffff ! important;
     border: none ! important;
     box-shadow: none ! important;
-    color: #ffffff ! important;
-    text-shadow: 0 -1px 0 white ! important;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3019+0,cf0404+100;Red+3D */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff670f+0,ff670f+100;Orange+Flat+%231 */
     background: rgb(255,103,15) ! important; /* Old browsers */
@@ -329,9 +322,9 @@
 
 
 .ui-confirmdialog-yes .ui-button-text{
-    border: solid 1px #A0A0A0;
-    color: #ffffff;
-    text-shadow: 0 -1px 0 #75890c;
+    color: #ffffff ! important;
+    border: none ! important;
+    box-shadow: none ! important;
     background: rgba(164,179,87,1);
     background: -moz-linear-gradient(-45deg, rgba(164,179,87,1) 0%, rgba(117,137,12,1) 100%);
     background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(164,179,87,1)), color-stop(100%, rgba(117,137,12,1)));
@@ -342,9 +335,9 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c', GradientType=1 );
 }
 .ui-confirmdialog-no .ui-button-text{
-    border: solid 0.1px #A0A0A0;
-    color: #ffffff;
-    text-shadow: 0 -1px 0 #A0A0A0;
+    color: #ffffff ! important;
+    border: none ! important;
+    box-shadow: none ! important;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3019+0,cf0404+100;Red+3D */
     background: #ff3019; /* Old browsers */
     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -372,5 +365,9 @@
 }
 .atalho-f2{
     background: #89c4ff ! important;
+
+}
+.atalho-f3{
+    background: #ffff76 ! important;
 
 }

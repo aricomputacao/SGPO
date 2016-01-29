@@ -53,7 +53,9 @@
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_cadastro)}" outcome="#{engenharia.projeto_cadastro}"/>
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_consulta)}" outcome="#{engenharia.projeto_consulta}"/>
                     </p:submenu>
-
+                    <p:submenu label="#{label.relatorio}" icon="icon-print-1" rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_projeto_colaborador)}" >
+                        <p:menuitem value="#{label.projeto} #{label.colaborador}" icon="icon-list-alt"  outcome="#{engenharia.relatorio_projeto_colaborador}"/>
+                    </p:submenu>
                 </p:submenu>
                 <p:submenu label="#{label.modulo_seguranca}" icon="icon-lock-open-alt" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloSeguranca()}" >
                     <p:submenu label="#{label.modulo}" icon="icon-cubes" rendered="#{utilitarioNavegacaoMB.permissaoExiste(seguranca.modulo_consulta)}" >

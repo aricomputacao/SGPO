@@ -16,7 +16,7 @@
         <h:form id="frm_cons" prependId="false" >
             <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label.consulta} #{label.projeto}" acao_limpar="#{projetoMB.init()}" render_sep_1="false" btn_excluir="false" 
                                      btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{projetoMB.init()}" render_sep_2="false" render_sep_3="false"
-                                     dialog_cadastro="dialogCadastro" btn_imprimir="false" btn_dialog_rel="false" btn_salvar_update="false">
+                                     dialog_cadastro="dialogCadastro" btn_imprimir="false" btn_dialog_rel="true" btn_salvar_update="false">
                 <eng:consultaProjeto id="compConsulta" acao_butao="#{projetoMB.consultarProjetos()}" componente_to_update="@form:pnlPadrao:compConsulta:tabela"  />
             </componentes:panelPadrao>
         </h:form>

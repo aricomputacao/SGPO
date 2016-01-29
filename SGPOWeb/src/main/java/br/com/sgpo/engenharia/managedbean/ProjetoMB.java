@@ -8,11 +8,13 @@ package br.com.sgpo.engenharia.managedbean;
 import br.com.sgpo.administrativo.modelo.Cliente;
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.engenharia.Controller.DocumentoProjetoController;
+import br.com.sgpo.engenharia.Controller.MovimentacaoProjetoController;
 import br.com.sgpo.engenharia.Controller.ProjetoController;
 import br.com.sgpo.engenharia.Controller.TipoProjetoController;
 import br.com.sgpo.engenharia.enumeration.FaseProjeto;
 import br.com.sgpo.engenharia.enumeration.TipoExtencaoArquivo;
 import br.com.sgpo.engenharia.modelo.DocumentoProjeto;
+import br.com.sgpo.engenharia.modelo.MovimentacaoProjeto;
 import br.com.sgpo.engenharia.modelo.Projeto;
 import br.com.sgpo.engenharia.modelo.TipoProjeto;
 import br.com.sgpo.utilitario.BeanGenerico;
@@ -22,7 +24,6 @@ import br.com.sgpo.utilitarios.StringUtil;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,10 +53,13 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     private DocumentoProjetoController documentoProjetoController;
     @Inject
     private TipoProjetoController tipoProjetoController;
+    @Inject
+    private MovimentacaoProjetoController movimentacaoProjetoController;
 
     private Projeto projeto;
     private DocumentoProjeto documento;
 
+    private List<MovimentacaoProjeto> listaMovimentacaoProjetos;
     private List<TipoProjeto> listaTipoProjetos;
     private List<Projeto> listaDeProjetos;
     private List<DocumentoProjeto> listaDeDocumentos;
@@ -74,6 +78,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
                 projeto = new Projeto();
             } else {
                 listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
+                listaMovimentacaoProjetos = movimentacaoProjetoController.consultarTodos(projeto);
             }
 
             listaTipoProjetos = tipoProjetoController.consultarTodosOrdenadorPor("nome");
@@ -95,11 +100,18 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     }
 
     public void alterarStatusProjeto() {
-        projeto = projetoController.alterarStatusProjeto(projeto,navegacaoMB.getUsuarioLogado());
-        
-        MensagensUtil.enviarMessageInfo(MensagensUtil.PROJETO_CONCLUIDO);
+        try {
+            projeto = projetoController.alterarStatusProjeto(projeto, navegacaoMB.getUsuarioLogado());
+            listaMovimentacaoProjetos = movimentacaoProjetoController.consultarTodos(projeto);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.PROJETO_CONCLUIDO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageWarn(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
+    
+   
 
     public void consultarProjetos() {
         try {
@@ -155,8 +167,9 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     public boolean renderAtalhoF1() {
         return projeto.getId() != null;
     }
+
     public boolean renderAtalhoF2() {
-        return projeto.getId() != null && projeto.getFase().equals(FaseProjeto.EM_ANDAMENTO);
+        return projeto.getId() != null;
     }
 
     public void processarCampoConsulta() {
@@ -227,4 +240,10 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         this.arquivoUpload = arquivoUpload;
     }
 
+    public List<MovimentacaoProjeto> getListaMovimentacaoProjetos() {
+        return listaMovimentacaoProjetos;
+    }
+
+    
+    
 }

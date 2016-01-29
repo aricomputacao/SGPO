@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:eng="http://xmlns.jcp.org/jsf/composite/paginas/engenharia"
+                xmlns:adm="http://xmlns.jcp.org/jsf/composite/paginas/administrativo">
+
+
+
+    <ui:define name="corpo">
+        <h:form id="frm_cons" prependId="false" >
+                <eng:relatorioProjetoColaborador id="compConsulta"   />
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" position="center center"  width="70%" header="#{label.colaborador} " id="dialogCol" modal="true" hideEffect="fade" widgetVar="dialogCol">
+            <h:form id="frm_usr" >
+                <adm:consultaColaborador componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{relatorioProjetoColaboradorMB.setValorCampoConsuta(c.nome)}" icon="fa fa-check-square-o" update=":frm_cons:compConsulta:inpCol:input" onclick="PF('dialogCol').hide()" />
+                </adm:consultaColaborador>
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+
+

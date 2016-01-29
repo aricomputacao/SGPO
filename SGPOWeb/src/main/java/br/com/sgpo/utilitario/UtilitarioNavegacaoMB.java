@@ -14,6 +14,7 @@ import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import br.com.sgpo.utilitarios.CriptografiaSenha;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,8 @@ public class UtilitarioNavegacaoMB implements Serializable {
     private String senhaAtual;
     private String novaSenha;
     private String confirmaSenha;
-
+    private Date dataAtual;
+    
     public UtilitarioNavegacaoMB() {
         menu = new HashMap<>();
     }
@@ -57,6 +59,7 @@ public class UtilitarioNavegacaoMB implements Serializable {
     @PostConstruct
     public void init() {
         try {
+            dataAtual = new Date();
             usuarioLogado = usuarioController.usuarioLogin(getContexto().getRemoteUser());
             if (usuarioLogado.getId() == null) {
                 logout();
@@ -212,4 +215,8 @@ public class UtilitarioNavegacaoMB implements Serializable {
         this.confirmaSenha = confirmaSenha;
     }
 
+    public Date getDataAtual() {
+        return dataAtual;
+    }
+   
 }
