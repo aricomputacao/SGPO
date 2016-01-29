@@ -28,6 +28,7 @@ public class MensagensUtil implements Serializable {
     public static final String SERVIDOR_INDISPONIVEL = "servidor_indisponivel";
     public static final String EXCLUIR_SUCESSO = "excluir_sucesso";
     public static final String EXCLUIR_FALHA = "excluir_falha";
+    public static final String PROJETO_CONCLUIDO = "projeto_concluido";
     private String msg;
 
     private static String lerMensagensComParamentros(String idMensagem, Object... params) {
