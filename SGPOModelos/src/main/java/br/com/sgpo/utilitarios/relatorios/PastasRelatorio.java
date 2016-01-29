@@ -17,6 +17,9 @@ public abstract class PastasRelatorio {
     public static final String REL_ADMINISTRATIVO_FORNECEDOR = "/WEB-INF/relatorios/administrativo/rel_fornecedor.jasper";
     public static final String REL_ADMINISTRATIVO_COLABORADOR = "/WEB-INF/relatorios/administrativo/rel_colaborador.jasper";
 
-  
+  //relatórios do módulo engenharia
+    public static final String RESOURCE_ENGENHARIA = "WEB-INF/relatorios/engenharia";
+    public static final String REL_PROJETO_COLABORADOR = "/WEB-INF/relatorios/engenharia/rel_projeto_colaborador.jasper";
+    
 
 }

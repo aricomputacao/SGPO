@@ -11,7 +11,8 @@ package br.com.sgpo.engenharia.enumeration;
  */
 public enum FaseProjeto {
     
-    CONCLUIDO("Concluido"),EM_ANDAMENTO("Em Andamento");
+    CONCLUIDO("Concluido"),
+    EM_ANDAMENTO("Em Andamento");
     
     private final String descricao;
 

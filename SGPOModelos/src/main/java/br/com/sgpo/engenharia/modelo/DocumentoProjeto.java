@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.annotation.Resources;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -47,7 +46,7 @@ public class DocumentoProjeto implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Column(name = "dop_nome", nullable = false, unique = true)
+    @Column(name = "dop_nome", nullable = false)
     private String nome;
 
     @Column(name = "dop_descricao", length = 1024)
