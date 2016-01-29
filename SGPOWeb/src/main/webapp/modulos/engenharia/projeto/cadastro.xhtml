@@ -5,8 +5,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:eng="http://xmlns.jcp.org/jsf/composite/componentes/paginas/engenharia"
-                xmlns:adm="http://xmlns.jcp.org/jsf/composite/componentes/paginas/administrativo"
+                xmlns:eng="http://xmlns.jcp.org/jsf/composite/paginas/engenharia"
+                xmlns:adm="http://xmlns.jcp.org/jsf/composite/paginas/administrativo"
                 xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
                 xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
                 xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
@@ -15,14 +15,16 @@
 
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" >
-            <div  onkeydown="atalhoF1('dialogoDocum')">
+            <div  onkeydown="atalhoF1('dialogoDocum');atalhoF2('dialogoFinalizar')">
 
                 <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                          acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
                                          acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
                                          btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" >
-                    <btn:commandLinksAtalhos acao_click_F1="PF('dialogoDocum').show()"   render_F1="#{projetoMB.renderAtalho()}" 
-                                             title_F1="#{label.adicionar} #{label.conta}" update_F1=":frm_cad" immediate_F1="true" render_F2="false" />
+
+                    <btn:commandLinksAtalhos acao_click_F1="PF('dialogoDocum').show()" acao_click_F2="PF('dialogoFinalizar').show()"   render_F1="#{projetoMB.renderAtalhoF1()}" title_F2="#{label.finalizar} #{label.projeto}"
+                                             title_F1="#{label.adicionar} #{label.documento}" update_F1=":frm_cad" immediate_F1="true" render_F2="#{projetoMB.renderAtalhoF2()}" />
+
                     <eng:cadastroProjeto id="compCadastro"/>
                 </componentes:panelPadrao>
             </div>
@@ -58,12 +60,46 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.gerenciar} #{label.documento}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
+        <p:dialog showEffect="fade" position="center center" rendered="#{projetoMB.renderAtalhoF1()}" width="85%"  header="#{label.gerenciar} #{label.documento}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
             <h:form enctype="multipart/form-data" prependId="false" id="frm_doc">
                 <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
             </h:form>
         </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="20%" rendered="#{projetoMB.renderAtalhoF2()}"  header="#{label.finalizar} #{label.projeto}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
+            <h:form  prependId="false" id="frm_fim" class="TexAlCenter">
+                <p:commandButton value="#{label.nao}" class="Fleft " onclick="PF('dialogoFinalizar').hide()" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times "/>
+                <p:commandButton value="#{label.sim}"  actionListener="#{projetoMB.alterarStatusProjeto()}" oncomplete="PF('dialogoFinalizar').hide()"  style="margin-left: 30px"  styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle-o " />
 
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="75%"  header="#{label.movimentacoes}" id="dialogMov" modal="true" hideEffect="fade" widgetVar="dialogMov">
+            <h:form id="frm_mov" prependId="false">
+
+                <p:dataTable value="#{movimentacaoDocumentoMB.listaMovimentacao}" id="tabelaMov" paginatorAlwaysVisible="false"  paginator="true" var="m" rows="5"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                    <p:column headerText="#{label.data}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.data}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="#{label.acao}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.tipo}"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador} #{label.anterior}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.colaboradorAntigo.nome}"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador} #{label.novo}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.colaboradorNovo.nome}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

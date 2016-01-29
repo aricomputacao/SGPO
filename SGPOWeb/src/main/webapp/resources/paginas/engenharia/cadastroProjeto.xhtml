@@ -28,14 +28,12 @@
                     <f:selectItems value="#{utilitarioNavegacaoMB.usuarioLogado.empresas}" var="em" itemLabel="#{em.nome}" itemValue="#{em}"/>
                 </inputs:selectOneLabel>
 
-                <inputs:selectOneLabel  inp_valor="#{projetoMB.projeto.fase}" id="sel_fas" lab_valor="#{label.fase}"  inp_class_tamanho="20">
-                    <f:selectItems value="#{projetoMB.listaDeFasesProjeto}" var="fa" itemLabel="#{fa.descricao}" itemValue="#{fa}"/>
-                </inputs:selectOneLabel>
+                <inputs:input_label inp_valor="#{projetoMB.projeto.numero}" lab_valor="#{label.numero}"   inp_class_tamanho="20" />
+                
 
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
-                <inputs:input_label inp_valor="#{projetoMB.projeto.nome}" lab_valor="#{label.nome}" inp_require="true"   inp_class_tamanho="50" />
-                <inputs:input_label inp_valor="#{projetoMB.projeto.numero}" lab_valor="#{label.numero}"   inp_class_tamanho="20" />
+                <inputs:input_label inp_valor="#{projetoMB.projeto.nome}" lab_valor="#{label.nome}" inp_require="true"   inp_class_tamanho="100" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
                 <inputs:input_label_btn_click_btn_mais inp_valor="#{projetoMB.projeto.cliente.nome}" id="inp_cli" lab_valor="#{label.cliente}" inp_readonly="true" inp_require="true" 

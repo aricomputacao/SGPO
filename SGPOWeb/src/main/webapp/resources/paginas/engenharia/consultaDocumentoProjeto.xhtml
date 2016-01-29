@@ -37,7 +37,7 @@
                               cancelLabel="#{label.cancelar}" label="#{label.carregar_arquivo}" uploadLabel="#{label.enviar_arquivo}" 
                               allowTypes="/(\.|\/)(jpe?g|png|dwg|dxf|dwf|xls|xlsx|doc|docx|pdf)$/" invalidFileMessage="#{msg.tipo_arquivo_invalido}" skinSimple="true"  previewWidth="100" />
 
-                <p:commandButton value="#{label.salvar} #{label.documento}" icon="fa fa-floppy-o" class="Fright" update="@form" actionListener="#{projetoMB.addDocumento()}" />
+                <p:commandButton value="#{label.salvar} #{label.documento}" onclick="start()" oncomplete="stop()" icon="fa fa-floppy-o" class="Fright" update="@form" actionListener="#{projetoMB.addDocumento()}" />
             </h:panelGroup>
         </panels:panel>
         <p:fieldset id="fieldCon">
@@ -61,14 +61,18 @@
                     <componentes:outputText value="#{p.usuario.nomeDoColaborador}" />
                 </p:column>
                 <p:column headerText="#{label.acao}" width="10%" >
-                    <p:commandButton title="#{label.download}" ajax="false" update=":frm_doc:compConDocProjeto:tabela" rendered="#{p.ativo}" immediate="true" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-download">
+                    <p:commandButton title="#{label.download}" ajax="false" update=":frm_doc:compConDocProjeto:tabela" class="btnImprimir" rendered="#{p.ativo}" immediate="true" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-download">
                         <p:fileDownload value="#{projetoMB.download(p)}"  />
                     </p:commandButton>
-                    <botao:commandButton_editar acao_butao="#{projetoMB.setarDocumento(p)}" componente_to_update="@form" renderizar_btn="true" />
-                    
+                    <p:commandButton title="#{label.upload}" process="@this" update="@form" immediate="true" class="btnEditar" actionListener="#{projetoMB.setarDocumento(p)}" rendered="#{not p.ativo}"  icon="fa fa-upload"/>
+                    <p:commandButton title="#{label.consulta} #{label.movimentacoes}"  update=":frm_mov" immediate="true" class="btnForm" 
+                                     actionListener="#{movimentacaoDocumentoMB.consultaMovimentacao(p)}" oncomplete="PF('dialogMov').show()"   icon="fa fa-list"/>
+
                 </p:column>
             </p:dataTable>
         </p:fieldset>
+        
+
     </composite:implementation>
 </ui:composition>
 

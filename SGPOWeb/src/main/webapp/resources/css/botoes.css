@@ -42,9 +42,7 @@
 .btnOutro .ui-button-icon-left,
 .btnSalvar .ui-button-icon-left,
 .btnEditar .ui-button-icon-left,
-.btnCarta .ui-button-icon-left,
-.btnHistorico .ui-button-icon-left,
-.btnFicha .ui-button-icon-left,
+.btnForm .ui-button-icon-left,
 .btnExcluir .ui-button-icon-left,
 .btnCancelar .ui-button-icon-left{
     color: white! important;
@@ -59,6 +57,7 @@
 .btnOutro .ui-button-text:hover,
 .btnLimpar .ui-button-text:hover,
 .btnImprimir .ui-button-text:hover,
+.btnForm .ui-button-text:hover,
 .btnSalvar .ui-button-text:hover,
 .btnExcluir .ui-button-text:hover,
 .btnCancelar .ui-button-text:hover{
@@ -236,7 +235,8 @@
 
 .btnForm .ui-button-text{
     background: #75c9b0 !important; /* Old browsers */
-    border: none !important;
+    border: none ! important;
+    box-shadow: none ! important;
     color: #ffffff ! important;
 }
 

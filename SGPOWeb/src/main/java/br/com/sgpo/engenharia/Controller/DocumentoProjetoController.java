@@ -6,7 +6,11 @@
 package br.com.sgpo.engenharia.Controller;
 
 import br.com.sgpo.engenharia.DAO.DocumentoProjetoDAO;
+import br.com.sgpo.engenharia.DAO.MovimentacaoDocumentoDAO;
+import br.com.sgpo.engenharia.enumeration.TipoMovimentacaoDocumento;
 import br.com.sgpo.engenharia.modelo.DocumentoProjeto;
+import br.com.sgpo.engenharia.modelo.MovimentacaoDocumento;
+import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
 import java.io.IOException;
@@ -25,6 +29,8 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
 
     @Inject
     private DocumentoProjetoDAO dao;
+    @Inject
+    private MovimentacaoDocumentoDAO movimentacaoDAO;
 
     @PostConstruct
     @Override
@@ -32,12 +38,26 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
         setDAO(dao);
     }
 
-    public void addDocumento(DocumentoProjeto documentoProjeto, byte[] conteudo) throws IOException {
+    public void addDocumento(DocumentoProjeto documentoProjeto, byte[] conteudo, Usuario usuario) throws IOException, Exception {
 
+        MovimentacaoDocumento md = new MovimentacaoDocumento();
+        md.setData(new Date());
+        md.setTipo(TipoMovimentacaoDocumento.UPLOAD);
+        md.setColaboradorNovo(usuario.getColaborador());
+
+        if (documentoProjeto.getId() == null) {
+            md.setColaboradorAntigo(usuario.getColaborador());
+        } else {
+            md.setColaboradorAntigo(documentoProjeto.getUsuario().getColaborador());
+        }
+
+        documentoProjeto.setUsuario(usuario);
         documentoProjeto.setAtivo(true);
         documentoProjeto.setDataUpload(new Date());
-        
         documentoProjeto = dao.atualizarGerenciar(documentoProjeto);
+
+        md.setDocumentoProjeto(documentoProjeto);
+        movimentacaoDAO.salvar(md);
 
         if (conteudo != null) {
             //Criar diretorio local
@@ -50,6 +70,21 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
             ManipuladorDeArquivo.gravarArquivoLocalmente(documentoProjeto.getDiretorioDoArquivo(), documentoProjeto.getNomeDoArquivoComExtencao(), conteudo);
 
         }
+
+    }
+
+    public void reistrarDownload(DocumentoProjeto dp, Usuario u) throws Exception {
+        MovimentacaoDocumento md = new MovimentacaoDocumento();
+        md.setColaboradorAntigo(dp.getUsuario().getColaborador());
+        md.setColaboradorNovo(u.getColaborador());
+        md.setData(new Date());
+        md.setDocumentoProjeto(dp);
+        md.setTipo(TipoMovimentacaoDocumento.DOWNLOAD);
+        movimentacaoDAO.salvar(md);
+
+        dp.setAtivo(false);
+        dp.setUsuario(u);
+        dao.atualizar(dp);
 
     }
 }

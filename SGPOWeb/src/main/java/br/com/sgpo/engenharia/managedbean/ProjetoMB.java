@@ -22,6 +22,7 @@ import br.com.sgpo.utilitarios.StringUtil;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,13 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         }
     }
 
+    public void alterarStatusProjeto() {
+        projeto = projetoController.alterarStatusProjeto(projeto,navegacaoMB.getUsuarioLogado());
+        
+        MensagensUtil.enviarMessageInfo(MensagensUtil.PROJETO_CONCLUIDO);
+
+    }
+
     public void consultarProjetos() {
         try {
             listaDeProjetos = projetoController.consultarTodos("id", getCampoConsuta(), getValorCampoConsuta());
@@ -104,8 +112,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     public void addDocumento() {
         try {
             documento.setProjeto(projeto);
-            documento.setUsuario(navegacaoMB.getUsuarioLogado());
-            documentoProjetoController.addDocumento(documento, docTemporario);
+            documentoProjetoController.addDocumento(documento, docTemporario, navegacaoMB.getUsuarioLogado());
             listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
             documento = new DocumentoProjeto();
             docTemporario = null;
@@ -118,8 +125,10 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
 
     public void fileUploud(FileUploadEvent event) {
         try {
+
             docTemporario = event.getFile().getContents();
-            documento.setNome(StringUtil.removeAccentos(event.getFile().getFileName()).trim().replaceAll(documento.getExtencaoArquivo().getExtencao(), ""));
+            documento.setNome(StringUtil.removeAccentos(event.getFile().getFileName()).trim()
+                    .replaceAll(documento.getExtencaoArquivo().getExtencao(), ""));
         } catch (Exception ex) {
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -127,9 +136,9 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
 
     public StreamedContent download(DocumentoProjeto dp) {
         try {
-            dp.setAtivo(false);
-            documentoProjetoController.atualizar(dp);
+            documentoProjetoController.reistrarDownload(dp, navegacaoMB.getUsuarioLogado());
             listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
+
             return dp.download();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,8 +152,11 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         documento = dp;
     }
 
-    public boolean renderAtalho() {
+    public boolean renderAtalhoF1() {
         return projeto.getId() != null;
+    }
+    public boolean renderAtalhoF2() {
+        return projeto.getId() != null && projeto.getFase().equals(FaseProjeto.EM_ANDAMENTO);
     }
 
     public void processarCampoConsulta() {

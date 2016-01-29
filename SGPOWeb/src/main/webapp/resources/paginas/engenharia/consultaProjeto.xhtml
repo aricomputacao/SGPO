@@ -51,10 +51,11 @@
                 <p:column headerText="#{label.cliente}" class="TexAlCenter" >
                     <componentes:outputText value="#{p.nomeCliente}"/>
                 </p:column>
+                <p:column headerText="#{label.fase}" class="TexAlCenter" >
+                    <componentes:outputText value="#{p.fase.descricao}"/>
+                </p:column>
                 <p:rowExpansion>
                     <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
-                        <componentes:outputText value="#{label.fase}" />
-                        <componentes:outputText  value="#{p.fase.descricao}" />
                         <componentes:outputText value="#{label.responsavel}" />
                         <componentes:outputText  value="#{p.nomeResponsavel}" />
                         <componentes:outputText value="#{label.data_inicial}" />
