@@ -30,5 +30,6 @@
 
     <b:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <b:property  name="jndiName" value="java:jboss/datasources/sgpo"/>
+        <!--<b:property  name="jndiName" value="java:jboss/datasources/PostgreSQLDS"/>-->
     </b:bean>
 </b:beans>

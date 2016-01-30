@@ -9,6 +9,7 @@
                 xmlns:util="http://xmlns.jcp.org/jsf/composite/componentes/util"
                 xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
                 xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
                 xmlns:input="http://xmlns.jcp.org/jsf/composite/componentes/inputs">
@@ -18,10 +19,10 @@
 
 
             <p:tabView class="ContainerIndent Responsive tabView-inicio" id="tabView">
-                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.inicio)}" id="tabDash" title="#{label.dados}" class=" Responsive">
+                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.inicio)}" id="tabDash" title="#{label.projeto}s" class=" Responsive">
                     <h:form id="frm_dash"  prependId="false" >
                      
-                        <util:dadosInicial id="compDadosPro"/>
+                        <util:dadosInicialProjeto id="compDadosPro"/>
                     </h:form>
 
                     <div class="Container100   Responsive" style="float: left">
@@ -39,6 +40,14 @@
                             </p:fieldset>
                         </h:form>
                     </div>
+                </p:tab>
+                <p:tab id="tabObra" title="Obras" class="Container100 Responsive">
+                    <h:form id="frm_obra" prependId="false" >
+                        <div class="ContainerIndent">
+
+                            <util:dadosInicialObra id="compObra"/>
+                        </div>
+                    </h:form>
                 </p:tab>
                 <p:tab id="tabAgenda" title="#{label.agenda}" class="Container100 Responsive">
                     <h:form id="frm_c" prependId="false" >
@@ -83,6 +92,34 @@
                 </h:panelGroup>
             </p:dialog>  
         </h:form>
+        
+        <p:dialog showEffect="fade" position="center center"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
+            <h:form  prependId="false" id="frm_noti">
+                <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
+                    <comp:textarea_label inp_valor="#{dadosInicialMB.notificacaoProjeto.motivo}" lab_valor="#{label.motivo}" inp_class_tamanho="100" 
+                                           inp_require="true" inp_tamanho_maximo="1024"/>
+                    <p:commandButton class="Fright" value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{dadosInicialMB.addNotificacaoProjeto()}" update="@form" />
+                </panels:panel>
+                <p:dataTable value="#{dadosInicialMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                    <p:column headerText="#{label.data}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.data}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.colaborador.nome}"/>
+                    </p:column>
+                    <p:column headerText="#{label.motivo}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.motivo}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

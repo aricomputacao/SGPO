@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:output="http://xmlns.jcp.org/jsf/composite/componentes">
+    <composite:interface>
+
+
+    </composite:interface>
+    <composite:implementation id="compo">
+        <div  class="Container96 "  >
+            <p:panel>
+                <i class="icon-folder-open-empty Fleft Fs30   yellow "></i>
+                <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.projetos_andamento}</div>                                       
+            </p:panel>
+            <p:dataGrid var="p" value="#{dadosInicialMB.listaDeProjetos}" columns="2" layout="grid"
+                        rows="6" paginator="true" id="pros"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+
+
+                <p:panel header="&raquo; #{p.id} - #{p.nome}" style="text-align:left" class="pnl-projeto">
+                    <p:panelGrid  columns="2"  layout="grid" style="text-align: left;" columnClasses="label,value" >
+
+                        <h:outputText value="&#8227;#{label.inicio}: " />
+                        <output:outputText value="#{p.dataInicio}" tipo="d" />
+
+                        <h:outputText value="&#8227;#{label.tipo}: " />
+                        <h:outputText value="#{p.tipo.nome}" />
+
+                        <h:outputText value="&#8227;#{label.fase}: " />
+                        <h:outputText value="#{p.fase.descricao}" />
+
+                        <h:outputText value="&#8227;#{label.cliente}: " />
+                        <h:outputText value="#{p.nomeCliente}" />
+
+                        <h:outputText value="&#8227;#{label.responsavel}.: " />
+                        <h:outputText value="#{p.nomeResponsavel}" />
+
+                        <h:outputText value="&#8227;#{label.notificacao} "/>
+                        <p:commandLink  styleClass="ui-icon ui-icon-search" update="@(form)" actionListener="#{dadosInicialMB.consultarNotificacoes(p)}" oncomplete="PF('dialogoNotPro').show()"  />
+
+                        <h:outputText value="&#8227;#{label.editar} "/>
+                        <p:commandLink  styleClass="ui-icon ui-icon-pencil" update="@(form)" actionListener="#{dadosInicialMB.escreverRegistroNasessaoNavegarParaEditar(p,engenharia.projeto_cadastro,'projeto')}" value="#{label.editar}"  />
+                    </p:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+        </div>
+
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

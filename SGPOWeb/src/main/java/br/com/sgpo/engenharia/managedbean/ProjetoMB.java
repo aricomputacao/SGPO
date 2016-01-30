@@ -9,12 +9,14 @@ import br.com.sgpo.administrativo.modelo.Cliente;
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.engenharia.Controller.DocumentoProjetoController;
 import br.com.sgpo.engenharia.Controller.MovimentacaoProjetoController;
+import br.com.sgpo.engenharia.Controller.NotificacaoProjetoController;
 import br.com.sgpo.engenharia.Controller.ProjetoController;
 import br.com.sgpo.engenharia.Controller.TipoProjetoController;
 import br.com.sgpo.engenharia.enumeration.FaseProjeto;
 import br.com.sgpo.engenharia.enumeration.TipoExtencaoArquivo;
 import br.com.sgpo.engenharia.modelo.DocumentoProjeto;
 import br.com.sgpo.engenharia.modelo.MovimentacaoProjeto;
+import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.modelo.Projeto;
 import br.com.sgpo.engenharia.modelo.TipoProjeto;
 import br.com.sgpo.utilitario.BeanGenerico;
@@ -24,6 +26,7 @@ import br.com.sgpo.utilitarios.StringUtil;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,10 +58,14 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     private TipoProjetoController tipoProjetoController;
     @Inject
     private MovimentacaoProjetoController movimentacaoProjetoController;
-
+    @Inject
+    private NotificacaoProjetoController notificacaoController;
+    
+    private NotificacaoProjeto notificacaoProjeto;
     private Projeto projeto;
     private DocumentoProjeto documento;
 
+    private List<NotificacaoProjeto> listaDeNotificacaoProjetos;
     private List<MovimentacaoProjeto> listaMovimentacaoProjetos;
     private List<TipoProjeto> listaTipoProjetos;
     private List<Projeto> listaDeProjetos;
@@ -74,11 +81,14 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             criarListaDeCamposDaConsulta();
             projeto = (Projeto) lerRegistroDaSessao("projeto");
             documento = new DocumentoProjeto();
+            notificacaoProjeto = new NotificacaoProjeto();
             if (projeto == null) {
                 projeto = new Projeto();
+                projeto.setFase(FaseProjeto.EM_ANDAMENTO);
             } else {
                 listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
                 listaMovimentacaoProjetos = movimentacaoProjetoController.consultarTodos(projeto);
+                listaDeNotificacaoProjetos = notificacaoController.consultarTodos(projeto);
             }
 
             listaTipoProjetos = tipoProjetoController.consultarTodosOrdenadorPor("nome");
@@ -110,8 +120,6 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         }
 
     }
-    
-   
 
     public void consultarProjetos() {
         try {
@@ -121,6 +129,18 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         }
     }
 
+    public void addNotificacao(){
+        try {
+            notificacaoProjeto.setColaborador(navegacaoMB.getUsuarioLogado().getColaborador());
+            notificacaoProjeto.setData(new Date());
+            notificacaoProjeto.setProjeto(projeto);
+            notificacaoController.salvar(notificacaoProjeto);
+            listaDeNotificacaoProjetos = notificacaoController.consultarTodos(projeto);
+        } catch (Exception ex) {
+            Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void addDocumento() {
         try {
             documento.setProjeto(projeto);
@@ -244,6 +264,17 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         return listaMovimentacaoProjetos;
     }
 
-    
+    public List<NotificacaoProjeto> getListaDeNotificacaoProjetos() {
+        return listaDeNotificacaoProjetos;
+    }
+
+    public NotificacaoProjeto getNotificacaoProjeto() {
+        return notificacaoProjeto;
+    }
+
+    public void setNotificacaoProjeto(NotificacaoProjeto notificacaoProjeto) {
+        this.notificacaoProjeto = notificacaoProjeto;
+    }
+
     
 }

@@ -5,12 +5,23 @@
  */
 package br.com.sgpo.administrativo.managedbean;
 
+import br.com.sgpo.engenharia.Controller.NotificacaoProjetoController;
+import br.com.sgpo.engenharia.Controller.ProjetoController;
+import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
+import br.com.sgpo.engenharia.modelo.Projeto;
+import br.com.sgpo.utilitario.BeanGenerico;
+import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
 import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
@@ -24,9 +35,21 @@ import org.primefaces.model.chart.LineChartModel;
  */
 @Named
 @ViewScoped
-public class DadosInicialMB implements Serializable {
+public class DadosInicialMB extends BeanGenerico implements Serializable {
 
-    private List<String> listaString;
+    @Inject
+    private ProjetoController projetoController;
+    @Inject
+    private NotificacaoProjetoController notificacaoProjetoController;
+    @Inject
+    private UtilitarioNavegacaoMB navegacaoMB;
+    
+    private List<Projeto> listaDeProjetos;
+    private List<NotificacaoProjeto> listaDeNotificacaoProjetos;
+    
+    private NotificacaoProjeto notificacaoProjeto;
+    private Projeto projeto;
+    
     private List<String> listaString2;
     private LineChartModel lineModel;
     private Integer ano;
@@ -34,18 +57,40 @@ public class DadosInicialMB implements Serializable {
 
     @PostConstruct
     public void init() {
+        listaDeProjetos = projetoController.consultarTodosAtivos();
+        notificacaoProjeto = new NotificacaoProjeto();
+        projeto = new Projeto();
+        
         ano = 2015;
         createLineModels();
-        listaString = new ArrayList<>();
+
+
         listaString2 = new ArrayList<>();
         String a;
         for (int i = 0; i < 10; i++) {
             a = "Projeto: ".concat(String.valueOf(i+1));
-            listaString.add(a);
             a = "Obra: ".concat(String.valueOf(i+1));
             listaString2.add(a);
         }
 
+    }
+    
+    public void addNotificacaoProjeto(){
+        try {
+            notificacaoProjeto.setColaborador(navegacaoMB.getUsuarioLogado().getColaborador());
+            notificacaoProjeto.setData(new Date());
+            notificacaoProjeto.setProjeto(projeto);
+            notificacaoProjetoController.salvar(notificacaoProjeto);
+            notificacaoProjeto = new NotificacaoProjeto();
+            listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(projeto);
+        } catch (Exception ex) {
+            Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void consultarNotificacoes(Projeto p){
+        listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(p);
+        projeto = p;
     }
 
     private void createLineModels() {
@@ -101,9 +146,13 @@ public class DadosInicialMB implements Serializable {
         return model;
     }
 
-    public List<String> getListaString() {
-        return listaString;
+    public List<Projeto> getListaDeProjetos() {
+        return listaDeProjetos;
     }
+
+   
+    
+    
 
     public LineChartModel getLineModel() {
         return lineModel;
@@ -119,6 +168,23 @@ public class DadosInicialMB implements Serializable {
 
     public List<String> getListaString2() {
         return listaString2;
+    }
+
+    public List<NotificacaoProjeto> getListaDeNotificacaoProjetos() {
+        return listaDeNotificacaoProjetos;
+    }
+
+    public NotificacaoProjeto getNotificacaoProjeto() {
+        return notificacaoProjeto;
+    }
+
+    public void setNotificacaoProjeto(NotificacaoProjeto notificacaoProjeto) {
+        this.notificacaoProjeto = notificacaoProjeto;
+    }
+
+    @Override
+    protected Map<String, Object> getCampo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
            
     

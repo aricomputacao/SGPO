@@ -15,7 +15,7 @@
 
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" >
-            <div  onkeydown="atalhoF1('dialogoDocum');atalhoF2('dialogoFinalizar');atalhoF3('dialogMovPro')">
+            <div  onkeydown="atalhoF1('dialogoDocum');atalhoF2('dialogoFinalizar');atalhoF3('dialogMovPro');atalhoF4('dialogoNotPro')">
 
                 <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                          acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
@@ -28,8 +28,10 @@
                                          onclick="PF('dialogoDocum').show()" />
                         <p:commandLink class="atalho atalho-f2 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F2" rendered="#{projetoMB.renderAtalhoF2()}" title="#{label.finalizar} #{label.projeto}" 
                                        immediate="true" update="@form" onclick="PF('dialogoFinalizar').show()"/>
-                        <p:commandLink class="atalho atalho-f3 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F3" rendered="#{projetoMB.renderAtalhoF2()}" title="#{label.finalizar} #{label.projeto}" 
+                        <p:commandLink class="atalho atalho-f3 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F3" rendered="#{projetoMB.renderAtalhoF2()}" title="#{label.movimentacoes} #{label.projeto}" 
                                        immediate="true" update="@form" onclick="PF('dialogMovPro').show()"/>
+                        <p:commandLink class="atalho atalho-f4 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F4" rendered="#{projetoMB.renderAtalhoF2()}" title="#{label.notificacao} #{label.projeto}" 
+                                       immediate="true" update="@form" onclick="PF('dialogoNotPro').show()"/>
                     </div>
 
                     <eng:cadastroProjeto id="compCadastro"/>
@@ -38,7 +40,7 @@
         </h:form>
     </ui:define>
     <ui:define name="dialog">
-        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.usuario} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
             <h:form id="frm_usr" >
                 <adm:consultaCliente id="compUsr"  componente_to_update="@form" render_edit="false" >
                     <p:commandButton actionListener="#{projetoMB.setarCliente(p)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_cli:input" onclick="PF('dialogCliente').hide()" />
@@ -72,16 +74,16 @@
                 <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="25%" rendered="#{projetoMB.renderAtalhoF2()}"  header="#{msg.alterar_status}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
+        <p:dialog showEffect="fade" position="center center" width="40%" rendered="#{projetoMB.renderAtalhoF2()}"  header="#{label.projeto}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
             <h:form  prependId="false" id="frm_fim" class="TexAlCenter">
-                <p:panel class="MarBot10">
+                <p:panel class="MarBot10 TexAlCenter" >
                     <i class="icon-info-circled Fleft Fs40   yellow "></i>
                     <div class="Fs22 Fleft  Wid70 hardblue fontItalic">#{msg.alterar_status}</div> 
                     <div class="Fs18 Fleft  Wid70 hardblue fontItalic">#{label.status} #{label.atual}: #{projetoMB.projeto.fase.descricao} </div> 
                 </p:panel>
                 <div class="Container100">
                     <p:commandButton value="#{label.nao}" class="Fleft " onclick="PF('dialogoFinalizar').hide()" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times "/>
-                    <p:commandButton value="#{label.sim}" class="Fright" update="@(form)" actionListener="#{projetoMB.alterarStatusProjeto()}" oncomplete="PF('dialogoFinalizar').hide()"  style="margin-left: 200px"  styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle-o " />
+                    <p:commandButton value="#{label.sim}" class="Fright" update="@(form)" actionListener="#{projetoMB.alterarStatusProjeto()}" oncomplete="PF('dialogoFinalizar').hide()"  style="margin-left: 100px"  styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle-o " />
                 </div>
             </h:form>
         </p:dialog>
@@ -130,6 +132,34 @@
                     </p:column>
                     <p:column headerText="#{label.fase}" class="TexAlCenter" >
                         <componentes:outputText value="#{mp.fase.descricao}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" rendered="#{projetoMB.renderAtalhoF1()}" width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
+            <h:form  prependId="false" id="frm_noti">
+                <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
+                    <inputs:textarea_label inp_valor="#{projetoMB.notificacaoProjeto.motivo}" lab_valor="#{label.motivo}" inp_class_tamanho="100" 
+                                           inp_require="true" inp_tamanho_maximo="1024"/>
+                    <p:commandButton class="Fright" value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{projetoMB.addNotificacao()}" update="@form" />
+                </panels:panel>
+                <p:dataTable value="#{projetoMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                    <p:column headerText="#{label.data}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.data}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.colaborador.nome}"/>
+                    </p:column>
+                    <p:column headerText="#{label.motivo}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.motivo}"/>
                     </p:column>
 
                 </p:dataTable>

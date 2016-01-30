@@ -42,7 +42,7 @@
                 <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
                     <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{empresaMB.empresa.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
                     <inputs:selectOneLabel  inp_valor="#{empresaMB.uf}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true" 
-                                            sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:selOne" 
+                                            sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:input" 
                                             ajax_listener="#{empresaMB.consultarMuncipioPorUf()}" >
                         <f:selectItem value="#{null}" itemLabel="-----Selecione-----" itemValue="#{null}" noSelectionOption="true"/>
                         <f:selectItems value="#{empresaMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>

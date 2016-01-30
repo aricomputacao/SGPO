@@ -15,6 +15,9 @@
 			<style forecolor="#FFFF76" backcolor="#FFFF76"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="qtbAberto" class="java.lang.String"/>
+	<parameter name="qtdConcluido" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -57,9 +60,6 @@
 	<field name="tipo" class="br.com.sgpo.engenharia.modelo.TipoProjeto">
 		<fieldDescription><![CDATA[tipo]]></fieldDescription>
 	</field>
-	<variable name="total" class="java.lang.Integer"/>
-	<variable name="qtdAberto" class="java.lang.Integer"/>
-	<variable name="qtdConcluido" class="java.lang.Integer"/>
 	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="responsavel" calculation="Count">
 		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
@@ -74,14 +74,14 @@
 						<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
 					</box>
 					<textField>
-						<reportElement x="100" y="0" width="415" height="20" uuid="93ebbb71-d47b-4d93-b299-4b7f49e7c27a"/>
+						<reportElement x="110" y="0" width="415" height="20" uuid="93ebbb71-d47b-4d93-b299-4b7f49e7c27a"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isItalic="true"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{nomeResponsavel}]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="0" y="0" width="100" height="20" uuid="cccab6fb-35ee-4b34-9ab3-52cf870bacc1"/>
+						<reportElement x="0" y="0" width="110" height="20" uuid="cccab6fb-35ee-4b34-9ab3-52cf870bacc1"/>
 						<textElement verticalAlignment="Middle">
 							<font size="14" isBold="true"/>
 						</textElement>
@@ -128,7 +128,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="18" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{qtdConcluido}+" Concluidos"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{qtdConcluido} == null ? 0 +" - Concluidos" : $P{qtdConcluido} +" - Concluidos"]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -145,13 +145,13 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="18" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{qtdAberto}+" Abertos"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{qtbAberto} ==  null ? 0+" - Abertos" : $P{qtbAberto} +" - Abertos"]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="10" y="10" width="752" height="66" uuid="45ead4f6-ad71-4b48-8637-39d432ac5a56"/>
+				<reportElement x="0" y="10" width="802" height="66" uuid="45ead4f6-ad71-4b48-8637-39d432ac5a56"/>
 				<box>
-					<topPen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Dashed"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
 				</box>
 				<textField pattern="dd/MM/yyyy h.mm a">
@@ -164,9 +164,9 @@
 				<textField>
 					<reportElement x="0" y="0" width="752" height="38" uuid="352dce17-b645-4db6-98a6-7c025aed4744"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="26" isBold="true"/>
+						<font size="24" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Lista de Projetos"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Relatorio de Projetos do Colaborador"]]></textFieldExpression>
 				</textField>
 			</frame>
 			<textField>
@@ -174,47 +174,54 @@
 				<textElement verticalAlignment="Middle">
 					<font size="16"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Total de Projetos ("+$V{total}+") sendo:"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Total de Projetos ("+$P{total}+") sendo:"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="20" splitType="Stretch">
-			<staticText>
-				<reportElement x="47" y="0" width="100" height="20" uuid="a376e79e-3bd7-4fb8-aeda-48d603c50b24"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Tipo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="150" y="0" width="170" height="20" uuid="acfa5422-5d3a-4247-bb6b-60c87ae1fd21"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nome]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="326" y="0" width="95" height="20" uuid="dbe654ce-66ca-4db5-bbb0-4dbeb3ffda05"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Número]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="426" y="0" width="243" height="20" uuid="938f6b27-0d66-49ff-874e-28fe502b141c"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cliente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="677" y="0" width="111" height="20" uuid="1eaf480c-ad65-4dc4-bcee-9a8e0c90d97f"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fase]]></text>
-			</staticText>
+			<frame>
+				<reportElement x="0" y="0" width="802" height="20" uuid="32258d58-3d4b-4180-b7d7-c8e4940fa601"/>
+				<box>
+					<topPen lineWidth="0.25" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
+				</box>
+				<staticText>
+					<reportElement x="47" y="0" width="101" height="20" uuid="a376e79e-3bd7-4fb8-aeda-48d603c50b24"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="150" y="0" width="171" height="20" uuid="acfa5422-5d3a-4247-bb6b-60c87ae1fd21"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="326" y="0" width="96" height="20" uuid="dbe654ce-66ca-4db5-bbb0-4dbeb3ffda05"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Número]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="426" y="0" width="244" height="20" uuid="938f6b27-0d66-49ff-874e-28fe502b141c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="677" y="0" width="112" height="20" uuid="1eaf480c-ad65-4dc4-bcee-9a8e0c90d97f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fase]]></text>
+				</staticText>
+			</frame>
 		</band>
 	</pageHeader>
 	<detail>

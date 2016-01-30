@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.engenharia.DAO;
 
+import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.modelo.Projeto;
 import br.com.sgpo.utilitario.DAOGenerico;
 import java.io.Serializable;
@@ -18,16 +19,18 @@ import javax.persistence.TypedQuery;
  * @author ari
  */
 @Stateless
-public class ProjetoDAO extends DAOGenerico<Projeto, Long> implements Serializable {
+public class NotificacaoProjetoDAO extends DAOGenerico<NotificacaoProjeto, Long> implements Serializable {
 
-    public ProjetoDAO() {
-        super(Projeto.class);
+    public NotificacaoProjetoDAO() {
+        super(NotificacaoProjeto.class);
     }
 
-    public List<Projeto> consultarTodosAtivos() {
-        TypedQuery<Projeto> tq;
-        tq = getEm().createQuery("SELECT p from Projeto p WHERE p.dataFim  IS NULL ORDER BY p.dataInicio", Projeto.class);
+    public List<NotificacaoProjeto> consultarTodos(Projeto projeto) {
+        TypedQuery<NotificacaoProjeto> tq;
+        tq = getEm().createQuery("SELECT n FROM NotificacaoProjeto n where n.projeto = :p ORDER BY n.data DESC", NotificacaoProjeto.class)
+                .setParameter("p", projeto);
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+
     }
 
 }

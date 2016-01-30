@@ -82,6 +82,10 @@ public class ProjetoController extends ControllerGenerico<Projeto, Long> impleme
         
     }
 
+    public List<Projeto> consultarTodosAtivos() {
+        return dao.consultarTodosAtivos();
+    }
+
    
     
     
