@@ -15,28 +15,27 @@
 
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" >
-            <div  onkeydown="atalhoF1('dialogoDocum');atalhoF2('dialogoFinalizar');atalhoF3('dialogMovPro');atalhoF4('dialogoNotPro')">
 
-                <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
-                                         acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
-                                         acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
-                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" >
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                     acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
+                                     acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
+                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" >
 
-                    <div class="ContainerIndent " >
-                        <p:commandLink   class="atalho atalho-f1 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F1" 
-                                         rendered="#{projetoMB.renderAtalhoF1()}" title="#{label.adicionar} #{label.documento}" update=":frm_cad" 
-                                         onclick="PF('dialogoDocum').show()" />
-                        <p:commandLink class="atalho atalho-f2 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F2" rendered="#{projetoMB.renderAtalhoF2()}" title="#{label.finalizar} #{label.projeto}" 
-                                       immediate="true" update="@form" onclick="PF('dialogoFinalizar').show()"/>
-                        <p:commandLink class="atalho atalho-f3 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F3" rendered="#{projetoMB.renderAtalhoF2()}" title="#{label.movimentacoes} #{label.projeto}" 
-                                       immediate="true" update="@form" onclick="PF('dialogMovPro').show()"/>
-                        <p:commandLink class="atalho atalho-f4 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F4" rendered="#{projetoMB.renderAtalhoF2()}" title="#{label.notificacao} #{label.projeto}" 
-                                       immediate="true" update="@form" onclick="PF('dialogoNotPro').show()"/>
-                    </div>
+                <div class="ContainerIndent " >
+                    <p:commandLink   class="icon-plus-circled atalho atalho-f1 BordRad4 Container10 Fs15 TexAlCenter   Responsive FontBold " value="Add Documento" rendered="#{projetoMB.renderAtalhoF1()}" update=":frm_cad" 
+                                     onclick="PF('dialogoDocum').show()" />
+                  
+                    <p:commandLink class="icon-plus-circled atalho atalho-f3 BordRad4 Container10 TexAlCenter FontBold Responsive Fs15" value="Add Movimentações" rendered="#{projetoMB.renderAtalhoF2()}"  
+                                   immediate="true" update="@form" onclick="PF('dialogMovPro').show()"/>
+                    <p:commandLink class="icon-plus-circled atalho atalho-f4 BordRad4 Container10 TexAlCenter FontBold Responsive Fs15" value="Add Notificações" rendered="#{projetoMB.renderAtalhoF2()}" 
+                                   immediate="true" update="@form" onclick="PF('dialogoNotPro').show()"/>
+                    
+                      <p:commandLink class=" icon-exchange atalho atalho-f2 BordRad4 Container10 TexAlCenter FontBold Responsive Fs15" value="Alterar Status" rendered="#{projetoMB.renderAtalhoF2()}"  
+                                   immediate="true" update="@form" onclick="PF('dialogoFinalizar').show()"/>
+                </div>
 
-                    <eng:cadastroProjeto id="compCadastro"/>
-                </componentes:panelPadrao>
-            </div>
+                <eng:cadastroProjeto id="compCadastro"/>
+            </componentes:panelPadrao>
         </h:form>
     </ui:define>
     <ui:define name="dialog">
