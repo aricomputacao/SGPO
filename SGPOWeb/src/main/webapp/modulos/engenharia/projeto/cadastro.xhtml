@@ -19,19 +19,21 @@
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                      acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
                                      acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
-                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" >
+                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" btn_salvar_update="@(form)" >
 
                 <div class="ContainerIndent " >
-                    <p:commandLink   class="icon-plus-circled atalho atalho-f1 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " value="Add Documento" rendered="#{projetoMB.renderAtalhoF1()}" update=":frm_cad" 
+                    <p:commandLink   class="icon-plus-circled atalho atalho-f1 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " value="Add Documento" rendered="#{projetoMB.renderAtalhoF1()}" update=":frm_doc" 
                                      onclick="PF('dialogoDocum').show()" />
                   
-                    <p:commandLink class="icon-plus-circled atalho atalho-f3 BordRad4  TexAlCenter  Responsive Container20 Fs15" value="Add Movimentações" rendered="#{projetoMB.renderAtalhoF2()}"  
-                                   immediate="true" update="@form" onclick="PF('dialogMovPro').show()"/>
                     <p:commandLink class="icon-plus-circled atalho atalho-f4 BordRad4  TexAlCenter  Responsive Container20 Fs15" value="Add Notificações" rendered="#{projetoMB.renderAtalhoF2()}" 
-                                   immediate="true" update="@form" onclick="PF('dialogoNotPro').show()"/>
+                                   immediate="true" update=":frm_noti" onclick="PF('dialogoNotPro').show()"/>
+                 
+                    <p:commandLink class="icon-list-bullet atalho atalho-f3 BordRad4  TexAlCenter  Responsive Container20 Fs15" value="Movimentações" rendered="#{projetoMB.renderAtalhoF2()}"  
+                                   immediate="true" update=":frm_mov_pro" onclick="PF('dialogMovPro').show()"/>
+                    
                     
                       <p:commandLink class=" icon-exchange atalho atalho-f2 BordRad4  TexAlCenter  Responsive Container20 Fs15" value="Alterar Status" rendered="#{projetoMB.renderAtalhoF2()}"  
-                                   immediate="true" update="@form" onclick="PF('dialogoFinalizar').show()"/>
+                                   immediate="true" update=":frm_fim" onclick="PF('dialogoFinalizar').show()"/>
                 </div>
 
                 <eng:cadastroProjeto id="compCadastro"/>
@@ -73,7 +75,7 @@
                 <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="40%" rendered="#{projetoMB.renderAtalhoF2()}"  header="#{label.projeto}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
+        <p:dialog showEffect="fade" position="center center" width="40%"   header="#{label.projeto}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
             <h:form  prependId="false" id="frm_fim" class="TexAlCenter">
                 <p:panel class="MarBot10 TexAlCenter" >
                     <i class="icon-info-circled Fleft Fs40   yellow "></i>
@@ -137,7 +139,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog showEffect="fade" position="center center" rendered="#{projetoMB.renderAtalhoF1()}" width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
+        <p:dialog showEffect="fade" position="center center"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
             <h:form  prependId="false" id="frm_noti">
                 <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
                     <inputs:textarea_label inp_valor="#{projetoMB.notificacaoProjeto.motivo}" lab_valor="#{label.motivo}" inp_class_tamanho="100" 

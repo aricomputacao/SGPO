@@ -44,9 +44,29 @@
                                               btn_immediate="true" btn_onclick="PF('dialogResponsavel').show()" btn_process="@this" inp_class_tamanho="50" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
-                <inputs:textarea_label inp_valor="#{projetoMB.projeto.observacao}" lab_valor="#{label.observacao}" inp_class_tamanho="100" inp_blur="btn_salvar" inp_tamanho_maximo="1024" />
+                <inputs:textarea_label inp_valor="#{projetoMB.projeto.observacao}" lab_valor="#{label.observacao}" inp_class_tamanho="100"  inp_tamanho_maximo="1024" />
             </h:panelGroup>
 
+        </panels:panel>
+        <panels:panel  titulo="#{label.endereco} #{label.do} #{label.projeto}" id="pnlEndereco">
+            <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
+                <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{projetoMB.projeto.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
+                <inputs:selectOneLabel  inp_valor="#{projetoMB.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"
+                                        sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:input" 
+                                        ajax_listener="#{projetoMB.consultarMuncipioPorUf()}" >
+                    <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
+                    <f:selectItems value="#{projetoMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>
+                </inputs:selectOneLabel>
+                <inputs:selectOneLabel  inp_valor="#{projetoMB.projeto.endereco.municipio}" inp_require="true" id="sel_mun" lab_valor="#{label.municipio}" 
+                                        sel_converter="indexConverter" inp_class_tamanho="20"  >
+                    <f:selectItems value="#{projetoMB.listaDeMunicpios}" var="mu" itemLabel="#{mu.nome}" itemValue="#{mu}"/>
+                </inputs:selectOneLabel>
+
+                <inputs:input_label inp_valor="#{projetoMB.projeto.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{projetoMB.projeto.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{projetoMB.projeto.endereco.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="20" />
+                <inputs:input_label  inp_valor="#{projetoMB.projeto.endereco.complemento}" lab_valor="#{label.complemento}"  inp_class_tamanho="80" />
+            </h:panelGroup>
         </panels:panel>
 
     </composite:implementation>

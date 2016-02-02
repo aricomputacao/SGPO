@@ -5,8 +5,13 @@
  */
 package br.com.sgpo.engenharia.managedbean;
 
+import br.com.sgpo.administrativo.controller.MunicipioController;
+import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
 import br.com.sgpo.administrativo.modelo.Cliente;
 import br.com.sgpo.administrativo.modelo.Colaborador;
+import br.com.sgpo.administrativo.modelo.Endereco;
+import br.com.sgpo.administrativo.modelo.Municipio;
+import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
 import br.com.sgpo.engenharia.Controller.DocumentoProjetoController;
 import br.com.sgpo.engenharia.Controller.MovimentacaoProjetoController;
 import br.com.sgpo.engenharia.Controller.NotificacaoProjetoController;
@@ -60,11 +65,18 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     private MovimentacaoProjetoController movimentacaoProjetoController;
     @Inject
     private NotificacaoProjetoController notificacaoController;
-    
+    @Inject
+    private MunicipioController municipioController;
+    @Inject
+    private UnidadeFederativaController unidadeFederativaController;
+
+    private UnidadeFederativa unidadeFederativa;
     private NotificacaoProjeto notificacaoProjeto;
     private Projeto projeto;
     private DocumentoProjeto documento;
 
+    private List<UnidadeFederativa> listaDeUnidadeFederativas;
+    private List<Municipio> listaDeMunicpios;
     private List<NotificacaoProjeto> listaDeNotificacaoProjetos;
     private List<MovimentacaoProjeto> listaMovimentacaoProjetos;
     private List<TipoProjeto> listaTipoProjetos;
@@ -85,12 +97,15 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             if (projeto == null) {
                 projeto = new Projeto();
                 projeto.setFase(FaseProjeto.EM_ANDAMENTO);
+                projeto.setEndereco(new Endereco());
             } else {
                 listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
                 listaMovimentacaoProjetos = movimentacaoProjetoController.consultarTodos(projeto);
                 listaDeNotificacaoProjetos = notificacaoController.consultarTodos(projeto);
+                unidadeFederativa = projeto.getEndereco().getUnidadeFederativa();
+                listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
             }
-
+            listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
             listaTipoProjetos = tipoProjetoController.consultarTodosOrdenadorPor("nome");
             listaDeProjetos = new ArrayList<>();
             rederConCliente = false;
@@ -98,6 +113,8 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+  
 
     public void salvar() {
         try {
@@ -129,7 +146,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         }
     }
 
-    public void addNotificacao(){
+    public void addNotificacao() {
         try {
             notificacaoProjeto.setColaborador(navegacaoMB.getUsuarioLogado().getColaborador());
             notificacaoProjeto.setData(new Date());
@@ -140,7 +157,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void addDocumento() {
         try {
             documento.setProjeto(projeto);
@@ -153,6 +170,10 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             MensagensUtil.enviarMessageFatal(MensagensUtil.REGISTRO_FALHA);
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void consultarMuncipioPorUf() {
+        listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
     }
 
     public void fileUploud(FileUploadEvent event) {
@@ -168,7 +189,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
 
     public StreamedContent download(DocumentoProjeto dp) {
         try {
-            documentoProjetoController.reistrarDownload(dp, navegacaoMB.getUsuarioLogado());
+            documentoProjetoController.registrarDownload(dp, navegacaoMB.getUsuarioLogado());
             listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
 
             return dp.download();
@@ -180,6 +201,8 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         return null;
     }
 
+    
+    
     public void setarDocumento(DocumentoProjeto dp) {
         documento = dp;
     }
@@ -276,5 +299,20 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         this.notificacaoProjeto = notificacaoProjeto;
     }
 
-    
+    public List<UnidadeFederativa> getListaDeUnidadeFederativas() {
+        return listaDeUnidadeFederativas;
+    }
+
+    public List<Municipio> getListaDeMunicpios() {
+        return listaDeMunicpios;
+    }
+
+    public UnidadeFederativa getUnidadeFederativa() {
+        return unidadeFederativa;
+    }
+
+    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
+        this.unidadeFederativa = unidadeFederativa;
+    }
+
 }

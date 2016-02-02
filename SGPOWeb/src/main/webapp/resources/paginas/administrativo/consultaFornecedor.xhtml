@@ -26,42 +26,46 @@
             <inputs:input_label  lab_valor="#{label.valor}" inp_valor="#{fornecedorMB.valorCampoConsuta}" inp_class_tamanho="40" />
             <botao:commandButton_consulta inp_class_tamanho="20" acao_butao="#{cc.attrs.acao_butao}"  componente_to_update="#{cc.attrs.componente_to_update}"  />
         </p:fieldset>
-        <p:fieldset>
-            <p:dataTable value="#{fornecedorMB.listaDeFornecedor}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="f" rows="10"
-                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
-                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15"  reflow="true">
+        <p:dataTable value="#{fornecedorMB.listaDeFornecedor}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="f" rows="10"
+                     rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                     rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15"  reflow="true">
 
-                <p:column width="5%">
-                    <p:rowToggler  />
-                </p:column>
-                <p:column headerText="#{label.nome}" >
-                    <componentes:outputText value="#{f.nome}"/>
-                </p:column>
-                <p:column headerText="#{label.representante}" >
-                    <componentes:outputText value="#{f.representante}"/>
-                </p:column>
-                <p:rowExpansion>
-                    <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
-                        <componentes:outputText value="#{label.email}" />
-                        <componentes:outputText tipo="d" value="#{f.email}" />
-                        <componentes:outputText value="#{label.telefone_comercial}" />
-                        <componentes:outputText  value="#{f.telefone}" />
-                        <componentes:outputText value="#{label.telefone_celular}" />
-                        <componentes:outputText  value="#{f.celular}" />
-                        <componentes:outputText value="#{label.endereco}" />
-                        <componentes:outputText  value="#{f.endereco}" />
-                    </p:panelGrid>
-                </p:rowExpansion>
-                <p:column headerText="#{label.acao}" width="10%">
-                    <composite:insertChildren/>
-                    <botao:commandButton_editar rendered="#{cc.attrs.render_edit}" acao_butao="#{fornecedorMB.escreverRegistroNasessaoNavegarParaEditar(f,administrativo.fornecedor_cadastro,'fornecedor')}" componente_to_update="@(form)" renderizar_btn="true" />
+            <p:column width="5%">
+                <p:rowToggler  />
+            </p:column>
+            <p:column headerText="#{label.cnpj}" >
+                <componentes:outputText value="#{f.documento}"/>
+            </p:column>
+            <p:column headerText="#{label.razao_social}" >
+                <componentes:outputText value="#{f.razaoSocial}"/>
+            </p:column>
+            <p:column headerText="#{label.nome}" >
+                <componentes:outputText value="#{f.nome}"/>
+            </p:column>
+            <p:column headerText="#{label.representante}" >
+                <componentes:outputText value="#{f.representante}"/>
+            </p:column>
+            <p:rowExpansion>
+                <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
+                    <componentes:outputText value="#{label.email}" />
+                    <componentes:outputText tipo="d" value="#{f.email}" />
+                    <componentes:outputText value="#{label.telefone_comercial}" />
+                    <componentes:outputText  value="#{f.telefone}" />
+                    <componentes:outputText value="#{label.telefone_celular}" />
+                    <componentes:outputText  value="#{f.celular}" />
+                    <componentes:outputText value="#{label.endereco}" />
+                    <componentes:outputText  value="#{f.endereco}" />
+                </p:panelGrid>
+            </p:rowExpansion>
+            <p:column headerText="#{label.acao}" width="10%">
+                <composite:insertChildren/>
+                <botao:commandButton_editar rendered="#{cc.attrs.render_edit}" acao_butao="#{fornecedorMB.escreverRegistroNasessaoNavegarParaEditar(f,administrativo.fornecedor_cadastro,'fornecedor')}" componente_to_update="@(form)" renderizar_btn="true" />
 
-                  
-                </p:column>
-            </p:dataTable>
-        </p:fieldset>
+
+            </p:column>
+        </p:dataTable>
     </composite:implementation>
 </ui:composition>
 

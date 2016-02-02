@@ -30,8 +30,6 @@
                 <inputs:input_label inp_valor="#{projetoMB.documento.descricao}" lab_valor="#{label.descricao}" inp_require="true" inp_class_tamanho="96" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
-
-
                 <p:fileUpload id="carDoc"  class="Container96 Fright" mode="advanced"  fileLimit="1" fileUploadListener="#{projetoMB.fileUploud}" 
                               value="#{projetoMB.arquivoUpload}" sizeLimit="90485760"  invalidSizeMessage="#{msg.limite_excediro}"
                               cancelLabel="#{label.cancelar}" label="#{label.carregar_arquivo}" uploadLabel="#{label.enviar_arquivo}" 
@@ -64,7 +62,7 @@
                     <p:commandButton title="#{label.download}" ajax="false" update=":frm_doc:compConDocProjeto:tabela" class="btnImprimir" rendered="#{p.ativo}" immediate="true" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-download">
                         <p:fileDownload value="#{projetoMB.download(p)}"  />
                     </p:commandButton>
-                    <p:commandButton title="#{label.upload}" process="@this" update="@form" immediate="true" class="btnEditar" actionListener="#{projetoMB.setarDocumento(p)}" rendered="#{not p.ativo}"  icon="fa fa-upload"/>
+                    <p:commandButton title="#{label.upload}" process="@this" update="@form" immediate="true" class="btnEditar" rendered="#{p.getDisponivelParaUpload(utilitarioNavegacaoMB.usuarioLogado)}" actionListener="#{projetoMB.setarDocumento(p)}"   icon="fa fa-upload"/>
                     <p:commandButton title="#{label.consulta} #{label.movimentacoes}"  update=":frm_mov" immediate="true" class="btnForm" 
                                      actionListener="#{movimentacaoDocumentoMB.consultaMovimentacao(p)}" oncomplete="PF('dialogMov').show()"   icon="fa fa-list"/>
 

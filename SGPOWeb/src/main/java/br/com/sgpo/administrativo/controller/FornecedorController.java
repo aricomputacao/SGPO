@@ -49,7 +49,7 @@ public class FornecedorController extends ControllerGenerico<Fornecedor, Long> i
     }
 
     public List<ContaFornecedor> consultarContasPor(Fornecedor f) throws Exception {
-        return contaDAO.consultarIgualTodos("id", "fornecedor.nome", f.getNome());
+        return contaDAO.consultarIgualTodos("fornecedor.nome", "fornecedor.nome", f.getNome());
     }
 
     public void remverContaFornecedor(ContaFornecedor cf) throws Exception{

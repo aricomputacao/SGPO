@@ -135,6 +135,15 @@ public class FornecedorMB extends BeanGenerico implements Serializable {
 //            erroCliente.adicionaErro(e);
         }
     }
+    public void geraImpressaoDadosFornecedor() {
+        try {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeContaFornecedor, m, PastasRelatorio.RESOURCE_ADMINISTRATIVO, PastasRelatorio.REL_ADMINISTRATIVO_DADOS_FORNECEDOR, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
     
     
  

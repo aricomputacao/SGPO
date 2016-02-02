@@ -31,6 +31,8 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
     private DocumentoProjetoDAO dao;
     @Inject
     private MovimentacaoDocumentoDAO movimentacaoDAO;
+    @Inject
+    private ProjetoController projetoController;
 
     @PostConstruct
     @Override
@@ -73,7 +75,7 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
 
     }
 
-    public void reistrarDownload(DocumentoProjeto dp, Usuario u) throws Exception {
+    public void registrarDownload(DocumentoProjeto dp, Usuario u) throws Exception {
         MovimentacaoDocumento md = new MovimentacaoDocumento();
         md.setColaboradorAntigo(dp.getUsuario().getColaborador());
         md.setColaboradorNovo(u.getColaborador());
@@ -86,5 +88,7 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
         dp.setUsuario(u);
         dao.atualizar(dp);
 
+       
+        
     }
 }

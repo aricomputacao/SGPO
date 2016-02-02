@@ -76,7 +76,7 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
             } else {
                 uf = empresa.getEndereco().getUnidadeFederativa();
                 logo = ManipuladorDeArquivo.lerArquivoEmByte(getDiretorioReal("resources" + separator + "images"+separator+empresa.getNome()+".png"));
-                
+                contaEmail.setEmpresa(empresa);
                 listaDeEmails = contaEmailController.cosultar(empresa);
                 consultarMuncipioPorUf();
 

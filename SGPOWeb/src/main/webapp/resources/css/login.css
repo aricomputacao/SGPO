@@ -37,7 +37,10 @@
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f8ffe8+0,e3f5ab+33,b7df2d+100;Green+3D+%234 */
 
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100;White+to+Transparent */
-    background: url("#{resource['images/user.png']}") no-repeat center center,#dbdce0;
+    background: url("#{resource['images/user-2.png']}") no-repeat center center,#e5efe5;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#32a48d+0,94e0c9+100&1+0,0+100 */
+   
+
     filter:alpha(opacity=95) ! important;
     opacity: 0.9 ! important;
     -moz-opacity:0.9 ! important;
@@ -52,12 +55,12 @@
 }
 
 .lg{
-   
+
     background: white;
 
-/*    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);
-    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);
-    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);*/
+    /*    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);
+        -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);
+        box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.66);*/
     border-top: 1px solid #f0f1f2;
     border-left: 1px solid #dbdce0;
     border-right: 1px solid #dbdce0;

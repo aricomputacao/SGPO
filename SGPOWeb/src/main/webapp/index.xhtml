@@ -19,10 +19,12 @@
 
 
             <p:tabView class="ContainerIndent Responsive tabView-inicio" id="tabView">
-                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.inicio)}" id="tabDash" title="#{label.projeto}s" class=" Responsive">
+                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.inicio)}" id="tabDash" title="#{label.projeto}s" class="Container100 Responsive">
                     <h:form id="frm_dash"  prependId="false" >
-                     
-                        <util:dadosInicialProjeto id="compDadosPro"/>
+                        <div class="ContainerIndent">
+
+                            <util:dadosInicialProjeto id="compDadosPro"/>
+                        </div>
                     </h:form>
 
                     <div class="Container100   Responsive" style="float: left">
@@ -92,12 +94,12 @@
                 </h:panelGroup>
             </p:dialog>  
         </h:form>
-        
+
         <p:dialog showEffect="fade" position="center center"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
             <h:form  prependId="false" id="frm_noti">
                 <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
                     <comp:textarea_label inp_valor="#{dadosInicialMB.notificacaoProjeto.motivo}" lab_valor="#{label.motivo}" inp_class_tamanho="100" 
-                                           inp_require="true" inp_tamanho_maximo="1024"/>
+                                         inp_require="true" inp_tamanho_maximo="1024"/>
                     <p:commandButton class="Fright" value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{dadosInicialMB.addNotificacaoProjeto()}" update="@form" />
                 </panels:panel>
                 <p:dataTable value="#{dadosInicialMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"

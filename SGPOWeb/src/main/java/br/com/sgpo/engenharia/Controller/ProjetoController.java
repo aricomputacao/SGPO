@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.engenharia.Controller;
 
+import br.com.sgpo.administrativo.controller.EnderecoController;
 import br.com.sgpo.engenharia.DAO.MovimentacaoProjetoDAO;
 import br.com.sgpo.engenharia.DAO.ProjetoDAO;
 import br.com.sgpo.engenharia.enumeration.FaseProjeto;
@@ -30,7 +31,8 @@ public class ProjetoController extends ControllerGenerico<Projeto, Long> impleme
     private ProjetoDAO dao;
     @Inject
     private MovimentacaoProjetoDAO movimentacaoProjetoDAO;
-
+    @Inject
+    private EnderecoController enderecoController;
    
 
     @PostConstruct
@@ -39,8 +41,11 @@ public class ProjetoController extends ControllerGenerico<Projeto, Long> impleme
         setDAO(dao);
     }
 
-    public Projeto salvarGerenciar(Projeto projeto) {
-        return dao.atualizarGerenciar(projeto);
+    public Projeto salvarGerenciar(Projeto p) throws Exception {
+          p.setEndereco(enderecoController.buscarOuCriarLogradouroPor(p.getEndereco().getAbreviacaoUnidadeFederativa(), p.getEndereco().getNomeDaCidade(),
+                p.getEndereco().getCep(), p.getEndereco().getNome(), p.getEndereco().getBairro(), p.getEndereco().getNumero(),
+                p.getEndereco().getComplemento()));
+        return dao.atualizarGerenciar(p);
     }
 
     public Projeto alterarStatusProjeto(Projeto projeto, Usuario usuarioLogado) throws Exception {
