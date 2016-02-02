@@ -50,6 +50,20 @@ public class ContaFornecedor implements Serializable{
     @ManyToOne
     @JoinColumn(columnDefinition = "for_id",referencedColumnName = "for_id",nullable = false)
     private Fornecedor fornecedor;
+    
+    @NotNull
+    @Column(name = "con_operacao",nullable = false)
+    private Integer operacao;
+
+    public Integer getOperacao() {
+        return operacao;
+    }
+
+    public void setOperacao(Integer operacao) {
+        this.operacao = operacao;
+    }
+    
+    
 
     public Long getId() {
         return id;

@@ -22,6 +22,7 @@ import org.apache.commons.mail.SimpleEmail;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -40,25 +41,37 @@ public class ContaEmail implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "emp_id", nullable = false, referencedColumnName = "emp_id",unique = true)
+    @JoinColumn(name = "emp_id", nullable = false, referencedColumnName = "emp_id")
     private Empresa empresa;
 
-    @NotEmpty
+    @NotBlank
     @Email
     @Column(name = "coe_email", nullable = false, unique = true)
     private String email;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "coe_senha", nullable = false)
     private String senha;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "coe_host", nullable = false)
     private String host;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "coe_porta", nullable = false)
-    private int porta;
+    private Integer porta;
+
+    @NotEmpty
+    @Column(name = "coe_descricao", nullable = false)
+    private String descricao;
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
     public Integer getId() {
         return id;
@@ -100,11 +113,11 @@ public class ContaEmail implements Serializable {
         this.host = host;
     }
 
-    public int getPorta() {
+    public Integer getPorta() {
         return porta;
     }
 
-    public void setPorta(int porta) {
+    public void setPorta(Integer porta) {
         this.porta = porta;
     }
 
@@ -134,16 +147,13 @@ public class ContaEmail implements Serializable {
     }
 
     public ContaEmail() {
-        this.host ="smtp.gmail.com";
+        this.host = "smtp.gmail.com";
         this.porta = 465;
     }
 
-    
-    
-    
-    public void enviarEmail(List<String> destinos, String mensagem,String titulo) throws EmailException {
+    public void enviarEmail(List<String> destinos, String mensagem, String titulo) throws EmailException {
         SimpleEmail email = new SimpleEmail();
-        
+
         email.setHostName(this.host);
         //Quando a porta utilizada não é a padrão (gmail = 465)
         email.setSmtpPort(this.porta);

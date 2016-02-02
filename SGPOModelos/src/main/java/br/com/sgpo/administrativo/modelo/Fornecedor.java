@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.administrativo.modelo;
 
+import br.com.sgpo.utilitarios.CpfCnpjUtil;
 import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.Objects;
@@ -20,6 +21,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 /**
  *
@@ -34,28 +36,50 @@ public class Fornecedor implements Serializable {
     @Column(name = "for_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotBlank
     @Column(name = "for_nome", nullable = false, unique = true)
     private String nome;
-    
+
+    @NotBlank
+    @Column(name = "for_razao", nullable = false, unique = true)
+    private String razaoSocial;
+
     @Email
     @Column(name = "for_email")
     private String email;
-    
+
     @Column(name = "for_telefone")
     private String telefone;
-    
+
     @Column(name = "for_celular")
     private String celular;
-    
+
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
     private Endereco endereco;
-    
+
     @Column(name = "for_representante")
     private String representante;
 
+    
+    @Column(name = "for_documento", unique = true)
+    private String documento;
+
+     public String getDocumento() {
+        if (this.documento != null) {
+
+            return CpfCnpjUtil.formatarDocumento(documento);
+        } else {
+            return documento;
+        }
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = StringUtil.removerCaracteresEspeciais(documento);
+    }
+
+    
     public Long getId() {
         return id;
     }
@@ -112,6 +136,14 @@ public class Fornecedor implements Serializable {
         this.representante = representante;
     }
 
+    public String getRazaoSocial() {
+        return razaoSocial;
+    }
+
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -137,5 +169,4 @@ public class Fornecedor implements Serializable {
         return true;
     }
 
-    
 }

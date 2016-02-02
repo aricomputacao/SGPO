@@ -69,10 +69,16 @@ public class DocumentoProjeto implements Serializable {
 
     @Column(name = "dop_ativo", nullable = false)
     private boolean ativo;
+   
 
     @Temporal(TemporalType.DATE)
     @Column(name = "dop_data")
     private Date dataUpload;
+    
+    
+    public boolean getDisponivelParaUpload(Usuario usuario) {
+        return  ((! this.ativo) && this.getUsuario().equals(usuario)) ;
+    }
 
     public Date getDataUpload() {
         return dataUpload;
@@ -132,6 +138,8 @@ public class DocumentoProjeto implements Serializable {
         this.usuario = usuario;
     }
 
+    
+    
     public boolean isAtivo() {
         return ativo;
     }

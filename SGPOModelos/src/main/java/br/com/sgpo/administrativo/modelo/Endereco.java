@@ -59,6 +59,8 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
+    
+  
    
     
     public String getNomeDaCidade() {
@@ -124,7 +126,7 @@ public class Endereco implements Serializable {
     
     
     public UnidadeFederativa getUnidadeFederativa(){
-        return municipio.getUnidadeFederativa();
+        return  municipio.getId() == null ? new UnidadeFederativa() : municipio.getUnidadeFederativa() ;
     }
 
     public String getNumero() {

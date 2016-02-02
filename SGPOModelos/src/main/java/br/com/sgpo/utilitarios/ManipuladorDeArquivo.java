@@ -27,7 +27,7 @@ public class ManipuladorDeArquivo {
     public static final String PATH_WINDOWS = "C:" + File.separator;
     public static final String PATH_LINUX = "/" + File.separator;
     public static final String PASTA_LOGOS = "logos" + File.separator;
-    public static final String PASTA_DOCUMENTOS_PROJETO = "documentos" + File.separator;
+    public static final String PASTA_DOCUMENTOS_PROJETO = "documentos" + File.separator+"projetos"+File.separator;
 
     public static String getDiretorioLogos() {
         if (ehLinux()) {
