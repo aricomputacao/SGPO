@@ -51,9 +51,7 @@ public class Empresa implements Serializable {
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
     private Endereco endereco;
 
-    @Email
-    @Column(name = "emp_email")
-    private String email;
+   
     
     @Column(name = "emp_telefone")
     private String telefone;
@@ -73,15 +71,6 @@ public class Empresa implements Serializable {
     }
     
     
-         
-    
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getTelefone() {
         return StringUtil.formatarTelefone(telefone);
