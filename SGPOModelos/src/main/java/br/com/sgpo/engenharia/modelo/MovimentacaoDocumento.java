@@ -60,13 +60,28 @@ public class MovimentacaoDocumento implements Serializable {
     private DocumentoProjeto documentoProjeto;
 
     @NotNull
-    @Column(name = "mvd_data",nullable = false)
+    @Column(name = "mvd_data", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
 
+    @Column(name = "mvd_descricao", length = 1024)
+    private String descricao;
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    
+    
+    
     public Long getId() {
         return id;
     }
+    
 
     public void setId(Long id) {
         this.id = id;
@@ -136,6 +151,5 @@ public class MovimentacaoDocumento implements Serializable {
         }
         return true;
     }
-    
-    
+
 }

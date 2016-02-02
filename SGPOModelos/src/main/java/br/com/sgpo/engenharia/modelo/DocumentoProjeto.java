@@ -49,8 +49,7 @@ public class DocumentoProjeto implements Serializable {
     @Column(name = "dop_nome", nullable = false)
     private String nome;
 
-    @Column(name = "dop_descricao", length = 1024)
-    private String descricao;
+  
 
     @NotNull
     @ManyToOne
@@ -106,13 +105,7 @@ public class DocumentoProjeto implements Serializable {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+  
 
     public Projeto getProjeto() {
         return projeto;
