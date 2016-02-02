@@ -82,10 +82,14 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     private List<TipoProjeto> listaTipoProjetos;
     private List<Projeto> listaDeProjetos;
     private List<DocumentoProjeto> listaDeDocumentos;
+    
     private boolean rederConCliente;
     private UploadedFile arquivoUpload;
     private byte docTemporario[];
-
+    private String descricaoDocumento;
+    public boolean enviarEmail;
+    
+    
     @PostConstruct
     @Override
     public void init() {
@@ -161,10 +165,11 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     public void addDocumento() {
         try {
             documento.setProjeto(projeto);
-            documentoProjetoController.addDocumento(documento, docTemporario, navegacaoMB.getUsuarioLogado());
+            documentoProjetoController.addDocumento(documento, docTemporario, navegacaoMB.getUsuarioLogado(),descricaoDocumento);
             listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
             documento = new DocumentoProjeto();
             docTemporario = null;
+            descricaoDocumento = "";
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageFatal(MensagensUtil.REGISTRO_FALHA);
@@ -189,7 +194,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
 
     public StreamedContent download(DocumentoProjeto dp) {
         try {
-            documentoProjetoController.registrarDownload(dp, navegacaoMB.getUsuarioLogado());
+            documentoProjetoController.registrarDownload(dp, navegacaoMB.getUsuarioLogado(),descricaoDocumento);
             listaDeDocumentos = documentoProjetoController.consultarLike("projeto.nome", projeto.getNome());
 
             return dp.download();
@@ -315,4 +320,22 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         this.unidadeFederativa = unidadeFederativa;
     }
 
+    public String getDescricaoDocumento() {
+        return descricaoDocumento;
+    }
+
+    public void setDescricaoDocumento(String descricaoDocumento) {
+        this.descricaoDocumento = descricaoDocumento;
+    }
+
+    public boolean isEnviarEmail() {
+        return enviarEmail;
+    }
+
+    public void setEnviarEmail(boolean enviarEmail) {
+        this.enviarEmail = enviarEmail;
+    }
+
+    
+    
 }

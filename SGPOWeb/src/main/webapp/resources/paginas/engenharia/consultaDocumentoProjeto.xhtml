@@ -27,7 +27,7 @@
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{projetoMB.listaDeExtencao}" var="ex" itemLabel="#{ex}" itemValue="#{ex}"/>
                 </inputs:selectOneLabel>
-                <inputs:input_label inp_valor="#{projetoMB.documento.descricao}" lab_valor="#{label.descricao}" inp_require="true" inp_class_tamanho="96" />
+                <inputs:input_label inp_valor="#{projetoMB.descricaoDocumento}" lab_valor="#{label.descricao}" inp_require="true" inp_class_tamanho="96" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive" >
                 <p:fileUpload id="carDoc"  class="Container96 Fright" mode="advanced"  fileLimit="1" fileUploadListener="#{projetoMB.fileUploud}" 
@@ -49,9 +49,7 @@
                 <p:column headerText="#{label.nome}" >
                     <componentes:outputText value="#{p.nome}"/>
                 </p:column>
-                <p:column headerText="#{label.descricao}" >
-                    <componentes:outputText value="#{p.descricao}"/>
-                </p:column>
+               
                 <p:column headerText="#{label.data} #{label.upload}" width="10%" class="TexAlCenter">
                     <componentes:outputText value="#{p.dataUpload}" tipo="d"/>
                 </p:column>

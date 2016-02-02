@@ -40,12 +40,13 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
         setDAO(dao);
     }
 
-    public void addDocumento(DocumentoProjeto documentoProjeto, byte[] conteudo, Usuario usuario) throws IOException, Exception {
+    public void addDocumento(DocumentoProjeto documentoProjeto, byte[] conteudo, Usuario usuario,String descricao) throws IOException, Exception {
 
         MovimentacaoDocumento md = new MovimentacaoDocumento();
         md.setData(new Date());
         md.setTipo(TipoMovimentacaoDocumento.UPLOAD);
         md.setColaboradorNovo(usuario.getColaborador());
+        md.setDescricao(descricao);
 
         if (documentoProjeto.getId() == null) {
             md.setColaboradorAntigo(usuario.getColaborador());
@@ -75,13 +76,14 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
 
     }
 
-    public void registrarDownload(DocumentoProjeto dp, Usuario u) throws Exception {
+    public void registrarDownload(DocumentoProjeto dp, Usuario u,String descricao) throws Exception {
         MovimentacaoDocumento md = new MovimentacaoDocumento();
         md.setColaboradorAntigo(dp.getUsuario().getColaborador());
         md.setColaboradorNovo(u.getColaborador());
         md.setData(new Date());
         md.setDocumentoProjeto(dp);
         md.setTipo(TipoMovimentacaoDocumento.DOWNLOAD);
+        md.setDescricao(descricao);
         movimentacaoDAO.salvar(md);
 
         dp.setAtivo(false);
