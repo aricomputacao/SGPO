@@ -28,6 +28,7 @@
     <class>br.com.sgpo.engenharia.modelo.MovimentacaoDocumento</class>
     <class>br.com.sgpo.engenharia.modelo.MovimentacaoProjeto</class>
     <class>br.com.sgpo.engenharia.modelo.NotificacaoProjeto</class>
+    <class>br.com.sgpo.administrativo.modelo.ContaEmail</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

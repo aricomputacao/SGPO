@@ -5,6 +5,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:cliente="http://xmlns.jcp.org/jsf/composite/paginas/administrativo"
+                xmlns:inp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
 
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
                 xmlns:p="http://primefaces.org/ui">
@@ -16,12 +17,46 @@
 
                                      btn_limpar="true" cabecalho="#{label.cadastro} #{label.de} #{label.empresa}" btn_imprimir="false" btn_ativar="false"
                                      btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{empresaMB.init()}" >
+
+
+                <p:commandLink   class="icon-plus-circled atalho atalho-f1 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " value="Add Email" rendered="#{empresaMB.renderAddEmail()}" update=":frm_cad" 
+                                 onclick="PF('dialogoEmail').show()" />
                 <cliente:cadastroEmpresa id="compCadastro"/>
             </componentes:panelPadrao>
         </h:form>
     </ui:define>
     <ui:define name="dialog" id="dialogs">
 
+        <p:dialog showEffect="fade" position="center center" width="35%"  header="#{label.email}" id="dialogoEmail" modal="true" hideEffect="fade" widgetVar="dialogoEmail">
+            <h:form id="frm_email">
+                <p:fieldset legend="#{label.adicionar} #{label.email}">
+                    <inp:input_label inp_valor="#{empresaMB.contaEmail.email}" class="Container50" lab_valor="#{label.email}" inp_require="true"/> 
+                    <inp:input_label inp_valor="#{empresaMB.contaEmail.senha}" class="Container50" lab_valor="#{label.senha}" inp_require="true"/> 
+                    <inp:input_label inp_valor="#{empresaMB.contaEmail.host}" class="Container50" lab_valor="Host" inp_require="true"/> 
+                    <inp:input_label inp_valor="#{empresaMB.contaEmail.porta}" class="Container50" lab_valor="Porta" inp_require="true"/> 
+
+                    <p:commandButton value="#{label.salvar}" actionListener="#{empresaMB.addContaEmail()}" update="@form" class="Fright" />
+                </p:fieldset>
+                <p:dataTable value="#{empresaMB.listaDeEmails}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+                    <p:column headerText="#{label.email}">
+                        <componentes:outputText value="#{p.email}"/>
+                    </p:column>
+                    <p:column headerText="Host">
+                        <componentes:outputText value="#{p.host}"/>
+                    </p:column>
+                    <p:column headerText="Porta">
+                        <componentes:outputText value="#{p.porta}"/>
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+        </p:dialog>
         <p:dialog showEffect="fade" position="center center"   header="#{label.logo}" id="dialogoAssinat" modal="true" hideEffect="fade" widgetVar="dialogoAssinat">
             <h:form enctype="multipart/form-data">
                 <h:panelGrid width="100%">

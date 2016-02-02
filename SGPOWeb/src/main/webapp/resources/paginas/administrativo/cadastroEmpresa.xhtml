@@ -15,6 +15,7 @@
     </composite:interface>
     <composite:implementation>
         <p:fieldset>
+            
             <panels:panel  titulo="#{label.dados} #{label.empresa}" id="pnlNucleo">
 
                 <h:panelGroup  layout="block" class="Container100 Responsive">
@@ -32,7 +33,6 @@
             </panels:panel>
             <panels:panel titulo="#{label.contatos}">
                 <div class="Container100 Responsive">
-                    <inputs:input_label inp_valor="#{empresaMB.empresa.email}" lab_valor="#{label.email}" inp_class_tamanho="40"  />
                     <inputs:inputMask_label inp_mascara="(99)9999-9999"  inp_valor="#{empresaMB.empresa.telefone}"  lab_valor="#{label.telefone_trabalho}" inp_class_tamanho="20"  />
                     <inputs:inputMask_label inp_mascara="(99)9999-9999" inp_valor="#{empresaMB.empresa.celular}" lab_valor="#{label.telefone_trabalho}" inp_class_tamanho="20"  />
                 </div>

@@ -5,20 +5,19 @@
  */
 package br.com.sgpo.administrativo.managedbean;
 
+import br.com.sgpo.administrativo.controller.ContaEmailController;
 import br.com.sgpo.administrativo.controller.EmpresaController;
 import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
 import br.com.sgpo.administrativo.modelo.Cliente;
+import br.com.sgpo.administrativo.modelo.ContaEmail;
 import br.com.sgpo.administrativo.modelo.Empresa;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Municipio;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
-import br.com.sgpo.utilitario.relatorio.RelatorioSession;
 import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
-import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
-import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import static java.io.File.separator;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,12 +47,16 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
     private UnidadeFederativaController unidadeFederativaController;
     @Inject
     private MunicipioController municipioController;
+    @Inject
+    private ContaEmailController contaEmailController;
     private UnidadeFederativa uf;
     private Empresa empresa;
+    private ContaEmail contaEmail;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
     private List<Cliente> listaDeClientes;
     private List<Empresa> listaDeEmpresas;
     private List<Municipio> listaDeMunicipios;
+    private List<ContaEmail> listaDeEmails;
     private UploadedFile arquivoUpload;
     private byte logo[];
 
@@ -63,14 +66,18 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
         try {
             criarListaDeCamposDaConsulta();
             empresa = (Empresa) lerRegistroDaSessao("empresa");
+            contaEmail = new ContaEmail();
             uf = new UnidadeFederativa();
             if (empresa == null) {
                 empresa = new Empresa();
                 empresa.setAtivo(true);
                 empresa.setEndereco(new Endereco());
+                listaDeEmails = new ArrayList<>();
             } else {
                 uf = empresa.getEndereco().getUnidadeFederativa();
                 logo = ManipuladorDeArquivo.lerArquivoEmByte(getDiretorioReal("resources" + separator + "images"+separator+empresa.getNome()+".png"));
+                
+                listaDeEmails = contaEmailController.cosultar(empresa);
                 consultarMuncipioPorUf();
 
             }
@@ -83,13 +90,24 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
 
     public void salvar() {
         try {
-
             empresaController.salvar(empresa);
             empresaController.addLogo(empresa.getNome(), logo, getDiretorioReal("resources" + separator + "images"));
+            contaEmail.setEmpresa(empresa);
             MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_SUCESSO, empresa.getNome());
             init();
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addContaEmail(){
+        try {
+            contaEmailController.salvar(contaEmail);
+            contaEmail =  new ContaEmail();
+            contaEmail.setEmpresa(empresa);
+            listaDeEmails = contaEmailController.cosultar(empresa);
+        } catch (Exception ex) {
             Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -134,6 +152,9 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
     }
 
 
+    public boolean renderAddEmail(){
+        return empresa.getId() != null;
+    }
 
     public UnidadeFederativa getUf() {
         return uf;
@@ -175,4 +196,17 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
         this.arquivoUpload = arquivoUpload;
     }
 
+    public ContaEmail getContaEmail() {
+        return contaEmail;
+    }
+
+    public void setContaEmail(ContaEmail contaEmail) {
+        this.contaEmail = contaEmail;
+    }
+
+    public List<ContaEmail> getListaDeEmails() {
+        return listaDeEmails;
+    }
+
+    
 }
