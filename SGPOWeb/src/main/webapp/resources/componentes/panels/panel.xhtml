@@ -8,11 +8,12 @@
 
     <composite:interface>
         <composite:attribute id="tit" name="titulo" shortDescription="Titulo do painel" required="true"/>
+        <composite:attribute id="collapsed" name="collapsed" shortDescription="collapsed do painel" default="false"/>
 
     </composite:interface>
     <composite:implementation id="compConsulta">   
 
-        <p:fieldset id="panelCabecalho" toggleable="true"   style="margin-top: 10px;" legend="#{cc.attrs.titulo}" >
+        <p:fieldset id="panelCabecalho" toggleable="true" collapsed="#{cc.attrs.collapsed}"  style="margin-top: 10px;" legend="#{cc.attrs.titulo}" >
             <composite:insertChildren id="filho"/>
         </p:fieldset>
 

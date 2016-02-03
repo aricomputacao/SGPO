@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.engenharia.managedbean;
 
+import br.com.sgpo.administrativo.controller.ColaboradorController;
 import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
 import br.com.sgpo.administrativo.modelo.Cliente;
@@ -42,6 +43,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DualListModel;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -69,6 +71,8 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     private MunicipioController municipioController;
     @Inject
     private UnidadeFederativaController unidadeFederativaController;
+    @Inject
+    private ColaboradorController colaboradorController;
 
     private UnidadeFederativa unidadeFederativa;
     private NotificacaoProjeto notificacaoProjeto;
@@ -82,12 +86,14 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     private List<TipoProjeto> listaTipoProjetos;
     private List<Projeto> listaDeProjetos;
     private List<DocumentoProjeto> listaDeDocumentos;
-    
+    private DualListModel<Colaborador> listDualColaboradores;
+    private List<Colaborador> listaColaboradorSource ;
+    private List<Colaborador> listaColaboradorTarget;
+   
     private boolean rederConCliente;
     private UploadedFile arquivoUpload;
     private byte docTemporario[];
     private String descricaoDocumento;
-    public boolean enviarEmail;
     
     
     @PostConstruct
@@ -112,6 +118,9 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
             listaTipoProjetos = tipoProjetoController.consultarTodosOrdenadorPor("nome");
             listaDeProjetos = new ArrayList<>();
+            listaColaboradorSource = colaboradorController.consultarTodosOrdenadorPor("nome");
+            listaColaboradorTarget= new ArrayList<>();
+            listDualColaboradores = new DualListModel<>(listaColaboradorSource,listaColaboradorTarget);
             rederConCliente = false;
         } catch (Exception ex) {
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,9 +164,11 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             notificacaoProjeto.setColaborador(navegacaoMB.getUsuarioLogado().getColaborador());
             notificacaoProjeto.setData(new Date());
             notificacaoProjeto.setProjeto(projeto);
-            notificacaoController.salvar(notificacaoProjeto);
+            notificacaoController.salvar(notificacaoProjeto,listDualColaboradores.getTarget());
             listaDeNotificacaoProjetos = notificacaoController.consultarTodos(projeto);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
             Logger.getLogger(ProjetoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -328,12 +339,13 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         this.descricaoDocumento = descricaoDocumento;
     }
 
-    public boolean isEnviarEmail() {
-        return enviarEmail;
+   
+    public DualListModel<Colaborador> getListDualColaboradores() {
+        return listDualColaboradores;
     }
 
-    public void setEnviarEmail(boolean enviarEmail) {
-        this.enviarEmail = enviarEmail;
+    public void setListDualColaboradores(DualListModel<Colaborador> listDualColaboradores) {
+        this.listDualColaboradores = listDualColaboradores;
     }
 
     

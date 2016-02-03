@@ -91,11 +91,7 @@
     -webkit-opacity:0.9 ! important;*/
 }
 .btnLogin:hover{
-    /*font-weight: bold !important;*/
-    filter:alpha(opacity=100) ! important;
-    opacity: 0.6 ! important;
-    -moz-opacity:0.6 ! important;
-    -webkit-opacity:0.6 ! important;
+   background:  rgb(107,186,112) ! important;
 }
 
 /*toobar btn*/
@@ -374,4 +370,8 @@
 .atalho-f4{
     background: #ffb37a ! important;
 
+}
+
+.ui-button.ui-state-active .ui-button-text, .ui-buttonset .ui-state-active .ui-button-text{
+    color: white ! important;
 }

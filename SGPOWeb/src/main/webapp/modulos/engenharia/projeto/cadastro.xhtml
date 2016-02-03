@@ -142,16 +142,33 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog showEffect="fade" position="center center"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
+        <p:dialog showEffect="fade" position="400,50"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
             <h:form  prependId="false" id="frm_noti">
-                
-                <h:outputText value="#{label.enviar} #{label.email}" />
-                <p:inputSwitch value="#{projetoMB.enviarEmail}">
-                </p:inputSwitch>
+                <panels:panel  titulo="#{label.enviar} #{label.email}"  collapsed="true" >
+                    <h:panelGroup class="Container100" layout="block" >
+                        <p:pickList widgetVar="pickList" id="pickList" value="#{projetoMB.listDualColaboradores}" var="col" itemLabel="#{col}" 
+                                    itemValue="#{col}"    responsive="true" showTargetFilter="true" showSourceFilter="true"  filterMatchMode="contains"
+                                    converter="primeFacesPickListConverter" >
+
+
+                          <f:facet name="sourceCaption">Disponíveis</f:facet> 
+                          <f:facet name="targetCaption">Selecionados</f:facet> 
+                          <p:column style="width:75%;"> 
+                              <h:outputText value="#{col.nome}" /> 
+                          </p:column>
+
+
+
+                        </p:pickList>
+
+                    </h:panelGroup>
+                </panels:panel>
+
                 <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
-                    <inputs:textarea_label inp_valor="#{projetoMB.notificacaoProjeto.motivo}" lab_valor="#{label.motivo}" inp_class_tamanho="100" 
+                    <inputs:textarea_label id="lab_text" inp_valor="#{projetoMB.notificacaoProjeto.motivo}" lab_valor="#{label.motivo}" inp_class_tamanho="100" 
                                            inp_require="true" inp_tamanho_maximo="1024"/>
-                    <p:commandButton class="Fright" value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{projetoMB.addNotificacao()}" update="@form" />
+                    <p:commandButton class="TexAlCenter Container100"  value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{projetoMB.addNotificacao()}" 
+                                     update="lab_text tabelaNotPro" onclick="start()" oncomplete="stop()" />
                 </panels:panel>
                 <p:dataTable value="#{projetoMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
