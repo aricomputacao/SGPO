@@ -12,7 +12,7 @@
 
     <ui:define name="corpo">
 
-        <h:form id="frm_cad" prependId="false" >
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(seguranca.usuario_cadastro)}">
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{usuarioMB.init()}" 
                                      acao_excluir="#{usuarioMB.init()}" btn_excluir="false"  acao_salvar="#{usuarioMB.salvar()}" 
                                      btn_limpar="true" cabecalho="#{label.cadastro} #{label.usuario}" btn_imprimir="false" btn_ativar="false"

@@ -11,7 +11,7 @@
 
 
     <ui:define name="corpo">
-        <h:form id="frm_cons" prependId="false" >
+        <h:form id="frm_cons" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(seguranca.usuario_consulta)}" >
             <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label.consulta} #{label.usuario}" acao_limpar="#{usuarioMB.init()}" btn_limpar="false" render_sep_1="false" render_sep_2="false" render_sep_3="false" btn_excluir="false" 
                                      btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{usuarioMB.init()}" 
                                      dialog_cadastro="dialogCadastro" btn_imprimir="false" btn_dialog_rel="false" btn_salvar_update="false">
@@ -22,7 +22,7 @@
         </h:form>
     </ui:define>
     <ui:define name="dialog">
-     
+
     </ui:define>
 
 </ui:composition>

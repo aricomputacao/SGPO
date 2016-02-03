@@ -10,7 +10,7 @@
 
 
     <ui:define name="corpo">
-        <h:form id="frm_cons" prependId="false" >
+        <h:form id="frm_cons" prependId="false"  rendered="#{utilitarioNavegacaoMB.permissaoIncluir(seguranca.modulo_consulta)}">
             <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label.consulta} #{label.modulo}" acao_limpar="#{moduloMB.init()}" btn_limpar="false" render_sep_1="false" render_sep_2="false" render_sep_3="false" btn_excluir="false" 
                                      btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{moduloMB.init()}" 
                                      dialog_cadastro="dialogCadastro" btn_imprimir="false" btn_dialog_rel="false" btn_salvar_update="false">

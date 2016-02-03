@@ -13,7 +13,7 @@
 
     <ui:define name="corpo">
 
-        <h:form id="frm_cad" prependId="false" >
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(seguranca.gerenciar_permissao)}" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{gerenciarPermissaoMB.init()}" 
                                      acao_excluir="#{gerenciarPermissaoMB.init()}" btn_excluir="false"  btn_salvar="false" render_sep_1="false" render_sep_2="false"
                                      render_sep_3="false" btn_limpar="false" acao_salvar="#{gerenciarPermissaoMB.init()}" 

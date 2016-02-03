@@ -11,7 +11,7 @@
 
 
     <ui:define name="corpo">
-        <h:form id="frm_cons" prependId="false" >
+        <h:form id="frm_cons" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.relatorio_projeto_colaborador)}" >
                 <eng:relatorioProjetoColaborador id="compConsulta"   />
         </h:form>
     </ui:define>

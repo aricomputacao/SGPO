@@ -12,20 +12,20 @@
                 xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad"  prependId="false"  >
+        <h:form id="frm_cad"  prependId="false"  rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.fornecedor_cadastro)}" >
 
-                <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{fornecedorMB.init()}" btn_salvar_update="@form" 
-                                         acao_excluir="#{fornecedorMB.init()}" btn_excluir="false"  acao_salvar="#{fornecedorMB.salvar()}" 
-                                         btn_limpar="true" acao_limpar="#{fornecedorMB.init()}" cabecalho="#{label.cadastro} #{label.fornecedor}" btn_imprimir="true" acao_imprimir="#{fornecedorMB.geraImpressaoDadosFornecedor()}" btn_ativar="false"
-                                         btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{fornecedorMB.init()}" >
-                    <div class="Container100 MarBot10 MarTop5">
-                        
-                      <p:commandLink   class="icon-plus-circled atalho atalho-f1 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " rendered="#{fornecedorMB.renderizarAtalhos}" value="#{label.adicionar} #{label.conta}" update=":frm_conta" 
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{fornecedorMB.init()}" btn_salvar_update="@form" 
+                                     acao_excluir="#{fornecedorMB.init()}" btn_excluir="false"  acao_salvar="#{fornecedorMB.salvar()}" 
+                                     btn_limpar="true" acao_limpar="#{fornecedorMB.init()}" cabecalho="#{label.cadastro} #{label.fornecedor}" btn_imprimir="true" acao_imprimir="#{fornecedorMB.geraImpressaoDadosFornecedor()}" btn_ativar="false"
+                                     btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{fornecedorMB.init()}" >
+                <div class="Container100 MarBot10 MarTop5">
+
+                    <p:commandLink   class="icon-plus-circled atalho atalho-f1 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " rendered="#{fornecedorMB.renderizarAtalhos}" value="#{label.adicionar} #{label.conta}" update=":frm_conta" 
                                      onclick="PF('dialogoAssinat').show()" />
-                      
-                    </div>
-                    <fornecedor:cadastroFornecedor id="compCadastro"/>
-                </componentes:panelPadrao>
+
+                </div>
+                <fornecedor:cadastroFornecedor id="compCadastro"/>
+            </componentes:panelPadrao>
         </h:form>
     </ui:define>
     <ui:define name="dialog" id="dialogs">
@@ -64,7 +64,7 @@
                         </p:column>
 
                         <p:column headerText="#{label.acao}" width="10%">
-                            
+
                             <btn:commandButtonExcluir acao_butao="#{fornecedorMB.excluirConta(p)}" class="#{label.conta}" immediate="true" componente_to_update="@form" renderizar_btn="true" />
 
                         </p:column>

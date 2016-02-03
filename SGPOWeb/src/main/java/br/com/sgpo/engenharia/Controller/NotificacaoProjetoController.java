@@ -15,11 +15,13 @@ import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.apache.commons.mail.EmailException;
+import org.jsoup.Jsoup;
 
 /**
  *
@@ -53,11 +55,15 @@ public class NotificacaoProjetoController extends ControllerGenerico<Notificacao
                 emails.add(c.getEmail());
             }
             titulo = "Notificação Projeto - "+ notificacaoProjeto.getProjeto().getNome();
-            contaEmail.enviarEmail(emails, notificacaoProjeto.getMotivo(), titulo);
+            contaEmail.enviarEmailHtml(emails, notificacaoProjeto.getMotivo(), titulo);
         }
-        
+        notificacaoProjeto.setMotivo(Jsoup.parse(notificacaoProjeto.getMotivo()).text());
         dao.salvar(notificacaoProjeto);
 
+    }
+
+    public List<NotificacaoProjeto> consultarTodosDoDia() {
+       return dao.consultarTodosDoDia();
     }
 
 }

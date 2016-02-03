@@ -8,8 +8,10 @@ package br.com.sgpo.engenharia.DAO;
 import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.modelo.Projeto;
 import br.com.sgpo.utilitario.DAOGenerico;
+import br.com.sgpo.utilitarios.MetodosUtilitariosData;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -31,6 +33,14 @@ public class NotificacaoProjetoDAO extends DAOGenerico<NotificacaoProjeto, Long>
                 .setParameter("p", projeto);
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
 
+    }
+
+    public List<NotificacaoProjeto> consultarTodosDoDia() {
+         TypedQuery<NotificacaoProjeto> tq;
+        tq = getEm().createQuery("SELECT n FROM NotificacaoProjeto n where n.data BETWEEN :dtIni and :dtFim ", NotificacaoProjeto.class)
+                .setParameter("dtIni", MetodosUtilitariosData.processarDataInicial(new Date()))
+                .setParameter("dtFim", MetodosUtilitariosData.processarDataFinal(new Date()));
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 
 }

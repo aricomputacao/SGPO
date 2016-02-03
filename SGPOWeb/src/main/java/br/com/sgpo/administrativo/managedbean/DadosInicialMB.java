@@ -5,6 +5,8 @@
  */
 package br.com.sgpo.administrativo.managedbean;
 
+import br.com.sgpo.administrativo.controller.ColaboradorController;
+import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.engenharia.Controller.NotificacaoProjetoController;
 import br.com.sgpo.engenharia.Controller.ProjetoController;
 import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
@@ -23,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.DualListModel;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
@@ -43,52 +46,62 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     private NotificacaoProjetoController notificacaoProjetoController;
     @Inject
     private UtilitarioNavegacaoMB navegacaoMB;
-    
+    @Inject
+    private ColaboradorController colaboradorController;
+
     private List<Projeto> listaDeProjetos;
     private List<NotificacaoProjeto> listaDeNotificacaoProjetos;
-    
+
+    private DualListModel<Colaborador> listDualColaboradores;
+    private List<Colaborador> listaColaboradorSource;
+    private List<Colaborador> listaColaboradorTarget;
+
     private NotificacaoProjeto notificacaoProjeto;
     private Projeto projeto;
-    
+
     private List<String> listaString2;
     private LineChartModel lineModel;
     private Integer ano;
-   
 
     @PostConstruct
     public void init() {
-        listaDeProjetos = projetoController.consultarTodosAtivos();
-        notificacaoProjeto = new NotificacaoProjeto();
-        projeto = new Projeto();
-        
-        ano = 2015;
-        createLineModels();
-
-
-        listaString2 = new ArrayList<>();
-        String a;
-        for (int i = 0; i < 10; i++) {
-            a = "Projeto: ".concat(String.valueOf(i+1));
-            a = "Obra: ".concat(String.valueOf(i+1));
-            listaString2.add(a);
+        try {
+            listaDeProjetos = projetoController.consultarTodosAtivos();
+            notificacaoProjeto = new NotificacaoProjeto();
+            projeto = new Projeto();
+            
+            ano = 2015;
+            createLineModels();
+            
+            listaString2 = new ArrayList<>();
+            String a;
+            for (int i = 0; i < 10; i++) {
+                a = "Projeto: ".concat(String.valueOf(i + 1));
+                a = "Obra: ".concat(String.valueOf(i + 1));
+                listaString2.add(a);
+            }
+            listaColaboradorSource = colaboradorController.consultarTodosOrdenadorPor("nome");
+            listaColaboradorTarget = new ArrayList<>();
+            listDualColaboradores = new DualListModel<>(listaColaboradorSource, listaColaboradorTarget);
+        } catch (Exception ex) {
+            Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-    
-    public void addNotificacaoProjeto(){
+
+    public void addNotificacaoProjeto() {
         try {
             notificacaoProjeto.setColaborador(navegacaoMB.getUsuarioLogado().getColaborador());
             notificacaoProjeto.setData(new Date());
             notificacaoProjeto.setProjeto(projeto);
-            notificacaoProjetoController.salvar(notificacaoProjeto);
+            notificacaoProjetoController.salvar(notificacaoProjeto,listDualColaboradores.getTarget());
             notificacaoProjeto = new NotificacaoProjeto();
             listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(projeto);
         } catch (Exception ex) {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void consultarNotificacoes(Projeto p){
+
+    public void consultarNotificacoes(Projeto p) {
         listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(p);
         projeto = p;
     }
@@ -124,7 +137,7 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
         boys.set(Mes.OUTUBRO.getAbreviacao(), 10);
         boys.set(Mes.NOVEMBRO.getAbreviacao(), 9);
         boys.set(Mes.DEZEMBRO.getAbreviacao(), 12);
-      
+
         ChartSeries girls = new ChartSeries();
         girls.setLabel("Obras");
         girls.set(Mes.JANEIRO.getAbreviacao(), 8);
@@ -150,10 +163,6 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
         return listaDeProjetos;
     }
 
-   
-    
-    
-
     public LineChartModel getLineModel() {
         return lineModel;
     }
@@ -162,8 +171,8 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
         return ano;
     }
 
-    public List<Integer> getListaDeAnos(){
-       return Mes.ABRIL.getAnos();
+    public List<Integer> getListaDeAnos() {
+        return Mes.ABRIL.getAnos();
     }
 
     public List<String> getListaString2() {
@@ -186,6 +195,14 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     protected Map<String, Object> getCampo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-           
+
+    public DualListModel<Colaborador> getListDualColaboradores() {
+        return listDualColaboradores;
+    }
+
+    public void setListDualColaboradores(DualListModel<Colaborador> listDualColaboradores) {
+        this.listDualColaboradores = listDualColaboradores;
+    }
+
     
 }

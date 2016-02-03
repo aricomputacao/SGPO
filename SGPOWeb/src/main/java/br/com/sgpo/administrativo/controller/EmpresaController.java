@@ -37,11 +37,7 @@ public class EmpresaController extends ControllerGenerico<Empresa, Long> impleme
 
     @Override
     public void salvar(Empresa cl) throws Exception {
-        cl.setEndereco(enderecoController.buscarOuCriarLogradouroPor(cl.getEndereco().getAbreviacaoUnidadeFederativa(), cl.getEndereco().getNomeDaCidade(),
-                cl.getEndereco().getCep(), cl.getEndereco().getNome(), cl.getEndereco().getBairro(), cl.getEndereco().getNumero(),
-                cl.getEndereco().getComplemento()));
-        cl.setCnpj(StringUtil.removerCaracteresEspeciais(cl.getCnpj()));
-        dao.atualizar(cl);
+      
     }
 
     public void addLogo(String nomeDaEmpresa, byte[] conteudo, String diretorioRealLogo) throws IOException {
@@ -70,6 +66,14 @@ public class EmpresaController extends ControllerGenerico<Empresa, Long> impleme
 //        FileOutputStream img = new FileOutputStream(arq);
 //        img.write(conteudo);
 //        img.flush();
+    }
+
+    public Empresa salvarGerenciar(Empresa cl) throws Exception {
+          cl.setEndereco(enderecoController.buscarOuCriarLogradouroPor(cl.getEndereco().getAbreviacaoUnidadeFederativa(), cl.getEndereco().getNomeDaCidade(),
+                cl.getEndereco().getCep(), cl.getEndereco().getNome(), cl.getEndereco().getBairro(), cl.getEndereco().getNumero(),
+                cl.getEndereco().getComplemento()));
+        cl.setCnpj(StringUtil.removerCaracteresEspeciais(cl.getCnpj()));
+        return dao.atualizarGerenciar(cl);
     }
 
 }

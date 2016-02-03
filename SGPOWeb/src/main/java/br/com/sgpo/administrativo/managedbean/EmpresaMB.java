@@ -90,7 +90,7 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
 
     public void salvar() {
         try {
-            empresaController.salvar(empresa);
+            empresa = empresaController.salvarGerenciar(empresa);
             empresaController.addLogo(empresa.getNome(), logo, getDiretorioReal("resources" + separator + "images"));
             contaEmail.setEmpresa(empresa);
             MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_SUCESSO, empresa.getNome());

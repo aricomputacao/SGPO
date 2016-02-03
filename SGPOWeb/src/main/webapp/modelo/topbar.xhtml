@@ -3,7 +3,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
     <div id="layout-header" class="Unselectable fontRegular">
@@ -20,7 +21,16 @@
                     <li class="Animated05"><a href="#" onclick="PF('dialogAlterarSenha').show()" class="white Unselectable"><i class="icon-key-1"></i>#{label.alterar_senha}</a></li>
                 </ul>
             </li>
-           
+
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-bell"></i><span class="alertBubble BordRad10 Fs11">#{notificacaoProjetoMB.listaDeNotificacaoProjetos.size()}</span>
+                <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                    <li class="Animated05"><a class="white Unselectable"><i class="icon-volume-high Fs20 OvHidden"></i><span class="Fs18">Notificações do Dia</span></a></li>
+                    <c:forEach var="notf"  items="#{notificacaoProjetoMB.listaDeNotificacaoProjetos}">
+                        <li class="Animated05"><a  class="white Unselectable TexAlLeft"><i class="icon-attach " ></i>#{notf.projeto.nome}</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
+
             <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-wrench-1"></i>
                 <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
                     <li class="Animated05"><a href="#" onclick="PF('dialogIdioma').show()" class="white Unselectable"><i class="icon-flag-1"></i>#{label.idioma}</a></li>

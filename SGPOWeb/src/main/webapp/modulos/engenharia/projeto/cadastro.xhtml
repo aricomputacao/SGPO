@@ -14,7 +14,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad" prependId="false" >
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.projeto_cadastro)}" >
 
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                      acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
@@ -70,7 +70,7 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" rendered="#{projetoMB.renderAtalhoF1()}" width="85%"  header="#{label.gerenciar} #{label.documento}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
+        <p:dialog showEffect="fade" position="center center"  width="85%"  header="#{label.gerenciar} #{label.documento}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
             <h:form enctype="multipart/form-data" prependId="false" id="frm_doc">
                 <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
             </h:form>
@@ -151,11 +151,11 @@
                                     converter="primeFacesPickListConverter" >
 
 
-                          <f:facet name="sourceCaption">Disponíveis</f:facet> 
-                          <f:facet name="targetCaption">Selecionados</f:facet> 
-                          <p:column style="width:75%;"> 
-                              <h:outputText value="#{col.nome}" /> 
-                          </p:column>
+                            <f:facet name="sourceCaption">Disponíveis</f:facet> 
+                            <f:facet name="targetCaption">Selecionados</f:facet> 
+                            <p:column style="width:75%;"> 
+                                <h:outputText value="#{col.nome}" /> 
+                            </p:column>
 
 
 
@@ -163,12 +163,11 @@
 
                     </h:panelGroup>
                 </panels:panel>
-
                 <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
-                    <inputs:textarea_label id="lab_text" inp_valor="#{projetoMB.notificacaoProjeto.motivo}" lab_valor="#{label.motivo}" inp_class_tamanho="100" 
-                                           inp_require="true" inp_tamanho_maximo="1024"/>
+                    <p:editor id="editor" widgetVar="editorWidget" value="#{projetoMB.notificacaoProjeto.motivo}"  maxlength="1024" required="true"  />
+
                     <p:commandButton class="TexAlCenter Container100"  value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{projetoMB.addNotificacao()}" 
-                                     update="lab_text tabelaNotPro" onclick="start()" oncomplete="stop()" />
+                                     update="editor tabelaNotPro" onclick="start()" oncomplete="stop()" />
                 </panels:panel>
                 <p:dataTable value="#{projetoMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"

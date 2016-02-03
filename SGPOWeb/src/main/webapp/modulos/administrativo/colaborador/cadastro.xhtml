@@ -9,7 +9,7 @@
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad" prependId="false" >
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.colaborador_cadastro)}" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{colaboradorMB.init()}" 
                                      acao_excluir="#{colaboradorMB.desativarColaborador()}" btn_excluir="#{colaboradorMB.colaborador.ativo}"   acao_salvar="#{colaboradorMB.salvar()}"  
                                    

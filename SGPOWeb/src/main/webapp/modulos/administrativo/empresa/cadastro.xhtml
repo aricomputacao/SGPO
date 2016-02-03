@@ -11,10 +11,9 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad"  prependId="false" >
+        <h:form id="frm_cad"  prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.empresa_cadastro)}">
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{empresaMB.init()}" 
-                                     acao_excluir="#{empresaMB.desativarEmpresa()}" btn_excluir="#{empresaMB.empresa.ativo}"   acao_salvar="#{empresaMB.salvar()}" 
-
+                                     acao_excluir="#{empresaMB.desativarEmpresa()}" btn_excluir="#{empresaMB.empresa.ativo}"  acao_limpar="#{empresaMB.init()}"  acao_salvar="#{empresaMB.salvar()}" 
                                      btn_limpar="true" cabecalho="#{label.cadastro} #{label.de} #{label.empresa}" btn_imprimir="false" btn_ativar="false"
                                      btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{empresaMB.init()}" >
 
@@ -40,7 +39,7 @@
                     <inp:input_label inp_valor="#{empresaMB.contaEmail.host}" class="Container50" lab_valor="Host" inp_require="true"/> 
                     <inp:input_label_number inp_valor="#{empresaMB.contaEmail.porta}" class="Container50" lab_valor="Porta" inp_require="true"/> 
 
-                    <p:commandButton value="#{label.salvar}"  actionListener="#{empresaMB.addContaEmail()}" icon="fa fa-floppy-o"  update="@form" class="Fright" />
+                    <p:commandButton value="#{label.salvar}"  actionListener="#{empresaMB.addContaEmail()}" icon="fa fa-floppy-o"  update="@form" class="Container100" />
                 </p:fieldset>
                 <p:dataTable value="#{empresaMB.listaDeEmails}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"

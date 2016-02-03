@@ -10,7 +10,7 @@
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad" prependId="false" >
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.cargo_cadastro)}" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                      acao_cancelar="#{cargoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
                                      acao_excluir="#{cargoMB.init()}"  acao_salvar="#{cargoMB.salvar()}"

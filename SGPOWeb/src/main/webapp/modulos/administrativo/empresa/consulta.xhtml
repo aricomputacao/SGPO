@@ -11,10 +11,8 @@
 
 
     <ui:define name="corpo">
-        <h:form id="frm_cons" prependId="false" >
-            <p:blockUI block="@(form)" trigger=":frm_cons:pnlPadrao:btn_print" widgetVar="blk">
-                <p:graphicImage library="images" name="carregar.gif"/>
-            </p:blockUI>
+        <h:form id="frm_cons" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.empresa_consulta)}" >
+           
             <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label.consulta} #{label.empresa}" acao_limpar="#{empresaMB.init()}" render_sep_1="false" btn_excluir="false" 
                                      btn_cancelar="false" btn_salvar="false" btn_ativar="false"   acao_imprimir="#{empresaMB.init()}" 
                                      dialog_cadastro="dialogCadastro" btn_imprimir="false" btn_dialog_rel="false" btn_salvar_update="false">
