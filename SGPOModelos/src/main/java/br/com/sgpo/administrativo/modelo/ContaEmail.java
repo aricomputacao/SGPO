@@ -6,6 +6,7 @@
 package br.com.sgpo.administrativo.modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -41,7 +42,7 @@ public class ContaEmail implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "emp_id", nullable = false, referencedColumnName = "emp_id")
+    @JoinColumn(name = "emp_id", nullable = false, referencedColumnName = "emp_id",unique = true)
     private Empresa empresa;
 
     @NotBlank
@@ -162,7 +163,9 @@ public class ContaEmail implements Serializable {
         for (String destino : destinos) {
             email.addTo(destino, "", "UTF-8");
         }
-
+        
+        email.setSentDate(new Date());
+        
         //Configure o seu Email do qual enviará
         email.setFrom(this.email, this.empresa.getNome());
         //Adicione um assunto

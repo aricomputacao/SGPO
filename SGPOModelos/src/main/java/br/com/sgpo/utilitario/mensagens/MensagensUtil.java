@@ -65,7 +65,8 @@ public class MensagensUtil implements Serializable {
     }
 
     public static void enviarMessageErro(String idMensagem) {
-        enviarMenssagem(null, FacesMessage.SEVERITY_ERROR, "Erro", ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        String msg = ResourceUtil.lerBundle("erro", ResourceUtil.LABEL).concat(" : ").concat(ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
+        enviarMenssagem(null, FacesMessage.SEVERITY_ERROR, msg, ResourceUtil.lerBundle(idMensagem, ResourceUtil.MENSAGENS));
     }
 
     public static void enviarMenssagem(String clientId, FacesMessage.Severity severity, String sumario, String detalhe) {
