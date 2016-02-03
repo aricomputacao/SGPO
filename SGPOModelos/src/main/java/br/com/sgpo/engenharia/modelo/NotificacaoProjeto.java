@@ -65,7 +65,7 @@ public class NotificacaoProjeto implements Serializable{
     }
 
     public String getMotivo() {
-        return motivo;
+        return this.motivo ;
     }
 
     public void setMotivo(String motivo) {

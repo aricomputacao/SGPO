@@ -10,11 +10,9 @@ package br.com.sgpo.administrativo.enumeration;
  * @author ari
  */
 public enum TipoCargo {
-    PRESIDENTE("Presidente"),
     GERENTE("Gerente"),
-    ESTAGIARIO("Estagiário"),
     SUPERVISOR("Supervisor"),
-    FUNCIONARIO("Funcionário"),
+    ESTAGIARIO("Estagiário"),
     ENGENHEIRO("Engenheiro"),
     OUTRO("Outro");
     
