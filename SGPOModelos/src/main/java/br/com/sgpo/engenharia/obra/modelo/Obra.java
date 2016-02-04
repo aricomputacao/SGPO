@@ -3,24 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.modelo;
+package br.com.sgpo.engenharia.obra.modelo;
 
 import br.com.sgpo.administrativo.modelo.Cliente;
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.Empresa;
 import br.com.sgpo.administrativo.modelo.Endereco;
-import br.com.sgpo.engenharia.enumeration.FaseProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,6 +30,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -35,28 +39,19 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author ari
  */
 @Entity
-@Table(name = "projeto", schema = "engenharia")
+@Table(name = "obra", schema = "engenharia")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Projeto implements Serializable {
+public class Obra implements Serializable {
 
     @Id
+    @NotNull
+    @Column(name = "obr_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pro_id", nullable = false)
     private Long id;
 
     @NotEmpty
-    @Column(name = "pro_nome", nullable = false)
-    private String nome;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "tip_id", referencedColumnName = "tip_id", nullable = false)
-    private TipoProjeto tipo;
-
-    @NotNull
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "pro_fase", nullable = false)
-    private FaseProjeto fase;
+    @Column(name = "obr_descricao", nullable = false)
+    private String descricao;
 
     @NotNull
     @ManyToOne
@@ -64,11 +59,11 @@ public class Projeto implements Serializable {
     private Colaborador responsavel;
 
     @NotNull
-    @Column(name = "pro_inicio", nullable = false)
+    @Column(name = "obr_inicio", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
-    @Column(name = "pro_fim")
+    @Column(name = "obr_fim")
     @Temporal(TemporalType.DATE)
     private Date dataFim;
 
@@ -82,22 +77,28 @@ public class Projeto implements Serializable {
     @JoinColumn(name = "emp_id", referencedColumnName = "emp_id", nullable = false)
     private Empresa empresa;
 
-    @Column(name = "pro_observacao", length = 1024)
-    private String observacao;
-
-    @Column(name = "pro_numero")
+    @Column(name = "obr_numero")
     private String numero;
 
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
     private Endereco endereco;
 
-    public Endereco getEndereco() {
-        return endereco;
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private List<Projeto> listaDeProjetos;
+
+    public void addProjeto(Projeto p) {
+        if (!listaDeProjetos.contains(p)) {
+            listaDeProjetos.add(p);
+        }
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void removeProjeto(Projeto p) {
+        if (listaDeProjetos.contains(p)) {
+            listaDeProjetos.remove(p);
+        }
     }
 
     public String getNomeResponsavel() {
@@ -116,28 +117,12 @@ public class Projeto implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public TipoProjeto getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoProjeto tipo) {
-        this.tipo = tipo;
-    }
-
-    public FaseProjeto getFase() {
-        return fase;
-    }
-
-    public void setFase(FaseProjeto fase) {
-        this.fase = fase;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Colaborador getResponsavel() {
@@ -180,14 +165,6 @@ public class Projeto implements Serializable {
         this.empresa = empresa;
     }
 
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
     public String getNumero() {
         return numero;
     }
@@ -196,10 +173,26 @@ public class Projeto implements Serializable {
         this.numero = numero;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public List<Projeto> getListaDeProjetos() {
+        return Collections.unmodifiableList(listaDeProjetos);
+    }
+
+    public void setListaDeProjetos(List<Projeto> listaDeProjetos) {
+        this.listaDeProjetos = listaDeProjetos;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -214,7 +207,7 @@ public class Projeto implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Projeto other = (Projeto) obj;
+        final Obra other = (Obra) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

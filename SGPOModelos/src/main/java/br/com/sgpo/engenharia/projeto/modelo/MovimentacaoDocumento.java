@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.modelo;
+package br.com.sgpo.engenharia.projeto.modelo;
 
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.engenharia.enumeration.TipoMovimentacaoDocumento;

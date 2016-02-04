@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.modelo;
+package br.com.sgpo.engenharia.projeto.modelo;
 
 import br.com.sgpo.administrativo.modelo.Colaborador;
+import br.com.sgpo.engenharia.enumeration.FaseProjeto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,39 +25,40 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author ari
  */
 @Entity
-@Table(name = "notificacao_projeto",schema = "engenharia")
+@Table(name = "movimentacao_projeto",schema = "engenharia")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class NotificacaoProjeto implements Serializable{
+public class MovimentacaoProjeto implements Serializable{
     
     @Id
+    @Column(name = "mov_pro",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "nop_id",nullable = false)
     private Long id;
     
-    @NotEmpty
-    @Column(name = "nop_motivo",length = 1024,nullable = false)
-    private String motivo;
+    @NotNull
+    @Column(name = "mov_fase",nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FaseProjeto fase;
     
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "col_id",referencedColumnName = "col_id",nullable = false)
-    private Colaborador colaborador;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "mov_data",nullable = false)
+    private Date data;
     
     @NotNull
     @ManyToOne
     @JoinColumn(name = "pro_id",referencedColumnName = "pro_id",nullable = false)
     private Projeto projeto;
     
-    @Column(name = "nop_data",nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date data;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "col_id",referencedColumnName = "col_id",nullable = false)
+    private Colaborador colaborador;
 
     public Long getId() {
         return id;
@@ -64,28 +68,12 @@ public class NotificacaoProjeto implements Serializable{
         this.id = id;
     }
 
-    public String getMotivo() {
-        return this.motivo ;
+    public FaseProjeto getFase() {
+        return fase;
     }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
-
-    public Colaborador getColaborador() {
-        return colaborador;
-    }
-
-    public void setColaborador(Colaborador colaborador) {
-        this.colaborador = colaborador;
-    }
-
-    public Projeto getProjeto() {
-        return projeto;
-    }
-
-    public void setProjeto(Projeto projeto) {
-        this.projeto = projeto;
+    public void setFase(FaseProjeto fase) {
+        this.fase = fase;
     }
 
     public Date getData() {
@@ -96,10 +84,26 @@ public class NotificacaoProjeto implements Serializable{
         this.data = data;
     }
 
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -114,14 +118,12 @@ public class NotificacaoProjeto implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final NotificacaoProjeto other = (NotificacaoProjeto) obj;
+        final MovimentacaoProjeto other = (MovimentacaoProjeto) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
-    
     
     
     
