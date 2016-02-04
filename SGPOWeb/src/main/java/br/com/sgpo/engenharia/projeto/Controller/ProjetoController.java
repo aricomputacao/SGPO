@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.Controller;
+package br.com.sgpo.engenharia.projeto.Controller;
 
 import br.com.sgpo.administrativo.controller.EnderecoController;
-import br.com.sgpo.engenharia.DAO.MovimentacaoProjetoDAO;
-import br.com.sgpo.engenharia.DAO.ProjetoDAO;
+import br.com.sgpo.engenharia.projeto.DAO.MovimentacaoProjetoDAO;
+import br.com.sgpo.engenharia.projeto.DAO.ProjetoDAO;
 import br.com.sgpo.engenharia.enumeration.FaseProjeto;
-import br.com.sgpo.engenharia.modelo.MovimentacaoProjeto;
-import br.com.sgpo.engenharia.modelo.Projeto;
+import br.com.sgpo.engenharia.projeto.modelo.MovimentacaoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;

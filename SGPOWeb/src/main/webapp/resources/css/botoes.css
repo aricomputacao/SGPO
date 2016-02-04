@@ -339,6 +339,12 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* IE6-8 */
 }
 
+.link{
+     border: none ! important;
+    text-decoration: none ! important;
+    color: white ! important;
+}
+
 .atalho{
     border: none ! important;
     text-decoration: none ! important;

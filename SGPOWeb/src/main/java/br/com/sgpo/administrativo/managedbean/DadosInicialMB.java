@@ -7,10 +7,10 @@ package br.com.sgpo.administrativo.managedbean;
 
 import br.com.sgpo.administrativo.controller.ColaboradorController;
 import br.com.sgpo.administrativo.modelo.Colaborador;
-import br.com.sgpo.engenharia.Controller.NotificacaoProjetoController;
-import br.com.sgpo.engenharia.Controller.ProjetoController;
-import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
-import br.com.sgpo.engenharia.modelo.Projeto;
+import br.com.sgpo.engenharia.projeto.Controller.NotificacaoProjetoController;
+import br.com.sgpo.engenharia.projeto.Controller.ProjetoController;
+import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
 import br.com.sgpo.utilitarios.enumeration.Mes;

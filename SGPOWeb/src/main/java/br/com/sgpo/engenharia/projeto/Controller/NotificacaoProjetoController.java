@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.Controller;
+package br.com.sgpo.engenharia.projeto.Controller;
 
 import br.com.sgpo.administrativo.controller.ContaEmailController;
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.ContaEmail;
-import br.com.sgpo.engenharia.DAO.NotificacaoProjetoDAO;
-import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
-import br.com.sgpo.engenharia.modelo.Projeto;
+import br.com.sgpo.engenharia.projeto.DAO.NotificacaoProjetoDAO;
+import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
@@ -57,7 +57,6 @@ public class NotificacaoProjetoController extends ControllerGenerico<Notificacao
             titulo = "Notificação Projeto - "+ notificacaoProjeto.getProjeto().getNome();
             contaEmail.enviarEmailHtml(emails, notificacaoProjeto.getMotivo(), titulo);
         }
-        notificacaoProjeto.setMotivo(Jsoup.parse(notificacaoProjeto.getMotivo()).text());
         dao.salvar(notificacaoProjeto);
 
     }

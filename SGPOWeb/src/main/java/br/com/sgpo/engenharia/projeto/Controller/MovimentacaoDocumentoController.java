@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.Controller;
+package br.com.sgpo.engenharia.projeto.Controller;
 
-import br.com.sgpo.engenharia.DAO.MovimentacaoDocumentoDAO;
-import br.com.sgpo.engenharia.modelo.DocumentoProjeto;
-import br.com.sgpo.engenharia.modelo.MovimentacaoDocumento;
+import br.com.sgpo.engenharia.projeto.DAO.MovimentacaoDocumentoDAO;
+import br.com.sgpo.engenharia.projeto.modelo.DocumentoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.MovimentacaoDocumento;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
 import java.util.List;

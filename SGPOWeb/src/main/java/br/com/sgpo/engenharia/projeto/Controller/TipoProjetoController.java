@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.Controller;
+package br.com.sgpo.engenharia.projeto.Controller;
 
-import br.com.sgpo.engenharia.DAO.TipoProjetoDAO;
-import br.com.sgpo.engenharia.modelo.TipoProjeto;
+import br.com.sgpo.engenharia.projeto.DAO.TipoProjetoDAO;
+import br.com.sgpo.engenharia.projeto.modelo.TipoProjeto;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;

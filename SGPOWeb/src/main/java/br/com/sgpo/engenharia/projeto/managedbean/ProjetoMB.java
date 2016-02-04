@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.managedbean;
+package br.com.sgpo.engenharia.projeto.managedbean;
 
 import br.com.sgpo.administrativo.controller.ColaboradorController;
 import br.com.sgpo.administrativo.controller.MunicipioController;
@@ -13,18 +13,18 @@ import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Municipio;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
-import br.com.sgpo.engenharia.Controller.DocumentoProjetoController;
-import br.com.sgpo.engenharia.Controller.MovimentacaoProjetoController;
-import br.com.sgpo.engenharia.Controller.NotificacaoProjetoController;
-import br.com.sgpo.engenharia.Controller.ProjetoController;
-import br.com.sgpo.engenharia.Controller.TipoProjetoController;
+import br.com.sgpo.engenharia.projeto.Controller.DocumentoProjetoController;
+import br.com.sgpo.engenharia.projeto.Controller.MovimentacaoProjetoController;
+import br.com.sgpo.engenharia.projeto.Controller.NotificacaoProjetoController;
+import br.com.sgpo.engenharia.projeto.Controller.ProjetoController;
+import br.com.sgpo.engenharia.projeto.Controller.TipoProjetoController;
 import br.com.sgpo.engenharia.enumeration.FaseProjeto;
 import br.com.sgpo.engenharia.enumeration.TipoExtencaoArquivo;
-import br.com.sgpo.engenharia.modelo.DocumentoProjeto;
-import br.com.sgpo.engenharia.modelo.MovimentacaoProjeto;
-import br.com.sgpo.engenharia.modelo.NotificacaoProjeto;
-import br.com.sgpo.engenharia.modelo.Projeto;
-import br.com.sgpo.engenharia.modelo.TipoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.DocumentoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.MovimentacaoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
+import br.com.sgpo.engenharia.projeto.modelo.Projeto;
+import br.com.sgpo.engenharia.projeto.modelo.TipoProjeto;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;

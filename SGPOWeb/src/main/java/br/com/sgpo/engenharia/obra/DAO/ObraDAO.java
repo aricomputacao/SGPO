@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.DAO;
+package br.com.sgpo.engenharia.obra.DAO;
 
-import br.com.sgpo.engenharia.modelo.TipoProjeto;
+import br.com.sgpo.engenharia.obra.modelo.Obra;
 import br.com.sgpo.utilitario.DAOGenerico;
 import java.io.Serializable;
 import javax.ejb.Stateless;
@@ -15,10 +15,10 @@ import javax.ejb.Stateless;
  * @author ari
  */
 @Stateless
-public class TipoProjetoDAO extends DAOGenerico<TipoProjeto, Long> implements Serializable{
+public class ObraDAO extends DAOGenerico<Obra, Long> implements Serializable{
     
-    public TipoProjetoDAO() {
-        super(TipoProjeto.class);
+    public ObraDAO() {
+        super(Obra.class);
     }
     
 }
