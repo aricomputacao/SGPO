@@ -44,7 +44,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Obra implements Serializable {
 
     @Id
-    @NotNull
     @Column(name = "obr_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
