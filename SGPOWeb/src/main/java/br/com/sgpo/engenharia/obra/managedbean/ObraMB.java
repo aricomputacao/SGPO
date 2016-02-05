@@ -3,13 +3,19 @@ package br.com.sgpo.engenharia.obra.managedbean;
 import br.com.sgpo.administrativo.controller.ColaboradorController;
 import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
+import br.com.sgpo.administrativo.modelo.Cliente;
+import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Municipio;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
 import br.com.sgpo.engenharia.obra.Controller.ObraController;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
+import br.com.sgpo.engenharia.projeto.Controller.ProjetoController;
+import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.BeanGenerico;
+import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -46,10 +52,13 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private UnidadeFederativa unidadeFederativa;
     private Obra obra;
 
+    private boolean rederConCliente;
+
     @PostConstruct
     @Override
     public void init() {
         try {
+            criarListaDeCamposDaConsulta();
             obra = (Obra) lerRegistroDaSessao("obra");
             if (obra == null) {
                 obra = new Obra();
@@ -66,9 +75,60 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     }
 
+    public void salvar() {
+        try {
+            obra = obraController.salvarGerenciar(obra);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addProjeto(Projeto p) {
+        try {
+            obra.addProjeto(p);
+            obra = obraController.salvarGerenciar(obra);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void consultarObras() {
+        try {
+            listaDeObras = obraController.consultarTodos("id", getCampoConsuta(), getValorCampoConsuta());
+        } catch (Exception ex) {
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean renderLink(){
+        return obra.getId() != null;
+    }
+
+    public void consultarMuncipioPorUf() {
+        listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
+    }
+
+    public void processarCampoConsulta() {
+        rederConCliente = getCampoConsuta().equals("cliente.nome");
+    }
+
+    public void setarCliente(Cliente c) {
+        obra.setCliente(c);
+    }
+
+    public void setarResponsavel(Colaborador c) {
+        obra.setResponsavel(c);
+    }
+
     @Override
     protected Map<String, Object> getCampo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("Descricao", "descricao");
+        map.put("Cliente", "cliente.nome");
+        return map;
     }
 
     public List<Obra> getListaDeObras() {
@@ -99,6 +159,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
         this.obra = obra;
     }
 
-    
-    
+    public boolean isRederConCliente() {
+        return rederConCliente;
+    }
+
 }

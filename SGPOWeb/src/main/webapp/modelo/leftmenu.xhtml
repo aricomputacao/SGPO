@@ -47,14 +47,19 @@
                     <p:submenu label="#{label.tipo_projeto}" icon="icon-spread" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.tipo_projeto_cadastro)}" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.tipo_projeto_cadastro}"/>
                     </p:submenu>
+                    <p:submenu label="#{label.obra}" icon="icon-hospital" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.obra_cadastro)}" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.obra_cadastro}" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.obra_cadastro)}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.obra_consulta)}" outcome="#{engenharia.obra_consulta}"/>
+
+                    </p:submenu>
 
                     <p:submenu label=" #{label.projeto}" icon="icon-codeopen "  rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_cadastro) 
                                          or utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_consulta) }" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_cadastro)}" outcome="#{engenharia.projeto_cadastro}"/>
                         <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_consulta)}" outcome="#{engenharia.projeto_consulta}"/>
-                    </p:submenu>
-                    <p:submenu label="#{label.relatorio}" icon="icon-paste" rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_projeto_colaborador)}" >
-                        <p:menuitem value="#{label.projeto} #{label.colaborador}" icon="icon-list-alt"  outcome="#{engenharia.relatorio_projeto_colaborador}"/>
+                        <p:submenu label="#{label.relatorio}" icon="icon-paste" rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_projeto_colaborador)}" >
+                            <p:menuitem value="#{label.projeto} #{label.colaborador}" icon="icon-list-alt"  outcome="#{engenharia.relatorio_projeto_colaborador}"/>
+                        </p:submenu>
                     </p:submenu>
                 </p:submenu>
                 <p:submenu label="#{label.modulo_seguranca}" icon="icon-lock-open-alt" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloSeguranca()}" >
