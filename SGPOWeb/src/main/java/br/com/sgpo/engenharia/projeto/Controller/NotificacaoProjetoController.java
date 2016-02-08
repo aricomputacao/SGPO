@@ -11,17 +11,14 @@ import br.com.sgpo.administrativo.modelo.ContaEmail;
 import br.com.sgpo.engenharia.projeto.DAO.NotificacaoProjetoDAO;
 import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.projeto.modelo.Projeto;
-import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.apache.commons.mail.EmailException;
-import org.jsoup.Jsoup;
 
 /**
  *

@@ -15,6 +15,7 @@ import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.jfree.ui.about.ProjectInfo;
+import org.primefaces.model.DualListModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -44,10 +47,15 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private MunicipioController municipioController;
     @Inject
     private UnidadeFederativaController unidadeFederativaController;
+    @Inject
+    private ProjetoController projetoController;
 
     private List<Obra> listaDeObras;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
     private List<Municipio> listaDeMunicpios;
+    private DualListModel<Projeto> listaDualProjetos;
+    private List<Projeto> listaProjetosSource;
+    private List<Projeto> listaProjetosTarget;
 
     private UnidadeFederativa unidadeFederativa;
     private Obra obra;
@@ -60,14 +68,20 @@ public class ObraMB extends BeanGenerico implements Serializable {
         try {
             criarListaDeCamposDaConsulta();
             obra = (Obra) lerRegistroDaSessao("obra");
+            listaProjetosSource = projetoController.consultarTodosAtivos();
             if (obra == null) {
                 obra = new Obra();
                 obra.setEndereco(new Endereco());
+                obra.setListaDeProjetos(new ArrayList<>());
+                listaProjetosTarget = new ArrayList<>();
             } else {
                 unidadeFederativa = obra.getEndereco().getUnidadeFederativa();
                 listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
+                listaProjetosTarget = obra.getListaDeProjetos();
+                listaProjetosSource.removeAll(listaProjetosTarget);
 
             }
+            listaDualProjetos = new DualListModel<>(listaProjetosSource, listaProjetosTarget);
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
         } catch (Exception ex) {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,10 +99,9 @@ public class ObraMB extends BeanGenerico implements Serializable {
         }
     }
 
-    public void addProjeto(Projeto p) {
+    public void gerenciarProjeto() {
         try {
-            obra.addProjeto(p);
-            obra = obraController.salvarGerenciar(obra);
+            obra = obraController.salvarGerenciar(obra,listaDualProjetos.getTarget());
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,8 +115,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public boolean renderLink(){
+
+    public boolean renderLink() {
         return obra.getId() != null;
     }
 
@@ -163,4 +176,13 @@ public class ObraMB extends BeanGenerico implements Serializable {
         return rederConCliente;
     }
 
+    public DualListModel<Projeto> getListaDualProjetos() {
+        return listaDualProjetos;
+    }
+
+    public void setListaDualProjetos(DualListModel<Projeto> listaDualProjetos) {
+        this.listaDualProjetos = listaDualProjetos;
+    }
+
+    
 }

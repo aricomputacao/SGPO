@@ -33,55 +33,103 @@
 	<group name="fornecedor">
 		<groupExpression><![CDATA[$F{fornecedor}]]></groupExpression>
 		<groupHeader>
-			<band height="45">
+			<band height="63">
 				<frame>
-					<reportElement x="0" y="0" width="555" height="43" uuid="f5e0d44c-3557-4b15-844e-f8ba8b0ff843"/>
+					<reportElement x="0" y="0" width="555" height="63" uuid="f5e0d44c-3557-4b15-844e-f8ba8b0ff843"/>
 					<box>
 						<topPen lineWidth="0.25" lineStyle="Dashed"/>
 						<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
 					</box>
 					<textField>
-						<reportElement x="83" y="22" width="472" height="20" uuid="ec363a4d-736d-410b-9769-41d084262f24"/>
+						<reportElement x="75" y="22" width="207" height="20" uuid="ec363a4d-736d-410b-9769-41d084262f24"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12"/>
+							<font size="10"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{fornecedor}.getRazaoSocial()]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement x="83" y="0" width="199" height="20" uuid="82045d25-5748-4199-8b89-ca2f3b32ee06"/>
+						<reportElement x="75" y="0" width="207" height="20" uuid="82045d25-5748-4199-8b89-ca2f3b32ee06"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12"/>
+							<font size="10"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{fornecedor}.getNome()]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="0" y="0" width="83" height="20" uuid="4bb4d714-de9b-45b5-be67-df1004372a6e"/>
+						<reportElement x="0" y="0" width="75" height="20" uuid="4bb4d714-de9b-45b5-be67-df1004372a6e"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12" isBold="true"/>
+							<font size="11" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Nome:]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="0" y="22" width="83" height="20" uuid="dd85db1d-47ba-45d5-831c-40791b7ba9ee"/>
+						<reportElement x="0" y="22" width="75" height="20" uuid="dd85db1d-47ba-45d5-831c-40791b7ba9ee"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12" isBold="true"/>
+							<font size="11" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Razão Sócial:]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="284" y="2" width="43" height="20" uuid="981c5d25-f59a-48eb-9361-5dd8388b273b"/>
+						<reportElement x="284" y="2" width="96" height="20" uuid="981c5d25-f59a-48eb-9361-5dd8388b273b"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12" isBold="true"/>
+							<font size="11" isBold="true"/>
 						</textElement>
 						<text><![CDATA[CNPJ:]]></text>
 					</staticText>
 					<textField>
-						<reportElement x="327" y="2" width="228" height="20" uuid="140270a1-3317-4338-9d31-b9b12474cfb5"/>
+						<reportElement x="380" y="2" width="175" height="20" uuid="140270a1-3317-4338-9d31-b9b12474cfb5"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12"/>
+							<font size="10"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{fornecedor}.getDocumento()]]></textFieldExpression>
 					</textField>
+					<textField>
+						<reportElement x="380" y="22" width="175" height="20" uuid="64759d13-44f4-4730-920f-4c389da6e3f1"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{fornecedor}.getRepresentante()]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="284" y="22" width="96" height="20" uuid="0f9f66b3-326b-4235-aa8e-00f754fd6f01"/>
+						<textElement verticalAlignment="Middle">
+							<font size="11" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Representante:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="75" y="42" width="80" height="20" uuid="eabd81a6-3009-4564-9a21-2b377c93b72a"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{fornecedor}.getTelefone()]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="0" y="42" width="75" height="20" uuid="d38b46d0-6f51-4145-a364-248be1cee22a"/>
+						<textElement verticalAlignment="Middle">
+							<font size="11" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Tel. 1:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="192" y="42" width="90" height="20" uuid="a15d6d14-1f1f-440c-8c1e-e6fda7687758"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{fornecedor}.getCelular()]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="157" y="42" width="35" height="20" uuid="5c9bf565-de48-416b-83e9-e324b31043c9"/>
+						<textElement verticalAlignment="Middle">
+							<font size="11" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Cel:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="380" y="42" width="175" height="20" uuid="92df9c4e-1f50-42f9-bf72-595e81da3d74"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{fornecedor}.getEmail()]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="284" y="42" width="41" height="20" uuid="02591998-ab5e-4e40-8d49-2da2ff1d6561"/>
+						<textElement verticalAlignment="Middle">
+							<font size="11" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Email:]]></text>
+					</staticText>
 				</frame>
 			</band>
 		</groupHeader>
@@ -96,8 +144,8 @@
 				</box>
 				<staticText>
 					<reportElement x="0" y="3" width="252" height="32" uuid="5ed51721-90bf-490e-b950-f9e2526544ee"/>
-					<textElement>
-						<font size="20" isBold="true" isItalic="true"/>
+					<textElement verticalAlignment="Middle">
+						<font size="18" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Dados do Fornecedor]]></text>
 				</staticText>

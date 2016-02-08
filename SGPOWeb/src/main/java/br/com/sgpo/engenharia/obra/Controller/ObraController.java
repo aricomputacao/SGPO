@@ -8,8 +8,10 @@ package br.com.sgpo.engenharia.obra.Controller;
 import br.com.sgpo.administrativo.controller.EnderecoController;
 import br.com.sgpo.engenharia.obra.DAO.ObraDAO;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
+import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -37,6 +39,12 @@ public class ObraController extends ControllerGenerico<Obra, Long> implements Se
                 p.getEndereco().getCep(), p.getEndereco().getNome(), p.getEndereco().getBairro(), p.getEndereco().getNumero(),
                 p.getEndereco().getComplemento()));
         return dao.atualizarGerenciar(p);
+    }
+
+    public Obra salvarGerenciar(Obra obra, List<Projeto> target) throws Exception {
+        obra.gerenciarProjetos(target);
+        return salvarGerenciar(obra);
+
     }
 
 }

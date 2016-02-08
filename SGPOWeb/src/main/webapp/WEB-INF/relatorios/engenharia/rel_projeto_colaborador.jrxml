@@ -15,12 +15,15 @@
 			<style forecolor="#FFFF76" backcolor="#FFFF76"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="qtbAberto" class="java.lang.String"/>
-	<parameter name="qtdConcluido" class="java.lang.String"/>
+	<parameter name="qtdAberto" class="java.lang.Integer"/>
+	<parameter name="qtdConcluido" class="java.lang.Integer"/>
 	<parameter name="total" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
 	<field name="cliente" class="br.com.sgpo.administrativo.modelo.Cliente">
 		<fieldDescription><![CDATA[cliente]]></fieldDescription>
 	</field>
@@ -32,6 +35,9 @@
 	</field>
 	<field name="empresa" class="br.com.sgpo.administrativo.modelo.Empresa">
 		<fieldDescription><![CDATA[empresa]]></fieldDescription>
+	</field>
+	<field name="endereco" class="br.com.sgpo.administrativo.modelo.Endereco">
+		<fieldDescription><![CDATA[endereco]]></fieldDescription>
 	</field>
 	<field name="fase" class="br.com.sgpo.engenharia.enumeration.FaseProjeto">
 		<fieldDescription><![CDATA[fase]]></fieldDescription>
@@ -57,7 +63,7 @@
 	<field name="responsavel" class="br.com.sgpo.administrativo.modelo.Colaborador">
 		<fieldDescription><![CDATA[responsavel]]></fieldDescription>
 	</field>
-	<field name="tipo" class="br.com.sgpo.engenharia.modelo.TipoProjeto">
+	<field name="tipo" class="br.com.sgpo.engenharia.projeto.modelo.TipoProjeto">
 		<fieldDescription><![CDATA[tipo]]></fieldDescription>
 	</field>
 	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="responsavel" calculation="Count">
@@ -123,12 +129,12 @@
 					<bottomPen lineWidth="1.0" lineColor="#6CB7FF"/>
 					<rightPen lineWidth="1.0" lineColor="#6CB7FF"/>
 				</box>
-				<textField isBlankWhenNull="true">
-					<reportElement x="0" y="0" width="158" height="33" uuid="9d25a6c8-abdc-4287-95fd-e47467225616"/>
+				<textField>
+					<reportElement x="0" y="0" width="158" height="33" uuid="3e25d110-f19d-44e1-b4cd-68d686c2f62d"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="18" isBold="true"/>
+						<font size="20" isBold="true" isItalic="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{qtdConcluido} == null ? 0 +" - Concluidos" : $P{qtdConcluido} +" - Concluidos"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{qtdConcluido} + " - Concluido"]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -140,13 +146,6 @@
 					<bottomPen lineWidth="1.0" lineColor="#FFE983"/>
 					<rightPen lineWidth="1.0" lineColor="#FFE983"/>
 				</box>
-				<textField isBlankWhenNull="true">
-					<reportElement x="0" y="0" width="158" height="33" uuid="7123260c-5d49-4e57-91f1-4616e33756d9"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="18" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{qtbAberto} ==  null ? 0+" - Abertos" : $P{qtbAberto} +" - Abertos"]]></textFieldExpression>
-				</textField>
 			</frame>
 			<frame>
 				<reportElement x="0" y="10" width="802" height="66" uuid="45ead4f6-ad71-4b48-8637-39d432ac5a56"/>
@@ -175,6 +174,13 @@
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Total de Projetos ("+$P{total}+") sendo:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="117" width="158" height="33" uuid="495316de-9174-49b6-9e3d-cd48fdaa30ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{qtdAberto} + " - Abertos"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

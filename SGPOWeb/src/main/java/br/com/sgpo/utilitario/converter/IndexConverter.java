@@ -1,4 +1,4 @@
-package br.com.sgpo.utilitario;
+package br.com.sgpo.utilitario.converter;
 
 import java.util.ArrayList;
 import java.util.Collection;

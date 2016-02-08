@@ -9,7 +9,7 @@
 
 
     <div id="layout-header" class="Unselectable fontRegular">
-        <a href="dashboard.xhtml" id="layout-logo">
+        <a  id="layout-logo">
             <h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout"/>
             <span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">#{label.titulo_sistema}</span><span class="hardblue"> - #{label.sigla_sistema}</span></span>
         </a>
@@ -23,9 +23,11 @@
                 </ul>
             </li>
 
-            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-bell"></i><span class="alertBubble BordRad10 Fs11">#{indexMB.listaDeNotificacaoProjetos.size()}</span>
-                <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
-                    <li class="Animated05"><a class="white Unselectable"><i class="icon-volume-high Fs20 OvHidden"></i><span class="Fs18">Notificações do Dia</span></a></li>
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-bell"></i><span id="bell" class="alertBubble BordRad10 Fs11">#{indexMB.listaDeNotificacaoProjetos.size()}</span>
+              
+
+                    <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                        <li class="Animated05"><a class="white Unselectable"><i class="icon-volume-high Fs20 OvHidden"></i><span class="Fs18">Notificações do Dia</span></a></li>
 
                         <c:forEach var="notf"  items="#{indexMB.listaDeNotificacaoProjetos}">
                             <li class="Animated05">
@@ -33,11 +35,10 @@
                                 </i>
                                 <p:commandLink value="#{notf.projeto.nome}" actionListener="#{indexMB.setarNotificacao(notf)}"
                                                update=":fmr_not_2" oncomplete="PF('dialogoNotPro2').show()" class="link white Unselectable TexAlLeft" />
-                                    
-                                
                             </li>
                         </c:forEach>
-                </ul>
+                    </ul>
+              
             </li>
 
             <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-wrench-1"></i>
@@ -58,5 +59,5 @@
         </ul>
         <!-- ****** -->
     </div>
-    
+
 </ui:composition>

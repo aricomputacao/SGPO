@@ -63,13 +63,23 @@
                 </componentes:panelPadraoDialog>
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.usuario} " id="dialogConProj" modal="true" hideEffect="fade" widgetVar="dialogConProj">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.gerenciar} #{label.projetos} #{label.da} #{label.obra} " id="dialogConProj" modal="true" hideEffect="fade"
+                  widgetVar="dialogConProj">
             <h:form id="frm_cons_proj" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.projeto_consulta)}">
-                <componentes:panelPadrao id="pnlPadraoPro" cabecalho="#{label.consulta} #{label.projeto}" acao_limpar="#{projetoMB.init()}" render_sep_1="false" btn_excluir="false" 
-                                         btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{projetoMB.init()}" render_sep_2="false" render_sep_3="false"
-                                         dialog_cadastro="dialogCadastro" btn_imprimir="false" btn_dialog_rel="false" btn_salvar_update="false">
-                    <pro:consultaProjeto id="compConsulta" acao_butao="#{projetoMB.consultarProjetos()}" componente_to_update="@form:pnlPadraoPro:compConsulta:tabela"  />
-                </componentes:panelPadrao>
+                <p:pickList id="ProjPickList" value="#{obraMB.listaDualProjetos}" var="pro" 
+                            itemValue="#{pro}" itemLabel="#{pro}"  responsive="true" showSourceFilter="true" 
+                            showTargetFilter="true" filterMatchMode="contains" converter="pickListProjetoConverter">
+
+                    <f:facet name="sourceCaption">#{label.projetos_andamento}</f:facet>
+                    <f:facet name="targetCaption">#{label.projetos} #{label.da} #{label.obra}</f:facet>
+
+                    <p:ajax event="transfer"   listener="#{obraMB.gerenciarProjeto()}"  />
+                  
+                    <p:column style="width:90%;">
+                        <h:outputText value="#{pro.nome}" />
+                    </p:column>
+                </p:pickList>
+
             </h:form>
         </p:dialog>
 

@@ -5,9 +5,9 @@
  */
 package br.com.sgpo.engenharia.projeto.Controller;
 
-import br.com.sgpo.engenharia.projeto.DAO.DocumentoProjetoDAO;
 import br.com.sgpo.engenharia.projeto.DAO.MovimentacaoDocumentoDAO;
 import br.com.sgpo.engenharia.enumeration.TipoMovimentacaoDocumento;
+import br.com.sgpo.engenharia.projeto.DAO.DocumentoProjetoDAO;
 import br.com.sgpo.engenharia.projeto.modelo.DocumentoProjeto;
 import br.com.sgpo.engenharia.projeto.modelo.MovimentacaoDocumento;
 import br.com.sgpo.seguranca.modelo.Usuario;

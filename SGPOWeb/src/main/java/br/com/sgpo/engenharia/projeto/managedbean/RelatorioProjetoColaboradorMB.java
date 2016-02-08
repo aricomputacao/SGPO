@@ -59,9 +59,10 @@ public class RelatorioProjetoColaboradorMB extends BeanGenerico implements Seria
 
     public void geraImpressaoProjetosColaborador() {
         try {
+           
             Map<String, Object> m = new HashMap<>();
-            m.put("qtdAberto", 1);
-            m.put("qtdConcluido", 1);
+            m.put("qtdAberto", qtdProjeto[1]);
+            m.put("qtdConcluido",qtdProjeto[0]);
             m.put("total", qtdProjeto[1]+qtdProjeto[0]);
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeProjetos, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_PROJETO_COLABORADOR, "");
             RelatorioSession.setBytesRelatorioInSession(rel);
