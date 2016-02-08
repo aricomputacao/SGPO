@@ -88,17 +88,15 @@ public class Obra implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Projeto> listaDeProjetos;
 
-    public void addProjeto(Projeto p) {
-        if (!listaDeProjetos.contains(p)) {
-            listaDeProjetos.add(p);
-        }
+  
+    public void gerenciarProjetos(List<Projeto> projetos) {
+        listaDeProjetos.clear();
+        for (Projeto p : projetos) {
+            listaDeProjetos.add(p);            
+        }        
     }
-
-    public void removeProjeto(Projeto p) {
-        if (listaDeProjetos.contains(p)) {
-            listaDeProjetos.remove(p);
-        }
-    }
+    
+    
 
     public String getNomeResponsavel() {
         return responsavel != null ? responsavel.getNome() : "";
