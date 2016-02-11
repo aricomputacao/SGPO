@@ -5,7 +5,6 @@
  */
 package br.com.sgpo.engenharia.enumeration;
 
-import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
 import br.com.sgpo.utilitarios.ResourceUtil;
 
 /**
@@ -28,6 +27,12 @@ public enum ClassificacaoItem {
     public String getDescricao() {
         return descricao;
     }
-    
 
+    @Override
+    public String toString() {
+        return descricao;
+    }
+    
+ 
+    
 }

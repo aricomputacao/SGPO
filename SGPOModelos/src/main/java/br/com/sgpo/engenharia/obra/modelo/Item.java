@@ -5,10 +5,13 @@
  */
 package br.com.sgpo.engenharia.obra.modelo;
 
+import br.com.sgpo.engenharia.enumeration.ClassificacaoItem;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,6 +38,20 @@ public class Item implements Serializable{
     @Column( name = "ite_nome",nullable = false,unique = true)
     private String nome;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ite_classificacao")
+    private ClassificacaoItem classificacao;
+
+    public ClassificacaoItem getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(ClassificacaoItem classificacao) {
+        this.classificacao = classificacao;
+    }
+    
+    
+    
     public Long getId() {
         return id;
     }
