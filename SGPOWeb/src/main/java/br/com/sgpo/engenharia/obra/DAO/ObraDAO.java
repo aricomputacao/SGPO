@@ -11,7 +11,6 @@ import br.com.sgpo.utilitario.DAOGenerico;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -27,17 +26,23 @@ public class ObraDAO extends DAOGenerico<Obra, Long> implements Serializable {
         super(Obra.class);
     }
 
-    public List<Projeto> consultarProjetosDisponiveis() {
+    public List<Projeto> consultarProjetosDisponiveis(List<Projeto> projetos) {
         TypedQuery<Projeto> tq;
-        consultarProjetos();
-        tq = getEm().createQuery("SELECT p from Projeto p WHERE   p.dataFim  IS NULL ORDER BY p.nome", Projeto.class);
+        tq = getEm().createQuery("SELECT p from Projeto p WHERE  p.dataFim  IS NULL and p  NOT IN :pro ORDER BY p.nome", Projeto.class)
+                .setParameter("pro", projetos);
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
-    public void consultarProjetos() {
+
+    public List<Projeto> consultarProjetosDisponiveis() {
+        TypedQuery<Projeto> tq;
+        tq = getEm().createQuery("SELECT p from Projeto p WHERE  p.dataFim  IS NULL  ORDER BY p.nome", Projeto.class);
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+    public List<Projeto> consultarProjetosDasObras() {
         TypedQuery tq;
         tq = getEm().createQuery("SELECT o.listaDeProjetos from Obra o", Collection.class);
         
-        List<Projeto>  teste = tq.getResultList();
+        return  tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
         
     }
 

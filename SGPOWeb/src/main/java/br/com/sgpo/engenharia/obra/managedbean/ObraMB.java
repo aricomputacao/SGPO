@@ -25,7 +25,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.jfree.ui.about.ProjectInfo;
 import org.primefaces.model.DualListModel;
 
 /*

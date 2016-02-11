@@ -48,7 +48,13 @@ public class ObraController extends ControllerGenerico<Obra, Long> implements Se
     }
 
     public List<Projeto> consultarProjetosDisponiveis() {
-       return dao.consultarProjetosDisponiveis();
+        List<Projeto> projetosVinculados = dao.consultarProjetosDasObras();
+
+        if (projetosVinculados.isEmpty()) {
+            return dao.consultarProjetosDisponiveis();
+        } else {
+            return dao.consultarProjetosDisponiveis(projetosVinculados);
+        }
     }
 
 }
