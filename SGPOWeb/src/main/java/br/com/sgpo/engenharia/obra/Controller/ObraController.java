@@ -47,4 +47,8 @@ public class ObraController extends ControllerGenerico<Obra, Long> implements Se
 
     }
 
+    public List<Projeto> consultarProjetosDisponiveis() {
+       return dao.consultarProjetosDisponiveis();
+    }
+
 }

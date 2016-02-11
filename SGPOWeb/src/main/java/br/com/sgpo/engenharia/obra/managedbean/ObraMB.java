@@ -47,8 +47,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private MunicipioController municipioController;
     @Inject
     private UnidadeFederativaController unidadeFederativaController;
-    @Inject
-    private ProjetoController projetoController;
+  
 
     private List<Obra> listaDeObras;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
@@ -68,7 +67,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
         try {
             criarListaDeCamposDaConsulta();
             obra = (Obra) lerRegistroDaSessao("obra");
-            listaProjetosSource = projetoController.consultarTodosAtivos();
+            listaProjetosSource = obraController.consultarProjetosDisponiveis();
             if (obra == null) {
                 obra = new Obra();
                 obra.setEndereco(new Endereco());
@@ -101,7 +100,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     public void gerenciarProjeto() {
         try {
-            obra = obraController.salvarGerenciar(obra,listaDualProjetos.getTarget());
+            obra = obraController.salvarGerenciar(obra, listaDualProjetos.getTarget());
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,5 +183,4 @@ public class ObraMB extends BeanGenerico implements Serializable {
         this.listaDualProjetos = listaDualProjetos;
     }
 
-    
 }
