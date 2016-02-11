@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.engenharia.projeto.modelo;
+package br.com.sgpo.engenharia.obra.modelo;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,25 +15,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
- * @author Giancarlo
+ * @author ari
  */
-
 @Entity
-@Table(name = "item", schema = "engenharia")
+@Table(name = "item",schema = "engenharia")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Item implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ite_id", nullable = false)
+    @Column(name = "ite_id",nullable = false)
     private Long id;
     
-    @NotBlank
-    @Column(name = "ite_nome", nullable = false, unique = true)
+    @NotEmpty
+    @Column( name = "ite_nome",nullable = false,unique = true)
     private String nome;
 
     public Long getId() {
@@ -76,5 +75,7 @@ public class Item implements Serializable{
         }
         return true;
     }
+    
+    
     
 }

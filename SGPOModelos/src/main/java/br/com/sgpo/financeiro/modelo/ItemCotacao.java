@@ -7,7 +7,7 @@ package br.com.sgpo.financeiro.modelo;
 
 import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.administrativo.modelo.UnidadeDeMedida;
-import br.com.sgpo.engenharia.projeto.modelo.Item;
+import br.com.sgpo.engenharia.obra.modelo.Item;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
