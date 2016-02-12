@@ -44,6 +44,12 @@
 
                 </p:submenu>
                 <p:submenu label="#{label.modulo_engenharia}" icon="icon-cubes" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloEngenharia()}" >
+                    <p:submenu label="#{label.etapa}" icon="icon-tag-1" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.etapa_cadastro)}" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.etapa_cadastro}"/>
+                    </p:submenu>
+                    <p:submenu label="#{label.item}" icon="icon-link" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.item_cadastro)}" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.item_cadastro}"/>
+                    </p:submenu>
                     <p:submenu label="#{label.tipo_projeto}" icon="icon-spread" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.tipo_projeto_cadastro)}" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.tipo_projeto_cadastro}"/>
                     </p:submenu>

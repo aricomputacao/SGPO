@@ -1,16 +1,19 @@
 package br.com.sgpo.engenharia.obra.managedbean;
 
-import br.com.sgpo.administrativo.controller.ColaboradorController;
 import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
 import br.com.sgpo.administrativo.modelo.Cliente;
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.Endereco;
+import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.administrativo.modelo.Municipio;
+import br.com.sgpo.administrativo.modelo.UnidadeDeMedida;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
+import br.com.sgpo.engenharia.obra.Controller.ItemObraController;
 import br.com.sgpo.engenharia.obra.Controller.ObraController;
+import br.com.sgpo.engenharia.obra.modelo.Item;
+import br.com.sgpo.engenharia.obra.modelo.ItemObra;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
-import br.com.sgpo.engenharia.projeto.Controller.ProjetoController;
 import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
@@ -46,7 +49,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private MunicipioController municipioController;
     @Inject
     private UnidadeFederativaController unidadeFederativaController;
-  
+    @Inject
+    private ItemObraController itemObraController;
 
     private List<Obra> listaDeObras;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
@@ -54,9 +58,11 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private DualListModel<Projeto> listaDualProjetos;
     private List<Projeto> listaProjetosSource;
     private List<Projeto> listaProjetosTarget;
+    private List<ItemObra> listaItemObras;
 
     private UnidadeFederativa unidadeFederativa;
     private Obra obra;
+    private ItemObra itemObra;
 
     private boolean rederConCliente;
 
@@ -72,12 +78,16 @@ public class ObraMB extends BeanGenerico implements Serializable {
                 obra.setEndereco(new Endereco());
                 obra.setListaDeProjetos(new ArrayList<>());
                 listaProjetosTarget = new ArrayList<>();
+                listaItemObras = new ArrayList<>();
+                listaItemObras = new ArrayList<>();
             } else {
                 unidadeFederativa = obra.getEndereco().getUnidadeFederativa();
+                itemObra.setObra(obra);
                 listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
                 listaProjetosTarget = obra.getListaDeProjetos();
                 listaProjetosSource.removeAll(listaProjetosTarget);
-
+                listaItemObras = itemObraController.consultarPor(obra);
+                
             }
             listaDualProjetos = new DualListModel<>(listaProjetosSource, listaProjetosTarget);
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
@@ -90,6 +100,18 @@ public class ObraMB extends BeanGenerico implements Serializable {
     public void salvar() {
         try {
             obra = obraController.salvarGerenciar(obra);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addItemObra(){
+        try {
+            itemObraController.salvarouAtualizar(itemObra);
+            itemObra = new ItemObra();
+            itemObra.setObra(obra);
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -132,6 +154,19 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     public void setarResponsavel(Colaborador c) {
         obra.setResponsavel(c);
+    }
+
+    public void setarUnidadeMedidaItem(UnidadeDeMedida udm) {
+        itemObra.setUnidadeDeMedida(udm);
+    }
+
+  
+    public void setarFornecedorItem(Fornecedor f) {
+        itemObra.setFornecedor(f);
+    }
+
+    public void setarItem(Item i) {
+        itemObra.setItem(i);
     }
 
     @Override
@@ -182,4 +217,17 @@ public class ObraMB extends BeanGenerico implements Serializable {
         this.listaDualProjetos = listaDualProjetos;
     }
 
+    public ItemObra getItemObra() {
+        return itemObra;
+    }
+
+    public void setItemObra(ItemObra itemObra) {
+        this.itemObra = itemObra;
+    }
+
+    public List<ItemObra> getListaItemObras() {
+        return listaItemObras;
+    }
+
+    
 }

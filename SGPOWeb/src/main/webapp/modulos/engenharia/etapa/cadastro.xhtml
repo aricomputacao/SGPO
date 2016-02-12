@@ -9,12 +9,12 @@
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.item_cadastro)}" >
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.etapa_cadastro)}" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
-                                     acao_cancelar="#{itemMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
-                                     acao_excluir="#{itemMB.init()}"  acao_salvar="#{itemMB.addItem()}"
-                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.item}" >
-                <tip:cadastroItem id="compCadastro"/>
+                                     acao_cancelar="#{etapaMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                     acao_excluir="#{etapaMB.init()}"  acao_salvar="#{etapaMB.addEtapa()}"
+                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.etapa}" >
+                <tip:cadastroEtapa id="compCadastro"/>
             </componentes:panelPadrao>
         </h:form>
     </ui:define>
