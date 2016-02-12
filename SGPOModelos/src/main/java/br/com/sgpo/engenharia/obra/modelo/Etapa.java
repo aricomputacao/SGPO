@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sgpo.administrativo.modelo;
+package br.com.sgpo.engenharia.obra.modelo;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,41 +17,34 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
-
-
 /**
  *
- * @author Ari
+ * @author ari
  */
 @Entity
-@Table(name = "unidade_medida", schema = "administrativo")
+@Table(name = "etapa",schema = "engenharia")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class UnidadeDeMedida implements Serializable {
-
+public class Etapa implements Serializable{
+    
     @Id
-    @Column(name = "udm_id", nullable = false)
+    @Column(name = "eta_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Integer id;
+    
     @NotEmpty
-    @Column(name = "udm_nome", nullable = false, unique = true)
+    @Column(name = "eta_nome",nullable = false,unique = true)
     private String nome;
-
-    @NotEmpty
-    @Column(name = "udm_abreviacao", nullable = false, unique = true, length = 5)
-    private String abreviacao;
-
   
+    @Column(name = "eta_descricao")
+    private String descricao;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
-   
 
     public String getNome() {
         return nome;
@@ -61,36 +54,39 @@ public class UnidadeDeMedida implements Serializable {
         this.nome = nome;
     }
 
-    public String getAbreviacao() {
-        return abreviacao;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setAbreviacao(String abreviacao) {
-        this.abreviacao = abreviacao.toUpperCase();
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
- 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 13 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UnidadeDeMedida other = (UnidadeDeMedida) obj;
+        final Etapa other = (Etapa) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
     
     
 }
