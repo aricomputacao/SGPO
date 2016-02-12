@@ -22,12 +22,11 @@
             <div class="ContainerIndent">
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
                 <div>
-                    <p:inputText  type="number"  required="#{cc.attrs.inp_require}" value="#{cc.attrs.inp_valor}" id="input" 
-                                 readonly="#{cc.attrs.inp_readonly}"/>
+                    <p:inputText styleClass=" edtMoeda"  onkeypress="return soNumero()"  required="#{cc.attrs.inp_require}" value="#{cc.attrs.inp_valor}" id="input"
+                                 readonly="#{cc.attrs.inp_readonly}"     converter="#{converterBigDecimal}"   onfocus="mascaraInputs();" />
                 </div>
             </div>
         </div>
     </composite:implementation>
 </ui:composition>
-
 

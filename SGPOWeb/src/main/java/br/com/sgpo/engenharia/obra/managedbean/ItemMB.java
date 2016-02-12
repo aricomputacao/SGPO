@@ -11,6 +11,7 @@ import br.com.sgpo.engenharia.obra.modelo.Item;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -41,7 +42,7 @@ public class ItemMB extends BeanGenerico implements Serializable {
     public void init() {
         try {
             item = new Item();
-            listaDeItens = itemController.consultarTodosOrdenadorPor("nome");
+            listaDeItens = new ArrayList<>();
         } catch (Exception ex) {
             Logger.getLogger(ItemMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,7 +51,7 @@ public class ItemMB extends BeanGenerico implements Serializable {
     public void addItem(){
         try {
             itemController.salvar(item);
-            listaDeItens.add(item);
+            listaDeItens = itemController.consultarTodosOrdenadorPor("nome");
             init();
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
@@ -59,6 +60,13 @@ public class ItemMB extends BeanGenerico implements Serializable {
         }
     }
 
+    public void consultarItens(){
+        try {
+            listaDeItens = itemController.consultarLike("nome", getValorCampoConsuta());
+        } catch (Exception ex) {
+            Logger.getLogger(ItemMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public ClassificacaoItem[] getListaDeClassificacoesItem(){
         return ClassificacaoItem.values();

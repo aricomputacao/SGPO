@@ -20,6 +20,7 @@
         <composite:attribute id="ajax_render" name="ajax_render" default="false" shortDescription="Caso queira executar alguma requisição ajax" />
         <composite:attribute id="ajax_listener" name="ajax_listener" method-signature="java.lang.Void action()" default="none" shortDescription="Qual metodo executa no ajax" />
         <composite:attribute id="btn_onclick_plus" name="btn_onclick_plus" required="true" shortDescription="Click para abrir a tela do btn mais" />
+        <composite:attribute id="btn_onclick_atualizar" name="btn_onclick_atualizar" required="true" shortDescription="Click para atualizar o selectone apos ter inserido um novo" />
 
 
 
@@ -27,8 +28,8 @@
     <composite:implementation id="compConsulta">
         <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho} Responsive">
             <h:panelGroup layout="block" class="ContainerIndent " style="margin-top: 2px" >
-                <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
-                <p:panelGrid  layout="grid"  columns="2" style="border-color: white;width: 100%" >
+                <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" style="margin-left: 5px" />
+                <p:panelGrid  layout="grid"  columns="2" style="border-color: white; margin-right: 0px" >
                     <c:if test="#{cc.attrs.sel_converter == 'none'}">
                         <p:selectOneMenu  value="#{cc.attrs.inp_valor}" style="width: 100%" id="input"  required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <composite:interface id="interCon">
+
+    </composite:interface>
+    <composite:implementation  >
+
+        <panels:panel titulo="#{label.dados} #{label.do} #{label.item} " id="pnlDadPes" class="fieldDad">
+            <h:panelGroup id="pnlProD" layout="block"  class="Container100 Responsive" >
+                <p:focus context="pnlPro" />
+                <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.itemObra.data}" lab_valor="#{label.data}" inp_require="true"  inp_class_tamanho="20"/>
+            </h:panelGroup>
+            <h:panelGroup id="pnlPro" layout="block"  class="Container100 Responsive" >
+                <inputs:input_label_btn_click inp_valor="#{obraMB.itemObra.fornecedor.nome}" id="inp_for" lab_valor="#{label.fornecedor}" inp_readonly="true" inp_require="true" 
+                                              btn_immediate="true" btn_onclick="PF('dialogFornecedor').show()" btn_process="@this" inp_class_tamanho="33" />
+                
+                <inputs:input_label_btn_click_btn_mais inp_valor="#{obraMB.itemObra.item.nome}" id="inp_ite" lab_valor="#{label.item}" inp_readonly="true" inp_require="true" 
+                                                       btn_immediate="true" btn_onclick="PF('dialogItem').show()" btn_process="@this" inp_class_tamanho="33" 
+                                                       btn_onclick_plus="PF('dialogCadItem').show()" />
+                
+                
+                <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCadUdm').show()" btn_onclick_atualizar="#{unidadeDeMedidaMB.init()}"  
+                                               inp_valor="#{obraMB.itemObra.unidadeDeMedida}" id="sel_udm" lab_valor="#{label.unidade_medida}"  sel_converter="indexConverter" inp_class_tamanho="30">
+                    <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
+                    <f:selectItems value="#{unidadeDeMedidaMB.listaDeUnidadesDeMedidas}" var="em" itemLabel="(#{em.abreviacao}) - #{em.nome}" itemValue="#{em}"/>
+                </inputs:selectOneLabe_btn_mais>
+            </h:panelGroup>
+
+            <h:panelGroup id="pnlVal" layout="block"  class="Container100 Responsive" >
+                <inputs:input_label_money  inp_valor="#{obraMB.itemObra.valorUnitario}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
+
+                <inputs:input_label_number  inp_valor="#{obraMB.itemObra.quantidade}" lab_valor="#{label.quantidade}" inp_class_tamanho="20" inp_require="true" />
+
+                <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCadEtapa').show()" btn_onclick_atualizar="#{etapaMB.init()}"  
+                                               inp_valor="#{obraMB.itemObra.etapa}" id="sel_eta" lab_valor="#{label.etapa}"  sel_converter="indexConverter" inp_class_tamanho="30">
+                    <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
+                    <f:selectItems value="#{etapaMB.listaDeEtapas}" var="et" itemLabel="#{et.nome}" itemValue="#{et}"/>
+                </inputs:selectOneLabe_btn_mais>
+                <inputs:input_label inp_valor="#{obraMB.itemObra.descricao}" lab_valor="#{label.descricao}"    inp_class_tamanho="80" />
+            </h:panelGroup>
+
+
+
+        </panels:panel>
+
+        <panels:panel  titulo="#{label.itens} #{label.registrados}" id="pnlItens">
+            <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
+                <p:dataTable value="#{obraMB.listaItemObras}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="io" rows="10"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                    <p:column headerText="#{label.data}" class="TexAlCenter" >
+                        <componentes:outputText value="#{io.data}" tipo="d" />
+                    </p:column>
+
+                    <p:column headerText="#{label.fornecedor}" class="TexAlCenter" >
+                        <componentes:outputText value="#{io.nomeFornecedor}" />
+                    </p:column>
+
+                    <p:column headerText="#{label.tipo} | #{label.item}" class="TexAlCenter" >
+                        <componentes:outputText value="#{io.classificacaoItem} | #{io.nomeItem}" />
+                    </p:column>
+                    <p:column headerText="#{label.quantidade}" class="TexAlCenter">
+                        <componentes:outputText value="#{io.quantidade}" tipo="n"/>
+                        <componentes:outputText value=" - #{io.unidadeDeMedida.abreviacao}"/>
+                        
+                    </p:column>
+                    <p:column headerText="#{label.valor} #{label.unitario}" class="TexAlCenter">
+                        <componentes:outputText value="#{io.valorUnitario}" tipo="c"/>
+                    </p:column>
+                    <p:column headerText="Total" class="TexAlCenter">
+                        <componentes:outputText value="#{io.valorTotal}" tipo="c"/>
+                    </p:column>
+
+                    <p:column headerText="#{label.acao}" width="10%">
+                        <composite:insertChildren/>
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+        </panels:panel>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+
