@@ -30,67 +30,78 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author ari
  */
 @Entity
-@Table(name = "item_obra",schema = "engenharia")
+@Table(name = "item_obra", schema = "engenharia")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ItemObra implements Serializable{
-    
+public class ItemObra implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ito_id",nullable = false)
+    @Column(name = "ito_id", nullable = false)
     private Long id;
-    
+
     @Column(name = "ito_descricao")
     private String descricao;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "udm_id",referencedColumnName = "udm_id",nullable = false)
+    @JoinColumn(name = "udm_id", referencedColumnName = "udm_id", nullable = false)
     private UnidadeDeMedida unidadeDeMedida;
-    
+
     @NotNull
-    @Column(name = "ito_quantidade",nullable = false)
+    @Column(name = "ito_quantidade", nullable = false)
     private Float quantidade;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "ite_id",referencedColumnName = "ite_id",nullable = false)
+    @JoinColumn(name = "ite_id", referencedColumnName = "ite_id", nullable = false)
     private Item item;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "eta_id",referencedColumnName = "eta_id",nullable = false)
+    @JoinColumn(name = "eta_id", referencedColumnName = "eta_id", nullable = false)
     private Etapa etapa;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "for_id",referencedColumnName = "for_id",nullable = false)
+    @JoinColumn(name = "for_id", referencedColumnName = "for_id", nullable = false)
     private Fornecedor fornecedor;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "obr_id",referencedColumnName = "obr_id",nullable = false)
+    @JoinColumn(name = "obr_id", referencedColumnName = "obr_id", nullable = false)
     private Obra obra;
-    
+
     @NotNull
-    @Column(name = "ito_preco",nullable = false)
+    @Column(name = "ito_preco", nullable = false)
     private BigDecimal valorUnitario;
-    
+
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "ito_data",nullable = false)
+    @Column(name = "ito_data", nullable = false)
     private Date data;
     
+    @Temporal(TemporalType.DATE)
+    @Column(name = "ito_data_pagamento")
+    private Date dataPagamento;
+
     @NotNull
-    @Column(name = "ito_pago",nullable = false)
-    private boolean  pago;
-    
-    
-    public BigDecimal getValorTotal(){
+    @Column(name = "ito_pago", nullable = false)
+    private boolean pago;
+
+    public BigDecimal getValorTotal() {
         return this.valorUnitario.multiply(new BigDecimal(this.quantidade));
     }
-    
-    public String getNomeFornecedor(){
+
+    public String getNomeFornecedor() {
         return this.fornecedor.getNome();
+    }
+
+    public String getClassificacaoItem(){
+        return this.item.getClassificacao().getDescricao();
+    }
+    
+    public String getNomeItem() {
+        return this.item.getNome();
     }
 
     public Long getId() {
@@ -180,6 +191,14 @@ public class ItemObra implements Serializable{
     public void setObra(Obra obra) {
         this.obra = obra;
     }
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
     
     
 
@@ -207,11 +226,5 @@ public class ItemObra implements Serializable{
         }
         return true;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }
