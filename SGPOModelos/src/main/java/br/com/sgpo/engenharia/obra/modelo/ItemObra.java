@@ -9,6 +9,7 @@ import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.administrativo.modelo.UnidadeDeMedida;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -88,6 +89,30 @@ public class ItemObra implements Serializable {
     @Column(name = "ito_pago", nullable = false)
     private boolean pago;
 
+    public int getDia(){
+        Calendar dia  =  Calendar.getInstance();
+        dia.setTime(this.data);
+        return dia.get(Calendar.DAY_OF_MONTH);
+    }
+    public int getMes(){
+        Calendar dia  =  Calendar.getInstance();
+        dia.setTime(this.data);
+        return dia.get(Calendar.MONTH);
+    }
+    
+    public int getQuinzena(){
+        Calendar dia  =  Calendar.getInstance();
+        dia.setTime(this.data);
+        
+        if (dia.get(Calendar.DAY_OF_MONTH) <= 15) {
+            return 1;
+        } else {
+            return 2;
+        }
+        
+    }
+    
+    
     public BigDecimal getValorTotal() {
         return this.valorUnitario.multiply(new BigDecimal(this.quantidade));
     }

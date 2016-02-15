@@ -5,46 +5,32 @@
  */
 package br.com.sgpo.utilitarios.enumeration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author ari
  */
 public enum Mes {
-    JANEIRO("Jan"),
-    FEVEREIRO("Fev"),
-    MARÇO("Mar"),
-    ABRIL("Abr"),
-    MAIO("Mai"),
-    JUNHO("Jun"),
-    JULHO("Jul"),
-    AGOSTO("Ago"),
-    SETEMBRO("Set"),
-    OUTUBRO("Out"),
-    NOVEMBRO("Nov"),
-    DEZEMBRO("Dez");
+      JAN(1),
+    FEV(2),
+    MAR(3),
+    ABR(4),
+    MAI(5),
+    JUN(6),
+    JUL(7),
+    AGO(8),
+    SET(9),
+    OUT(10),
+    NOV(11),
+    DEZ(12);
     
-    private final String abreviacao;
+    private final int referencia;
 
-    private Mes(String abreviacao) {
-        this.abreviacao = abreviacao;
+    private Mes(int referencia) {
+        this.referencia = referencia;
     }
 
-    public String getAbreviacao() {
-        return abreviacao;
-    }
-    
-    
-    public List<Integer> getAnos(){
-        List<Integer> an = new ArrayList<>();
-        
-        an.add(2015);
-        an.add(2014);
-        an.add(2013);
-        
-        return an;
+    public int getReferencia() {
+        return referencia;
     }
     
 }

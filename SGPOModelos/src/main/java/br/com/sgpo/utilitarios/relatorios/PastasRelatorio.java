@@ -21,6 +21,7 @@ public abstract class PastasRelatorio {
   //relatórios do módulo engenharia
     public static final String RESOURCE_ENGENHARIA = "WEB-INF/relatorios/engenharia";
     public static final String REL_PROJETO_COLABORADOR = "/WEB-INF/relatorios/engenharia/rel_projeto_colaborador.jasper";
+    public static final String REL_ITENS_OBRA = "/WEB-INF/relatorios/engenharia/rel_itens_obra_quinzena.jasper";
     
 
 }
