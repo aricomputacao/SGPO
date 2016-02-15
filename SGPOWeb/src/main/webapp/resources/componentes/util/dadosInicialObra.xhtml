@@ -9,45 +9,47 @@
                 xmlns:inp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
-                xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs">
+                xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:output="http://xmlns.jcp.org/jsf/composite/componentes">
     <composite:interface>
 
 
     </composite:interface>
     <composite:implementation id="compo">
-       
+
         <div class="Container100 ">
             <p:panel>
 
                 <i class="icon-building Fleft Fs30 yellow "></i>
                 <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.obras_execucao}</div>                                       
             </p:panel>
-            <p:dataGrid var="car2" value="#{dadosInicialMB.listaString2}" columns="2" layout="grid"
-                        rows="6" paginator="true" id="cars2" 
+            <p:dataGrid var="ob" value="#{dadosInicialMB.listaDeObras}" columns="2" layout="grid"
+                        rows="6" paginator="true" id="ob" 
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,16">
 
 
-                <p:panel header="&raquo; #{car2}" style="text-align:left" class="pnl-obra ">
+                <p:panel header="&raquo; #{ob.descricao}" style="text-align:left" class="pnl-obra ">
                     <p:panelGrid  columns="2" layout="grid" style="text-align: left" columnClasses="label,value" >
 
-                        <h:outputText value="&#8227;Inicio: " />
-                        <h:outputText value="01/01/15" />
+                        <h:outputText value="&#8227;#{label.inicio}: " />
+                        <output:outputText value="#{ob.dataInicio}" tipo="d" />
 
-                        <h:outputText value="&#8227;Fase: " />
-                        <h:outputText value="Acabamento" />
+                        <h:outputText value="&#8227;#{label.cliente}: " />
+                        <h:outputText value="#{ob.nomeCliente}" />
 
-                        <h:outputText value="&#8227;Cliente: " />
-                        <h:outputText value="Carlos Pereira da Silva" />
+                        <h:outputText value="&#8227;#{label.responsavel}: " />
+                        <h:outputText value="#{ob.nomeResponsavel}" />
 
-                        <h:outputText value="&#8227;Resp. " />
-                        <h:outputText value="Antônio Carlos Jobim" />
+                        <h:outputText value="&#8227;#{label.numero}: " />
+                        <h:outputText value="#{ob.numero}" />
 
-                        <h:outputText value="&#8227;Documentos: "/>
-                        <p:commandLink  styleClass="ui-icon ui-icon-search"  />
+                     
+                        <h:outputText value="&#8227;#{label.projetos} "/>
+                        <p:commandLink  styleClass="ui-icon ui-icon-search" update="@(form)"  oncomplete="PF('dialogoProj').show()"  />
 
-                        <h:outputText value="&#8227;Itens: "/>
-                        <p:commandLink  styleClass="ui-icon ui-icon-search"  />
+                        <h:outputText value="&#8227;#{label.editar} "/>
+                        <p:commandLink  styleClass="ui-icon ui-icon-pencil" update="@(form)" actionListener="#{dadosInicialMB.escreverRegistroNasessaoNavegarParaEditar(ob,engenharia.obra_cadastro,'obra')}" value="#{label.editar}"  />
                     </p:panelGrid>
                 </p:panel>
 

@@ -57,4 +57,8 @@ public class ObraController extends ControllerGenerico<Obra, Long> implements Se
         }
     }
 
+    public List<Obra> consultarObrasEmAndamento() {
+        return dao.consultarObrasEmAndamento();
+    }
+
 }

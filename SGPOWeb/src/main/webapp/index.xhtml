@@ -27,21 +27,16 @@
                         </div>
                     </h:form>
 
-                    <div class="Container100   Responsive" style="float: left">
+<!--                    <div class="Container100   Responsive" style="float: left">
                         <h:form id="frm_graf" class="ContainerIndent " prependId="false" >
                             <p:panel>
 
                                 <i class="icon-chart Fleft Fs30   red "></i>
-                                <div class="Fs30 Fleft  Wid70 hardblue fontItalic">#{label.concluidos}</div>                                       
+                                <div class="Fs30 Fleft  Wid70 hardblue fontItalic">{label.concluidos}</div>                                       
                             </p:panel>
-                            <p:fieldset widgetVar="fielGraf" >
-                                <p:selectOneRadio value="#{dadosInicialMB.ano}"  class="Wid10  "  >
-                                    <f:selectItems value="#{dadosInicialMB.listaDeAnos}" var="an" itemValue="#{an}" itemLabel="#{an}"/>
-                                </p:selectOneRadio>
-                                <p:chart type="line" model="#{dadosInicialMB.lineModel}"   widgetVar="graf" style="height: 100%"/>
-                            </p:fieldset>
+                          
                         </h:form>
-                    </div>
+                    </div>-->
                 </p:tab>
                 <p:tab id="tabObra" title="Obras" class="Container100 Responsive">
                     <h:form id="frm_obra" prependId="false" >

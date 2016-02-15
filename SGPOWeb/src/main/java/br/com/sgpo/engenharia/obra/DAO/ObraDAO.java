@@ -46,4 +46,10 @@ public class ObraDAO extends DAOGenerico<Obra, Long> implements Serializable {
         
     }
 
+    public List<Obra> consultarObrasEmAndamento() {
+         TypedQuery<Obra> tq;
+        tq = getEm().createQuery("SELECT o from Obra o WHERE o.dataFim  IS NULL ORDER BY o.dataInicio", Obra.class);
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+
 }

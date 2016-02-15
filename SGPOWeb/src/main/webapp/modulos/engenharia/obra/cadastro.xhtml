@@ -88,7 +88,7 @@
 
         <!-- Inicio Dialogs referente a cadastros de itens -->
 
-        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" hideEffect="fade" widgetVar="dialogCadItemObra">
+        <p:dialog showEffect="fade" position="200,50"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" hideEffect="fade" widgetVar="dialogCadItemObra">
             <h:form id="frm_cad_ite_obra" >
                 <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="false" render_sep_3="false"
                                                acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}" 
@@ -102,7 +102,7 @@
                 </componentes:panelPadraoDialog>
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="400,100" width="70%"   header="#{label.item} " id="dialogItem" modal="true" hideEffect="fade" widgetVar="dialogItem">
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.item} " id="dialogItem" modal="true" hideEffect="fade" widgetVar="dialogItem">
             <h:form id="frm_item" >
                 <eng:consultaItem id="compConItem"  componente_to_update="@form"  >
                     <p:commandButton actionListener="#{obraMB.setarItem(i)}" icon="fa fa-check-square-o" update="frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_ite:input" onclick="PF('dialogItem').hide()" />
@@ -110,7 +110,7 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="400,50" width="70%"   header="#{label.fornecedor} " id="dialogFornecedor" modal="true" hideEffect="fade" widgetVar="dialogFornecedor">
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedor" modal="true" hideEffect="fade" widgetVar="dialogFornecedor">
             <h:form id="frm_fornecedor" >
                 <adm:consultaFornecedor id="compConItem"  render_edit="false" componente_to_update="@form"  >
                     <p:commandButton actionListener="#{obraMB.setarFornecedorItem(f)}" icon="fa fa-check-square-o" update="frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_for:input" onclick="PF('dialogFornecedor').hide()" />
@@ -118,7 +118,7 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="400,100" width="70%"   header="#{label.cadastro} #{label.item} " id="dialogCadItem" modal="true" hideEffect="fade" widgetVar="dialogCadItem">
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.item} " id="dialogCadItem" modal="true" hideEffect="fade" widgetVar="dialogCadItem">
             <h:form id="frm_cad_item" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.item_cadastro)}" >
                 <componentes:panelPadrao id="pnlPadraoItem" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                          acao_cancelar="#{itemMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
@@ -129,7 +129,7 @@
             </h:form>
         </p:dialog>
         
-        <p:dialog showEffect="fade" position="400,50" width="70%"   header="#{label.cadastro} #{label.unidade_medida} " id="dialogCadUdm" modal="true" hideEffect="fade" widgetVar="dialogCadUdm">
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.unidade_medida} " id="dialogCadUdm" modal="true" hideEffect="fade" widgetVar="dialogCadUdm">
             <h:form id="frm_cad_udm" prependId="false"  >
                 <componentes:panelPadrao id="pnlPadraoUdm" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                          acao_cancelar="#{unidadeDeMedidaMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
@@ -140,7 +140,7 @@
             </h:form>
         </p:dialog>
         
-        <p:dialog showEffect="fade" position="400,50" width="70%"   header="#{label.cadastro} #{label.etapa} " id="dialogCadEtapa" modal="true" hideEffect="fade" widgetVar="dialogCadEtapa">
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.etapa} " id="dialogCadEtapa" modal="true" hideEffect="fade" widgetVar="dialogCadEtapa">
             <h:form id="frm_cad_eta" prependId="false"  >
                 <componentes:panelPadrao id="pnlPadraoEta" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                          acao_cancelar="#{etapaMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
