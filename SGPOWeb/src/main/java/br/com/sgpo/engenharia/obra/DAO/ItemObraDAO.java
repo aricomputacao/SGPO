@@ -27,10 +27,19 @@ public class ItemObraDAO extends DAOGenerico<ItemObra, Long> implements Serializ
 
     public List<ItemObra> consultarPor(Obra obra) {
         TypedQuery<ItemObra> tq;
-        tq = getEm().createQuery("SELECT i FROM ItemObra i WHERE i.obra = :obr ORDER BY i.data , i.etapa,i.fornecedor,i.quantidade", ItemObra.class)
+        tq = getEm().createQuery("SELECT i FROM ItemObra i WHERE i.obra = :obr ORDER BY i.data , i.etapa,i.item.classificacao,i.fornecedor,i.quantidade", ItemObra.class)
                 .setParameter("obr", obra);
         
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
+    public List<ItemObra> consultarPor(Obra obra, int mes) {
+        TypedQuery<ItemObra> tq;
+        tq = getEm().createQuery("SELECT i FROM ItemObra i WHERE i.obra = :obr and month(i.data) = :mes ORDER BY i.data , i.etapa,i.item.classificacao,i.fornecedor,i.quantidade", ItemObra.class)
+                .setParameter("obr", obra)
+                .setParameter("mes", mes);
+        
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+   
     
 }

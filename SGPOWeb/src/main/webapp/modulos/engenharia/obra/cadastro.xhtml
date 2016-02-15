@@ -6,11 +6,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:eng="http://xmlns.jcp.org/jsf/composite/paginas/engenharia/obra"
-                xmlns:pro="http://xmlns.jcp.org/jsf/composite/paginas/engenharia/projeto"
                 xmlns:adm="http://xmlns.jcp.org/jsf/composite/paginas/administrativo"
-                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
                 xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
-                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -90,9 +87,9 @@
 
         <p:dialog showEffect="fade" position="200,50"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" hideEffect="fade" widgetVar="dialogCadItemObra">
             <h:form id="frm_cad_ite_obra" >
-                <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="false" render_sep_3="false"
-                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}" 
-                                               btn_limpar="false" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
+                <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
+                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObra()}"
+                                               btn_limpar="false" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="true" btn_ativar="false"
                                                btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_ite_obra" >
                     <eng:cadastroItemObra  id="compCadastro" form=":frm_cad_cli"  >
                         <p:commandButton actionListener="#{obraMB.pagarItemObra(io)}" value="Pagar" immediate="true" rendered="#{not io.pago}" update=":frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
@@ -128,7 +125,7 @@
                 </componentes:panelPadrao>
             </h:form>
         </p:dialog>
-        
+
         <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.unidade_medida} " id="dialogCadUdm" modal="true" hideEffect="fade" widgetVar="dialogCadUdm">
             <h:form id="frm_cad_udm" prependId="false"  >
                 <componentes:panelPadrao id="pnlPadraoUdm" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
@@ -139,7 +136,7 @@
                 </componentes:panelPadrao>
             </h:form>
         </p:dialog>
-        
+
         <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.etapa} " id="dialogCadEtapa" modal="true" hideEffect="fade" widgetVar="dialogCadEtapa">
             <h:form id="frm_cad_eta" prependId="false"  >
                 <componentes:panelPadrao id="pnlPadraoEta" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
@@ -148,6 +145,21 @@
                                          btn_limpar="false" cabecalho="#{label.cadastro} #{label.etapa}" >
                     <eng:cadastroEtapa id="compCadastroEta"/>
                 </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="30%"   header="#{label.mes} " id="dialogMes" modal="true" hideEffect="fade" widgetVar="dialogMes">
+            <h:form id="frm__impimir_item" >
+                <h:panelGroup layout="block" class="Container100">
+
+                    <inputs:selectOneLabel inp_valor="#{obraMB.mesReferencia}" lab_valor="#{label.mes}"   >
+                        <f:selectItem  itemLabel="-----Todos-----" value="#{null}" itemValue="#{null}" />
+                        <f:selectItems value="#{obraMB.listaDeMeses}" var="me" itemValue="#{me}" />
+                    </inputs:selectOneLabel>
+                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDaObra()}" onclick="start()" 
+                                     oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf') "  
+                                     immediate="true" icon="fa fa-print" value="#{label.imprimir}" class="Container100" />
+                </h:panelGroup>
             </h:form>
         </p:dialog>
 

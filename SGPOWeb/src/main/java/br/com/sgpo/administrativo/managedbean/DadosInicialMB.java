@@ -15,7 +15,6 @@ import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
-import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,11 +27,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.DualListModel;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.LineChartModel;
 
 /**
  *

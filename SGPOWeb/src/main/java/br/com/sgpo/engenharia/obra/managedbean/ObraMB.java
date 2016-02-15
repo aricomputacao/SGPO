@@ -17,6 +17,10 @@ import br.com.sgpo.engenharia.obra.modelo.Obra;
 import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitario.relatorio.RelatorioSession;
+import br.com.sgpo.utilitarios.enumeration.Mes;
+import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
+import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,7 +68,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private UnidadeFederativa unidadeFederativa;
     private Obra obra;
     private ItemObra itemObra;
-
+    private Mes mesReferencia;
+    
     private boolean rederConCliente;
 
     @PostConstruct
@@ -108,8 +113,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void addItemObra(){
+
+    public void addItemObra() {
         try {
             itemObraController.salvarouAtualizar(itemObra);
             itemObra = new ItemObra();
@@ -121,8 +126,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void pagarItemObra(ItemObra io){
+
+    public void pagarItemObra(ItemObra io) {
         try {
             io.setPago(true);
             io.setDataPagamento(new Date());
@@ -150,6 +155,18 @@ public class ObraMB extends BeanGenerico implements Serializable {
         }
     }
 
+    public void geraImpressaoItensDaObra() {
+        try {
+            List<ItemObra> itensObra = itemObraController.consultarPor(obra, mesReferencia);
+            
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_OBRA, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
+
     public boolean renderLink() {
         return obra.getId() != null;
     }
@@ -170,9 +187,6 @@ public class ObraMB extends BeanGenerico implements Serializable {
         obra.setResponsavel(c);
     }
 
-   
-
-  
     public void setarFornecedorItem(Fornecedor f) {
         itemObra.setFornecedor(f);
     }
@@ -241,5 +255,16 @@ public class ObraMB extends BeanGenerico implements Serializable {
         return listaItemObras;
     }
 
+    public Mes getMesReferencia() {
+        return mesReferencia;
+    }
+
+    public void setMesReferencia(Mes mesReferencia) {
+        this.mesReferencia = mesReferencia;
+    }
     
+    public Mes[] getListaDeMeses(){
+        return Mes.values();
+    }
+
 }

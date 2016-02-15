@@ -57,6 +57,7 @@
 
         <panels:panel  titulo="#{label.itens} #{label.registrados}" id="pnlItens">
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
+                <p:commandButton onclick="PF('dialogMes').show()" immediate="true" value="Imprimir por mês"   icon="fa fa-print" class="Fright"/>
                 <p:dataTable value="#{obraMB.listaItemObras}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="io" rows="5"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
@@ -76,24 +77,21 @@
                     <p:column headerText="#{label.quantidade}" class="TexAlCenter">
                         <componentes:outputText value="#{io.quantidade}" tipo="n"/>
                         <componentes:outputText value=" - #{io.unidadeDeMedida.abreviacao}"/>
-
                     </p:column>
                     <p:column headerText="#{label.valor} #{label.unitario}" class="TexAlCenter">
                         <componentes:outputText value="#{io.valorUnitario}" tipo="c"/>
                     </p:column>
-                 
-
                     <p:column headerText="#{label.acao}" width="10%">
                         <composite:insertChildren/>
                     </p:column>
-
-
                     <p:rowExpansion>
                         <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
                             <componentes:outputText value="#{label.fornecedor}:" />
                             <componentes:outputText  value="#{io.nomeFornecedor}" />
                             <componentes:outputText value="#{label.valor}:" />
                             <componentes:outputText  value="#{io.valorTotal}" tipo="c"/>
+                            <componentes:outputText value="Quinzena:" />
+                            <componentes:outputText  value="#{io.quinzena}" />
                         </p:panelGrid>
                     </p:rowExpansion>
                 </p:dataTable>
