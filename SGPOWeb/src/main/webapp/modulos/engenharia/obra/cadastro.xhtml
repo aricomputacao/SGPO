@@ -83,18 +83,19 @@
             </h:form>
         </p:dialog>
 
-        <!-- Inicio Dialogs referente a cadastros de itens -->
+        <!-- ###################################################################Inicio Dialogs referente a cadastros de itens################################################################### -->
 
         <p:dialog showEffect="fade" position="200,50"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" hideEffect="fade" widgetVar="dialogCadItemObra">
             <h:form id="frm_cad_ite_obra" >
                 <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
-                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObra()}"
-                                               btn_limpar="false" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="true" btn_ativar="false"
-                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_ite_obra" >
+                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObraMes()}"
+                                               btn_limpar="true" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="true" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_ite_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
                     <eng:cadastroItemObra  id="compCadastro" form=":frm_cad_cli"  >
-                        <p:commandButton actionListener="#{obraMB.pagarItemObra(io)}" value="Pagar" immediate="true" rendered="#{not io.pago}" update=":frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
+                        <p:commandButton actionListener="#{obraMB.pagarItemObra(io)}" title="#{label.pagar}" class="btnForm" immediate="true" rendered="#{not io.pago}" update=":frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
                             <p:confirm message="#{msg.confirmacao}" />
                         </p:commandButton>
+                        <p:commandButton  class="btnEditar" actionListener="#{obraMB.setItemObra(io)}" title="#{label.editar}"  rendered="#{not io.pago}" immediate="true" update=":frm_cad_ite_obra"   icon="fa fa-pencil"  />
                     </eng:cadastroItemObra>
                 </componentes:panelPadraoDialog>
             </h:form>
@@ -152,11 +153,11 @@
             <h:form id="frm__impimir_item" >
                 <h:panelGroup layout="block" class="Container100">
 
-                    <inputs:selectOneLabel inp_valor="#{obraMB.mesReferencia}" lab_valor="#{label.mes}"   >
-                        <f:selectItem  itemLabel="-----Todos-----" value="#{null}" itemValue="#{null}" />
+                    <inputs:selectOneLabel inp_valor="#{obraMB.mesReferencia}" lab_valor="#{label.mes}" inp_require="true"  >
+                        <f:selectItem  itemLabel="-----Selecione-----" noSelectionOption="true" value="#{null}" itemValue="#{null}" />
                         <f:selectItems value="#{obraMB.listaDeMeses}" var="me" itemValue="#{me}" />
                     </inputs:selectOneLabel>
-                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDaObra()}" onclick="start()" 
+                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDaObraQuinzena()}" onclick="start()" 
                                      oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf') "  
                                      immediate="true" icon="fa fa-print" value="#{label.imprimir}" class="Container100" />
                 </h:panelGroup>

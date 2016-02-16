@@ -23,6 +23,7 @@ import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
 import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -154,16 +155,29 @@ public class ObraMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void resetarItemObra(){
+        itemObra = new ItemObra();
+    }
 
-    public void geraImpressaoItensDaObra() {
+    public void geraImpressaoItensDaObraQuinzena() {
         try {
             List<ItemObra> itensObra = itemObraController.consultarPor(obra, mesReferencia);
-            
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_OBRA, "");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_OBRA_QUINZENA, "");
             RelatorioSession.setBytesRelatorioInSession(rel);
         } catch (Exception e) {
 //            erroCliente.adicionaErro(e);
+        }
+    }
+   
+    public void geraImpressaoItensDaObraMes() {
+        try {
+            List<ItemObra> itensObra = itemObraController.consultarPor(obra);
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_OBRA_MES, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
         }
     }
 

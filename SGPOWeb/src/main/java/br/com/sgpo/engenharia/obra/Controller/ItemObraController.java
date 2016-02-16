@@ -11,8 +11,8 @@ import br.com.sgpo.engenharia.obra.modelo.Obra;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -39,11 +39,11 @@ public class ItemObraController extends ControllerGenerico<ItemObra, Long> imple
     }
 
     public List<ItemObra> consultarPor(Obra obra, Mes mes) {
-        if (mes == null) {
-            return consultarPor(obra);
-        } else {
-            return dao.consultarPor(obra, mes.getReferencia());
-        }
+        List<ItemObra> lista = new ArrayList<>();
+        lista = dao.consultarPor(obra, mes.getReferencia());
+        Collections.sort(lista);
+
+        return lista;
     }
 
 }

@@ -70,6 +70,9 @@
                     <p:column headerText="#{label.data}" class="TexAlCenter" >
                         <componentes:outputText value="#{io.data}" tipo="d" />
                     </p:column>
+                    <p:column headerText="#{label.etapa}" class="TexAlCenter" >
+                        <componentes:outputText value="#{io.etapa.nome}" />
+                    </p:column>
 
                     <p:column headerText="#{label.tipo} | #{label.item}" class="TexAlCenter" >
                         <componentes:outputText value="#{io.classificacaoItem} | #{io.nomeItem}" />

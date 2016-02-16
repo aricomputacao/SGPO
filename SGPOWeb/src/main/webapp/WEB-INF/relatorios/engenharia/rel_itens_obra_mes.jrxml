@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_itens_obra_quinzena" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3473c8fb-2a94-4529-8945-01c62c744de6">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_itens_obra_mes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3473c8fb-2a94-4529-8945-01c62c744de6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -66,9 +66,6 @@
 	<field name="mes" class="java.lang.Integer">
 		<fieldDescription><![CDATA[mes]]></fieldDescription>
 	</field>
-	<variable name="valorTotal_1" class="java.math.BigDecimal" resetType="Group" resetGroup="quinzena" calculation="Sum">
-		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
-	</variable>
 	<variable name="valorTotal_2" class="java.math.BigDecimal" resetType="Group" resetGroup="mes" calculation="Sum">
 		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
 	</variable>
@@ -76,6 +73,9 @@
 		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
 	</variable>
 	<variable name="valorTotal_3" class="java.math.BigDecimal" resetType="Group" resetGroup="mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
+	</variable>
+	<variable name="valorTotal_1" class="java.math.BigDecimal" resetType="Group" resetGroup="mes" calculation="Sum">
 		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
 	</variable>
 	<variable name="valorTotal_5" class="java.math.BigDecimal" calculation="Sum">
@@ -87,406 +87,355 @@
 			<band height="25">
 				<frame>
 					<reportElement mode="Opaque" x="0" y="0" width="800" height="25" backcolor="#E9E65F" uuid="f455e097-33c8-4dfb-9b5b-06b0a74048fd"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="390c3563-3308-4ed3-b01e-3ff2d1e8a6f9">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="390c3563-3308-4ed3-b01e-3ff2d1e8a6f9">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 0 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="472fbfb2-51ce-4961-95b5-1b019b2bf18f"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="472fbfb2-51ce-4961-95b5-1b019b2bf18f"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Janeiro]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="fd7303b5-5ff4-4550-9425-4efec01398e4"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="d71b88d5-8707-4e58-b46f-78ac1b1ab004"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="0ef2d379-413f-47ba-a19d-9f90f7efd5e0"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="73148365-6f35-4be8-ae2f-a9e7f227a2d8"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="0a35cd31-f0be-48f5-9d89-c18a8dd8d2be">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="0a35cd31-f0be-48f5-9d89-c18a8dd8d2be">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 1 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="25a2ba09-8d2d-4793-9dc3-1626a9e61d82"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="25a2ba09-8d2d-4793-9dc3-1626a9e61d82"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Fevereiro]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="dbca41b7-a6dc-4b35-bf0c-b3a0f6e9e631"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="00b8113c-dec8-4512-ab3a-2e0148450ccc"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="e806db01-2e71-4246-8259-f2bcab329344"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="822e3772-2cd9-4e7e-bf8f-b8038284b43a"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="b459bcd7-d0d7-4f05-8003-e6b881fc0011">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="b459bcd7-d0d7-4f05-8003-e6b881fc0011">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 2 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="257bf8cd-8ba1-4be9-8392-cbd063a559f7"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="257bf8cd-8ba1-4be9-8392-cbd063a559f7"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Março]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="35b558df-ba62-4532-9c86-4bf69f4dc06b"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="f161a209-7716-45ee-8399-071fbbd50b49"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="82a0df7d-5048-45f9-9b1b-ecabf78ae01c"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="b5819d6b-bc41-426a-a8e5-9d8af321e2fa"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="cc2b3ecd-a181-4b17-ab98-c8fc497c5f3c">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="cc2b3ecd-a181-4b17-ab98-c8fc497c5f3c">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 3 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="ebc333ec-5830-4ba5-b3ab-4f3cf463bb71"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="ebc333ec-5830-4ba5-b3ab-4f3cf463bb71"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Abril]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="e9486cc3-3e90-4f6c-b44b-9a181e3945fb"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="d85a24a2-5a67-4e0b-9f18-8b9c852ccfef"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="c8defdbf-d5c0-4566-8743-9c83e9999574"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="53163f2f-09d1-4b18-bac6-2286d22c0386"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="4532f02b-6480-4402-9327-3bf5b1090af7">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="4532f02b-6480-4402-9327-3bf5b1090af7">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 4 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="ace8d86c-97a3-4983-99a6-161f21288985"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="ace8d86c-97a3-4983-99a6-161f21288985"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Maio]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="f9ed54aa-f14b-44b6-a0f6-3601bc52ced6"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="dedbee2c-143a-4aa9-a693-6ae12602c5f6"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="06e94f45-6f3f-4858-8952-5a2bdebd23b2"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="191062c8-75cf-4469-8b6f-37e142deb8cf"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="5af51b21-2443-46c8-8303-cbefa77e6d0b">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="5af51b21-2443-46c8-8303-cbefa77e6d0b">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 5)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="f9ec8a2e-ffb6-4d8d-8b2a-4f85d2e6c71d"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="f9ec8a2e-ffb6-4d8d-8b2a-4f85d2e6c71d"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Junho]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="c37c83ab-ffd9-4610-a2cd-1d303b4a462d"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="02267eb2-4cfa-4717-a306-a3a7b5428747"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="3429cfc0-876a-4786-b3f6-99852956a7ad"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="1869e35b-21fe-44dc-929c-32c1040f9f45"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="21d7896c-1ed4-4467-aea4-59d69e9c0279">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="21d7896c-1ed4-4467-aea4-59d69e9c0279">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 6 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="6f5e7595-85aa-42fb-9b5e-3d9afedc973c"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="6f5e7595-85aa-42fb-9b5e-3d9afedc973c"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Julho]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="7e901de7-e06b-4e89-a644-98d78b30f6ee"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="6c0ed2ba-84f0-41a3-8abe-dcb33c0271cd"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="b47668a0-2a00-4079-a963-90757e385481"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="1be8f385-e848-4fcf-8e81-4466c56746fa"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="b769bf42-2db5-495a-9f36-a02a050e2668">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="b769bf42-2db5-495a-9f36-a02a050e2668">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 7)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="1879c32f-454a-43f2-851d-1d6d5eac98b2"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="1879c32f-454a-43f2-851d-1d6d5eac98b2"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Agosto]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="0a7d1afb-5207-453d-abd0-2dfc9d2b9c1c"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="00d016c1-d802-4614-9b6f-00504e7d4159"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="bf871ae1-b979-495b-8743-dc98852d8afd"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="e8b085fd-7cf8-41c0-8380-44ef76e4b27d"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="d97f2e11-f9b7-4268-a8f1-a0ddc051a6ac">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="d97f2e11-f9b7-4268-a8f1-a0ddc051a6ac">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 8)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="69564724-80f6-4467-830e-dd5f06a94677"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="69564724-80f6-4467-830e-dd5f06a94677"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Setembro]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="6be9850b-1c53-49e8-b2b2-c1b99cb72250"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="2bac3553-9edc-4c05-96b9-ea1c733dabb0"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="bd9ef5aa-e748-4e6e-bb04-e056cab980de"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="80e321fa-0c4c-4c04-b79f-b29351f6e16e"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="d38fba8f-1424-4d70-967d-7b9de892102f">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="d38fba8f-1424-4d70-967d-7b9de892102f">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 9)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="39332588-b4fa-439f-ba39-c843a108c988"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="39332588-b4fa-439f-ba39-c843a108c988"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Outubro]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="c42de5f3-f98b-4a64-8489-8619c0602b5e"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="7094d7c6-15de-4423-aab1-614b41299739"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="9ef65f38-3018-4081-a375-9eaef9737ad5"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="f893ea7f-3964-4887-8789-0d8449f949c7"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#E9E65F" uuid="9a65247e-499d-4e9b-94b0-d9457c6f05eb">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="9a65247e-499d-4e9b-94b0-d9457c6f05eb">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 10)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="701b7c94-230a-4946-b600-473aec672c09"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="701b7c94-230a-4946-b600-473aec672c09"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Novembro]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="ec00d638-0bf7-40f2-a94a-737ae9c624d0"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="f2e372da-f0b9-45a6-87f6-4e1841f2e42a"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="566" y="0" width="100" height="25" uuid="08b66570-2796-491d-95d4-9f94b516e508"/>
+						<reportElement x="567" y="0" width="100" height="24" uuid="33bd8d7b-0eec-4655-a062-9e47cdd6b4f1"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="25" backcolor="#EEEC82" uuid="e5b3b2c1-fef9-4330-bdd0-fa26874bbe48">
+					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#EEEC82" uuid="e5b3b2c1-fef9-4330-bdd0-fa26874bbe48">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 11)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
-						<reportElement x="0" y="0" width="432" height="25" uuid="61c1a029-6a66-4b92-810c-c1c097a3cb0f"/>
+						<reportElement x="0" y="0" width="432" height="24" uuid="61c1a029-6a66-4b92-810c-c1c097a3cb0f"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true" isItalic="true"/>
 						</textElement>
 						<text><![CDATA[Dezembro]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="432" y="0" width="134" height="25" uuid="f8f66b72-4835-4763-b75e-c449843f1747"/>
+						<reportElement x="432" y="0" width="134" height="24" uuid="f5d3121f-9f12-4245-931f-7902557fc4d9"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês      ===>>>]]></text>
 					</staticText>
-					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
-						<reportElement x="567" y="0" width="99" height="25" uuid="6dafd59b-6ae4-4d10-8d94-41f9bca238be"/>
+					<textField evaluationTime="Group" evaluationGroup="mes">
+						<reportElement x="567" y="0" width="100" height="24" uuid="e8c913e7-8c47-4bcc-bf23-0c14e3ad080c"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{valorTotal_3}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
 					</textField>
 				</frame>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="1">
-				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="800" height="1" backcolor="#F3F3F1" uuid="c6333da3-0802-41fc-bebf-af5ec3b55e02"/>
-					<box>
-						<bottomPen lineWidth="0.5"/>
-					</box>
-				</frame>
+			<band height="2">
+				<line>
+					<reportElement x="0" y="1" width="800" height="1" uuid="c6826a91-6822-416d-9d08-db0f8caf1b44"/>
+				</line>
 			</band>
 		</groupFooter>
-	</group>
-	<group name="quinzena">
-		<groupExpression><![CDATA[$F{quinzena}]]></groupExpression>
-		<groupHeader>
-			<band height="29">
-				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="800" height="29" backcolor="#A8FDA3" uuid="f5cb4a06-d11c-485d-b57d-38e659076d69"/>
-					<box>
-						<topPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-					</box>
-				</frame>
-				<frame>
-					<reportElement mode="Opaque" x="92" y="2" width="432" height="25" backcolor="#A8FDA3" uuid="caa40dc5-1241-4dc1-a052-d177a5fede19">
-						<printWhenExpression><![CDATA[new Boolean($F{quinzena} == 1)]]></printWhenExpression>
-					</reportElement>
-					<staticText>
-						<reportElement x="0" y="1" width="432" height="24" uuid="28f07d28-2d7d-4753-a1cf-5066e390affc"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font size="16" isBold="true" isItalic="true"/>
-						</textElement>
-						<text><![CDATA[Primeira Quinzena]]></text>
-					</staticText>
-				</frame>
-				<frame>
-					<reportElement mode="Opaque" x="92" y="2" width="432" height="25" backcolor="#A8FDA3" uuid="4b132598-9c06-4a46-a3e9-64eb43bfc60f">
-						<printWhenExpression><![CDATA[new Boolean($F{quinzena} == 2)]]></printWhenExpression>
-					</reportElement>
-					<staticText>
-						<reportElement x="0" y="1" width="432" height="24" backcolor="#F2F1A4" uuid="cd096c57-ed79-428a-b1c5-a640647eebba"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font size="16" isBold="true" isItalic="true"/>
-						</textElement>
-						<text><![CDATA[Segunda Quinzena]]></text>
-					</staticText>
-				</frame>
-				<textField evaluationTime="Group" evaluationGroup="quinzena" pattern="¤ #,##0.00">
-					<reportElement x="659" y="0" width="99" height="29" uuid="188c2e8f-7c6f-4f21-bfcb-9e4c8b50edab"/>
-					<textElement verticalAlignment="Middle">
-						<font size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="524" y="0" width="134" height="29" uuid="651e38f3-eb51-4786-b010-ad1e3962712f"/>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Total Quinzena ===>>>]]></text>
-				</staticText>
-			</band>
-		</groupHeader>
 	</group>
 	<group name="etapa">
 		<groupExpression><![CDATA[$F{etapa}]]></groupExpression>
 		<groupHeader>
-			<band height="33">
+			<band height="26">
 				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="800" height="33" backcolor="#F7F6C7" uuid="24523170-435b-4207-9f20-473e63d09858"/>
+					<reportElement mode="Opaque" x="0" y="1" width="800" height="25" backcolor="#A8FDA3" uuid="24523170-435b-4207-9f20-473e63d09858"/>
 					<textField>
-						<reportElement x="93" y="2" width="431" height="27" uuid="883e4600-0368-4ccd-82ed-28b20e333750"/>
+						<reportElement x="93" y="0" width="431" height="25" uuid="883e4600-0368-4ccd-82ed-28b20e333750"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true" isItalic="true"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{etapa}.getNome()]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="524" y="0" width="134" height="29" uuid="2adfcd7b-67bc-4a1c-8ec8-d19d1f782fa4"/>
+						<reportElement x="524" y="0" width="134" height="25" uuid="2adfcd7b-67bc-4a1c-8ec8-d19d1f782fa4"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Etapa        ===>>>]]></text>
+						<text><![CDATA[Total Etapa    ===>>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="etapa" pattern="¤ #,##0.00">
-						<reportElement x="659" y="2" width="100" height="27" uuid="1c0d5291-2900-4c30-a6ec-409159ff8723"/>
+						<reportElement x="659" y="0" width="100" height="25" uuid="1c0d5291-2900-4c30-a6ec-409159ff8723"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>
@@ -557,7 +506,7 @@
 					<text><![CDATA[Itens da Obra]]></text>
 				</staticText>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="0" y="23" width="161" height="17" uuid="322edcce-eea7-4402-be05-abed273d7370"/>
+					<reportElement x="0" y="24" width="200" height="16" uuid="97b55d3f-6505-4d6a-ac51-d563feb2e1f2"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
@@ -603,7 +552,7 @@
 					<text><![CDATA[Valor Unitario]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="666" y="0" width="88" height="20" uuid="fdaceee3-b71b-46ad-bc19-0a47e67dacd3"/>
+					<reportElement x="659" y="0" width="95" height="20" uuid="fdaceee3-b71b-46ad-bc19-0a47e67dacd3"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -653,7 +602,7 @@
 			</textField>
 			<textField>
 				<reportElement x="513" y="0" width="37" height="20" uuid="27a37b7c-c884-47d2-9d12-a887d6723bf0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{unidadeDeMedida}.getAbreviacao()]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00">
@@ -668,7 +617,7 @@
 			</textField>
 			<textField>
 				<reportElement x="437" y="0" width="44" height="20" uuid="b6390d41-138c-423f-9d9a-313e0a79736f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
 			<frame>
@@ -677,7 +626,7 @@
 				</reportElement>
 				<staticText>
 					<reportElement x="0" y="0" width="41" height="20" uuid="8688556d-8b07-4ca1-a2f1-de2acbd69a2d"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement verticalAlignment="Middle"/>
 					<text><![CDATA[PG]]></text>
 				</staticText>
 			</frame>
@@ -689,27 +638,27 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="33">
+		<band height="25">
 			<staticText>
-				<reportElement x="524" y="3" width="134" height="25" uuid="936f28ab-9916-4f6f-90b0-65c2524b8502"/>
+				<reportElement x="524" y="0" width="134" height="25" uuid="8d2034a2-0c0c-4e79-9e98-795be282c7dc"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true" isItalic="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Total Geral    ===>>]]></text>
 			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="659" y="0" width="100" height="25" uuid="da553614-f17b-45be-9a2f-7ff8b4b188cb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valorTotal_5}]]></textFieldExpression>
+			</textField>
 			<line>
-				<reportElement x="524" y="29" width="235" height="1" uuid="81322267-fa54-4a0c-a73f-60c30653e9c7"/>
+				<reportElement x="524" y="20" width="235" height="1" uuid="3b38de17-5a6a-4bf8-a0ad-d20eadf94bb4"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
-			<textField pattern="¤ #,##0.00">
-				<reportElement x="659" y="3" width="99" height="25" uuid="6197fa2a-63e1-4ee9-b921-782a45baab96"/>
-				<textElement verticalAlignment="Middle">
-					<font size="14" isBold="true" isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{valorTotal_5}]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>
