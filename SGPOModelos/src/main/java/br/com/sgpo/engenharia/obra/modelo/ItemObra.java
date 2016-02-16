@@ -33,7 +33,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "item_obra", schema = "engenharia")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ItemObra implements Serializable {
+public class ItemObra implements Serializable,Comparable<ItemObra> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,6 +88,7 @@ public class ItemObra implements Serializable {
     @NotNull
     @Column(name = "ito_pago", nullable = false)
     private boolean pago;
+    
 
     public int getDia(){
         Calendar dia  =  Calendar.getInstance();
@@ -251,5 +252,18 @@ public class ItemObra implements Serializable {
         }
         return true;
     }
+
+    @Override
+    public int compareTo(ItemObra o) {
+        if (this.getQuinzena() < o.getQuinzena()) {
+            return -1;
+        }
+        if (this.getQuinzena() > o.getQuinzena()) {
+            return 1;
+        }
+        return 0;
+    }
+
+  
 
 }
