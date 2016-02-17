@@ -128,8 +128,8 @@ public abstract class ControllerGenerico<T, PK extends Serializable>  implements
         return dao.consultarLike(campo, valor);
     }
      
-     public List<T> consultarAtivo(String campo,String valor, String ativo) throws Exception {
-        return dao.consultarAtivo(campo, valor,ativo);
+     public List<T> consultarAtivo(String campo,String valor) throws Exception {
+        return dao.consultarAtivo(campo, valor);
     }
 
    

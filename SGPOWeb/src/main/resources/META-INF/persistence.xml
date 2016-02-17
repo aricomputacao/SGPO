@@ -33,9 +33,11 @@
     <class>br.com.sgpo.engenharia.obra.modelo.Item</class>
     <class>br.com.sgpo.engenharia.obra.modelo.Etapa</class>
     <class>br.com.sgpo.engenharia.obra.modelo.ItemObra</class>
+    <class>br.com.sgpo.engenharia.obra.modelo.Equipamento</class>
+    <class>br.com.sgpo.engenharia.obra.modelo.EquipamentoObra</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-<!--      <property name="hibernate.show_sql" value="true"/>
+      <!--      <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>-->
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <!-- EHCACHE -->

@@ -96,7 +96,7 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
     public void consultarColaborador() {
         try {
 //            listaDeColaborador = colaboradorcontroller.consultarLike(getCampoConsuta(), getValorCampoConsuta().toUpperCase());
-            listaDeColaborador = colaboradorcontroller.consultarAtivo(getCampoConsuta(), getValorCampoConsuta(), "col_ativo=true");
+            listaDeColaborador = colaboradorcontroller.consultarAtivo(getCampoConsuta(), getValorCampoConsuta());
         } catch (Exception ex) {
             Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.engenharia.obra.Controller;
 
+import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.engenharia.obra.DAO.ItemObraDAO;
 import br.com.sgpo.engenharia.obra.modelo.ItemObra;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
@@ -44,6 +45,14 @@ public class ItemObraController extends ControllerGenerico<ItemObra, Long> imple
         Collections.sort(lista);
 
         return lista;
+    }
+
+    public List<ItemObra> consultarPor(Obra obra, Fornecedor f) {
+        return dao.consultarPor(obra,f);
+    }
+
+    public List<ItemObra> consultarOrdenadoPorEtapaTipo(Obra obra) {
+        return dao.consultarOrdenadoPorEtapaTipo(obra);
     }
 
 }

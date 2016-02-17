@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.engenharia.obra.DAO;
 
+import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.engenharia.obra.modelo.ItemObra;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
 import br.com.sgpo.utilitario.DAOGenerico;
@@ -35,6 +36,14 @@ public class ItemObraDAO extends DAOGenerico<ItemObra, Long> implements Serializ
 
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
+    public List<ItemObra> consultarOrdenadoPorEtapaTipo(Obra obra) {
+        TypedQuery<ItemObra> tq;
+        Calendar c = Calendar.getInstance();
+        tq = getEm().createQuery("SELECT i FROM ItemObra i WHERE i.obra = :obr ORDER BY i.etapa,i.item.classificacao,i.quantidade", ItemObra.class)
+                .setParameter("obr", obra);
+
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
 
     public List<ItemObra> consultarPor(Obra obra, int mes) {
         TypedQuery<ItemObra> tq;
@@ -43,6 +52,16 @@ public class ItemObraDAO extends DAOGenerico<ItemObra, Long> implements Serializ
                 .setParameter("obr", obra)
                 .setParameter("ano", c.get(Calendar.YEAR))
                 .setParameter("mes", mes);
+
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+
+    public List<ItemObra> consultarPor(Obra obra, Fornecedor f) {
+          TypedQuery<ItemObra> tq;
+        Calendar c = Calendar.getInstance();
+        tq = getEm().createQuery("SELECT i FROM ItemObra i WHERE i.obra = :obr and i.fornecedor = :for ORDER BY i.fornecedor,i.etapa,i.data", ItemObra.class)
+                .setParameter("obr", obra)
+                .setParameter("for", f);
 
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }

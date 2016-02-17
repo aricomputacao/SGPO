@@ -7,10 +7,12 @@ import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.administrativo.modelo.Municipio;
-import br.com.sgpo.administrativo.modelo.UnidadeDeMedida;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
+import br.com.sgpo.engenharia.obra.Controller.EquipamentoObraController;
 import br.com.sgpo.engenharia.obra.Controller.ItemObraController;
 import br.com.sgpo.engenharia.obra.Controller.ObraController;
+import br.com.sgpo.engenharia.obra.modelo.Equipamento;
+import br.com.sgpo.engenharia.obra.modelo.EquipamentoObra;
 import br.com.sgpo.engenharia.obra.modelo.Item;
 import br.com.sgpo.engenharia.obra.modelo.ItemObra;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
@@ -23,7 +25,6 @@ import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
 import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +58,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private UnidadeFederativaController unidadeFederativaController;
     @Inject
     private ItemObraController itemObraController;
+    @Inject
+    private EquipamentoObraController equipamentoObraController;
 
     private List<Obra> listaDeObras;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
@@ -65,12 +68,14 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private List<Projeto> listaProjetosSource;
     private List<Projeto> listaProjetosTarget;
     private List<ItemObra> listaItemObras;
+    private List<EquipamentoObra> listaDeEquipamentoObras;
 
     private UnidadeFederativa unidadeFederativa;
     private Obra obra;
     private ItemObra itemObra;
+    private EquipamentoObra equipamentoObra;
     private Mes mesReferencia;
-    
+
     private boolean rederConCliente;
 
     @PostConstruct
@@ -82,6 +87,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
             itemObra = new ItemObra();
             itemObra.setObra(new Obra());
             itemObra.setPago(false);
+            equipamentoObra = new EquipamentoObra();
+            equipamentoObra.setObra(new Obra());
             listaProjetosSource = obraController.consultarProjetosDisponiveis();
             if (obra == null) {
                 obra = new Obra();
@@ -89,6 +96,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
                 obra.setListaDeProjetos(new ArrayList<>());
                 listaProjetosTarget = new ArrayList<>();
                 listaItemObras = new ArrayList<>();
+                listaDeEquipamentoObras = new ArrayList<>();
             } else {
                 unidadeFederativa = obra.getEndereco().getUnidadeFederativa();
                 listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
@@ -96,6 +104,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
                 listaProjetosSource.removeAll(listaProjetosTarget);
                 listaItemObras = itemObraController.consultarPor(obra);
                 itemObra.setObra(obra);
+                listaDeEquipamentoObras = equipamentoObraController.consultarAtivo("obra.descricao", obra.getDescricao());
             }
             listaDualProjetos = new DualListModel<>(listaProjetosSource, listaProjetosTarget);
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
@@ -139,6 +148,29 @@ public class ObraMB extends BeanGenerico implements Serializable {
         }
     }
 
+    public void addEquipamentoObra() {
+        try {
+            equipamentoObraController.salvarouAtualizar(equipamentoObra);
+            equipamentoObra = new EquipamentoObra();
+            equipamentoObra.setObra(obra);
+            listaDeEquipamentoObras = equipamentoObraController.consultarAtivo("obra.descricao", obra.getDescricao());
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void desativarEquipamentoObra(EquipamentoObra ep) {
+        try {
+            ep.setAtivo(false);
+            equipamentoObraController.atualizar(ep);
+            listaDeEquipamentoObras = equipamentoObraController.consultarAtivo("obra.descricao", obra.getDescricao());
+        } catch (Exception ex) {
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void gerenciarProjeto() {
         try {
             obra = obraController.salvarGerenciar(obra, listaDualProjetos.getTarget());
@@ -155,8 +187,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void resetarItemObra(){
+
+    public void resetarItemObra() {
         itemObra = new ItemObra();
     }
 
@@ -170,12 +202,32 @@ public class ObraMB extends BeanGenerico implements Serializable {
 //            erroCliente.adicionaErro(e);
         }
     }
-   
+
     public void geraImpressaoItensDaObraMes() {
         try {
             List<ItemObra> itensObra = itemObraController.consultarPor(obra);
             Map<String, Object> m = new HashMap<>();
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_OBRA_MES, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+        }
+    }
+
+    public void geraImpressaoItensDoFornecedor(Fornecedor f) {
+        try {
+            List<ItemObra> itensObra = itemObraController.consultarPor(obra, f);
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_FORNECEDOR, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+        }
+    }
+
+    public void geraImpressaoItensEtapaTipo() {
+        try {
+            List<ItemObra> itensObra = itemObraController.consultarOrdenadoPorEtapaTipo(obra);
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_ETAPA_TIPO, "");
             RelatorioSession.setBytesRelatorioInSession(rel);
         } catch (Exception e) {
         }
@@ -207,6 +259,10 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     public void setarItem(Item i) {
         itemObra.setItem(i);
+    }
+    
+    public void setarEquipamento(Equipamento ep){
+        equipamentoObra.setEquipamento(ep);
     }
 
     @Override
@@ -276,9 +332,23 @@ public class ObraMB extends BeanGenerico implements Serializable {
     public void setMesReferencia(Mes mesReferencia) {
         this.mesReferencia = mesReferencia;
     }
-    
-    public Mes[] getListaDeMeses(){
+
+    public Mes[] getListaDeMeses() {
         return Mes.values();
     }
 
+    public EquipamentoObra getEquipamentoObra() {
+        return equipamentoObra;
+    }
+
+    public void setEquipamentoObra(EquipamentoObra equipamentoObra) {
+        this.equipamentoObra = equipamentoObra;
+    }
+
+    public List<EquipamentoObra> getListaDeEquipamentoObras() {
+        return listaDeEquipamentoObras;
+    }
+
+    
+    
 }
