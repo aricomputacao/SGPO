@@ -23,6 +23,8 @@ public abstract class PastasRelatorio {
     public static final String REL_PROJETO_COLABORADOR = "/WEB-INF/relatorios/engenharia/rel_projeto_colaborador.jasper";
     public static final String REL_ITENS_OBRA_QUINZENA = "/WEB-INF/relatorios/engenharia/rel_itens_obra_quinzena.jasper";
     public static final String REL_ITENS_OBRA_MES = "/WEB-INF/relatorios/engenharia/rel_itens_obra_mes.jasper";
+    public static final String REL_ITENS_FORNECEDOR = "/WEB-INF/relatorios/engenharia/rel_itens_obra_fornecedor.jasper";
+    public static final String REL_ITENS_ETAPA_TIPO = "/WEB-INF/relatorios/engenharia/rel_itens_obra_etapa_tipo.jasper";
     
 
 }
