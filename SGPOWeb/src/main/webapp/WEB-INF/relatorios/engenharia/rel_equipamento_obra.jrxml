@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_equipamento_obra" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a65578a-be5f-4098-a7c7-de91c8cc6d69">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ativo" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[ativo]]></fieldDescription>
+	</field>
+	<field name="dataEntrada" class="java.util.Date">
+		<fieldDescription><![CDATA[dataEntrada]]></fieldDescription>
+	</field>
+	<field name="equipamento" class="br.com.sgpo.engenharia.obra.modelo.Equipamento">
+		<fieldDescription><![CDATA[equipamento]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="nomeDaObra" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeDaObra]]></fieldDescription>
+	</field>
+	<field name="obra" class="br.com.sgpo.engenharia.obra.modelo.Obra">
+		<fieldDescription><![CDATA[obra]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[observacao]]></fieldDescription>
+	</field>
+	<field name="quantidade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[quantidade]]></fieldDescription>
+	</field>
+	<field name="tipoDeEquipamento" class="java.lang.String">
+		<fieldDescription><![CDATA[tipoDeEquipamento]]></fieldDescription>
+	</field>
+	<variable name="quantidade_1" class="java.lang.Integer" resetType="Group" resetGroup="tipoEquipamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantidade}]]></variableExpression>
+	</variable>
+	<group name="tipoEquipamento">
+		<groupExpression><![CDATA[$F{equipamento}.getTipoEquipamento()]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#E9E65F" uuid="920677cd-91db-433b-9aa0-2fce90401252"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="60" height="20" uuid="601ff659-1d91-41f0-be61-786fded30c72"/>
+						<textElement verticalAlignment="Middle">
+							<font size="14" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Tipo:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="60" y="0" width="312" height="20" uuid="7dc8a815-7f93-4153-9e9b-7204df313fb9"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{tipoDeEquipamento}]]></textFieldExpression>
+					</textField>
+					<textField evaluationTime="Group" evaluationGroup="tipoEquipamento" pattern="#,##0.00">
+						<reportElement x="455" y="0" width="100" height="20" uuid="f1c4a695-f9a3-4a09-9ecb-cec866f5ff0c"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$V{quantidade_1}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="372" y="0" width="83" height="20" uuid="e55ac7eb-f287-4d19-921f-f89e8db51a3e"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Total ==>>]]></text>
+					</staticText>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="2">
+				<line>
+					<reportElement x="0" y="1" width="555" height="1" uuid="2c9d8964-25fe-4d75-af79-1dcea56dcbff"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="40" uuid="eb6e9b2e-a83b-4e40-ba45-6c5bdd00c1d7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="22" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Equipamentos da Obra]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="24" width="200" height="16" uuid="d20e41f4-654c-4d15-800e-fee4eec2839f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="0" y="40" width="555" height="40" uuid="bfd31704-0374-4e4d-8d61-38c188931459"/>
+				<textField>
+					<reportElement x="109" y="0" width="187" height="20" uuid="8e0c4d80-7138-48c9-91f4-097e8f921943"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{obra}.getDescricao()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="9" y="0" width="100" height="20" uuid="40f4fe16-665c-4d6b-b08b-bacf75f6b15f"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Obra:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="9" y="20" width="100" height="20" uuid="6ddb16a2-8e0c-477a-863b-9c0d1d1e4e84"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Responsável:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="109" y="20" width="187" height="20" uuid="41763dfa-545b-4878-99fb-43f245b04441"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{obra}.getNomeResponsavel()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="360" y="2" width="195" height="35" uuid="b4cf8fec-c278-4106-81da-0ba99500380e"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{obra}.getNomeCliente()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="296" y="0" width="64" height="20" uuid="d6d772c2-b20d-426e-a99a-5bc93a0063e6"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Cliente:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="2" width="555" height="20" uuid="1bfec832-3a53-4333-b93d-9fa30ce9a4df"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="25" y="0" width="210" height="20" uuid="25f9d3dc-93ae-40d1-9b17-d94de09db389"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Equipamento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="283" y="0" width="78" height="20" uuid="fbe16cb6-517f-4956-995c-5d4079706f06"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Data Entrada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="238" y="0" width="41" height="20" uuid="c9798114-0c31-494d-b48d-6d89332d383f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Qtd.]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement x="366" y="0" width="189" height="20" uuid="62373577-49f6-4430-bb3e-d80a4eb5de3a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Observaçao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement style="zebra" x="0" y="0" width="555" height="20" uuid="78157b17-21c6-449b-910e-09a21ef5ba1d"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="25" y="0" width="210" height="20" uuid="f9cdbdc8-552b-4bec-8127-86af7683c01b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{equipamento}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="283" y="0" width="78" height="20" uuid="0aeed2ac-a9c9-4ceb-bac2-942f51b39e37"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataEntrada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="238" y="0" width="41" height="20" uuid="30d082ae-77fe-4b6e-b9ea-05b75caa9090"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="366" y="0" width="189" height="20" uuid="00f5cfd6-4105-4b4b-ab42-677c9f430a6c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

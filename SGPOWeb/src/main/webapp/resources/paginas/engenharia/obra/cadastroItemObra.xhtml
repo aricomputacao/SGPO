@@ -57,9 +57,8 @@
 
         <panels:panel  titulo="#{label.itens} #{label.registrados}" id="pnlItens">
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
-                <p:commandButton onclick="PF('dialogMes').show()" immediate="true" value="Imprimir por mês"   icon="fa fa-print" class="Fright"/>
                 <p:dataTable value="#{obraMB.listaItemObras}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="io" rows="5"
-                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }" class="Container100"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  reflow="true">

@@ -394,7 +394,7 @@
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês      ===>>>]]></text>
+						<text><![CDATA[Total Mês ==>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes">
 						<reportElement x="567" y="0" width="100" height="24" uuid="e8c913e7-8c47-4bcc-bf23-0c14e3ad080c"/>
@@ -432,7 +432,7 @@
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Etapa    ===>>>]]></text>
+						<text><![CDATA[Total Etapa ==>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="etapa" pattern="¤ #,##0.00">
 						<reportElement x="659" y="0" width="100" height="25" uuid="1c0d5291-2900-4c30-a6ec-409159ff8723"/>
@@ -639,26 +639,26 @@
 	</detail>
 	<summary>
 		<band height="25">
-			<staticText>
-				<reportElement x="524" y="0" width="134" height="25" uuid="8d2034a2-0c0c-4e79-9e98-795be282c7dc"/>
-				<textElement verticalAlignment="Middle">
-					<font size="14" isBold="true" isItalic="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Total Geral    ===>>]]></text>
-			</staticText>
-			<textField pattern="¤ #,##0.00">
-				<reportElement x="659" y="0" width="100" height="25" uuid="da553614-f17b-45be-9a2f-7ff8b4b188cb"/>
-				<textElement verticalAlignment="Middle">
-					<font size="14" isBold="true" isItalic="true" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{valorTotal_5}]]></textFieldExpression>
-			</textField>
 			<frame>
 				<reportElement x="0" y="0" width="800" height="25" uuid="1919e26e-2013-4b64-818d-df58510b6bf4"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
+				<staticText>
+					<reportElement x="524" y="0" width="134" height="23" uuid="8d2034a2-0c0c-4e79-9e98-795be282c7dc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Total Geral   ==>>]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="659" y="0" width="100" height="23" uuid="da553614-f17b-45be-9a2f-7ff8b4b188cb"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valorTotal_5}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</summary>

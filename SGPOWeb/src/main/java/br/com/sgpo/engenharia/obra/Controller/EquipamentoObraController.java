@@ -32,6 +32,10 @@ public class EquipamentoObraController extends ControllerGenerico<EquipamentoObr
         setDAO(dao);
     }
 
+    public List<EquipamentoObra> cosultarAtivosPor(Obra obra) {
+        return dao.cosultarAtivosPor(obra);
+    }
+
     
         
 }

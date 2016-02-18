@@ -89,6 +89,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
             itemObra.setPago(false);
             equipamentoObra = new EquipamentoObra();
             equipamentoObra.setObra(new Obra());
+            equipamentoObra.setAtivo(true);
             listaProjetosSource = obraController.consultarProjetosDisponiveis();
             if (obra == null) {
                 obra = new Obra();
@@ -104,7 +105,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
                 listaProjetosSource.removeAll(listaProjetosTarget);
                 listaItemObras = itemObraController.consultarPor(obra);
                 itemObra.setObra(obra);
-                listaDeEquipamentoObras = equipamentoObraController.consultarAtivo("obra.descricao", obra.getDescricao());
+                listaDeEquipamentoObras = equipamentoObraController.cosultarAtivosPor(obra);
+                equipamentoObra.setObra(obra);
             }
             listaDualProjetos = new DualListModel<>(listaProjetosSource, listaProjetosTarget);
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
@@ -152,8 +154,9 @@ public class ObraMB extends BeanGenerico implements Serializable {
         try {
             equipamentoObraController.salvarouAtualizar(equipamentoObra);
             equipamentoObra = new EquipamentoObra();
+            equipamentoObra.setAtivo(true);
             equipamentoObra.setObra(obra);
-            listaDeEquipamentoObras = equipamentoObraController.consultarAtivo("obra.descricao", obra.getDescricao());
+            listaDeEquipamentoObras = equipamentoObraController.cosultarAtivosPor(obra);
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -232,6 +235,14 @@ public class ObraMB extends BeanGenerico implements Serializable {
         } catch (Exception e) {
         }
     }
+    public void geraImpressaoEquipamentoObra() {
+        try {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeEquipamentoObras, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_EQUIPAMENTOS_OBRA, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+        }
+    }
 
     public boolean renderLink() {
         return obra.getId() != null;
@@ -260,8 +271,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
     public void setarItem(Item i) {
         itemObra.setItem(i);
     }
-    
-    public void setarEquipamento(Equipamento ep){
+
+    public void setarEquipamento(Equipamento ep) {
         equipamentoObra.setEquipamento(ep);
     }
 
@@ -349,6 +360,4 @@ public class ObraMB extends BeanGenerico implements Serializable {
         return listaDeEquipamentoObras;
     }
 
-    
-    
 }

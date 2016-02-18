@@ -90,8 +90,8 @@
         <p:dialog showEffect="fade" position="200,50"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" hideEffect="fade" widgetVar="dialogCadItemObra">
             <h:form id="frm_cad_ite_obra" >
                 <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
-                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObraMes()}"
-                                               btn_limpar="true" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="true" btn_ativar="false"
+                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}"  acao_imprimir="#{obraMB.init()}"
+                                               btn_limpar="true" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
                                                btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_ite_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
                     <eng:cadastroItemObra  id="compCadastro" form=":frm_cad_cli"  >
                         <p:commandButton actionListener="#{obraMB.pagarItemObra(io)}" title="#{label.pagar}" class="btnForm" immediate="true" rendered="#{not io.pago}" update=":frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
@@ -165,43 +165,93 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="30%"   header="#{label.relatorios} " id="dialogRel" modal="true" hideEffect="fade" widgetVar="dialogRel">
-            <h:form id="frm__relatorio" >
-                <h:panelGroup rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.relatorio_itens_obra_fornecedor)}" class="Container33 Responsive " >
-                    <div class="ContainerIndent  ">
-                        <p:commandLink     onclick="PF('dialogFornecedorRel').show()" >
-                            <p:panel class="panel-index">
-                                <div class="Wid100 TexAlCenter Fleft">
-                                    <div class="ContainerIndent">
-                                        <i class="icon-list-bullet Wid90  Fleft Fs25  hardblue "></i>
-                                        <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.do} #{label.fornecedor}</span>
-                                    </div>
-                                </div>
-                            </p:panel>
-                        </p:commandLink>
-                    </div>
-                </h:panelGroup>
-                <div class="Container33 Responsive " rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.relatorio_itens_obra_etapa_tipo)}">
-                    <div class="ContainerIndent  ">
-                        <p:commandLink     onclick="start()"  actionListener="#{obraMB.geraImpressaoItensEtapaTipo()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
-                            <p:panel class="panel-index">
-                                <div class="Wid100 TexAlCenter Fleft">
-                                    <div class="ContainerIndent">
-                                        <i class="icon-list-bullet Wid90  Fleft Fs25  hardblue "></i>
-                                        <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.etapa} #{label.tipo}</span>
-                                    </div>
-                                </div>
-                            </p:panel>
-                        </p:commandLink>
-                    </div>
-                </div>
+        <p:dialog showEffect="fade" position="center center" width="50%"   header="#{label.relatorios} " id="dialogRel" modal="true" hideEffect="fade" widgetVar="dialogRel">
 
+            <h:form id="frm__relatorio" >
+                <p:tabView class="Container100 Responsive" >
+                    <p:tab title="#{label.itens}">
+                        <h:panelGroup rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.relatorio_itens_obra_fornecedor)}"  class="Container33 Responsive " >
+                            <div class="ContainerIndent  ">
+                                <p:commandLink     onclick="PF('dialogFornecedorRel').show()" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-link-ext Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens}  #{label.fornecedor}</span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_itens_obra)}" >
+                            <div class="ContainerIndent  ">
+                                <p:commandLink     onclick="start()"  actionListener="#{obraMB.geraImpressaoItensEtapaTipo()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.etapa} #{label.tipo}</span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_itens_obra_mes)}">
+                            <div class="ContainerIndent  ">
+                                <p:commandLink     onclick="start()"  actionListener="#{obraMB.geraImpressaoItensDaObraMes()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.da} #{label.obra} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup class="Container33 Responsive "  >
+                            <div class="ContainerIndent  ">
+                                <p:commandLink    onclick="PF('dialogMes').show()" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-link-ext Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.do} #{label.mes} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                    </p:tab>
+                    <p:tab title="#{label.equipamento}s">
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_equipamentos_obra)}">
+                            <div class="ContainerIndent  ">
+                                <p:commandLink    onclick="start()"  actionListener="#{obraMB.geraImpressaoEquipamentoObra()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.equipamento}s #{label.da} #{label.obra} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                    </p:tab>
+                </p:tabView>
             </h:form>
+
         </p:dialog>
         <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorRel" modal="true" hideEffect="fade" widgetVar="dialogFornecedorRel">
             <h:form id="frm_fornecedor_rel" >
                 <adm:consultaFornecedor id="compConForRel"  render_edit="false" componente_to_update="@form"  >
-                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDoFornecedor(f)}" icon="fa fa-check-square-o"  onclick="start()"  
+                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDoFornecedor(f)}" icon="fa fa-print"  onclick="start()"  
                                      oncomplete="stop();PF('dialogFornecedorRel').hide();popup('/sgpo/RelatorioServlet.pdf')" />
                 </adm:consultaFornecedor>
 
@@ -214,10 +264,10 @@
             <h:form id="frm_cad_equi_obra" >
                 <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
                                                acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addEquipamentoObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObraMes()}"
-                                               btn_limpar="true" cabecalho="#{label.equipamento} #{label.da} #{label.obra}" btn_imprimir="true" btn_ativar="false"
+                                               btn_limpar="true" cabecalho="#{label.equipamento} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
                                                btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_equi_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
                     <eng:cadastroEquipamentoObra  id="compCadastro"    >
-                        <p:commandButton actionListener="#{obraMB.desativarEquipamentoObra(ep)}" title="#{label.desativar}" class="btnForm" immediate="true" rendered="#{not ep.ativo}" update="@form"   icon="fa fa-check-square-o"  >
+                        <p:commandButton actionListener="#{obraMB.desativarEquipamentoObra(ep)}" title="#{label.desativar}"  immediate="true" rendered="#{ep.ativo}" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
                             <p:confirm message="#{msg.confirmacao}" />
                         </p:commandButton>
                     </eng:cadastroEquipamentoObra>
@@ -227,9 +277,19 @@
         <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.equipamento} " id="dialogEquipamento" modal="true" hideEffect="fade" widgetVar="dialogEquipamento">
             <h:form id="frm_equipamento" >
                 <eng:consultaEquipamento id="compConEqui"   componente_to_update="@form"  >
-                    <p:commandButton actionListener="#{obraMB.setarEquipamento(ep)}" icon="fa fa-check-square-o" update="@form" onclick="PF('dialogEquipamento').hide()" />
+                    <p:commandButton actionListener="#{obraMB.setarEquipamento(ep)}" icon="fa fa-check-square-o" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_equ:input" onclick="PF('dialogEquipamento').hide()" />
                 </eng:consultaEquipamento>
 
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.equipamento} " id="dialogCadEquipamento" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamento">
+            <h:form id="frm_cad_equipa" prependId="false"  >
+                <componentes:panelPadrao id="pnlPadraoEquipameto" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{equipamentoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_excluir="#{equipamentoMB.init()}"  acao_salvar="#{equipamentoMB.salvar()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.equipamento}" >
+                    <eng:cadastroEquipamento id="compCadastroEquipamento"/>
+                </componentes:panelPadrao>
             </h:form>
         </p:dialog>
         <!-- ################################################################### Fim Dialogs referente a cadastros de Equipamentos ################################################################### -->

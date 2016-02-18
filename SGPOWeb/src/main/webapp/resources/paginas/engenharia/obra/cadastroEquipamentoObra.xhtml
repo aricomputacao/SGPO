@@ -21,7 +21,7 @@
                 <p:focus context="inpDt" />
                 <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.equipamentoObra.dataEntrada}" lab_valor="#{label.data}" inp_require="true"  inp_class_tamanho="25"/>
 
-                <inputs:input_label_btn_click inp_valor="#{obraMB.equipamentoObra.equipamento.nome}" id="inp_equ" lab_valor="#{label.equipamento}" inp_readonly="true" inp_require="true" 
+                <inputs:input_label_btn_click_btn_mais btn_onclick_plus="PF('dialogCadEquipamento').show()"  inp_valor="#{obraMB.equipamentoObra.equipamento.nome}" id="inp_equ" lab_valor="#{label.equipamento}" inp_readonly="true" inp_require="true" 
                                               btn_immediate="true" btn_onclick="PF('dialogEquipamento').show()" btn_process="@this" inp_class_tamanho="33" />
 
            
@@ -34,16 +34,15 @@
 
         <panels:panel  titulo="#{label.equipamento} #{label.registrados}" id="pnlItens">
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
-                <p:commandButton onclick="PF('dialogMes').show()" immediate="true" value="Imprimir por mês"   icon="fa fa-print" class="Fright"/>
                 <p:dataTable value="#{obraMB.listaDeEquipamentoObras}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="ep" rows="5"
-                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }" class="Container100"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  reflow="true">
 
                     
                     <p:column headerText="#{label.data}" class="TexAlCenter" >
-                        <componentes:outputText value="#{ep.data}" tipo="d" />
+                        <componentes:outputText value="#{ep.dataEntrada}" tipo="d" />
                     </p:column>
                     <p:column headerText="#{label.tipo} | #{label.item}" class="TexAlCenter" >
                         <componentes:outputText value="#{ep.tipoDeEquipamento} | #{ep.equipamento.nome}" />

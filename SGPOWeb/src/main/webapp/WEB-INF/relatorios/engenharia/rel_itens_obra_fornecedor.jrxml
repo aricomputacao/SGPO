@@ -117,9 +117,9 @@
 					<staticText>
 						<reportElement x="292" y="0" width="101" height="25" uuid="deeb35d4-0a1d-43c4-b1f1-2024ca0d6195"/>
 						<textElement verticalAlignment="Middle">
-							<font size="14" isBold="true" isItalic="true" isUnderline="false"/>
+							<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
 						</textElement>
-						<text><![CDATA[Total     ===>>]]></text>
+						<text><![CDATA[Total  ==>>]]></text>
 					</staticText>
 				</frame>
 			</band>
@@ -158,14 +158,14 @@
 					<textFieldExpression><![CDATA[$F{obra}.getNomeResponsavel()]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="372" y="0" width="183" height="20" uuid="ec068445-b82b-48fc-9df9-a81891cde492"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="366" y="2" width="189" height="37" uuid="ec068445-b82b-48fc-9df9-a81891cde492"/>
+					<textElement verticalAlignment="Top">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{obra}.getNomeCliente()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="308" y="0" width="64" height="20" uuid="b6589f6e-f59c-4aef-8bbb-2b8232a8e427"/>
+					<reportElement x="302" y="0" width="64" height="27" uuid="b6589f6e-f59c-4aef-8bbb-2b8232a8e427"/>
 					<textElement>
 						<font size="14" isBold="true" isItalic="true"/>
 					</textElement>

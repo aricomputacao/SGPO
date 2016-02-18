@@ -44,10 +44,6 @@
                         <h:outputText value="&#8227;#{label.numero}: " />
                         <h:outputText value="#{ob.numero}" />
 
-                     
-                        <h:outputText value="&#8227;#{label.projetos} "/>
-                        <p:commandLink  styleClass="ui-icon ui-icon-search" update="@(form)"  oncomplete="PF('dialogoProj').show()"  />
-
                         <h:outputText value="&#8227;#{label.editar} "/>
                         <p:commandLink  styleClass="ui-icon ui-icon-pencil" update="@(form)" actionListener="#{dadosInicialMB.escreverRegistroNasessaoNavegarParaEditar(ob,engenharia.obra_cadastro,'obra')}" value="#{label.editar}"  />
                     </p:panelGrid>

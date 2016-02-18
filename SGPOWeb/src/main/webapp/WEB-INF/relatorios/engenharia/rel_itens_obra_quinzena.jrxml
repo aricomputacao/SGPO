@@ -388,9 +388,9 @@
 					<staticText>
 						<reportElement x="432" y="0" width="134" height="25" uuid="f8f66b72-4835-4763-b75e-c449843f1747"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12" isBold="true"/>
+							<font size="11" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Mês          ===>>>]]></text>
+						<text><![CDATA[Total Mês       ==>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
 						<reportElement x="567" y="0" width="99" height="25" uuid="6dafd59b-6ae4-4d10-8d94-41f9bca238be"/>
@@ -458,9 +458,9 @@
 				<staticText>
 					<reportElement x="524" y="0" width="134" height="29" uuid="651e38f3-eb51-4786-b010-ad1e3962712f"/>
 					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
+						<font size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total Quinzena ===>>>]]></text>
+					<text><![CDATA[Tot. Quinzena ==>>]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -481,9 +481,9 @@
 					<staticText>
 						<reportElement x="524" y="0" width="134" height="29" uuid="2adfcd7b-67bc-4a1c-8ec8-d19d1f782fa4"/>
 						<textElement verticalAlignment="Middle">
-							<font size="12" isBold="true"/>
+							<font size="11" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Total Etapa        ===>>>]]></text>
+						<text><![CDATA[Total Etapa      ==>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="etapa" pattern="¤ #,##0.00">
 						<reportElement x="659" y="2" width="100" height="27" uuid="1c0d5291-2900-4c30-a6ec-409159ff8723"/>
@@ -693,9 +693,9 @@
 			<staticText>
 				<reportElement x="524" y="3" width="134" height="25" uuid="936f28ab-9916-4f6f-90b0-65c2524b8502"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14" isBold="true" isItalic="true" isUnderline="false"/>
+					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Total Geral    ===>>]]></text>
+				<text><![CDATA[Total Geral    ==>>]]></text>
 			</staticText>
 			<line>
 				<reportElement x="524" y="29" width="235" height="1" uuid="81322267-fa54-4a0c-a73f-60c30653e9c7"/>
@@ -706,7 +706,7 @@
 			<textField pattern="¤ #,##0.00">
 				<reportElement x="659" y="3" width="99" height="25" uuid="6197fa2a-63e1-4ee9-b921-782a45baab96"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14" isBold="true" isItalic="true"/>
+					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{valorTotal_5}]]></textFieldExpression>
 			</textField>
