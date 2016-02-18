@@ -37,21 +37,22 @@
         </h:head>
 
         <h:body>
-                <ui:include id="topbar" src="topbar.xhtml" />
+            <ui:include id="topbar" src="topbar.xhtml" />
             <ui:include src="leftmenu.xhtml" />
 
-            <div id="layout-portlets-cover" class="fontRegular corpo">
+            <div id="layout-portlets-cover"   class="fontRegular corpo">
                 <ui:insert name="corpo">
 
                 </ui:insert>
                 <div class="Container100">
                     <div class="ContainerIndent">
-                        <p:dialog modal="true" widgetVar="statusDialog" header="Carregando" draggable="false" closable="false" resizable="false">
+                        <p:dialog modal="true" widgetVar="statusDialog" header="Carregando..." draggable="false" closable="false" resizable="false">
                             <p:graphicImage library="images" name="carregar.gif" />
                         </p:dialog>
                         <ui:insert name="dialog">
 
                         </ui:insert>
+                        
                         <util:dialogIdioma/>
                         <util:dialogAlterarSenha id="compAltSen"/>
                         <p:dialog showEffect="fade" position="400,50"  width="50%"  header=" #{label.notificacao}" id="dialogoNotPro2" modal="true" hideEffect="fade" widgetVar="dialogoNotPro2">

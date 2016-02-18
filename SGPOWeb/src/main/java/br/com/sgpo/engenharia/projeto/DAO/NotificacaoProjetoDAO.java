@@ -11,6 +11,7 @@ import br.com.sgpo.utilitario.DAOGenerico;
 import br.com.sgpo.utilitarios.MetodosUtilitariosData;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -36,10 +37,12 @@ public class NotificacaoProjetoDAO extends DAOGenerico<NotificacaoProjeto, Long>
     }
 
     public List<NotificacaoProjeto> consultarTodosDoDia() {
-         TypedQuery<NotificacaoProjeto> tq;
-        tq = getEm().createQuery("SELECT n FROM NotificacaoProjeto n where n.data BETWEEN :dtIni and :dtFim ", NotificacaoProjeto.class)
-                .setParameter("dtIni", MetodosUtilitariosData.processarDataInicial(new Date()))
-                .setParameter("dtFim", MetodosUtilitariosData.processarDataFinal(new Date()));
+        Calendar cal = Calendar.getInstance();
+        TypedQuery<NotificacaoProjeto> tq;
+        tq = getEm().createQuery("SELECT n FROM NotificacaoProjeto n where  month(n.data) = :mes and day(n.data) = :dia  and year(n.data) = :ano   ", NotificacaoProjeto.class)
+                .setParameter("mes", cal.get(Calendar.MONTH)+1)
+                .setParameter("dia", cal.get(Calendar.DAY_OF_MONTH))
+                .setParameter("ano", cal.get(Calendar.YEAR));
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 

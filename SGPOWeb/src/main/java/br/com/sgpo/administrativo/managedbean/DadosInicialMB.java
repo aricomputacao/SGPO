@@ -14,6 +14,7 @@ import br.com.sgpo.engenharia.projeto.Controller.ProjetoController;
 import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.utilitario.BeanGenerico;
+import br.com.sgpo.utilitario.IndexMB;
 import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,6 +47,8 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     private ColaboradorController colaboradorController;
     @Inject
     private ObraController obraController;
+    @Inject
+    private IndexMB indexMB;
 
     private List<Projeto> listaDeProjetos;
     private List<NotificacaoProjeto> listaDeNotificacaoProjetos;
@@ -86,6 +89,7 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             notificacaoProjetoController.salvar(notificacaoProjeto,listDualColaboradores.getTarget());
             notificacaoProjeto = new NotificacaoProjeto();
             listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(projeto);
+            indexMB.init();
         } catch (Exception ex) {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,7 +5,7 @@
 function start() {
     PF('statusDialog').show();
 }
- 
+
 function stop() {
     PF('statusDialog').hide();
 }
@@ -46,7 +46,10 @@ var setarFocu = function (id) {
     PrimeFaces.widgets[id].jq.focus();
 };
 
+var updateNotificacao = function () {
+    console.log($('#bell').html());
 
+};
 
 
 

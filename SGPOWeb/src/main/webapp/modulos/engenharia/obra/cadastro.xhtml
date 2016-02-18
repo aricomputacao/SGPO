@@ -150,6 +150,63 @@
                 </componentes:panelPadrao>
             </h:form>
         </p:dialog>
+       
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorRel" modal="true" hideEffect="fade" widgetVar="dialogFornecedorRel">
+            <h:form id="frm_fornecedor_rel" >
+                <adm:consultaFornecedor id="compConForRel"  render_edit="false" componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDoFornecedor(f)}" icon="fa fa-print"  onclick="start()"  
+                                     oncomplete="stop();PF('dialogFornecedorRel').hide();popup('/sgpo/RelatorioServlet.pdf')" />
+                </adm:consultaFornecedor>
+
+            </h:form>
+        </p:dialog>
+        <!-- ################################################################### Fim Dialogs referente a cadastros de itens ################################################################### -->
+
+        <!-- ###################################################################Inicio Dialogs referente a cadastros de Equipamentos ################################################################### -->
+        <p:dialog showEffect="fade" position="200,50"  header="#{label.equipamento}s #{label.da} #{label.obra} " id="dialogCadEquipamentoObra" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamentoObra">
+            <h:form id="frm_cad_equi_obra" >
+                <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
+                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addEquipamentoObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObraMes()}"
+                                               btn_limpar="true" cabecalho="#{label.equipamento} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_equi_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
+                    <eng:cadastroEquipamentoObra  id="compCadastro"    >
+                        <p:commandButton actionListener="#{obraMB.desativarEquipamentoObra(ep)}" title="#{label.desativar}"  immediate="true" rendered="#{ep.ativo}" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
+                            <p:confirm message="#{msg.confirmacao}" />
+                        </p:commandButton>
+                    </eng:cadastroEquipamentoObra>
+                </componentes:panelPadraoDialog>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.equipamento} " id="dialogEquipamento" modal="true" hideEffect="fade" widgetVar="dialogEquipamento">
+            <h:form id="frm_equipamento" >
+                <eng:consultaEquipamento id="compConEqui"   componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.setarEquipamento(ep)}" icon="fa fa-check-square-o" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_equ:input" onclick="PF('dialogEquipamento').hide()" />
+                </eng:consultaEquipamento>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.equipamento} " id="dialogCadEquipamento" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamento">
+            <h:form id="frm_cad_equipa" prependId="false"  >
+                <componentes:panelPadrao id="pnlPadraoEquipameto" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{equipamentoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_excluir="#{equipamentoMB.init()}"  acao_salvar="#{equipamentoMB.salvar()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.equipamento}" >
+                    <eng:cadastroEquipamento id="compCadastroEquipamento"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorEqui" modal="true" hideEffect="fade" widgetVar="dialogFornecedorEqui">
+            <h:form id="frm_fornecedor_equi" >
+                <adm:consultaFornecedor id="compConForEqui"  render_edit="false" componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.setarFornecedorItem(f)}" icon="fa fa-check-square-o" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_for:input" onclick="PF('dialogFornecedorEqui').hide()" />
+                </adm:consultaFornecedor>
+
+            </h:form>
+        </p:dialog>
+        <!-- ################################################################### Fim Dialogs referente a cadastros de Equipamentos ################################################################### -->
+
+        
+         <!-- ################################################################### Inicio Dialogs referente a relatorios ################################################################### -->
 
         <p:dialog showEffect="fade" position="center center" width="30%"   header="#{label.mes} " id="dialogMes" modal="true" hideEffect="fade" widgetVar="dialogMes">
             <h:form id="frm__impimir_item" >
@@ -248,52 +305,7 @@
             </h:form>
 
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorRel" modal="true" hideEffect="fade" widgetVar="dialogFornecedorRel">
-            <h:form id="frm_fornecedor_rel" >
-                <adm:consultaFornecedor id="compConForRel"  render_edit="false" componente_to_update="@form"  >
-                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDoFornecedor(f)}" icon="fa fa-print"  onclick="start()"  
-                                     oncomplete="stop();PF('dialogFornecedorRel').hide();popup('/sgpo/RelatorioServlet.pdf')" />
-                </adm:consultaFornecedor>
-
-            </h:form>
-        </p:dialog>
-        <!-- ################################################################### Fim Dialogs referente a cadastros de itens ################################################################### -->
-
-        <!-- ###################################################################Inicio Dialogs referente a cadastros de Equipamentos ################################################################### -->
-        <p:dialog showEffect="fade" position="200,50"  header="#{label.equipamento}s #{label.da} #{label.obra} " id="dialogCadEquipamentoObra" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamentoObra">
-            <h:form id="frm_cad_equi_obra" >
-                <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
-                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addEquipamentoObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObraMes()}"
-                                               btn_limpar="true" cabecalho="#{label.equipamento} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
-                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_equi_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
-                    <eng:cadastroEquipamentoObra  id="compCadastro"    >
-                        <p:commandButton actionListener="#{obraMB.desativarEquipamentoObra(ep)}" title="#{label.desativar}"  immediate="true" rendered="#{ep.ativo}" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
-                            <p:confirm message="#{msg.confirmacao}" />
-                        </p:commandButton>
-                    </eng:cadastroEquipamentoObra>
-                </componentes:panelPadraoDialog>
-            </h:form>
-        </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.equipamento} " id="dialogEquipamento" modal="true" hideEffect="fade" widgetVar="dialogEquipamento">
-            <h:form id="frm_equipamento" >
-                <eng:consultaEquipamento id="compConEqui"   componente_to_update="@form"  >
-                    <p:commandButton actionListener="#{obraMB.setarEquipamento(ep)}" icon="fa fa-check-square-o" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_equ:input" onclick="PF('dialogEquipamento').hide()" />
-                </eng:consultaEquipamento>
-
-            </h:form>
-        </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.equipamento} " id="dialogCadEquipamento" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamento">
-            <h:form id="frm_cad_equipa" prependId="false"  >
-                <componentes:panelPadrao id="pnlPadraoEquipameto" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
-                                         acao_cancelar="#{equipamentoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
-                                         acao_excluir="#{equipamentoMB.init()}"  acao_salvar="#{equipamentoMB.salvar()}"
-                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.equipamento}" >
-                    <eng:cadastroEquipamento id="compCadastroEquipamento"/>
-                </componentes:panelPadrao>
-            </h:form>
-        </p:dialog>
-        <!-- ################################################################### Fim Dialogs referente a cadastros de Equipamentos ################################################################### -->
-
+         <!-- ################################################################### fim Dialogs referente a relatorios ################################################################### -->
 
     </ui:define>
 

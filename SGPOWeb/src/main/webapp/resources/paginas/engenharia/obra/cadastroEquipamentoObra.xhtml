@@ -17,15 +17,24 @@
     <composite:implementation  >
 
         <panels:panel titulo="#{label.dados} #{label.do} #{label.equipamento} " id="pnlDadPes" class="fieldDad">
+            <h:panelGroup id="pnlProC" layout="block"  class="Container100 Responsive" >
+                <inputs:selectOneRadio inp_valor="#{obraMB.equipamentoObra.tipoEquipamento}" ajax_listener="#{obraMB.equipamentoLocado()}" ajax_render="true" 
+                                       sel_update="@form" inp_class_tamanho="20" lab_valor="#{label.tipo}" inp_require="true">
+                    <f:selectItems value="#{equipamentoMB.listaDeTipoDeEquipamentos}" var="ep" itemLabel="#{ep.descricao}" itemValue="#{ep}" />
+                </inputs:selectOneRadio>
+                <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.equipamentoObra.dataEntrada}" lab_valor="#{label.data}" inp_require="true"  inp_class_tamanho="20"/>
+
+            </h:panelGroup>
             <h:panelGroup id="pnlProD" layout="block"  class="Container100 Responsive" >
-                <p:focus context="inpDt" />
-                <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.equipamentoObra.dataEntrada}" lab_valor="#{label.data}" inp_require="true"  inp_class_tamanho="25"/>
+            <inputs:input_label_btn_click_btn_mais btn_onclick_plus="PF('dialogCadEquipamento').show()"  inp_valor="#{obraMB.equipamentoObra.equipamento.nome}" id="inp_equ" lab_valor="#{label.equipamento}" inp_readonly="true" inp_require="true" 
+                                                   btn_immediate="true" btn_onclick="PF('dialogEquipamento').show()" btn_process="@this" inp_class_tamanho="30" />
 
-                <inputs:input_label_btn_click_btn_mais btn_onclick_plus="PF('dialogCadEquipamento').show()"  inp_valor="#{obraMB.equipamentoObra.equipamento.nome}" id="inp_equ" lab_valor="#{label.equipamento}" inp_readonly="true" inp_require="true" 
-                                              btn_immediate="true" btn_onclick="PF('dialogEquipamento').show()" btn_process="@this" inp_class_tamanho="33" />
+                <inputs:input_label_btn_click rendered="#{obraMB.equipamentoLocado()}" inp_valor="#{obraMB.equipamentoObra.fornecedor.nome}" id="inp_for" lab_valor="#{label.fornecedor}" inp_readonly="true" inp_require="true" 
+                                              btn_immediate="true" btn_onclick="PF('dialogFornecedorEqui').show()" btn_process="@this" inp_class_tamanho="30" />
 
-           
+
                 <inputs:input_label_number  inp_valor="#{obraMB.equipamentoObra.quantidade}" lab_valor="#{label.quantidade}" inp_class_tamanho="20" inp_require="true" />
+                <inputs:input_label_money  rendered="#{obraMB.equipamentoLocado()}" inp_valor="#{obraMB.equipamentoObra.valorUnitario}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
 
                 <inputs:input_label inp_valor="#{obraMB.equipamentoObra.observacao}" lab_valor="#{label.observacao}"    inp_class_tamanho="100" />
             </h:panelGroup>
@@ -40,15 +49,24 @@
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  reflow="true">
 
-                    
+
                     <p:column headerText="#{label.data}" class="TexAlCenter" >
                         <componentes:outputText value="#{ep.dataEntrada}" tipo="d" />
                     </p:column>
-                    <p:column headerText="#{label.tipo} | #{label.item}" class="TexAlCenter" >
-                        <componentes:outputText value="#{ep.tipoDeEquipamento} | #{ep.equipamento.nome}" />
+                    <p:column headerText="#{label.tipo} " class="TexAlCenter" >
+                        <componentes:outputText value="#{ep.tipoEquipamento.descricao} " />
+                    </p:column>
+                    <p:column headerText="#{label.equipamento}" class="TexAlCenter">
+                        <componentes:outputText value="#{ep.equipamento.nome}" />
                     </p:column>
                     <p:column headerText="#{label.quantidade}" class="TexAlCenter">
                         <componentes:outputText value="#{ep.quantidade}" tipo="n"/>
+                    </p:column>
+                    <p:column headerText="#{label.valor}" class="TexAlCenter">
+                        <componentes:outputText value="#{ep.valorUnitario}" tipo="c"/>
+                    </p:column>
+                    <p:column headerText="#{label.total}" class="TexAlCenter">
+                        <componentes:outputText value="#{ep.valorTotal()}" tipo="c"/>
                     </p:column>
                     <p:column headerText="#{label.acao}" width="10%">
                         <composite:insertChildren/>

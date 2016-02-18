@@ -16,9 +16,7 @@
     <composite:implementation>
         <p:fieldset legend="#{label.dados}" toggleable="true">
             <h:panelGroup layout="block" class="Container100 Responsive">
-                <inputs:selectOneRadio inp_valor="#{equipamentoMB.equipamento.tipoEquipamento}" inp_class_tamanho="50" lab_valor="#{label.tipo}" inp_require="true">
-                    <f:selectItems value="#{equipamentoMB.listaDeTipoDeEquipamentos}" var="ep" itemLabel="#{ep.descricao}" itemValue="#{ep}" />
-                </inputs:selectOneRadio>
+               
                 <inputs:input_label id="inpNom" inp_class_tamanho="60" inp_require="true" inp_valor="#{equipamentoMB.equipamento.nome}" lab_valor="#{label.nome}"/>
 
             </h:panelGroup>
@@ -32,9 +30,7 @@
                 <p:column headerText="#{label.nome}">
                     <componentes:outputText value="#{p.nome}"/>
                 </p:column>
-                <p:column headerText="#{label.tipo}">
-                    <componentes:outputText value="#{p.tipoEquipamento.descricao}"/>
-                </p:column>
+                
             </p:dataTable>
         </p:fieldset>
     </composite:implementation>
