@@ -5,13 +5,10 @@
  */
 package br.com.sgpo.engenharia.obra.modelo;
 
-import br.com.sgpo.engenharia.enumeration.TipoEquipamento;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,9 +31,7 @@ public class Equipamento implements Serializable{
     @Column(name = "equ_id",nullable = false)
     private Long id;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "equ_tipo",nullable = false)
-    private TipoEquipamento tipoEquipamento;
+   
     
     @NotEmpty
     @Column(name = "equ_nome",nullable = false,unique = true)
@@ -50,13 +45,7 @@ public class Equipamento implements Serializable{
         this.id = id;
     }
 
-    public TipoEquipamento getTipoEquipamento() {
-        return tipoEquipamento;
-    }
-
-    public void setTipoEquipamento(TipoEquipamento tipoEquipamento) {
-        this.tipoEquipamento = tipoEquipamento;
-    }
+   
 
     public String getNome() {
         return nome;
