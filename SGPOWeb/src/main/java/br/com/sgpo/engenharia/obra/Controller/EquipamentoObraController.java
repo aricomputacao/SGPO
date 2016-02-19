@@ -11,6 +11,7 @@ import br.com.sgpo.engenharia.obra.modelo.Obra;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -32,8 +33,8 @@ public class EquipamentoObraController extends ControllerGenerico<EquipamentoObr
         setDAO(dao);
     }
 
-    public List<EquipamentoObra> cosultarAtivosPor(Obra obra) {
-        return dao.cosultarAtivosPor(obra);
+    public List<EquipamentoObra> cosultarPor(Obra obra) {
+        return dao.cosultarPor(obra);
     }
 
     public  List<EquipamentoObra> processarLocadosAtivos(List<EquipamentoObra> listaDeEquipamentoObras) {
@@ -54,6 +55,14 @@ public class EquipamentoObraController extends ControllerGenerico<EquipamentoObr
             }
         }
         return list;
+    }
+
+    public void devolverEquipamento(EquipamentoObra ep) throws Exception {
+        ep.setAtivo(false);
+        if (!ep.ehLocado()) {
+            ep.setDataSaida(new Date());
+        }
+        dao.atualizar(ep);
     }
 
     

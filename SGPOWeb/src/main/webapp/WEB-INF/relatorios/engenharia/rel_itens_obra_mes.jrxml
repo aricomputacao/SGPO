@@ -84,16 +84,16 @@
 	<group name="mes" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{mes}]]></groupExpression>
 		<groupHeader>
-			<band height="25">
+			<band height="26">
 				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="800" height="25" backcolor="#E9E65F" uuid="f455e097-33c8-4dfb-9b5b-06b0a74048fd"/>
+					<reportElement mode="Opaque" x="0" y="0" width="800" height="26" backcolor="#E9E65F" uuid="f455e097-33c8-4dfb-9b5b-06b0a74048fd"/>
 					<box>
 						<topPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5"/>
 					</box>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="390c3563-3308-4ed3-b01e-3ff2d1e8a6f9">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="390c3563-3308-4ed3-b01e-3ff2d1e8a6f9">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 0 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -119,7 +119,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="0a35cd31-f0be-48f5-9d89-c18a8dd8d2be">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="0a35cd31-f0be-48f5-9d89-c18a8dd8d2be">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 1 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -145,7 +145,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="b459bcd7-d0d7-4f05-8003-e6b881fc0011">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="b459bcd7-d0d7-4f05-8003-e6b881fc0011">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 2 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -171,7 +171,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="cc2b3ecd-a181-4b17-ab98-c8fc497c5f3c">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="cc2b3ecd-a181-4b17-ab98-c8fc497c5f3c">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 3 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -197,7 +197,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="4532f02b-6480-4402-9327-3bf5b1090af7">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="4532f02b-6480-4402-9327-3bf5b1090af7">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 4 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -223,7 +223,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="5af51b21-2443-46c8-8303-cbefa77e6d0b">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="5af51b21-2443-46c8-8303-cbefa77e6d0b">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 5)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -249,7 +249,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="21d7896c-1ed4-4467-aea4-59d69e9c0279">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="21d7896c-1ed4-4467-aea4-59d69e9c0279">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 6 )]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -275,7 +275,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="b769bf42-2db5-495a-9f36-a02a050e2668">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="b769bf42-2db5-495a-9f36-a02a050e2668">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 7)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -301,7 +301,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="d97f2e11-f9b7-4268-a8f1-a0ddc051a6ac">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="d97f2e11-f9b7-4268-a8f1-a0ddc051a6ac">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 8)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -327,7 +327,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="d38fba8f-1424-4d70-967d-7b9de892102f">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="d38fba8f-1424-4d70-967d-7b9de892102f">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 9)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -353,7 +353,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#E9E65F" uuid="9a65247e-499d-4e9b-94b0-d9457c6f05eb">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#E9E65F" uuid="9a65247e-499d-4e9b-94b0-d9457c6f05eb">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 10)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -379,7 +379,7 @@
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="92" y="0" width="708" height="24" backcolor="#EEEC82" uuid="e5b3b2c1-fef9-4330-bdd0-fa26874bbe48">
+					<reportElement mode="Opaque" x="92" y="1" width="708" height="24" backcolor="#EEEC82" uuid="e5b3b2c1-fef9-4330-bdd0-fa26874bbe48">
 						<printWhenExpression><![CDATA[new Boolean($F{mes} == 11)]]></printWhenExpression>
 					</reportElement>
 					<staticText>
@@ -419,23 +419,23 @@
 		<groupHeader>
 			<band height="26">
 				<frame>
-					<reportElement mode="Opaque" x="0" y="1" width="800" height="25" backcolor="#A8FDA3" uuid="24523170-435b-4207-9f20-473e63d09858"/>
+					<reportElement mode="Opaque" x="0" y="1" width="800" height="24" backcolor="#A8FDA3" uuid="24523170-435b-4207-9f20-473e63d09858"/>
 					<textField>
-						<reportElement x="93" y="0" width="431" height="25" uuid="883e4600-0368-4ccd-82ed-28b20e333750"/>
+						<reportElement x="93" y="0" width="431" height="24" uuid="883e4600-0368-4ccd-82ed-28b20e333750"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font size="16" isBold="true" isItalic="true"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{etapa}.getNome()]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="524" y="0" width="134" height="25" uuid="2adfcd7b-67bc-4a1c-8ec8-d19d1f782fa4"/>
+						<reportElement x="524" y="0" width="134" height="24" uuid="2adfcd7b-67bc-4a1c-8ec8-d19d1f782fa4"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Total Etapa ==>>]]></text>
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="etapa" pattern="¤ #,##0.00">
-						<reportElement x="659" y="0" width="100" height="25" uuid="1c0d5291-2900-4c30-a6ec-409159ff8723"/>
+						<reportElement x="659" y="0" width="100" height="24" uuid="1c0d5291-2900-4c30-a6ec-409159ff8723"/>
 						<textElement verticalAlignment="Middle">
 							<font size="12"/>
 						</textElement>

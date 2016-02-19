@@ -29,6 +29,9 @@
                                      onclick="PF('dialogCadItemObra').show()" />
                     <p:commandLink   class="icon-plus-circled atalho atalho-f3 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.equipamento}"   update=":frm_cad_equi_obra" 
                                      onclick="PF('dialogCadEquipamentoObra').show()" />
+                    <p:commandLink   class="icon-plus-circled atalho atalho-f4 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.nota}"  update=":frm_doc" 
+                                     onclick="PF('dialogoDocum').show()" />
+
 
 
                 </h:panelGroup>
@@ -204,8 +207,9 @@
             <h:form id="frm-equipame-devolver" >
                 <p:fieldset>
 
-                    <h:panelGroup layout="block" class="ContainerIndent" >
+                    <h:panelGroup layout="block" class="Container100" >
                         <inputs:input_label_data inp_valor="#{obraMB.equipamentoObra.dataSaida}"  inp_class_tamanho="100" lab_valor="#{label.data} #{label.entrega}"  inp_require="true" />
+                        <p:separator class="Container100" />
                     </h:panelGroup>
                     <p:commandButton icon="fa fa-floppy-o"  value="#{label.entrega}r" class="Container100" actionListener="#{obraMB.desativarEquipamentoObra(obraMB.equipamentoObra)}"  onclick="start()" oncomplete="stop();PF('dialogDataEntrega').hide()" update=":frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlItens:tabview:tabela-locado"  >
                         <p:confirm message="#{msg.confirmacao}" />
@@ -215,6 +219,26 @@
             </h:form>
         </p:dialog>
         <!-- ################################################################### Fim Dialogs referente a cadastros de Equipamentos ################################################################### -->
+
+
+        <!-- ################################################################### Inicio Dialogs referente a cadastros de notas ################################################################### -->
+        <p:dialog showEffect="fade" position="center center"  width="85%"  header="#{label.gerenciar} #{label.nota}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
+            <h:form enctype="multipart/form-data" prependId="false" id="frm_doc">
+                <eng:cadastroNotaFiscalObra id="compConDocProjeto"/>
+            </h:form>
+        </p:dialog>
+        
+        
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorNota" modal="true" hideEffect="fade" widgetVar="dialogFornecedorNota">
+            <h:form id="frm-fornecedor-nota" >
+                <adm:consultaFornecedor id="compConForNot"  render_edit="false" componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.notaObra.setFornecedor(f)}" update=":frm_doc:compConDocProjeto:pnlDadPes:inp_for:input" icon="fa fa-check-square-o"  onclick="PF('dialogFornecedorNota').hide()"  />
+                </adm:consultaFornecedor>
+
+            </h:form>
+        </p:dialog>
+        
+        <!-- ################################################################### Fim Dialogs referente a cadastros de notas ################################################################### -->
 
 
         <!-- ################################################################### Inicio Dialogs referente a relatorios ################################################################### -->

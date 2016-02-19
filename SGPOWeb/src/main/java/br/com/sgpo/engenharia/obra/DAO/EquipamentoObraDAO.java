@@ -27,7 +27,14 @@ public class EquipamentoObraDAO extends DAOGenerico<EquipamentoObra, Long> imple
 
     public List<EquipamentoObra> cosultarAtivosPor(Obra obra) {
         TypedQuery<EquipamentoObra> tq;
-        tq = getEm().createQuery("SELECT e FROM EquipamentoObra e WHERE e.obra = :obr and e.ativo =  true ORDER BY e.obra ,e.dataEntrada", EquipamentoObra.class)
+        tq = getEm().createQuery("SELECT e FROM EquipamentoObra e WHERE e.obra = :obr and e.ativo =  true ORDER BY e.obra,e.tipoEquipamento ,e.dataEntrada", EquipamentoObra.class)
+                .setParameter("obr", obra);
+        
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+    public List<EquipamentoObra> cosultarPor(Obra obra) {
+        TypedQuery<EquipamentoObra> tq;
+        tq = getEm().createQuery("SELECT e FROM EquipamentoObra e WHERE e.obra = :obr  ORDER BY e.obra,e.tipoEquipamento ,e.dataEntrada", EquipamentoObra.class)
                 .setParameter("obr", obra);
         
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();

@@ -50,10 +50,8 @@ var updateNotificacao = function () {
     var i = $('#bell').text();
     if (i > 0) {
        
-        $('#bell').fadeOut(1000);
-        $('#bell').fadeIn(1000);
-    } else {
-        $('#bell').hide();
+        $('#bell').fadeOut(1300);
+        $('#bell').fadeIn(1300);
     }
 };
 

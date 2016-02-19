@@ -12,7 +12,6 @@ import br.com.sgpo.engenharia.projeto.modelo.DocumentoProjeto;
 import br.com.sgpo.engenharia.projeto.modelo.MovimentacaoDocumento;
 import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.ControllerGenerico;
-import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
@@ -62,15 +61,7 @@ public class DocumentoProjetoController extends ControllerGenerico<DocumentoProj
         movimentacaoDAO.salvar(md);
 
         if (conteudo != null) {
-            //Criar diretorio local
-            ManipuladorDeArquivo.criarDiretorioLocal(documentoProjeto.getDiretorioDoArquivo());
-
-            //Remove do local
-            ManipuladorDeArquivo.checarSeExisteExcluir(documentoProjeto.getCaminhoArquivoComExtencao());
-
-            //Grava no local
-            ManipuladorDeArquivo.gravarArquivoLocalmente(documentoProjeto.getDiretorioDoArquivo(), documentoProjeto.getNomeDoArquivoComExtencao(), conteudo);
-
+            documentoProjeto.addDocumento(conteudo);
         }
 
     }

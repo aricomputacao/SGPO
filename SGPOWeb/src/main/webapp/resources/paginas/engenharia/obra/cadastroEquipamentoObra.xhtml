@@ -65,6 +65,9 @@
                             <p:column headerText="#{label.quantidade}" class="TexAlCenter">
                                 <componentes:outputText value="#{ep.quantidade}" tipo="n"/>
                             </p:column>
+                            <p:column headerText="#{label.data} #{label.entrega}" class="TexAlCenter" >
+                                <componentes:outputText value="#{ep.dataSaida}" tipo="d" />
+                            </p:column>
                             <p:column headerText="#{label.acao}" width="10%">
                                 <composite:insertChildren/>
                                 <p:commandButton actionListener="#{obraMB.desativarEquipamentoObra(ep)}"  title="#{label.desativar}"  immediate="true" rendered="#{ep.ehProprioAtivo()}" update=":frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlItens:tabview:tabela-proprio"   icon="fa fa-check-square-o"  >

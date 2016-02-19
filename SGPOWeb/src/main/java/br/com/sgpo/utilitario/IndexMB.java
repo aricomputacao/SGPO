@@ -8,6 +8,7 @@ package br.com.sgpo.utilitario;
 import br.com.sgpo.engenharia.projeto.Controller.NotificacaoProjetoController;
 import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ public class IndexMB  implements Serializable{
     @PostConstruct
     public void init(){
         try {
+            listaDeNotificacaoProjetos = new ArrayList<>();
             notificacaoProjeto = new NotificacaoProjeto();
             listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodosDoDia();
         } catch (Exception ex) {
