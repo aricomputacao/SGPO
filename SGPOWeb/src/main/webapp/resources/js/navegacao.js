@@ -47,10 +47,15 @@ var setarFocu = function (id) {
 };
 
 var updateNotificacao = function () {
-    console.log($('#bell').html());
-
+    var i = $('#bell').text();
+    if (i > 0) {
+       
+        $('#bell').fadeOut(1000);
+        $('#bell').fadeIn(1000);
+    } else {
+        $('#bell').hide();
+    }
 };
-
 
 
 

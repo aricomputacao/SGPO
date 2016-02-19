@@ -17,7 +17,6 @@
 
         <panels:panel titulo="#{label.dados} #{label.da} #{label.obra} " id="pnlDadPes" class="fieldDad">
             <h:panelGroup id="pnlPro" layout="block"  class="Container100 Responsive" >
-                <p:focus context="pnlPro" />
                 <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.obra.dataInicio}" lab_valor="#{label.data_inicial}" inp_require="true"  inp_class_tamanho="20"/>
                 <inputs:selectOneLabel inp_valor="#{obraMB.obra.empresa}" id="sel_emp" lab_valor="#{label.empresa}"  sel_converter="indexConverter" inp_class_tamanho="33">
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />

@@ -70,6 +70,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private List<Projeto> listaProjetosTarget;
     private List<ItemObra> listaItemObras;
     private List<EquipamentoObra> listaDeEquipamentoObras;
+    private List<EquipamentoObra> listaDeEquipamentoObrasLocados;
+    private List<EquipamentoObra> listaDeEquipamentoObrasProrios;
 
     private UnidadeFederativa unidadeFederativa;
     private Obra obra;
@@ -79,17 +81,16 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     private boolean rederConCliente;
 
-    private void initEquipamentoObra() {
-        equipamentoObra = new EquipamentoObra();
-        equipamentoObra.setTipoEquipamento(TipoEquipamento.PROPRIO);
-        equipamentoObra.setObra(new Obra());
-        equipamentoObra.setAtivo(true);
-    }
-
     private void initItemObra() {
         itemObra = new ItemObra();
         itemObra.setObra(new Obra());
         itemObra.setPago(false);
+    }
+
+    private void initEquipamentosDaObra() {
+        listaDeEquipamentoObras = equipamentoObraController.cosultarAtivosPor(obra);
+        listaDeEquipamentoObrasLocados = equipamentoObraController.processarLocadosAtivos(listaDeEquipamentoObras);
+        listaDeEquipamentoObrasProrios = equipamentoObraController.processarProriosAtivos(listaDeEquipamentoObras);
     }
 
     @PostConstruct
@@ -99,8 +100,9 @@ public class ObraMB extends BeanGenerico implements Serializable {
             criarListaDeCamposDaConsulta();
             obra = (Obra) lerRegistroDaSessao("obra");
             initItemObra();
-            initEquipamentoObra();
+            equipamentoObra = new EquipamentoObra();
             listaProjetosSource = obraController.consultarProjetosDisponiveis();
+
             if (obra == null) {
                 obra = new Obra();
                 obra.setEndereco(new Endereco());
@@ -108,6 +110,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
                 listaProjetosTarget = new ArrayList<>();
                 listaItemObras = new ArrayList<>();
                 listaDeEquipamentoObras = new ArrayList<>();
+                listaDeEquipamentoObrasLocados = new ArrayList<>();
+                listaDeEquipamentoObrasProrios = new ArrayList<>();
             } else {
                 unidadeFederativa = obra.getEndereco().getUnidadeFederativa();
                 listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
@@ -115,7 +119,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
                 listaProjetosSource.removeAll(listaProjetosTarget);
                 listaItemObras = itemObraController.consultarPor(obra);
                 itemObra.setObra(obra);
-                listaDeEquipamentoObras = equipamentoObraController.cosultarAtivosPor(obra);
+                initEquipamentosDaObra();
                 equipamentoObra.setObra(obra);
             }
             listaDualProjetos = new DualListModel<>(listaProjetosSource, listaProjetosTarget);
@@ -162,8 +166,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
     public void addEquipamentoObra() {
         try {
             equipamentoObraController.salvarouAtualizar(equipamentoObra);
-            initEquipamentoObra();
-            listaDeEquipamentoObras = equipamentoObraController.cosultarAtivosPor(obra);
+            equipamentoObra = new EquipamentoObra();
+            initEquipamentosDaObra();
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -175,11 +179,13 @@ public class ObraMB extends BeanGenerico implements Serializable {
         try {
             ep.setAtivo(false);
             equipamentoObraController.atualizar(ep);
-            listaDeEquipamentoObras = equipamentoObraController.consultarAtivo("obra.descricao", obra.getDescricao());
+            initEquipamentosDaObra();
         } catch (Exception ex) {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
     public void gerenciarProjeto() {
         try {
@@ -254,10 +260,6 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     public boolean renderLink() {
         return obra.getId() != null;
-    }
-
-    public boolean equipamentoLocado() {
-        return equipamentoObra.getTipoEquipamento().equals(TipoEquipamento.LOCADO);
     }
 
     public void consultarMuncipioPorUf() {
@@ -374,6 +376,14 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     public List<EquipamentoObra> getListaDeEquipamentoObras() {
         return listaDeEquipamentoObras;
+    }
+
+    public List<EquipamentoObra> getListaDeEquipamentoObrasLocados() {
+        return listaDeEquipamentoObrasLocados;
+    }
+
+    public List<EquipamentoObra> getListaDeEquipamentoObrasProrios() {
+        return listaDeEquipamentoObrasProrios;
     }
 
 }
