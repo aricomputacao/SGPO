@@ -27,7 +27,12 @@ public class ManipuladorDeArquivo {
     public static final String PATH_WINDOWS = "C:" + File.separator;
     public static final String PATH_LINUX = "/" + File.separator;
     public static final String PASTA_LOGOS = "logos" + File.separator;
-    public static final String PASTA_DOCUMENTOS_PROJETO = "documentos" + File.separator+"projetos"+File.separator;
+    public static final String PASTA_PROJETO = "projetos" + File.separator;
+    public static final String PASTA_OBRA = "obras" + File.separator;
+    public static final String PASTA_NOTA_FISCAL = "nota" + File.separator;
+    public static final String PASTA_DOCUMENTOS = "documentos" + File.separator;
+
+    
 
     public static String getDiretorioLogos() {
         if (ehLinux()) {
@@ -37,14 +42,23 @@ public class ManipuladorDeArquivo {
         }
     }
 
-    public static String getDiretorioDocumentos() {
+    public static String getDiretorioDocumentosProjetos() {
         if (ehLinux()) {
-            return PATH_LINUX + PASTA_DOCUMENTOS_PROJETO;
+            return PATH_LINUX + PASTA_DOCUMENTOS.concat(PASTA_PROJETO);
         } else {
-            return PATH_WINDOWS + PASTA_DOCUMENTOS_PROJETO;
+            return PATH_WINDOWS + PASTA_DOCUMENTOS.concat(PASTA_PROJETO);
         }
     }
 
+    public static String getDiretorioDocumentosObras() {
+        if (ehLinux()) {
+            return PATH_LINUX + PASTA_DOCUMENTOS.concat(PASTA_OBRA);
+        } else {
+            return PATH_WINDOWS + PASTA_DOCUMENTOS.concat(PASTA_OBRA);
+        }
+    }
+
+    
     private static boolean ehLinux() {
         String os = System.getProperties().getProperty("os.name").toLowerCase();
         if (os.contains("windows")) {
@@ -67,7 +81,6 @@ public class ManipuladorDeArquivo {
             file.delete();
         }
     }
-
 
     private static void criaroDiretorio(String caminhoCompletoDoArquivo) throws IOException {
         File pastaGeral = new File(caminhoCompletoDoArquivo);

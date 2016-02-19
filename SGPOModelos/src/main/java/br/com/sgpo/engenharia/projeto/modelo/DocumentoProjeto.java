@@ -10,6 +10,7 @@ import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitarios.ManipuladorDeArquivo;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -181,7 +182,7 @@ public class DocumentoProjeto implements Serializable {
     }
 
     public String getDiretorioDoArquivo() {
-        return ManipuladorDeArquivo.getDiretorioDocumentos()
+        return ManipuladorDeArquivo.getDiretorioDocumentosProjetos()
                 .concat(this.projeto.getId().toString());
     }
 
@@ -189,4 +190,14 @@ public class DocumentoProjeto implements Serializable {
         return ManipuladorDeArquivo.download(getCaminhoArquivoComExtencao(), getNomeDoArquivoComExtencao(), extencaoArquivo);
     }
 
+    public void addDocumento(byte[] conteudo) throws IOException{
+        //Criar diretorio local
+            ManipuladorDeArquivo.criarDiretorioLocal(this.getDiretorioDoArquivo());
+
+            //Remove do local
+            ManipuladorDeArquivo.checarSeExisteExcluir(this.getCaminhoArquivoComExtencao());
+
+            //Grava no local
+            ManipuladorDeArquivo.gravarArquivoLocalmente(this.getDiretorioDoArquivo(), this.getNomeDoArquivoComExtencao(), conteudo);
+    }
 }
