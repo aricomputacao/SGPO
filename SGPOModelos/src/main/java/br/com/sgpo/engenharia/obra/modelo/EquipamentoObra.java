@@ -83,6 +83,22 @@ public class EquipamentoObra implements Serializable {
     @Column(name = "eqo_observacao")
     private String observacao;
 
+    public boolean ehLocado() {
+        return this.tipoEquipamento.equals(TipoEquipamento.LOCADO);
+    }
+
+    public boolean ehLocadoAtivo() {
+        return this.tipoEquipamento.equals(TipoEquipamento.LOCADO) && this.ativo;
+    }
+
+    public boolean ehProprioAtivo() {
+        return this.tipoEquipamento.equals(TipoEquipamento.PROPRIO) && this.ativo;
+    }
+
+    public String getNomeDaObra() {
+        return this.obra.getDescricao();
+    }
+
     public String getObservacao() {
         return observacao;
     }
@@ -129,12 +145,6 @@ public class EquipamentoObra implements Serializable {
 
     public void setTipoEquipamento(TipoEquipamento tipoEquipamento) {
         this.tipoEquipamento = tipoEquipamento;
-    }
-
-   
-    
-    public String getNomeDaObra() {
-        return this.obra.getDescricao();
     }
 
     public Long getId() {
@@ -213,6 +223,9 @@ public class EquipamentoObra implements Serializable {
     public EquipamentoObra() {
         this.quantidade = 0;
         this.valorUnitario = BigDecimal.ZERO;
+        this.tipoEquipamento = TipoEquipamento.PROPRIO;
+        this.obra = new Obra();
+        this.ativo = true;
     }
 
 }
