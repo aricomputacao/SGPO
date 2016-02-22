@@ -2,19 +2,17 @@ package br.com.sgpo.engenharia.obra.managedbean;
 
 import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
-import br.com.sgpo.administrativo.modelo.Cliente;
-import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Fornecedor;
 import br.com.sgpo.administrativo.modelo.Municipio;
 import br.com.sgpo.administrativo.modelo.UnidadeFederativa;
 import br.com.sgpo.engenharia.obra.Controller.EquipamentoObraController;
+import br.com.sgpo.engenharia.obra.Controller.FuncionarioObraController;
 import br.com.sgpo.engenharia.obra.Controller.ItemObraController;
 import br.com.sgpo.engenharia.obra.Controller.NotaObraController;
 import br.com.sgpo.engenharia.obra.Controller.ObraController;
-import br.com.sgpo.engenharia.obra.modelo.Equipamento;
 import br.com.sgpo.engenharia.obra.modelo.EquipamentoObra;
-import br.com.sgpo.engenharia.obra.modelo.Item;
+import br.com.sgpo.engenharia.obra.modelo.FuncionarioObra;
 import br.com.sgpo.engenharia.obra.modelo.ItemObra;
 import br.com.sgpo.engenharia.obra.modelo.NotaObra;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
@@ -66,6 +64,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private EquipamentoObraController equipamentoObraController;
     @Inject
     private NotaObraController notaObraController;
+    @Inject
+    private FuncionarioObraController funcionarioObraController;
 
     private List<Obra> listaDeObras;
     private List<UnidadeFederativa> listaDeUnidadeFederativas;
@@ -78,15 +78,15 @@ public class ObraMB extends BeanGenerico implements Serializable {
     private List<EquipamentoObra> listaDeEquipamentoObrasLocados;
     private List<EquipamentoObra> listaDeEquipamentoObrasProrios;
     private List<NotaObra> listaDeNotas;
-    
-    
+    private List<FuncionarioObra> listaDeFuncionariosObra;
+
     private UnidadeFederativa unidadeFederativa;
     private Obra obra;
     private ItemObra itemObra;
     private EquipamentoObra equipamentoObra;
     private NotaObra notaObra;
+    private FuncionarioObra funcionarioObra;
     private Mes mesReferencia;
-    
 
     private boolean rederConCliente;
     private UploadedFile arquivoUpload;
@@ -112,7 +112,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
             obra = (Obra) lerRegistroDaSessao("obra");
             initItemObra();
             equipamentoObra = new EquipamentoObra();
-            notaObra = new NotaObra(); 
+            notaObra = new NotaObra();
+            funcionarioObra = new FuncionarioObra();
             listaProjetosSource = obraController.consultarProjetosDisponiveis();
 
             if (obra == null) {
@@ -125,17 +126,20 @@ public class ObraMB extends BeanGenerico implements Serializable {
                 listaDeEquipamentoObrasLocados = new ArrayList<>();
                 listaDeEquipamentoObrasProrios = new ArrayList<>();
                 listaDeNotas = new ArrayList<>();
+                listaDeFuncionariosObra = new ArrayList<>();
             } else {
                 unidadeFederativa = obra.getEndereco().getUnidadeFederativa();
                 listaDeMunicpios = municipioController.consultarMunicipioPor(unidadeFederativa);
                 listaProjetosTarget = obra.getListaDeProjetos();
                 listaProjetosSource.removeAll(listaProjetosTarget);
                 listaItemObras = itemObraController.consultarPor(obra);
+                listaDeFuncionariosObra = funcionarioObraController.consultarPor(obra);
                 itemObra.setObra(obra);
                 initEquipamentosDaObra();
                 equipamentoObra.setObra(obra);
                 listaDeNotas = notaObraController.consultarPor(obra);
                 notaObra.setObra(obra);
+                funcionarioObra.setObra(obra);
             }
             listaDualProjetos = new DualListModel<>(listaProjetosSource, listaProjetosTarget);
             listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
@@ -199,8 +203,8 @@ public class ObraMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void addNota(){
+
+    public void addNota() {
         try {
             notaObraController.addDocumento(notaObra, docTemporario);
             notaObra = new NotaObra();
@@ -212,7 +216,30 @@ public class ObraMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void addFuncionario() {
+        try {
+            funcionarioObraController.salvarouAtualizar(funcionarioObra);
+            listaDeFuncionariosObra = funcionarioObraController.consultarPor(obra);
+            funcionarioObra = new FuncionarioObra(obra);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
+    public void registrarSaidaFuncionario(FuncionarioObra fo){
+         try {
+            funcionarioObraController.salvarouAtualizar(fo);
+            listaDeFuncionariosObra = funcionarioObraController.consultarPor(obra);
+            funcionarioObra = new FuncionarioObra(obra);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ObraMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void gerenciarProjeto() {
         try {
@@ -297,31 +324,9 @@ public class ObraMB extends BeanGenerico implements Serializable {
         rederConCliente = getCampoConsuta().equals("cliente.nome");
     }
 
-    public void setarCliente(Cliente c) {
-        obra.setCliente(c);
-    }
+  
 
-    public void setarResponsavel(Colaborador c) {
-        obra.setResponsavel(c);
-    }
-
-    public void setarFornecedorItem(Fornecedor f) {
-        itemObra.setFornecedor(f);
-    }
-
-    public void setarFornecedorEquipamento(Fornecedor f) {
-        equipamentoObra.setFornecedor(f);
-    }
-
-    public void setarItem(Item i) {
-        itemObra.setItem(i);
-    }
-
-    public void setarEquipamento(Equipamento ep) {
-        equipamentoObra.setEquipamento(ep);
-    }
-    
-     public void fileUploud(FileUploadEvent event) {
+    public void fileUploud(FileUploadEvent event) {
         try {
             docTemporario = event.getFile().getContents();
         } catch (Exception ex) {
@@ -439,6 +444,18 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     public List<NotaObra> getListaDeNotas() {
         return listaDeNotas;
+    }
+
+    public List<FuncionarioObra> getListaDeFuncionariosObra() {
+        return listaDeFuncionariosObra;
+    }
+
+    public FuncionarioObra getFuncionarioObra() {
+        return funcionarioObra;
+    }
+
+    public void setFuncionarioObra(FuncionarioObra funcionarioObra) {
+        this.funcionarioObra = funcionarioObra;
     }
 
 }

@@ -18,7 +18,6 @@
 
         <panels:panel titulo="#{label.dados} #{label.do} #{label.item} " id="pnlDadPes" class="fieldDad">
             <h:panelGroup id="pnlProD" layout="block"  class="Container100 Responsive" >
-                <p:focus context="pnlPro" />
                 <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.itemObra.data}" lab_valor="#{label.data}" inp_require="true"  inp_class_tamanho="25"/>
 
                 <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCadEtapa').show()" btn_onclick_atualizar="#{etapaMB.init()}"  

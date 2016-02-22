@@ -67,7 +67,7 @@
     text-shadow: 0 -1px 0 #000000 ! important;
     background: rgb(107,186,112) ! important; /* Old browsers */
 
-   
+
 
 }
 
@@ -79,19 +79,19 @@
     -moz-border-radius:7px !important;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a7cfdf+0,23538a+100;Blue+3d+%238 */
     background: #347837  ; /* Old browsers */
-   
+
 
     min-height: 45px !important;
     min-width: 55% !important;
     color: white !important;
 
-/*    filter:alpha(opacity=90) ! important;
-    opacity: 0.9 ! important;
-    -moz-opacity:0.9 ! important;
-    -webkit-opacity:0.9 ! important;*/
+    /*    filter:alpha(opacity=90) ! important;
+        opacity: 0.9 ! important;
+        -moz-opacity:0.9 ! important;
+        -webkit-opacity:0.9 ! important;*/
 }
 .btnLogin:hover{
-   background:  rgb(107,186,112) ! important;
+    background:  rgb(107,186,112) ! important;
 }
 
 /*toobar btn*/
@@ -234,7 +234,7 @@
     color: #ffffff ! important;
 
     background: #3b9dff ! important;
-    
+
 
 }
 .btnLimpar .ui-button-text {
@@ -340,7 +340,7 @@
 }
 
 .link{
-     border: none ! important;
+    border: none ! important;
     text-decoration: none ! important;
     color: white ! important;
 }
@@ -350,20 +350,21 @@
     text-decoration: none ! important;
     color: #0e2704 ! important;
     cursor: default ! important;
-   
+    vertical-align: middle ! important;
+
 }
 .texto-atalho{
-     vertical-align: middle ! important;
-    min-height: 50px ! important;
+    min-height: 40px;
 }
 .atalho:hover{
-     filter:alpha(opacity=100) ! important;
+    filter:alpha(opacity=100) ! important;
     opacity: 0.6 ! important;
     -moz-opacity:0.6 ! important;
     -webkit-opacity:0.6 ! important;
 }
 .atalho-f1{
     background: #a7ffa7 ! important;
+
 }
 .atalho-f2{
     background: #89c4ff ! important;
@@ -375,6 +376,12 @@
 }
 .atalho-f4{
     background: #ffb37a ! important;
+
+}
+.atalho-f5{
+    background: #e2ddde ! important;
+
+
 
 }
 
