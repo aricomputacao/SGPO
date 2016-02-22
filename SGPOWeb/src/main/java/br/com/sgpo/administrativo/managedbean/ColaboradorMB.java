@@ -7,8 +7,10 @@ package br.com.sgpo.administrativo.managedbean;
 
 import br.com.sgpo.administrativo.controller.CargoController;
 import br.com.sgpo.administrativo.controller.ColaboradorController;
+import br.com.sgpo.administrativo.controller.FaltaColaboradorController;
 import br.com.sgpo.administrativo.modelo.Cargo;
 import br.com.sgpo.administrativo.modelo.Colaborador;
+import br.com.sgpo.administrativo.modelo.FaltaColaborador;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import br.com.sgpo.utilitario.relatorio.RelatorioSession;
@@ -38,10 +40,15 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
     private ColaboradorController colaboradorcontroller;
     @Inject
     private CargoController cargoController;
-    
+    @Inject
+    private FaltaColaboradorController faltaColaboradorController;
+
     private Colaborador colaborador;
+    private FaltaColaborador faltaColaborador;
+
     private List<Colaborador> listaDeColaborador;
     private List<Cargo> listaDeCargo;
+    private List<FaltaColaborador> listaDeFaltaColaboradors;
 
     @PostConstruct
     @Override
@@ -49,10 +56,15 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
         try {
             criarListaDeCamposDaConsulta();
             colaborador = (Colaborador) lerRegistroDaSessao("colaborador");
-            if(colaborador == null){
+            if (colaborador == null) {
+                faltaColaborador = new FaltaColaborador();
                 colaborador = new Colaborador();
                 colaborador.setAtivo(true);
                 colaborador.setCargo(new Cargo());
+                listaDeFaltaColaboradors = new ArrayList<>();
+            } else {
+                faltaColaborador = new FaltaColaborador(colaborador);
+                listaDeFaltaColaboradors = faltaColaboradorController.consultarPor(colaborador);
             }
             listaDeColaborador = new ArrayList<>();
             listaDeCargo = cargoController.consultarTodosOrdenadorPor("nome");
@@ -60,7 +72,7 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void salvar() {
         try {
             colaboradorcontroller.salvar(colaborador);
@@ -71,7 +83,26 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
             Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void addFalta() {
+        try {
+            faltaColaboradorController.salvar(faltaColaborador);
+            listaDeFaltaColaboradors = faltaColaboradorController.consultarPor(faltaColaborador.getColaborador());
+            faltaColaborador = new FaltaColaborador(faltaColaborador.getColaborador());
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setarColaboradoConsultarFalta(Colaborador c) {
+        listaDeFaltaColaboradors = faltaColaboradorController.consultarPor(c);
+        faltaColaborador.setColaborador(c);
+
+    }
+
     public void geraImpressaoColaborador() {
         try {
             Map<String, Object> m = new HashMap<>();
@@ -81,22 +112,29 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
 //            erroCliente.adicionaErro(e);
         }
     }
-    
-    public void desativarColaborador(){
+
+    public void desativarColaborador() {
         try {
             colaborador.setAtivo(false);
             colaboradorcontroller.atualizar(colaborador);
-            MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_ATUALIZADO, "teress","rewe");
+            MensagensUtil.enviarMessageParamentroInfo(MensagensUtil.REGISTRO_ATUALIZADO, "teress", "rewe");
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
             Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void consultarColaborador() {
         try {
-//            listaDeColaborador = colaboradorcontroller.consultarLike(getCampoConsuta(), getValorCampoConsuta().toUpperCase());
             listaDeColaborador = colaboradorcontroller.consultarAtivo(getCampoConsuta(), getValorCampoConsuta());
+        } catch (Exception ex) {
+            Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void consultarColaboradorDisponivel() {
+        try {
+            listaDeColaborador = colaboradorcontroller.consultarColaboradorDisponivelParaObra(getValorCampoConsuta());
         } catch (Exception ex) {
             Logger.getLogger(ColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,7 +147,7 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
         map.put("CPF", "cpf");
         return map;
     }
-    
+
     public Colaborador getColaborador() {
         return colaborador;
     }
@@ -133,7 +171,17 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
     public void setListaDeCargo(List<Cargo> listaDeCargo) {
         this.listaDeCargo = listaDeCargo;
     }
-    
-    
+
+    public FaltaColaborador getFaltaColaborador() {
+        return faltaColaborador;
+    }
+
+    public void setFaltaColaborador(FaltaColaborador faltaColaborador) {
+        this.faltaColaborador = faltaColaborador;
+    }
+
+    public List<FaltaColaborador> getListaDeFaltaColaboradors() {
+        return listaDeFaltaColaboradors;
+    }
 
 }

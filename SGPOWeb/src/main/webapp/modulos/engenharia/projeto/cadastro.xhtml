@@ -44,7 +44,7 @@
         <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
             <h:form id="frm_usr" >
                 <adm:consultaCliente id="compUsr"  componente_to_update="@form" render_edit="false" >
-                    <p:commandButton actionListener="#{projetoMB.setarCliente(p)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_cli:input" onclick="PF('dialogCliente').hide()" />
+                    <p:commandButton actionListener="#{projetoMB.projeto.setCliente(p)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_cli:input" onclick="PF('dialogCliente').hide()" />
                 </adm:consultaCliente>
 
             </h:form>
@@ -52,7 +52,7 @@
         <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.usuario} " id="dialogResponsavel" modal="true" hideEffect="fade" widgetVar="dialogResponsavel">
             <h:form id="frm_col" >
                 <adm:consultaColaborador id="compUsr"  componente_to_update="@form" render_edit="false" >
-                    <p:commandButton actionListener="#{projetoMB.setarResponsavel(c)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_resp:input" onclick="PF('dialogResponsavel').hide()" />
+                    <p:commandButton actionListener="#{projetoMB.projeto.setResponsavel(c)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_resp:input" onclick="PF('dialogResponsavel').hide()" />
                 </adm:consultaColaborador>
 
             </h:form>

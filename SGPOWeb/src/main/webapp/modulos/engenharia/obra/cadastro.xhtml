@@ -251,7 +251,7 @@
         <p:dialog showEffect="fade" position="center center"  width="85%"  header="#{label.gerenciar} #{label.colaborador}" id="dialogColObra" modal="true" hideEffect="fade" widgetVar="dialogColObra">
             <h:form  prependId="false" id="frm-cola-obra">
                 <componentes:panelPadrao id="pnlPadraoColaborador" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
-                                         acao_cancelar="#{obraMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_cancelar="#{obraMB.init()}" btn_dialog_rel="false" render_sep_3="false" 
                                          acao_excluir="#{obraMB.init()}"  acao_salvar="#{obraMB.addFuncionario()}"
                                          btn_limpar="false" cabecalho="#{label.cadastro} #{label.colaborador}" >
                     <eng:cadastroColaboradorObra id="compCadColObra"/>
@@ -260,9 +260,9 @@
         </p:dialog>
 
 
-        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.colaborador} " id="dialogColaborador" modal="true" hideEffect="fade" widgetVar="dialogColaborador">
+        <p:dialog showEffect="fade" position="center center" width="70%"    header="#{label.colaborador} " id="dialogColaborador" modal="true" hideEffect="fade" widgetVar="dialogColaborador">
             <h:form id="frm-col" >
-                <adm:consultaColaborador id="compUsr"  componente_to_update="@form" render_edit="false" >
+                <adm:consultaColaborador id="compUsr"  acao_butao="#{colaboradorMB.consultarColaboradorDisponivel()}" componente_to_update="@form" render_edit="false" >
                     <p:commandButton actionListener="#{obraMB.funcionarioObra.setColaborador(c)}" icon="fa fa-check-square-o" update=":frm-cola-obra:pnlPadraoColaborador:compCadColObra:pnlDadPes:inp_col:input" onclick="PF('dialogColaborador').hide()" />
                 </adm:consultaColaborador>
 
@@ -274,7 +274,7 @@
                 <p:fieldset>
 
                     <h:panelGroup layout="block" class="Container100" >
-                        <inputs:input_label_data inp_valor="#{obraMB.funcionarioObra.dataSaida}"  inp_class_tamanho="100" lab_valor="#{label.data} #{label.saida}"  inp_require="true" />
+                        <inputs:input_label_data inp_valor="#{obraMB.funcionarioObra.dataSaida}"   inp_class_tamanho="90" lab_valor="#{label.data} #{label.saida}"  inp_require="true" />
                         <p:separator class="Container100" />
                     </h:panelGroup>
                     <p:commandButton icon="fa fa-floppy-o"  value="#{label.registrar} #{label.saida}" class="Container100" actionListener="#{obraMB.addFuncionario()}"  onclick="start()" 

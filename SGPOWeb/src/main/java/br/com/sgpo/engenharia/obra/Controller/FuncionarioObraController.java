@@ -36,5 +36,7 @@ public class FuncionarioObraController extends ControllerGenerico<FuncionarioObr
     public List<FuncionarioObra> consultarPor(Obra obra) {
         return dao.consultarPor(obra);
     }
+
+    
     
 }

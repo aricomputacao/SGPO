@@ -37,6 +37,7 @@
     <class>br.com.sgpo.engenharia.obra.modelo.EquipamentoObra</class>
     <class>br.com.sgpo.engenharia.obra.modelo.NotaObra</class>
     <class>br.com.sgpo.engenharia.obra.modelo.FuncionarioObra</class>
+    <class>br.com.sgpo.administrativo.modelo.FaltaColaborador</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--      <property name="hibernate.show_sql" value="true"/>

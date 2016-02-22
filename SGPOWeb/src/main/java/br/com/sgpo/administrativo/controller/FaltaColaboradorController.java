@@ -5,10 +5,10 @@
  */
 package br.com.sgpo.administrativo.controller;
 
-import br.com.sgpo.administrativo.DAO.ColaboradorDAO;
+import br.com.sgpo.administrativo.DAO.FaltaColaboradorDAO;
 import br.com.sgpo.administrativo.modelo.Colaborador;
+import br.com.sgpo.administrativo.modelo.FaltaColaborador;
 import br.com.sgpo.utilitario.ControllerGenerico;
-import br.com.sgpo.utilitarios.StringUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,30 +17,22 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Giancarlo
+ * @author ari
  */
 @Stateless
-public class ColaboradorController extends ControllerGenerico<Colaborador, Long> implements Serializable{
+public class FaltaColaboradorController extends ControllerGenerico<FaltaColaborador, Long> implements Serializable{
 
     @Inject
-    private ColaboradorDAO dao;
-    
-  
+    private FaltaColaboradorDAO dao;
     
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
-    
-    @Override
-    public void salvar(Colaborador col) throws Exception{
-       col.setCpf(StringUtil.removerCaracteresEspeciais(col.getCpf()));
-       dao.atualizar(col);    
-    }
-    
-    public List<Colaborador> consultarColaboradorDisponivelParaObra(String nome){
-        return dao.consultarColaboradorDisponivelParaObra(nome);
+
+    public List<FaltaColaborador> consultarPor(Colaborador colaborador) {
+       return dao.consultarPor(colaborador);
     }
     
 }

@@ -219,7 +219,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
 
     public void addFuncionario() {
         try {
-            funcionarioObraController.salvarouAtualizar(funcionarioObra);
+            funcionarioObraController.atualizar(funcionarioObra);
             listaDeFuncionariosObra = funcionarioObraController.consultarPor(obra);
             funcionarioObra = new FuncionarioObra(obra);
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);

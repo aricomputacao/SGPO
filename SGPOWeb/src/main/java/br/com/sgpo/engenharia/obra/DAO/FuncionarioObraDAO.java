@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.engenharia.obra.DAO;
 
+import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.engenharia.obra.modelo.FuncionarioObra;
 import br.com.sgpo.engenharia.obra.modelo.Obra;
 import br.com.sgpo.utilitario.DAOGenerico;
@@ -30,6 +31,15 @@ public class FuncionarioObraDAO extends DAOGenerico<FuncionarioObra, Long> imple
         
         tq = getEm().createQuery("SELECT f from FuncionarioObra f WHERE f.obra = :obr ORDER BY f.colaborador,f.dataEntrada ", FuncionarioObra.class)
                 .setParameter("obr", obra);
+        
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+    
+    public List<FuncionarioObra> consultarPor(Colaborador colaborador) {
+        TypedQuery<FuncionarioObra> tq;
+        
+        tq = getEm().createQuery("SELECT f from FuncionarioObra f WHERE f.colaborador = :col and f.dataSaida  IS NULL ORDER BY f.colaborador,f.dataEntrada ", FuncionarioObra.class)
+                .setParameter("col", colaborador);
         
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }

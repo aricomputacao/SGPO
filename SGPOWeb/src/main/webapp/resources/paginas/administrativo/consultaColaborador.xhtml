@@ -42,6 +42,9 @@
                 <p:column headerText="#{label.cpf}">
                     <componentes:outputText value="#{c.cpf}"/>
                 </p:column>
+                <p:column headerText="#{label.cargo}">
+                    <componentes:outputText value="#{c.cargo.nome}"/>
+                </p:column>
                 <p:rowExpansion>
                     <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
                         <componentes:outputText value="#{label.email}" />

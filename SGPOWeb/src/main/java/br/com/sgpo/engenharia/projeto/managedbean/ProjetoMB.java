@@ -8,7 +8,6 @@ package br.com.sgpo.engenharia.projeto.managedbean;
 import br.com.sgpo.administrativo.controller.ColaboradorController;
 import br.com.sgpo.administrativo.controller.MunicipioController;
 import br.com.sgpo.administrativo.controller.UnidadeFederativaController;
-import br.com.sgpo.administrativo.modelo.Cliente;
 import br.com.sgpo.administrativo.modelo.Colaborador;
 import br.com.sgpo.administrativo.modelo.Endereco;
 import br.com.sgpo.administrativo.modelo.Municipio;
@@ -26,6 +25,7 @@ import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.projeto.modelo.Projeto;
 import br.com.sgpo.engenharia.projeto.modelo.TipoProjeto;
 import br.com.sgpo.utilitario.BeanGenerico;
+import br.com.sgpo.utilitario.IndexMB;
 import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import br.com.sgpo.utilitarios.StringUtil;
@@ -73,6 +73,8 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
     private UnidadeFederativaController unidadeFederativaController;
     @Inject
     private ColaboradorController colaboradorController;
+    @Inject
+    private IndexMB indexMB;
 
     private UnidadeFederativa unidadeFederativa;
     private NotificacaoProjeto notificacaoProjeto;
@@ -166,6 +168,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
             notificacaoProjeto.setProjeto(projeto);
             notificacaoController.salvar(notificacaoProjeto,listDualColaboradores.getTarget());
             listaDeNotificacaoProjetos = notificacaoController.consultarTodos(projeto);
+            indexMB.init();
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {
             MensagensUtil.enviarMessageErro(MensagensUtil.REGISTRO_FALHA);
@@ -219,9 +222,7 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
 
     
     
-    public void setarDocumento(DocumentoProjeto dp) {
-        documento = dp;
-    }
+ 
 
     public boolean renderAtalhoF1() {
         return projeto.getId() != null;
@@ -235,13 +236,9 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
         rederConCliente = getCampoConsuta().equals("cliente.nome");
     }
 
-    public void setarCliente(Cliente c) {
-        projeto.setCliente(c);
-    }
+   
 
-    public void setarResponsavel(Colaborador c) {
-        projeto.setResponsavel(c);
-    }
+ 
 
     public List<TipoProjeto> getListaTipoProjetos() {
         return listaTipoProjetos;
