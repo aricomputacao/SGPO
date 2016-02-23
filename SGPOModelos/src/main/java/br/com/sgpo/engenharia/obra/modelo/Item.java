@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,7 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author ari
  */
 @Entity
-@Table(name = "item",schema = "engenharia")
+@Table(name = "item",schema = "engenharia",uniqueConstraints = @UniqueConstraint(columnNames = {"ite_classificacao","ite_nome"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Item implements Serializable{
     
@@ -35,7 +36,7 @@ public class Item implements Serializable{
     private Long id;
     
     @NotEmpty
-    @Column( name = "ite_nome",nullable = false,unique = true)
+    @Column( name = "ite_nome",nullable = false)
     private String nome;
 
     @Enumerated(EnumType.STRING)
