@@ -44,11 +44,6 @@
 
                 </p:submenu>
                 <p:submenu label="#{label.modulo_engenharia}" icon="icon-cubes" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloEngenharia()}" >
-                    <p:submenu label="#{label.obra}" icon="icon-hospital" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.obra_cadastro)}" >
-                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.obra_cadastro}" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.obra_cadastro)}"/>
-                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.obra_consulta)}" outcome="#{engenharia.obra_consulta}"/>
-
-                    </p:submenu>
 
                     <p:submenu label=" #{label.projeto}" icon="icon-codeopen "  rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_cadastro) 
                                          or utilitarioNavegacaoMB.permissaoExiste(engenharia.projeto_consulta) }" >
@@ -57,6 +52,11 @@
                         <p:submenu label="#{label.relatorio}" icon="icon-paste" rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_projeto_colaborador)}" >
                             <p:menuitem value="#{label.projeto} #{label.colaborador}" icon="icon-list-alt"  outcome="#{engenharia.relatorio_projeto_colaborador}"/>
                         </p:submenu>
+                    </p:submenu>
+                    <p:submenu label="#{label.obra}" icon="icon-hospital" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.obra_cadastro)}" >
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.obra_cadastro}" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.obra_cadastro)}"/>
+                        <p:menuitem value="#{label.consulta}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(engenharia.obra_consulta)}" outcome="#{engenharia.obra_consulta}"/>
+
                     </p:submenu>
                     <p:submenu label="#{label.etapa}" icon="icon-tag-1" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.etapa_cadastro)}" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1"  outcome="#{engenharia.etapa_cadastro}"/>

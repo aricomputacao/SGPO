@@ -23,6 +23,8 @@
 
 
                 <h:panelGroup layout="block" rendered="#{obraMB.renderLink()}" class="ContainerIndent "  >
+                    <p:separator class="Container100" />
+
                     <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f1 BordRad4 Container10 Fs15 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.projeto}"   update=":frm_cons_proj" 
                                      onclick="PF('dialogConProj').show()" />
                     <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f2 BordRad4 Container10 Fs15 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.item}"   update=":frm_cad_ite_obra" 
@@ -33,6 +35,7 @@
                                      onclick="PF('dialogoDocum').show()" />
                     <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f5 BordRad4 Container10 Fs15 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.colaborador}"  update=":frm-cola-obra" 
                                      onclick="PF('dialogColObra').show()" />
+                    <p:separator class="Container100" />
 
 
 
@@ -59,7 +62,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.usuario} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
             <h:form id="frm_cad_cli" >
                 <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
                                                acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
@@ -83,7 +86,7 @@
                     <p:ajax event="transfer"   listener="#{obraMB.gerenciarProjeto()}"  />
 
                     <p:column style="width:90%;">
-                        <h:outputText value="#{pro.nome}" />
+                        <h:outputText value="#{pro.nome} &rArr; (#{pro.tipo.nome})" />
                     </p:column>
                 </p:pickList>
 
@@ -99,7 +102,8 @@
                                                btn_limpar="true" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
                                                btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_ite_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
                     <eng:cadastroItemObra  id="compCadastro" form=":frm_cad_cli"  >
-                        <p:commandButton actionListener="#{obraMB.pagarItemObra(io)}" title="#{label.pagar}" class="btnForm" immediate="true" rendered="#{not io.pago}" update=":frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"   icon="fa fa-check-square-o"  >
+                        <p:commandButton actionListener="#{obraMB.pagarItemObra(io)}" title="#{label.pagar}" class="btnForm" immediate="true" rendered="#{not io.pago}" update=":frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"  
+                                         icon="fa fa-money "  >
                             <p:confirm message="#{msg.confirmacao}" />
                         </p:commandButton>
                         <p:commandButton  class="btnEditar" actionListener="#{obraMB.setItemObra(io)}" title="#{label.editar}"  rendered="#{not io.pago}" immediate="true" update=":frm_cad_ite_obra"   icon="fa fa-pencil"  />
@@ -268,7 +272,7 @@
 
             </h:form>
         </p:dialog>
-        
+
         <p:dialog showEffect="fade" position="center center" width="30%"   header="#{label.saida} #{label.colaborador} " id="dialogDataCol" modal="true" hideEffect="fade" widgetVar="dialogDataCol">
             <h:form id="frm-colaborador-saida" >
                 <p:fieldset>

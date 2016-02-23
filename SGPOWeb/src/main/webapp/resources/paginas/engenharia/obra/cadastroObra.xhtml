@@ -39,7 +39,7 @@
             
         </panels:panel>
 
-        <panels:panel  titulo="#{label.endereco} #{label.do} #{label.projeto}" id="pnlEndereco">
+        <panels:panel  titulo="#{label.endereco} #{label.da} #{label.obra}" id="pnlEndereco">
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
                 <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{obraMB.obra.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
                 <inputs:selectOneLabel  inp_valor="#{obraMB.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"

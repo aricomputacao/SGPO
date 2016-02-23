@@ -21,7 +21,8 @@
                                      acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
                                      btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" btn_salvar_update="@(form)" >
 
-                <div class="ContainerIndent " >
+                <div class="ContainerIndent  " >
+                    <p:separator class="Container100" />
                     <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f1 BordRad4 Container10 Fs15 TexAlCenter   Responsive  " value="Add Documento" rendered="#{projetoMB.renderAtalhoF1()}" update=":frm_doc" 
                                      onclick="PF('dialogoDocum').show()" />
 
@@ -34,6 +35,7 @@
 
                     <p:commandLink class=" icon-exchange texto-atalho atalho atalho-f2 BordRad4  TexAlCenter  Responsive Container10 Fs15" value="Alterar Status" rendered="#{projetoMB.renderAtalhoF2()}"  
                                    immediate="true" update=":frm_fim" onclick="PF('dialogoFinalizar').show()"/>
+                    <p:separator class="Container100" />
                 </div>
 
                 <eng:cadastroProjeto id="compCadastro"/>
@@ -57,7 +59,7 @@
 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.usuario} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
             <h:form id="frm_cad_cli" >
                 <componentes:panelPadraoDialog id="pnlPadrao" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
                                                acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
@@ -72,7 +74,13 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="center center"  width="85%"  header="#{label.gerenciar} #{label.documento}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
             <h:form enctype="multipart/form-data" prependId="false" id="frm_doc">
-                <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
+                <componentes:panelPadrao id="pnlPadraoDoc" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
+                                         acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.addDocumento()}"
+                                         btn_limpar="false" cabecalho="#{label.adicionar} #{label.documento}" btn_salvar_update="@form" >
+
+                    <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
+                </componentes:panelPadrao>
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="center center" width="40%"   header="#{label.projeto}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
@@ -144,49 +152,53 @@
 
         <p:dialog showEffect="fade" position="400,50"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
             <h:form  prependId="false" id="frm_noti">
-                <panels:panel  titulo="#{label.enviar} #{label.email}"  collapsed="true" >
-                    <h:panelGroup class="Container100" layout="block" >
-                        <p:pickList widgetVar="pickList" id="pickList" value="#{projetoMB.listDualColaboradores}" var="col" itemLabel="#{col}" 
-                                    itemValue="#{col}"    responsive="true" showTargetFilter="true" showSourceFilter="true"  filterMatchMode="contains"
-                                    converter="primeFacesPickListConverter" >
+                <componentes:panelPadrao id="pnlPadraoNotf" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
+                                         acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.addNotificacao()}" 
+                                         btn_limpar="false" cabecalho="#{label.adicionar} #{label.notificacao}" btn_salvar_update="@form" >
+                    <panels:panel  titulo="#{label.enviar} #{label.email}"  collapsed="true" >
+                        <h:panelGroup class="Container100" layout="block" >
+                            <p:pickList widgetVar="pickList" id="pickList" value="#{projetoMB.listDualColaboradores}" var="col" itemLabel="#{col}" 
+                                        itemValue="#{col}"    responsive="true" showTargetFilter="true" showSourceFilter="true"  filterMatchMode="contains"
+                                        converter="primeFacesPickListConverter" >
 
 
-                            <f:facet name="sourceCaption">Disponíveis</f:facet> 
-                            <f:facet name="targetCaption">Selecionados</f:facet> 
-                            <p:column style="width:75%;"> 
-                                <h:outputText value="#{col.nome}" /> 
-                            </p:column>
+                                <f:facet name="sourceCaption">Disponíveis</f:facet> 
+                                <f:facet name="targetCaption">Selecionados</f:facet> 
+                                <p:column style="width:75%;"> 
+                                    <h:outputText value="#{col.nome}" /> 
+                                </p:column>
 
 
 
-                        </p:pickList>
+                            </p:pickList>
 
-                    </h:panelGroup>
-                </panels:panel>
-                <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
-                    <p:editor id="editor" widgetVar="editorWidget" value="#{projetoMB.notificacaoProjeto.motivo}"  maxlength="1024" required="true"  />
-
-                    <p:commandButton class="TexAlCenter Container100"  value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{projetoMB.addNotificacao()}" 
-                                     update="editor tabelaNotPro" onclick="start()" oncomplete="stop()" />
-                </panels:panel>
-                <p:dataTable value="#{projetoMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
-                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
-                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15"  reflow="true">
+                        </h:panelGroup>
+                    </panels:panel>
+                    <panels:panel titulo=" #{label.notificacao}" >
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{projetoMB.notificacaoProjeto.motivo}"  maxlength="1024" required="true"  />
 
 
-                    <p:column headerText="#{label.data}" class="TexAlCenter" >
-                        <componentes:outputText value="#{np.data}" tipo="dt"/>
-                    </p:column>
-                    <p:column headerText="#{label.colaborador}" class="TexAlCenter" >
-                        <componentes:outputText value="#{np.colaborador.nome}"/>
-                    </p:column>
-                    <p:column headerText="#{label.motivo}" class="TexAlCenter" >
-                        <componentes:outputText value="#{np.textoMotivo}"/>
-                    </p:column>
+                    </panels:panel>
+                    <p:dataTable value="#{projetoMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
+                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"  reflow="true">
 
-                </p:dataTable>
+
+                        <p:column headerText="#{label.data}" class="TexAlCenter" >
+                            <componentes:outputText value="#{np.data}" tipo="dt"/>
+                        </p:column>
+                        <p:column headerText="#{label.colaborador}" class="TexAlCenter" >
+                            <componentes:outputText value="#{np.colaborador.nome}"/>
+                        </p:column>
+                        <p:column headerText="#{label.motivo}" class="TexAlCenter" >
+                            <componentes:outputText value="#{np.textoMotivo}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </componentes:panelPadrao>
             </h:form>
         </p:dialog>
     </ui:define>

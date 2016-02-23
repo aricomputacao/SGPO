@@ -42,7 +42,8 @@ public class ItemMB extends BeanGenerico implements Serializable {
     public void init() {
         try {
             item = new Item();
-            listaDeItens = new ArrayList<>();
+            listaDeItens = itemController.consultarTodosOrdenadorPor("nome");
+
         } catch (Exception ex) {
             Logger.getLogger(ItemMB.class.getName()).log(Level.SEVERE, null, ex);
         }

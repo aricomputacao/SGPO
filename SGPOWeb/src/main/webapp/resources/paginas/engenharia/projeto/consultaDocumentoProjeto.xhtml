@@ -35,7 +35,6 @@
                               cancelLabel="#{label.cancelar}" label="#{label.carregar_arquivo}" uploadLabel="#{label.enviar_arquivo}" 
                               allowTypes="/(\.|\/)(jpe?g|png|dwg|dxf|dwf|xls|xlsx|doc|docx|pdf)$/" invalidFileMessage="#{msg.tipo_arquivo_invalido}" skinSimple="true"  previewWidth="100" />
 
-                <p:commandButton value="#{label.salvar} #{label.documento}" onclick="start()" oncomplete="stop()" icon="fa fa-floppy-o" class="Fright" update="@form" actionListener="#{projetoMB.addDocumento()}" />
             </h:panelGroup>
         </panels:panel>
         <p:fieldset id="fieldCon">

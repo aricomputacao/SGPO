@@ -16,7 +16,6 @@
     <composite:implementation  >
         <panels:panel titulo="#{label.dados} #{label.do} #{label.projeto} " id="pnlDadPes" class="fieldDad">
             <h:panelGroup id="pnlPro" layout="block"  class="Container100 Responsive" >
-                <p:focus context="pnlPro" />
                 <inputs:input_label_data id="inpDt" inp_valor="#{projetoMB.projeto.dataInicio}" lab_valor="#{label.data_inicial}" inp_require="true"  inp_class_tamanho="20"/>
                 <inputs:selectOneLabel inp_valor="#{projetoMB.projeto.tipo}" id="sel_car" lab_valor="#{label.tipo}"  sel_converter="indexConverter" inp_class_tamanho="20">
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
