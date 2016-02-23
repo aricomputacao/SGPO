@@ -112,6 +112,23 @@ public class ColaboradorMB extends BeanGenerico implements Serializable {
 //            erroCliente.adicionaErro(e);
         }
     }
+    public void geraImpressaoFaltas() {
+        try {
+            listaDeFaltaColaboradors = faltaColaboradorController.consultarTodosOrdenadoColaboraroData();
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFaltaColaboradors, m, PastasRelatorio.RESOURCE_ADMINISTRATIVO, PastasRelatorio.REL_ADMINISTRATIVO_FALTA_COLABORADOR, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+        }
+    }
+    public void geraImpressaoFaltasDoColaborador() {
+        try {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFaltaColaboradors, m, PastasRelatorio.RESOURCE_ADMINISTRATIVO, PastasRelatorio.REL_ADMINISTRATIVO_FALTA_COLABORADOR, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+        }
+    }
 
     public void desativarColaborador() {
         try {

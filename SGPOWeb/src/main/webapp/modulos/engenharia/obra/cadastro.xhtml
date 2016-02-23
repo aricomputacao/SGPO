@@ -384,6 +384,22 @@
                             </div>
                         </h:panelGroup>
                     </p:tab>
+                    <p:tab title="#{label.colaboradores}">
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_colaborador_obra)}">
+                            <div class="ContainerIndent  ">
+                                <p:commandLink    onclick="start()"  actionListener="#{obraMB.geraImpressaoColaboradorObra()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.colaboradores} #{label.da} #{label.obra} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                    </p:tab>
                 </p:tabView>
             </h:form>
 

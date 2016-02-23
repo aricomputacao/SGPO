@@ -34,5 +34,9 @@ public class FaltaColaboradorController extends ControllerGenerico<FaltaColabora
     public List<FaltaColaborador> consultarPor(Colaborador colaborador) {
        return dao.consultarPor(colaborador);
     }
+
+    public List<FaltaColaborador> consultarTodosOrdenadoColaboraroData() {
+        return dao.consultarTodosOrdenadoColaboraroData();
+    }
     
 }

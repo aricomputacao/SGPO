@@ -34,5 +34,13 @@ public class FaltaColaboradorDAO extends DAOGenerico<FaltaColaborador, Long> imp
         
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
+
+    public List<FaltaColaborador> consultarTodosOrdenadoColaboraroData() {
+         TypedQuery<FaltaColaborador> tq;
+        
+        tq = getEm().createQuery("SELECT f from FaltaColaborador f   ORDER BY f.colaborador,f.data", FaltaColaborador.class);
+        
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
     
 }

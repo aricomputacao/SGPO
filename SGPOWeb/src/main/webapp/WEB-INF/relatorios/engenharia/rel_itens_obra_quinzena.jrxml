@@ -471,6 +471,10 @@
 			<band height="33">
 				<frame>
 					<reportElement mode="Opaque" x="0" y="0" width="800" height="33" backcolor="#F7F6C7" uuid="24523170-435b-4207-9f20-473e63d09858"/>
+					<box>
+						<topPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+					</box>
 					<textField>
 						<reportElement x="93" y="3" width="431" height="27" uuid="883e4600-0368-4ccd-82ed-28b20e333750"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">

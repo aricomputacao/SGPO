@@ -311,6 +311,14 @@ public class ObraMB extends BeanGenerico implements Serializable {
         } catch (Exception e) {
         }
     }
+    public void geraImpressaoColaboradorObra() {
+        try {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFuncionariosObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_COLABORADOR_OBRA, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+        }
+    }
 
     public boolean renderLink() {
         return obra.getId() != null;
