@@ -17,6 +17,7 @@ public abstract class PastasRelatorio {
     public static final String REL_ADMINISTRATIVO_FORNECEDOR = "/WEB-INF/relatorios/administrativo/rel_fornecedor.jasper";
     public static final String REL_ADMINISTRATIVO_DADOS_FORNECEDOR = "/WEB-INF/relatorios/administrativo/rel_dados_fornecedor.jasper";
     public static final String REL_ADMINISTRATIVO_COLABORADOR = "/WEB-INF/relatorios/administrativo/rel_colaborador.jasper";
+    public static final String REL_ADMINISTRATIVO_FALTA_COLABORADOR = "/WEB-INF/relatorios/administrativo/rel_falta_colaborador.jasper";
 
   //relatórios do módulo engenharia
     public static final String RESOURCE_ENGENHARIA = "WEB-INF/relatorios/engenharia";
@@ -26,6 +27,7 @@ public abstract class PastasRelatorio {
     public static final String REL_ITENS_FORNECEDOR = "/WEB-INF/relatorios/engenharia/rel_itens_obra_fornecedor.jasper";
     public static final String REL_ITENS_ETAPA_TIPO = "/WEB-INF/relatorios/engenharia/rel_itens_obra_etapa_tipo.jasper";
     public static final String REL_EQUIPAMENTOS_OBRA = "/WEB-INF/relatorios/engenharia/rel_equipamento_obra.jasper";
+    public static final String REL_COLABORADOR_OBRA = "/WEB-INF/relatorios/engenharia/rel_colaborador_obra.jasper";
     
 
 }

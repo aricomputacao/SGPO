@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,7 +28,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author ari
  */
 @Entity
-@Table(name = "falta_colaborador", schema = "administrativo")
+@Table(name = "falta_colaborador", schema = "administrativo",uniqueConstraints = @UniqueConstraint(columnNames = {"fal_data","col_id"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class FaltaColaborador implements Serializable {
 
