@@ -95,13 +95,6 @@
 				</frame>
 			</band>
 		</groupHeader>
-		<groupFooter>
-			<band height="2">
-				<line>
-					<reportElement x="0" y="1" width="555" height="1" uuid="629be07d-15c5-428f-9024-dd770446b0b6"/>
-				</line>
-			</band>
-		</groupFooter>
 	</group>
 	<title>
 		<band height="80" splitType="Stretch">
@@ -251,4 +244,11 @@
 			</textField>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="2">
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="629be07d-15c5-428f-9024-dd770446b0b6"/>
+			</line>
+		</band>
+	</pageFooter>
 </jasperReport>

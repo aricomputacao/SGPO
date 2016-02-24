@@ -37,8 +37,8 @@
 				<frame>
 					<reportElement x="0" y="0" width="555" height="63" uuid="f5e0d44c-3557-4b15-844e-f8ba8b0ff843"/>
 					<box>
-						<topPen lineWidth="0.25" lineStyle="Dashed"/>
-						<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
 					</box>
 					<textField>
 						<reportElement x="75" y="22" width="207" height="20" uuid="ec363a4d-736d-410b-9769-41d084262f24"/>
@@ -135,55 +135,60 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="37" splitType="Stretch">
+		<band height="46" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="0" width="555" height="37" uuid="f5e1d79b-3186-4ccc-825d-f9fc857666d9"/>
+				<reportElement x="0" y="0" width="555" height="46" uuid="f5e1d79b-3186-4ccc-825d-f9fc857666d9"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.0"/>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
 				</box>
 				<staticText>
-					<reportElement x="0" y="3" width="252" height="32" uuid="5ed51721-90bf-490e-b950-f9e2526544ee"/>
+					<reportElement x="0" y="3" width="252" height="27" uuid="5ed51721-90bf-490e-b950-f9e2526544ee"/>
 					<textElement verticalAlignment="Middle">
 						<font size="18" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Dados do Fornecedor]]></text>
 				</staticText>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="0" y="30" width="252" height="16" uuid="0a2b5165-bf5d-4654-9698-4a17e41b293f"/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="2" width="555" height="20" uuid="0f8d31ae-8900-419b-bd1b-85086ff7e199"/>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="22" backcolor="#E9E65F" uuid="0f8d31ae-8900-419b-bd1b-85086ff7e199"/>
 				<box>
-					<topPen lineWidth="0.25" lineStyle="Dashed"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<staticText>
 					<reportElement x="29" y="0" width="126" height="20" uuid="eaebc4cc-6433-4cea-ab8d-e6a72d1cfd5c"/>
 					<textElement verticalAlignment="Middle">
-						<font isBold="true" isItalic="true"/>
+						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Banco]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="196" y="0" width="100" height="20" uuid="cd6f80a5-2317-422d-aa67-08283defd696"/>
 					<textElement verticalAlignment="Middle">
-						<font isBold="true" isItalic="true"/>
+						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Agência]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="322" y="0" width="100" height="20" uuid="06200554-6d9c-4536-8070-1715e9d955c5"/>
 					<textElement verticalAlignment="Middle">
-						<font isBold="true" isItalic="true"/>
+						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Número]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="439" y="0" width="100" height="20" uuid="b9e2ed08-da03-469d-ad08-769df90cae02"/>
 					<textElement verticalAlignment="Middle">
-						<font isBold="true" isItalic="true"/>
+						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Operação]]></text>
 				</staticText>
@@ -220,4 +225,11 @@
 			</textField>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="2">
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="aac89649-c7a1-4a9b-9b69-396b8e1c565a"/>
+			</line>
+		</band>
+	</pageFooter>
 </jasperReport>

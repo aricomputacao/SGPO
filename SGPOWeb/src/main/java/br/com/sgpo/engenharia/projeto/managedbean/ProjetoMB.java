@@ -222,6 +222,9 @@ public class ProjetoMB extends BeanGenerico implements Serializable {
 
     
     
+    public void setarDocumento(DocumentoProjeto dp) {
+        documento = dp;
+    }
  
 
     public boolean renderAtalhoF1() {
