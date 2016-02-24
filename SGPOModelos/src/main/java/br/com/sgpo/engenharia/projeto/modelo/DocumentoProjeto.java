@@ -50,8 +50,6 @@ public class DocumentoProjeto implements Serializable {
     @Column(name = "dop_nome", nullable = false)
     private String nome;
 
-  
-
     @NotNull
     @ManyToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
@@ -69,15 +67,13 @@ public class DocumentoProjeto implements Serializable {
 
     @Column(name = "dop_ativo", nullable = false)
     private boolean ativo;
-   
 
     @Temporal(TemporalType.DATE)
     @Column(name = "dop_data")
     private Date dataUpload;
-    
-    
+
     public boolean getDisponivelParaUpload(Usuario usuario) {
-        return  ((! this.ativo) && this.getUsuario().equals(usuario)) ;
+        return ((!this.ativo) && this.getUsuario().equals(usuario));
     }
 
     public Date getDataUpload() {
@@ -87,9 +83,7 @@ public class DocumentoProjeto implements Serializable {
     public void setDataUpload(Date dataUpload) {
         this.dataUpload = dataUpload;
     }
-    
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -105,8 +99,6 @@ public class DocumentoProjeto implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-  
 
     public Projeto getProjeto() {
         return projeto;
@@ -132,8 +124,6 @@ public class DocumentoProjeto implements Serializable {
         this.usuario = usuario;
     }
 
-    
-    
     public boolean isAtivo() {
         return ativo;
     }
@@ -190,14 +180,14 @@ public class DocumentoProjeto implements Serializable {
         return ManipuladorDeArquivo.download(getCaminhoArquivoComExtencao(), getNomeDoArquivoComExtencao(), extencaoArquivo);
     }
 
-    public void addDocumento(byte[] conteudo) throws IOException{
+    public void addDocumento(byte[] conteudo) throws IOException {
         //Criar diretorio local
-            ManipuladorDeArquivo.criarDiretorioLocal(this.getDiretorioDoArquivo());
+        ManipuladorDeArquivo.criarDiretorioLocal(this.getDiretorioDoArquivo());
 
-            //Remove do local
-            ManipuladorDeArquivo.checarSeExisteExcluir(this.getCaminhoArquivoComExtencao());
+        //Remove do local
+        ManipuladorDeArquivo.checarSeExisteExcluir(this.getCaminhoArquivoComExtencao());
 
-            //Grava no local
-            ManipuladorDeArquivo.gravarArquivoLocalmente(this.getDiretorioDoArquivo(), this.getNomeDoArquivoComExtencao(), conteudo);
+        //Grava no local
+        ManipuladorDeArquivo.gravarArquivoLocalmente(this.getDiretorioDoArquivo(), this.getNomeDoArquivoComExtencao(), conteudo);
     }
 }
