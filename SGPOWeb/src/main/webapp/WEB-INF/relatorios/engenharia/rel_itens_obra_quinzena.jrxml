@@ -573,13 +573,13 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="1" width="800" height="20" backcolor="#E2DF2C" uuid="762ce916-ae9c-4d0d-abec-f125b4196488"/>
+				<reportElement mode="Opaque" x="0" y="1" width="800" height="20" backcolor="#FDFDFC" uuid="762ce916-ae9c-4d0d-abec-f125b4196488"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<staticText>
-					<reportElement x="267" y="0" width="165" height="20" uuid="dcbebeed-9b20-45bf-841f-b5ef5b37f5ee"/>
+					<reportElement x="263" y="0" width="200" height="20" uuid="dcbebeed-9b20-45bf-841f-b5ef5b37f5ee"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -614,7 +614,7 @@
 					<text><![CDATA[Valot Total]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="437" y="0" width="44" height="20" uuid="4f0b0e68-bccb-4ce3-964b-68b5925f7506"/>
+					<reportElement x="465" y="0" width="44" height="20" uuid="4f0b0e68-bccb-4ce3-964b-68b5925f7506"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -646,8 +646,10 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="267" y="0" width="165" height="20" uuid="34bebb12-9f60-4580-ae7f-30721b5b365e"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="263" y="0" width="200" height="20" uuid="34bebb12-9f60-4580-ae7f-30721b5b365e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nomeItem}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -671,7 +673,7 @@
 				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="0" width="44" height="20" uuid="b6390d41-138c-423f-9d9a-313e0a79736f"/>
+				<reportElement x="465" y="0" width="44" height="20" uuid="b6390d41-138c-423f-9d9a-313e0a79736f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>

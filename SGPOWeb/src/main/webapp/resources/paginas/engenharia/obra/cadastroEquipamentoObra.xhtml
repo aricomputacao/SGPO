@@ -18,10 +18,19 @@
 
         <panels:panel titulo="#{label.dados} #{label.do} #{label.equipamento} " id="pnlDadPes" class="fieldDad">
             <h:panelGroup id="pnlProC" layout="block"  class="Container100 Responsive" >
-                <inputs:selectOneRadio inp_valor="#{obraMB.equipamentoObra.tipoEquipamento}" ajax_listener="#{obraMB.equipamentoObra.ehLocado()}" ajax_render="true" 
-                                       sel_update="@form" inp_class_tamanho="20" lab_valor="#{label.tipo}" inp_require="true">
-                    <f:selectItems value="#{equipamentoMB.listaDeTipoDeEquipamentos}" var="ep" itemLabel="#{ep.descricao}" itemValue="#{ep}" />
-                </inputs:selectOneRadio>
+                <div class="Container30 Responsive componenteSelectRadio" >
+                    <div class="ContainerIndent">
+                        <p:outputLabel value="#{label.tipo}" for="input" />
+                        <div>
+                            <p:selectOneRadio style="width: 90%"   value="#{obraMB.equipamentoObra.tipoEquipamento}" id="input"  required="true" >
+                                <f:selectItems value="#{equipamentoMB.listaDeTipoDeEquipamentos}" var="ep" itemLabel="#{ep.descricao}" itemValue="#{ep}" />
+                                <p:ajax event="click" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlDadPes:pnlProD"  />
+                            </p:selectOneRadio>
+
+                        </div>
+                    </div>
+                </div>
+
                 <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.equipamentoObra.dataEntrada}" lab_valor="#{label.data}" inp_require="true"  inp_class_tamanho="20"/>
 
             </h:panelGroup>
