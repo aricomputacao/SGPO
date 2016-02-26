@@ -524,14 +524,14 @@
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<staticText>
-					<reportElement x="267" y="0" width="165" height="20" uuid="dcbebeed-9b20-45bf-841f-b5ef5b37f5ee"/>
+					<reportElement x="264" y="0" width="200" height="20" uuid="dcbebeed-9b20-45bf-841f-b5ef5b37f5ee"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Item]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="87" y="0" width="175" height="20" uuid="4f907bb4-7e4e-4335-b224-85410bbbf816"/>
+					<reportElement x="82" y="0" width="180" height="20" uuid="4f907bb4-7e4e-4335-b224-85410bbbf816"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -559,7 +559,7 @@
 					<text><![CDATA[Valot Total]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="437" y="0" width="44" height="20" uuid="4f0b0e68-bccb-4ce3-964b-68b5925f7506"/>
+					<reportElement x="466" y="0" width="44" height="20" uuid="4f0b0e68-bccb-4ce3-964b-68b5925f7506"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -591,12 +591,14 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="267" y="0" width="165" height="20" uuid="34bebb12-9f60-4580-ae7f-30721b5b365e"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="264" y="0" width="200" height="20" uuid="34bebb12-9f60-4580-ae7f-30721b5b365e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nomeItem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="87" y="0" width="175" height="20" uuid="9ebdc713-123c-4238-9a1b-14fb1771d396"/>
+				<reportElement x="82" y="0" width="180" height="20" uuid="9ebdc713-123c-4238-9a1b-14fb1771d396"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nomeFornecedor}]]></textFieldExpression>
 			</textField>
@@ -616,7 +618,7 @@
 				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="0" width="44" height="20" uuid="b6390d41-138c-423f-9d9a-313e0a79736f"/>
+				<reportElement x="466" y="0" width="44" height="20" uuid="b6390d41-138c-423f-9d9a-313e0a79736f"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>

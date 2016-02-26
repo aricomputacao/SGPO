@@ -282,15 +282,15 @@
 				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="514" y="0" width="41" height="20" uuid="fed9b3c2-c6aa-4840-a6aa-bfa35215fa43">
+				<reportElement x="511" y="0" width="41" height="20" uuid="a4149626-02eb-47df-bd4e-998661813190">
 					<printWhenExpression><![CDATA[$F{pago}]]></printWhenExpression>
 				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="41" height="20" uuid="70097c92-7223-4b33-90f7-00dc0ecd7046"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[PG]]></text>
+				</staticText>
 			</frame>
-			<staticText>
-				<reportElement x="508" y="0" width="41" height="20" uuid="4a0adbd0-b3d5-47b8-8962-6d8ba4312f0a"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[PG]]></text>
-			</staticText>
 		</band>
 	</detail>
 </jasperReport>

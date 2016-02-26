@@ -241,7 +241,7 @@
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<staticText>
-					<reportElement x="17" y="0" width="77" height="20" uuid="f8910dab-945c-4c28-a590-9cb57beb7cd0"/>
+					<reportElement x="0" y="0" width="94" height="20" uuid="f8910dab-945c-4c28-a590-9cb57beb7cd0"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
@@ -294,8 +294,10 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="17" y="0" width="183" height="20" uuid="ed3cfbab-5ffc-4890-bf4c-c489d5c37385"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="0" y="0" width="200" height="20" uuid="ed3cfbab-5ffc-4890-bf4c-c489d5c37385"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nomeItem}]]></textFieldExpression>
 			</textField>
 			<textField>

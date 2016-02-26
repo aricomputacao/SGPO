@@ -23,7 +23,7 @@
             </h:panelGroup>
         </p:fieldset>
         <p:fieldset class="MarTopPerc5" legend="Itens #{label.registrados}" toggleable="true">
-            <p:dataTable value="#{itemMB.listaDeItens}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+            <p:dataTable value="#{itemMB.listaDeItens}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="5"
                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -31,10 +31,10 @@
 
 
 
-                <p:column headerText="#{label.nome}">
+                <p:column headerText="#{label.nome}" filterBy="#{p.nome}">
                     <componentes:outputText value="#{p.nome}"/>
                 </p:column>
-                <p:column headerText="#{label.classificacao}">
+                <p:column headerText="#{label.classificacao}" filterBy="#{p.classificacao.descricao}">
                     <componentes:outputText value="#{p.classificacao.descricao}"/>
                 </p:column>
             </p:dataTable>

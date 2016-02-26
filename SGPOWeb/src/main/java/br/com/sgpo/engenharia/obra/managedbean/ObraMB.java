@@ -163,6 +163,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
         try {
             itemObraController.salvarouAtualizar(itemObra);
             initItemObra();
+            itemObra.setObra(obra);
             listaItemObras = itemObraController.consultarPor(obra);
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
         } catch (Exception ex) {

@@ -19,7 +19,7 @@
 
 
             <p:tabView class="ContainerIndent Responsive tabView-inicio" id="tabView">
-                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.inicio)}" id="tabDash" title="#{label.projeto}s" class="Container100 Responsive">
+                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.index_projeto)}" id="tabDash" title="#{label.projeto}s" class="Container100 Responsive">
                     <h:form id="frm_dash"  prependId="false" >
                         <div class="ContainerIndent">
 
@@ -38,7 +38,7 @@
                         </h:form>
                     </div>-->
                 </p:tab>
-                <p:tab id="tabObra" title="Obras" class="Container100 Responsive">
+                <p:tab id="tabObra" title="Obras" class="Container100 Responsive"  rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.index_obra)}">
                     <h:form id="frm_obra" prependId="false" >
                         <div class="ContainerIndent">
 

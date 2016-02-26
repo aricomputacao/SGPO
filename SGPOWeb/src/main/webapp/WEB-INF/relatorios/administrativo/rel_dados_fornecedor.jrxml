@@ -41,32 +41,32 @@
 						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
 					</box>
 					<textField>
-						<reportElement x="75" y="22" width="207" height="20" uuid="ec363a4d-736d-410b-9769-41d084262f24"/>
+						<reportElement x="63" y="22" width="219" height="20" uuid="ec363a4d-736d-410b-9769-41d084262f24"/>
 						<textElement verticalAlignment="Middle">
 							<font size="10"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{fornecedor}.getRazaoSocial()]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement x="75" y="0" width="207" height="20" uuid="82045d25-5748-4199-8b89-ca2f3b32ee06"/>
+						<reportElement x="63" y="0" width="219" height="20" uuid="82045d25-5748-4199-8b89-ca2f3b32ee06"/>
 						<textElement verticalAlignment="Middle">
 							<font size="10"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{fornecedor}.getNome()]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="0" y="0" width="75" height="20" uuid="4bb4d714-de9b-45b5-be67-df1004372a6e"/>
+						<reportElement x="0" y="0" width="63" height="20" uuid="4bb4d714-de9b-45b5-be67-df1004372a6e"/>
 						<textElement verticalAlignment="Middle">
 							<font size="11" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Nome:]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="0" y="22" width="75" height="20" uuid="dd85db1d-47ba-45d5-831c-40791b7ba9ee"/>
+						<reportElement x="0" y="22" width="63" height="20" uuid="dd85db1d-47ba-45d5-831c-40791b7ba9ee"/>
 						<textElement verticalAlignment="Middle">
 							<font size="11" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Razão Sócial:]]></text>
+						<text><![CDATA[R. Sócial:]]></text>
 					</staticText>
 					<staticText>
 						<reportElement x="284" y="2" width="96" height="20" uuid="981c5d25-f59a-48eb-9361-5dd8388b273b"/>
@@ -95,12 +95,12 @@
 						<text><![CDATA[Representante:]]></text>
 					</staticText>
 					<textField>
-						<reportElement x="75" y="42" width="80" height="20" uuid="eabd81a6-3009-4564-9a21-2b377c93b72a"/>
+						<reportElement x="63" y="42" width="92" height="20" uuid="eabd81a6-3009-4564-9a21-2b377c93b72a"/>
 						<textElement verticalAlignment="Middle"/>
 						<textFieldExpression><![CDATA[$F{fornecedor}.getTelefone()]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="0" y="42" width="75" height="20" uuid="d38b46d0-6f51-4145-a364-248be1cee22a"/>
+						<reportElement x="0" y="42" width="63" height="20" uuid="d38b46d0-6f51-4145-a364-248be1cee22a"/>
 						<textElement verticalAlignment="Middle">
 							<font size="11" isBold="true"/>
 						</textElement>

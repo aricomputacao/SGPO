@@ -24,17 +24,17 @@
             <botao:commandButton_consulta inp_class_tamanho="20" acao_butao="#{cc.attrs.acao_butao}"  componente_to_update="#{cc.attrs.componente_to_update}"  />
         </p:fieldset>
         <p:fieldset>
-            <p:dataTable value="#{itemMB.listaDeItens}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="i" rows="10"
+            <p:dataTable value="#{itemMB.listaDeItens}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="i" rows="5"
                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  reflow="true">
 
                 
-                <p:column headerText="#{label.nome}" class="TexAlCenter" >
+                <p:column headerText="#{label.nome}" filterBy="#{i.nome}" class="TexAlCenter" >
                     <componentes:outputText value="#{i.nome}" />
                 </p:column>
-                <p:column headerText="#{label.classificacao}" class="TexAlCenter">
+                <p:column headerText="#{label.classificacao}" filterBy="#{i.classificacao.descricao}" class="TexAlCenter">
                     <componentes:outputText value="#{i.classificacao.descricao}"/>
                 </p:column>
                
