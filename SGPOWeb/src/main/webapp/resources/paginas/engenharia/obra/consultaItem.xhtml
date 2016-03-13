@@ -26,9 +26,9 @@
         <p:fieldset>
             <p:dataTable value="#{itemMB.listaDeItens}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="i" rows="5"
                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
-                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}" resizableColumns="true" resizeMode="expand"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15"  reflow="true">
+                         rowsPerPageTemplate="3,5,10,15"  reflow="true">
 
                 
                 <p:column headerText="#{label.nome}" filterBy="#{i.nome}" class="TexAlCenter" >

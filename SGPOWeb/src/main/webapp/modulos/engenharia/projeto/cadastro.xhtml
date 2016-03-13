@@ -21,16 +21,16 @@
                                      acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
                                      btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" btn_salvar_update="@(form)" >
 
-                    <p:panel class="ContainerIndent  " >
+                    <p:panel class="ContainerIndent  Responsive"  >
 
                         <p:commandLink  rendered="#{projetoMB.renderAtalhoF1()}" update=":frm_doc"  onclick="PF('dialogoDocum').show()" class="Wid20  Fleft texto-atalho atalho atalho-f1 BordRad4  TexAlCenter  Responsive ">
                             <div class="ContainerIndent">
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <p:graphicImage library="images"  width="36" height="36" name="document_add.png" />
+                                    <span class="Fs15 Wid100  gray">#{label.adicionar} #{label.documento}</span>
 
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.adicionar} #{label.documento}</span>
+                                    <p:graphicImage library="images"  width="40" height="40" name="document_add.png" />
 
                                 </h:panelGroup>
                             </div>
@@ -40,11 +40,11 @@
                                        immediate="true" update=":frm_noti" onclick="PF('dialogoNotPro').show()" rendered="#{projetoMB.renderAtalhoF2()}" >
                             <div class="ContainerIndent">
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <p:graphicImage library="images"  width="36" height="36" name="notificacao.png" />
+                                    <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.adicionar} #{label.notificacao}</span>
 
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.adicionar} #{label.notificacao}</span>
+                                    <p:graphicImage library="images"  width="40" height="40" name="notificacao.png" />
 
                                 </h:panelGroup>
                             </div>
@@ -55,11 +55,11 @@
 
                             <div class="ContainerIndent">
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <p:graphicImage library="images"  width="36" height="36" name="movimentacao.png" />
+                                    <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.movimentacoes}</span>
 
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.movimentacoes}</span>
+                                    <p:graphicImage library="images"  width="40" height="40" name="movimentacao.png" />
 
                                 </h:panelGroup>
                             </div>
@@ -69,11 +69,11 @@
                                        immediate="true" update=":frm_fim" onclick="PF('dialogoFinalizar').show()">
                             <div class="ContainerIndent">
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <p:graphicImage library="images"  width="36" height="36" name="update.png" />
+                                    <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.atualizar} #{label.status}</span>
 
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" class="TexAlCenter" >
-                                    <span class="Fs15 Wid100 FontTitilliumBoldItalic gray">#{label.atualizar} #{label.status}</span>
+                                    <p:graphicImage library="images"  width="40" height="40" name="update.png" />
 
                                 </h:panelGroup>
                             </div>

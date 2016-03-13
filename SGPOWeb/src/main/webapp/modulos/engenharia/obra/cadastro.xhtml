@@ -22,24 +22,69 @@
                                      btn_limpar="false" cabecalho="#{label.cadastro} #{label.obra}" btn_salvar_update="@(form)" >
 
 
-                <h:panelGroup layout="block" rendered="#{obraMB.renderLink()}" class="ContainerIndent "  >
-                    <p:separator class="Container100" />
+                <p:panel class="ContainerIndent  pnl-menu" rendered="#{obraMB.renderLink()}">
 
-                    <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f1 BordRad4 Container15 Fs13 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.projeto}"   update=":frm_cons_proj" 
-                                     onclick="PF('dialogConProj').show()" />
-                    <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f2 BordRad4 Container15 Fs13 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.item}"   update=":frm_cad_ite_obra" 
-                                     onclick="PF('dialogCadItemObra').show()" />
-                    <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f3 BordRad4 Container15 Fs13 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.equipamento}"   update=":frm_cad_equi_obra" 
-                                     onclick="PF('dialogCadEquipamentoObra').show()" />
-                    <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f4 BordRad4 Container15 Fs13 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.nota}"  update=":frm_doc" 
-                                     onclick="PF('dialogoDocum').show()" />
-                    <p:commandLink   class="icon-plus-circled texto-atalho atalho atalho-f5 BordRad4 Container15 Fs13 TexAlCenter   Responsive  " value="#{label.adicionar} #{label.colaborador}"  update=":frm-cola-obra" 
-                                     onclick="PF('dialogColObra').show()" />
-                    <p:separator class="Container100" />
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "  
+                                     title="#{label.adicionar} #{label.projeto}"  update=":frm_cons_proj"  
+                                     onclick="PF('dialogConProj').show()" >
+                        <div class="ContainerIndent">
+                            
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="projeto.png" />
 
+                            </h:panelGroup>
+                        </div>
 
+                    </p:commandLink>
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "    update=":frm_cad_ite_obra" 
+                                     onclick="PF('dialogCadItemObra').show()"   title="#{label.adicionar} #{label.item}">
+                        <div class="ContainerIndent">
+                          
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="item_add.png" />
 
-                </h:panelGroup>
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "    update=":frm_cad_equi_obra" 
+                                     onclick="PF('dialogCadEquipamentoObra').show()"  title="#{label.adicionar} #{label.equipamento}">
+
+                        <div class="ContainerIndent">
+                      
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="equipamentos.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "   update=":frm_doc" 
+                                     onclick="PF('dialogoDocum').show()"  title="#{label.adicionar} #{label.nota}">
+                        <div class="ContainerIndent">
+                          
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="nota.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "  update=":frm-cola-obra" 
+                                     onclick="PF('dialogColObra').show()"  title="#{label.adicionar} #{label.colaborador}">
+                        <div class="ContainerIndent">
+                           
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="colaborador.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+                </p:panel>
+           
                 <eng:cadastroObra id="compCadastro"/>
             </componentes:panelPadrao>
         </h:form>
@@ -95,7 +140,8 @@
 
         <!-- ###################################################################Inicio Dialogs referente a cadastros de itens################################################################### -->
 
-        <p:dialog showEffect="fade" position="200,50"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" hideEffect="fade" widgetVar="dialogCadItemObra">
+        <p:dialog showEffect="fade" position="200,50"  dynamic="true"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" 
+                  hideEffect="fade" widgetVar="dialogCadItemObra">
             <h:form id="frm_cad_ite_obra" >
                 <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
                                                acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}"  acao_imprimir="#{obraMB.init()}"
