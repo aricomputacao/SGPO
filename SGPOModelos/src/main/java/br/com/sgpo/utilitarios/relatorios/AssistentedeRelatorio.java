@@ -4,6 +4,7 @@
  */
 package br.com.sgpo.utilitarios.relatorios;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
@@ -45,7 +46,8 @@ public class AssistentedeRelatorio implements Serializable {
         try {
             String separator = System.getProperty("file.separator"); 
 
-            parametros.put("img", getDiretorioReal("resources"+separator+"images"+separator+"LOGO.svg"));
+            
+            parametros.put("img", getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti.png"));
             parametros.put("relatorio", nomeRelatorio);
             parametros.put("SUBREPORT_DIR", getDiretorioReal(pastaRelatorio) + separator);
             parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
