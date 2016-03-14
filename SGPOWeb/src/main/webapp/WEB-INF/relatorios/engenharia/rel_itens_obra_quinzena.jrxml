@@ -9,6 +9,7 @@
 			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="img" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -501,9 +502,9 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="85" splitType="Stretch">
+		<band height="135" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="40" width="800" height="40" uuid="b32d387e-3fb4-4def-bbb0-4263cfb5b0c8"/>
+				<reportElement x="0" y="92" width="800" height="40" uuid="b32d387e-3fb4-4def-bbb0-4263cfb5b0c8"/>
 				<textField>
 					<reportElement x="109" y="0" width="199" height="20" uuid="334470fb-1e70-4801-aac0-478099c4a799"/>
 					<textElement verticalAlignment="Middle">
@@ -548,25 +549,29 @@
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement x="0" y="0" width="802" height="40" uuid="89e7df98-4120-4953-92fd-820f26495e15"/>
+				<reportElement x="0" y="0" width="802" height="92" uuid="89e7df98-4120-4953-92fd-820f26495e15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
 				<staticText>
-					<reportElement x="0" y="0" width="800" height="40" uuid="13d44cd0-06b6-4005-aeb6-8777489e0c1b"/>
-					<box>
-						<topPen lineWidth="0.25"/>
-						<bottomPen lineWidth="0.25"/>
-					</box>
-					<textElement>
-						<font size="22" isBold="false" isItalic="true"/>
+					<reportElement x="11" y="65" width="218" height="27" uuid="13d44cd0-06b6-4005-aeb6-8777489e0c1b"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="20" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Itens da Obra]]></text>
 				</staticText>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="0" y="23" width="161" height="17" uuid="322edcce-eea7-4402-be05-abed273d7370"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="630" y="75" width="170" height="17" uuid="322edcce-eea7-4402-be05-abed273d7370"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
+				<image>
+					<reportElement x="9" y="0" width="372" height="65" uuid="73e00955-2a01-45a6-9879-cea460ea56de"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>

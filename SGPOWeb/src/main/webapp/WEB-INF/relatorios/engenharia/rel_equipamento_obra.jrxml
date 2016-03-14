@@ -9,6 +9,7 @@
 			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="img" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -97,27 +98,9 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="80" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="40" uuid="eb6e9b2e-a83b-4e40-ba45-6c5bdd00c1d7"/>
-				<box>
-					<topPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-				</box>
-				<textElement>
-					<font size="22" isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Equipamentos da Obra]]></text>
-			</staticText>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="24" width="200" height="16" uuid="d20e41f4-654c-4d15-800e-fee4eec2839f"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
+		<band height="135" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="40" width="555" height="40" uuid="bfd31704-0374-4e4d-8d61-38c188931459"/>
+				<reportElement x="1" y="95" width="555" height="40" uuid="bfd31704-0374-4e4d-8d61-38c188931459"/>
 				<textField>
 					<reportElement x="109" y="0" width="187" height="20" uuid="8e0c4d80-7138-48c9-91f4-097e8f921943"/>
 					<textElement verticalAlignment="Middle">
@@ -160,6 +143,31 @@
 					</textElement>
 					<text><![CDATA[Cliente:]]></text>
 				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="0" y="0" width="555" height="95" uuid="3acaffde-48e2-43ea-90a9-a78bbad3498c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="346" y="73" width="209" height="16" uuid="d20e41f4-654c-4d15-800e-fee4eec2839f"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="65" width="200" height="24" uuid="eb6e9b2e-a83b-4e40-ba45-6c5bdd00c1d7"/>
+					<textElement>
+						<font size="18" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Equipamentos da Obra]]></text>
+				</staticText>
+				<image>
+					<reportElement x="0" y="0" width="372" height="65" uuid="4cc466e3-4ee0-4e38-9c77-9dc4453a7cab"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>

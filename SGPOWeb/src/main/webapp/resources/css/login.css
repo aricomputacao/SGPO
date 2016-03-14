@@ -18,7 +18,9 @@
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,7db9e8+100&1+0,0+100;Blue+to+Transparent */
     /* background: url("#{resource['images/imgB0.jpg']}") no-repeat center center fixed;
      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
-    background: #eff8ef ! important;
+    
+        background: url("#{resource['images/noise.png']}") ,#e5efe5;
+
 
 }
 

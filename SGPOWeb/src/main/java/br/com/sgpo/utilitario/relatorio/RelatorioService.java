@@ -36,24 +36,8 @@ public class RelatorioService extends HttpServlet {
                 ouputStream.flush();
                 session.removeAttribute(RelatorioSession.CHAVE_RELATORIO);
             } else {
-                response.setHeader("text/html", "Content-Type");
-                response.setContentType("text/html");
-                try (PrintWriter w = response.getWriter()) {
-                    w.print("<html>");
-                    w.print("<head>");
-                    w.print("<title>");
-                    w.print("Não");
-                    w.print("</title>");
-                    w.print("</head>");
-                    w.print("<body>");
-                    w.print("<center>");
-                    w.print("<div>");
-                    w.print("<h1>Não há relatórios na fila de exibição.</h1>");
-                    w.print("</div>");
-                    w.print("</center>");
-                    w.print("</body>");
-                    w.print("</html>");
-                }
+                response.sendRedirect("error.xhtml");
+                
             }
 
         } catch (IOException e) {

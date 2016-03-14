@@ -23,6 +23,7 @@ import br.com.sgpo.utilitario.relatorio.RelatorioSession;
 import br.com.sgpo.utilitarios.enumeration.Mes;
 import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
 import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -288,6 +289,7 @@ public class ObraMB extends BeanGenerico implements Serializable {
         try {
             List<ItemObra> itensObra = itemObraController.consultarPor(obra, f);
             Map<String, Object> m = new HashMap<>();
+//            m.put("im",getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti.png") );
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(itensObra, m, PastasRelatorio.RESOURCE_ENGENHARIA, PastasRelatorio.REL_ITENS_FORNECEDOR, "");
             RelatorioSession.setBytesRelatorioInSession(rel);
         } catch (Exception e) {
