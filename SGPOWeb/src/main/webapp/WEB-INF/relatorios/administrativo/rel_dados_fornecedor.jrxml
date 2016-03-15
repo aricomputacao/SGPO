@@ -9,6 +9,7 @@
 			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="img" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -135,24 +136,29 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="46" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="0" width="555" height="46" uuid="f5e1d79b-3186-4ccc-825d-f9fc857666d9"/>
+				<reportElement x="0" y="0" width="555" height="99" uuid="f5e1d79b-3186-4ccc-825d-f9fc857666d9"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<staticText>
-					<reportElement x="0" y="3" width="252" height="27" uuid="5ed51721-90bf-490e-b950-f9e2526544ee"/>
+					<reportElement x="0" y="73" width="252" height="22" uuid="5ed51721-90bf-490e-b950-f9e2526544ee"/>
 					<textElement verticalAlignment="Middle">
-						<font size="18" isBold="false" isItalic="true"/>
+						<font size="16" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Dados do Fornecedor]]></text>
 				</staticText>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="0" y="30" width="252" height="16" uuid="0a2b5165-bf5d-4654-9698-4a17e41b293f"/>
+					<reportElement x="303" y="79" width="252" height="16" uuid="0a2b5165-bf5d-4654-9698-4a17e41b293f"/>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
+				<image>
+					<reportElement x="0" y="0" width="409" height="73" uuid="73a0f521-4d9a-4579-8148-9c43839d7667"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>

@@ -9,6 +9,7 @@
 			<style forecolor="#F1F1F1" backcolor="#F1F1F1"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="img" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -43,29 +44,31 @@
 		<fieldDescription><![CDATA[tipoCliente]]></fieldDescription>
 	</field>
 	<title>
-		<band height="50">
+		<band height="105">
 			<frame>
-				<reportElement x="0" y="0" width="802" height="50" uuid="e4f47a7c-3498-4528-94f3-eb8f8f0abd7b"/>
-				<box leftPadding="0">
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
+				<reportElement x="0" y="0" width="802" height="103" uuid="e4f47a7c-3498-4528-94f3-eb8f8f0abd7b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="5" y="30" width="217" height="20" uuid="decffba2-f15e-4f38-9069-cdeb8598aed8"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="585" y="83" width="217" height="20" uuid="decffba2-f15e-4f38-9069-cdeb8598aed8"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="5" y="0" width="772" height="30" uuid="aeb40fe5-2306-4ca2-b118-46d5ca4808dd"/>
+					<reportElement x="0" y="73" width="325" height="30" uuid="aeb40fe5-2306-4ca2-b118-46d5ca4808dd"/>
 					<textElement verticalAlignment="Middle">
 						<font size="20" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Clientes Registrados]]></text>
 				</staticText>
+				<image>
+					<reportElement x="0" y="0" width="409" height="73" uuid="bd25a127-2e2e-45ba-843f-1495ada0201f"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>
