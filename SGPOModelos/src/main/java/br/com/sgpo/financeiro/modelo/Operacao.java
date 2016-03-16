@@ -7,7 +7,9 @@ package br.com.sgpo.financeiro.modelo;
 
 import br.com.sgpo.financeiro.enumeration.PeriodoRecorrencia;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,6 +70,15 @@ public class Operacao implements Serializable {
     
     @Column(name = "ope_numero_parcelas")
     private int  numeroParcelas;
+    
+    public BigDecimal getValorDaOperacao(List<FaturaOperacao> fos){
+        BigDecimal valor = BigDecimal.ZERO;
+        for (FaturaOperacao fo : fos) {
+            valor = valor.add(fo.getValor());
+        }
+        
+        return valor;
+    }
 
     public Long getId() {
         return id;
@@ -141,6 +152,8 @@ public class Operacao implements Serializable {
         this.numeroParcelas = numeroParcelas;
     }
 
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
