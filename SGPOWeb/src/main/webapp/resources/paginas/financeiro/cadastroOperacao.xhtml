@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <composite:interface id="interCon">
+
+    </composite:interface>
+    <composite:implementation>
+        <p:fieldset legend="#{label.dados}" id="fieldDados"  toggleable="true">
+            <h:panelGroup layout="block"  class="Container100 Responsive">
+
+                <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input" ajax_render="true" ajax_listener="#{operacaoMB.processarTipoOperacao()}" inp_class_tamanho="30" lab_valor="#{label.tipo}" >
+                    <f:selectItems value="#{operacaoMB.listaDeTiposDeOperacao}" var="tp" itemValue="#{tp}" itemLabel="#{tp}" />
+                </inputs:selectOneRadio>
+            </h:panelGroup>
+            <h:panelGroup layout="block"  class="Container100 Responsive">
+
+                <inputs:input_label id="inpDescricao" inp_class_tamanho="50" inp_require="true" inp_valor="#{operacaoMB.operacao.descricao}" lab_valor="#{label.descricao}"/>
+                <inputs:input_label_money  inp_valor="#{operacaoMB.valor}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
+                <inputs:input_label_data inp_valor="#{operacaoMB.operacao.dateOperacao}" inp_class_tamanho="20" lab_valor="#{label.data} #{label.operacao}" inp_require="true"/>
+
+                <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCategoria').show()" btn_onclick_atualizar="@this" inp_valor="#{operacaoMB.operacao.categoriaOperacao}" id="sele_cat"  sel_converter="indexConverter"  inp_class_tamanho="50" lab_valor="#{label.categoria}" >
+                    <f:selectItems value="#{operacaoMB.listaCategoriaOperacaos}" var="ca" itemValue="#{ca}" itemLabel="#{ca.nome}" />
+                </inputs:selectOneLabe_btn_mais>
+            </h:panelGroup>
+        </p:fieldset>
+        <p:separator class="Container100 " />
+        <p:fieldset legend="#{label.dados}" toggleable="true">
+            <h:panelGroup layout="block" class="Container50 Responsive softGrayBack BordRad10" >
+                <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.recorrencia}" inp_class_tamanho="100" action="#{operacaoMB.processarRecorrencia()}"  lab_valor="#{label.recorrencia}"  />
+                <inputs:input_label_number  inp_valor="#{operacaoMB.operacao.periodoRecorrencia}"  lab_valor="#{label.ocorre} #{label.em}:" inp_disable="#{operacaoMB.renderRecorrencia}"  inp_class_tamanho="20"  /> 
+                <inputs:selectOneLabel inp_valor="#{operacaoMB.operacao.periodoRecorrencia}" lab_valor="#{label.periodo}" inp_class_tamanho="20" inp_disable="#{operacaoMB.renderRecorrencia}">
+                    <f:selectItems value="#{operacaoMB.listaPeriodoRecorrencia}" var="pr" itemLabel="#{pr.descricao}" itemValue="#{pr}" />
+                </inputs:selectOneLabel>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="Container50 Responsive softGrayBack BordRad10" rendered="#{not operacaoMB.renderReceita}" >
+                <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.parcelamento}" inp_class_tamanho="100" action="#{operacaoMB.processarRecorrencia()}"  lab_valor="#{label.parcelamento}"  />
+                <inputs:input_label_number  inp_valor="#{operacaoMB.operacao.periodoRecorrencia}"  lab_valor="#{label.ocorre} #{label.em}:" inp_disable="#{operacaoMB.renderRecorrencia}"  inp_class_tamanho="20"  /> 
+                <inputs:selectOneLabel inp_valor="#{operacaoMB.operacao.periodoRecorrencia}" lab_valor="#{label.periodo}" inp_class_tamanho="20" inp_disable="#{operacaoMB.renderRecorrencia}">
+                    <f:selectItems value="#{operacaoMB.listaPeriodoRecorrencia}" var="pr" itemLabel="#{pr.descricao}" itemValue="#{pr}" />
+                </inputs:selectOneLabel>
+            </h:panelGroup>
+        </p:fieldset>
+        <p:fieldset class="MarTopPerc5" legend="#{label.categoria}s #{label.registradas}" toggleable="true">
+            <p:dataTable value="#{categoriaOperacaoMB.listaDeCategoriaOperacaos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                <p:column headerText="#{label.operacao}">
+                    <componentes:outputText value="#{p.tipoDeOperacao}"/>
+                </p:column>
+                <p:column headerText="#{label.nome}">
+                    <componentes:outputText value="#{p.nome}"/>
+                </p:column>
+
+                <p:column headerText="#{label.acao}">
+                    <composite:insertChildren />
+                </p:column>
+
+            </p:dataTable>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

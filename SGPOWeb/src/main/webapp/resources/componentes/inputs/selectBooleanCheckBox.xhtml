@@ -6,16 +6,17 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <composite:interface>
 
+        <composite:attribute  name="action" shortDescription="action" method-signature="java.lang.Void action()" default="none"/>
+        <composite:attribute id="sel_update" name="sel_update" shortDescription="update " default="@form" required="true"/>
         <composite:attribute id="lab_val" name="lab_valor" shortDescription="Valor do Label" required="true"/>
         <composite:attribute id="inp_valor" name="inp_valor" shortDescription="Valor do input" required="true"/>
         <composite:attribute id="inp_class" name="inp_class_tamanho" shortDescription="Tamanho do input pela classe Container" default="100"/>
-        <composite:attribute id="inp_require" name="inp_require" default="false" />
-        <composite:attribute id="inp_readonly" name="inp_readonly" default="false" />
-        <composite:attribute id="inp_disable" name="inp_disable" default="false" />
+
 
     </composite:interface>
     <composite:implementation id="compConsulta">
@@ -23,8 +24,9 @@
             <div class="ContainerIndent">
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
                 <div>
-                    <p:inputText  type="number" disabled="#{cc.attrs.inp_disable}"  required="#{cc.attrs.inp_require}" value="#{cc.attrs.inp_valor}" id="input" 
-                                 readonly="#{cc.attrs.inp_readonly}"/>
+                    <p:selectBooleanCheckbox  id="input" class="btnOutro" value="#{cc.attrs.inp_valor}">
+                        <p:ajax update="#{cc.attrs.sel_update}" listener="#{cc.attrs.action}"  />
+                    </p:selectBooleanCheckbox>
                 </div>
             </div>
         </div>

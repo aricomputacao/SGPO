@@ -14,6 +14,7 @@
         <composite:attribute id="lab_val" name="lab_valor" shortDescription="Valor do Label" required="true"/>
         <composite:attribute id="inp_valor" name="inp_valor" shortDescription="Valor do input" required="true"/>
         <composite:attribute id="inp_class" name="inp_class_tamanho" shortDescription="Tamanho do input pela classe Container" default="100"/>
+        <composite:attribute id="inp_disable" name="inp_disable" shortDescription="desabilitar campo" default="false"/>
         <composite:attribute id="inp_require" name="inp_require" default="false" />
         <composite:attribute id="sel_converter" name="sel_converter" default="none" shortDescription="Se for uma entidade e exigir converter passe o converter" />
         <composite:attribute id="sel_update" name="sel_update" default="@this" shortDescription="Caso precise atualizar algo passar o componeten q precisa ser atualizado" />
@@ -30,7 +31,7 @@
                 <div>
                     <c:if test="#{cc.attrs.sel_converter == 'none'}">
 
-                        <p:selectOneMenu style="width: 90%" value="#{cc.attrs.inp_valor}" id="input"  required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu style="width: 90%" disabled="#{cc.attrs.inp_disable}" value="#{cc.attrs.inp_valor}" id="input"  required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
 
@@ -38,7 +39,7 @@
                     </c:if>
                     <c:if test="#{cc.attrs.sel_converter != 'none'}">
 
-                        <p:selectOneMenu style="width: 90%" converter="#{indexConverter}"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu style="width: 90%" disabled="#{cc.attrs.inp_disable}" converter="#{indexConverter}"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
                         </p:selectOneMenu>

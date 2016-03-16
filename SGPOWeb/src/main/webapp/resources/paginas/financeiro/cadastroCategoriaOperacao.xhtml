@@ -17,11 +17,11 @@
         <p:fieldset legend="#{label.dados}" toggleable="true">
             <h:panelGroup layout="block" class="Container100 Responsive">
 
-                <inputs:selectOneLabel inp_valor="#{categoriaOperacaoMB.categoriaOperacao.tipoDeOperacao}" inp_class_tamanho="30" lab_valor="#{label.tipo}" >
+                <inputs:selectOneLabel inp_valor="#{categoriaOperacaoMB.categoriaOperacao.tipoDeOperacao}" sel_converter="none" inp_class_tamanho="30" lab_valor="#{label.tipo}" >
                     <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="----#{label.selecionar}----" />
                     <f:selectItems value="#{categoriaOperacaoMB.listaDeTiposDeOperacao}" var="tp" itemValue="#{tp}" itemLabel="#{tp}" />
                 </inputs:selectOneLabel>
-                <inputs:selectOneLabel inp_valor="#{categoriaOperacaoMB.categoriaOperacao.cor}" inp_class_tamanho="30" lab_valor="#{label.cor}" >
+                <inputs:selectOneLabel inp_valor="#{categoriaOperacaoMB.categoriaOperacao.cor}" sel_converter="none" inp_class_tamanho="30" lab_valor="#{label.cor}" >
                     <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="----#{label.selecionar}----" />
                     <f:selectItems value="#{categoriaOperacaoMB.listaDeCores}" var="c" itemValue="#{c}" itemLabel="#{c}" />
                 </inputs:selectOneLabel>
