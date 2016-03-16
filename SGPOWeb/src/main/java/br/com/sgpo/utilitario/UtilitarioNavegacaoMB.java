@@ -114,6 +114,14 @@ public class UtilitarioNavegacaoMB implements Serializable {
         }
         return false;
     }
+    public boolean existePermissaoModuloFinanceiro() {
+        for (Permissao p : listaDePermissaoDoUsuario) {
+            if (p.getTarefa().getModulo().getNome().equals("FINANCEIRO")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      *

@@ -10,7 +10,6 @@ import br.com.sgpo.seguranca.enumaration.TarefaPermissaoDTO;
 import br.com.sgpo.seguranca.modelo.Modulo;
 import br.com.sgpo.seguranca.modelo.Permissao;
 import br.com.sgpo.seguranca.modelo.Tarefa;
-import br.com.sgpo.utilitario.ConfiguracaoSistemaMB;
 import br.com.sgpo.utilitario.ControllerGenerico;
 import br.com.sgpo.utilitarios.ResourceUtil;
 import java.io.Serializable;
@@ -18,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -54,6 +51,7 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
         criarTarefaModSeguranca();
         criarTarefaModAdministrativo();
         criarTarefaModEngenharia();
+        criarTarefaModFinanceiro();
     }
 
     public List<TarefaPermissaoDTO> retornarTarefasPermissao(List<Tarefa> tarefas, List<Permissao> permissoes) {
@@ -111,6 +109,24 @@ public class TarefaController extends ControllerGenerico<Tarefa, Long> implement
         Enumeration<String> tarefa = bundle.getKeys();
         while (tarefa.hasMoreElements()) {
             Modulo md = moduloController.pegarModuloPor(ResourceUtil.lerBundle("engenharia", ResourceUtil.MODULO));
+            String nome = tarefa.nextElement();
+            String descricao = bundle.getString(nome);
+            if (!dao.existeTarefa(nome)) {
+                Tarefa taf = new Tarefa();
+                taf.setModulo(md);
+                taf.setNome(nome);
+                taf.setDescricao(descricao);
+                salvar(taf);
+            }
+
+        }
+    }
+    private void criarTarefaModFinanceiro() throws Exception {
+        System.out.println("--------------------------------------Criando Tarefas Mod Financeiro------------------------------------------");
+        ResourceBundle bundle = ResourceBundle.getBundle("br.com.sgpo.arquivos.financeiro");
+        Enumeration<String> tarefa = bundle.getKeys();
+        while (tarefa.hasMoreElements()) {
+            Modulo md = moduloController.pegarModuloPor(ResourceUtil.lerBundle("financeiro", ResourceUtil.MODULO));
             String nome = tarefa.nextElement();
             String descricao = bundle.getString(nome);
             if (!dao.existeTarefa(nome)) {

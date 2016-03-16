@@ -58,6 +58,10 @@
             <base-name>br.com.sgpo.arquivos.engenharia</base-name>
             <var>engenharia</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>br.com.sgpo.arquivos.financeiro</base-name>
+            <var>financeiro</var>
+        </resource-bundle>
        
         
 

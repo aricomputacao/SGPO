@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <composite:interface id="interCon">
+
+    </composite:interface>
+    <composite:implementation>
+        <p:fieldset legend="#{label.dados}" toggleable="true">
+            <h:panelGroup layout="block" class="Container100 Responsive">
+
+                <inputs:selectOneLabel inp_valor="#{categoriaOperacaoMB.categoriaOperacao.tipoDeOperacao}" inp_class_tamanho="30" lab_valor="#{label.tipo}" >
+                    <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="----#{label.selecionar}----" />
+                    <f:selectItems value="#{categoriaOperacaoMB.listaDeTiposDeOperacao}" var="tp" itemValue="#{tp}" itemLabel="#{tp}" />
+                </inputs:selectOneLabel>
+                <inputs:selectOneLabel inp_valor="#{categoriaOperacaoMB.categoriaOperacao.cor}" inp_class_tamanho="30" lab_valor="#{label.cor}" >
+                    <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="----#{label.selecionar}----" />
+                    <f:selectItems value="#{categoriaOperacaoMB.listaDeCores}" var="c" itemValue="#{c}" itemLabel="#{c}" />
+                </inputs:selectOneLabel>
+
+                <inputs:input_label id="inpNom" inp_class_tamanho="80" inp_require="true" inp_valor="#{categoriaOperacaoMB.categoriaOperacao.nome}" lab_valor="#{label.nome}"/>
+            </h:panelGroup>
+        </p:fieldset>
+        <p:fieldset class="MarTopPerc5" legend="#{label.categoria}s #{label.registradas}" toggleable="true">
+            <p:dataTable value="#{categoriaOperacaoMB.listaDeCategoriaOperacaos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                <p:column headerText="#{label.operacao}">
+                    <componentes:outputText value="#{p.tipoDeOperacao}"/>
+                </p:column>
+                <p:column headerText="#{label.nome}">
+                    <componentes:outputText value="#{p.nome}"/>
+                </p:column>
+
+                <p:column headerText="#{label.acao}">
+                    <composite:insertChildren />
+                </p:column>
+
+            </p:dataTable>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

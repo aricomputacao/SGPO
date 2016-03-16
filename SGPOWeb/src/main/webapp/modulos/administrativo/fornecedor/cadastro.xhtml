@@ -18,13 +18,23 @@
                                      acao_excluir="#{fornecedorMB.init()}" btn_excluir="false"  acao_salvar="#{fornecedorMB.salvar()}" 
                                      btn_limpar="true" acao_limpar="#{fornecedorMB.init()}" cabecalho="#{label.cadastro} #{label.fornecedor}" btn_imprimir="true" acao_imprimir="#{fornecedorMB.geraImpressaoDadosFornecedor()}" btn_ativar="false"
                                      btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{fornecedorMB.init()}" >
-                <div class="Container100 MarBot10 MarTop5">
 
-                    <p:commandLink   class="icon-plus-circled atalho atalho-f1 BordRad4 Container20 Fs15 TexAlCenter   Responsive  " rendered="#{fornecedorMB.renderizarAtalhos}" value="#{label.adicionar} #{label.conta}" update=":frm_conta" 
-                                     onclick="PF('dialogoAssinat').show()" />
+                <p:panel class="ContainerIndent  pnl-menu" rendered="#{fornecedorMB.renderizarAtalhos}">
 
-                </div>
-                <fornecedor:cadastroFornecedor id="compCadastro"/>
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "  
+                                     title="#{label.adicionar} #{label.conta}"  update=":frm_conta"  
+                                     onclick="PF('dialogoAssinat').show()" >
+                        <div class="ContainerIndent">
+
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="48" height="48" name="contato.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+                </p:panel>
+                    <fornecedor:cadastroFornecedor id="compCadastro"/>
             </componentes:panelPadrao>
         </h:form>
     </ui:define>
