@@ -66,6 +66,7 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
                 valor = BigDecimal.ZERO;
                 tipoDeOperacao = TipoDeOperacao.RECEITA;
                 listaDeFaturas = new ArrayList<>();
+                renderReceita = false;
 
             } else {
                 listaDeFaturas = faturaController.consultarFaturaDa(operacao);
@@ -76,7 +77,6 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
             processarParcelamento();
             processarTipoOperacao();
             listaDeOperacaos = new ArrayList<>();
-            listaCategoriaOperacaos = categoriaOperacaoController.consultarTodosOrdenadorPor("nome");
         } catch (Exception ex) {
             Logger.getLogger(OperacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,7 +84,7 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
 
     public void salvar() {
         try {
-            operacaoController.addOperacao(operacao);
+            operacaoController.addOperacao(operacao,valor);
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
             init();
         } catch (Exception ex) {
