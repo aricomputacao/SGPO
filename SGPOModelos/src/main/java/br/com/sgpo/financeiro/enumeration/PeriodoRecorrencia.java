@@ -5,22 +5,36 @@
  */
 package br.com.sgpo.financeiro.enumeration;
 
+import br.com.sgpo.financeiro.negocio.ProcessadorDePeriodoRecorrencia;
+import br.com.sgpo.financeiro.negocio.ProcessadorPeriodoMes;
+import br.com.sgpo.financeiro.negocio.ProcessadorPeriodoSemana;
+import br.com.sgpo.financeiro.negocio.ProcessarPeriodoDia;
+import java.util.Date;
+
 /**
  *
  * @author ari
  */
 public enum PeriodoRecorrencia {
-    DIA("Dia"),MES("Mês"),SEMANA("Semana");
+    DIA("Dia",new ProcessarPeriodoDia()),
+    MES("Mês",new ProcessadorPeriodoMes()),
+    SEMANA("Semana",new ProcessadorPeriodoSemana());
 
     private final String descricao;
     
-    private PeriodoRecorrencia(String descricao) {
+    private final ProcessadorDePeriodoRecorrencia pdpr;
+    
+    private PeriodoRecorrencia(String descricao,ProcessadorDePeriodoRecorrencia pdpr) {
         this.descricao = descricao;
+        this.pdpr = pdpr;
     }
 
     public String getDescricao() {
         return descricao;
     }
     
+    public Date processaData(Date ultimaData,int quantidadeAdicional){
+        return this.pdpr.retornaData(ultimaData, quantidadeAdicional);
+    }
     
 }
