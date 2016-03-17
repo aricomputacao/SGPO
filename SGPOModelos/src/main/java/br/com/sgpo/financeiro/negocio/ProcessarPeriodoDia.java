@@ -15,10 +15,10 @@ import java.util.Date;
 public class ProcessarPeriodoDia implements ProcessadorDePeriodoRecorrencia{
 
     @Override
-    public Date retornaData(Date ultimaData,int quantidadeAdicional) {
+    public Date retornaData(Date ultimaData) {
         Calendar c = Calendar.getInstance();
         c.setTime(ultimaData);
-        c.set(Calendar.DAY_OF_MONTH, quantidadeAdicional);
+        c.set(Calendar.DAY_OF_MONTH, 1);
         
         return c.getTime();
     }

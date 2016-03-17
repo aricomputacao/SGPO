@@ -16,10 +16,10 @@ import java.util.Date;
 public class ProcessadorPeriodoSemana implements ProcessadorDePeriodoRecorrencia,Serializable{
 
     @Override
-    public Date retornaData(Date ultimaData, int quantidadeAdicional) {
+    public Date retornaData(Date ultimaData) {
         Calendar c = Calendar.getInstance();
         c.setTime(ultimaData);
-        c.set(Calendar.WEEK_OF_YEAR, quantidadeAdicional);
+        c.set(Calendar.WEEK_OF_YEAR,1);
         
         return c.getTime();
     }

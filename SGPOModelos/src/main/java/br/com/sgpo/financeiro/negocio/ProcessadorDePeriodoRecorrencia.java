@@ -12,5 +12,5 @@ import java.util.Date;
  * @author ari
  */
 public interface ProcessadorDePeriodoRecorrencia {
-    public Date retornaData(Date ultimaData,int quantidadeAdicional);
+    public Date retornaData(Date ultimaData);
 }

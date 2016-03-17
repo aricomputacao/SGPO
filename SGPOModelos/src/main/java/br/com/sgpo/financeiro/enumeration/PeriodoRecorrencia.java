@@ -33,8 +33,8 @@ public enum PeriodoRecorrencia {
         return descricao;
     }
     
-    public Date processaData(Date ultimaData,int quantidadeAdicional){
-        return this.pdpr.retornaData(ultimaData, quantidadeAdicional);
+    public Date processaData(Date ultimaData){
+        return this.pdpr.retornaData(ultimaData);
     }
     
 }
