@@ -45,17 +45,16 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
 
     private Operacao operacao;
     private TipoDeOperacao tipoDeOperacao;
-    
-    
+
     private List<Operacao> listaDeOperacaos;
     private List<FaturaOperacao> listaDeFaturas;
     private List<CategoriaOperacao> listaCategoriaOperacaos;
-    
+
     private boolean renderReceita;
     private boolean renderRecorrencia;
     private boolean renderParcelamento;
     private BigDecimal valor;
-    
+
     @PostConstruct
     @Override
     public void init() {
@@ -65,12 +64,17 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
             if (operacao == null) {
                 operacao = new Operacao();
                 valor = BigDecimal.ZERO;
+                tipoDeOperacao = TipoDeOperacao.RECEITA;
                 listaDeFaturas = new ArrayList<>();
-                processarRecorrencia();
+
             } else {
                 listaDeFaturas = faturaController.consultarFaturaDa(operacao);
                 valor = operacao.getValorDaOperacao(listaDeFaturas);
+                tipoDeOperacao = operacao.getCategoriaOperacao().getTipoDeOperacao();
             }
+            processarRecorrencia();
+            processarParcelamento();
+            processarTipoOperacao();
             listaDeOperacaos = new ArrayList<>();
             listaCategoriaOperacaos = categoriaOperacaoController.consultarTodosOrdenadorPor("nome");
         } catch (Exception ex) {
@@ -80,7 +84,7 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
 
     public void salvar() {
         try {
-            operacaoController.atualizar(operacao);
+            operacaoController.addOperacao(operacao);
             MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
             init();
         } catch (Exception ex) {
@@ -96,17 +100,18 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
             Logger.getLogger(OperacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void processarTipoOperacao(){
+
+    public void processarTipoOperacao() {
         listaCategoriaOperacaos = categoriaOperacaoController.consultar(tipoDeOperacao);
         renderReceita = tipoDeOperacao.equals(TipoDeOperacao.RECEITA);
     }
-    
-    public void processarRecorrencia(){
-        renderRecorrencia =  operacao.isRecorrencia() == false;
+
+    public void processarRecorrencia() {
+        renderRecorrencia = operacao.isRecorrencia() == false;
     }
-    public void processarParcelamento(){
-         renderParcelamento = operacao.isParcelamento() == false;
+
+    public void processarParcelamento() {
+        renderParcelamento = operacao.isParcelamento() == false;
     }
 
     @Override
@@ -137,10 +142,10 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
         return TipoDeOperacao.values();
     }
 
-    public PeriodoRecorrencia[] getListaPeriodoRecorrencia(){
+    public PeriodoRecorrencia[] getListaPeriodoRecorrencia() {
         return PeriodoRecorrencia.values();
     }
-    
+
     public List<CategoriaOperacao> getListaCategoriaOperacaos() {
         return listaCategoriaOperacaos;
     }
@@ -172,6 +177,9 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
     public boolean isRenderRecorrencia() {
         return renderRecorrencia;
     }
-    
-    
+
+    public boolean isRenderParcelamento() {
+        return renderParcelamento;
+    }
+
 }

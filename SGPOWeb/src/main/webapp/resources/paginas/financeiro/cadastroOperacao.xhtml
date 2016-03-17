@@ -17,7 +17,9 @@
         <p:fieldset legend="#{label.dados}" id="fieldDados"  toggleable="true">
             <h:panelGroup layout="block"  class="Container100 Responsive">
 
-                <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input" ajax_render="true" ajax_listener="#{operacaoMB.processarTipoOperacao()}" inp_class_tamanho="30" lab_valor="#{label.tipo}" >
+                <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input @form"  
+                                       ajax_render="true" ajax_listener="#{operacaoMB.processarTipoOperacao()}" inp_class_tamanho="30" 
+                                       lab_valor="#{label.tipo}" >
                     <f:selectItems value="#{operacaoMB.listaDeTiposDeOperacao}" var="tp" itemValue="#{tp}" itemLabel="#{tp}" />
                 </inputs:selectOneRadio>
             </h:panelGroup>
@@ -33,7 +35,7 @@
             </h:panelGroup>
         </p:fieldset>
         <p:separator class="Container100 " />
-        <p:fieldset legend="#{label.dados}" toggleable="true">
+        <p:fieldset legend="#{label.complementos}" toggleable="true">
             <h:panelGroup layout="block" class="Container50 Responsive softGrayBack BordRad10" >
                 <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.recorrencia}" inp_class_tamanho="100" action="#{operacaoMB.processarRecorrencia()}"  lab_valor="#{label.recorrencia}"  />
                 <inputs:input_label_number  inp_valor="#{operacaoMB.operacao.periodoRecorrencia}"  lab_valor="#{label.ocorre} #{label.em}:" inp_disable="#{operacaoMB.renderRecorrencia}"  inp_class_tamanho="20"  /> 
@@ -41,12 +43,11 @@
                     <f:selectItems value="#{operacaoMB.listaPeriodoRecorrencia}" var="pr" itemLabel="#{pr.descricao}" itemValue="#{pr}" />
                 </inputs:selectOneLabel>
             </h:panelGroup>
-            <h:panelGroup layout="block" class="Container50 Responsive softGrayBack BordRad10" rendered="#{not operacaoMB.renderReceita}" >
-                <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.parcelamento}" inp_class_tamanho="100" action="#{operacaoMB.processarRecorrencia()}"  lab_valor="#{label.parcelamento}"  />
-                <inputs:input_label_number  inp_valor="#{operacaoMB.operacao.periodoRecorrencia}"  lab_valor="#{label.ocorre} #{label.em}:" inp_disable="#{operacaoMB.renderRecorrencia}"  inp_class_tamanho="20"  /> 
-                <inputs:selectOneLabel inp_valor="#{operacaoMB.operacao.periodoRecorrencia}" lab_valor="#{label.periodo}" inp_class_tamanho="20" inp_disable="#{operacaoMB.renderRecorrencia}">
-                    <f:selectItems value="#{operacaoMB.listaPeriodoRecorrencia}" var="pr" itemLabel="#{pr.descricao}" itemValue="#{pr}" />
-                </inputs:selectOneLabel>
+            <h:panelGroup  id="pnlDadPes" layout="block" class="Container50 Responsive softGrayBack BordRad10" rendered="#{not operacaoMB.renderReceita}" >
+                <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.parcelamento}" inp_class_tamanho="100" action="#{operacaoMB.processarParcelamento()}"  lab_valor="#{label.parcelamento}"  />
+                <inputs:input_label_number  inp_valor="#{operacaoMB.operacao.numeroParcelas}"  lab_valor="#{label.numero} #{label.de} #{label.parcelas}:" 
+                                            inp_disable="#{operacaoMB.renderParcelamento}"  inp_class_tamanho="30"  /> 
+                
             </h:panelGroup>
         </p:fieldset>
         <p:fieldset class="MarTopPerc5" legend="#{label.categoria}s #{label.registradas}" toggleable="true">
