@@ -10,6 +10,20 @@ package br.com.sgpo.financeiro.enumeration;
  * @author ari
  */
 public enum Cor {
-    VERDE,AZUL,AMARELO,VERMELHO;
+    VERDE("greenBack"),
+    AZUL("blueBack"),
+    AMARELO("orangeBack"),
+    VERMELHO("redBack");
+    
+    private final String descricao;
+
+    private Cor(String cor) {
+        this.descricao = cor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+    
     
 }
