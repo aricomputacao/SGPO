@@ -18,7 +18,7 @@ public class ProcessarPeriodoDia implements ProcessadorDePeriodoRecorrencia{
     public Date retornaData(Date ultimaData) {
         Calendar c = Calendar.getInstance();
         c.setTime(ultimaData);
-        c.set(Calendar.DAY_OF_MONTH, 1);
+        c.add(Calendar.DAY_OF_MONTH, 1);
         
         return c.getTime();
     }

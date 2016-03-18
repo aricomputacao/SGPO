@@ -16,9 +16,9 @@ import java.util.Date;
  * @author ari
  */
 public enum PeriodoRecorrencia {
-    DIA("Dia",new ProcessarPeriodoDia()),
     MES("Mês",new ProcessadorPeriodoMes()),
-    SEMANA("Semana",new ProcessadorPeriodoSemana());
+    SEMANA("Semana",new ProcessadorPeriodoSemana()),
+    DIA("Dia",new ProcessarPeriodoDia());
 
     private final String descricao;
     

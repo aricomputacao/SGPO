@@ -71,6 +71,7 @@ public class Operacao implements Serializable {
     @Column(name = "ope_numero_parcelas")
     private int  numeroParcelas;
     
+    
     public BigDecimal getValorDaOperacao(List<FaturaOperacao> fos){
         BigDecimal valor = BigDecimal.ZERO;
         for (FaturaOperacao fo : fos) {

@@ -19,7 +19,7 @@ public class ProcessadorPeriodoSemana implements ProcessadorDePeriodoRecorrencia
     public Date retornaData(Date ultimaData) {
         Calendar c = Calendar.getInstance();
         c.setTime(ultimaData);
-        c.set(Calendar.WEEK_OF_YEAR,1);
+        c.add(Calendar.WEEK_OF_YEAR,1);
         
         return c.getTime();
     }

@@ -19,7 +19,7 @@ public class ProcessadorPeriodoMes implements ProcessadorDePeriodoRecorrencia,Se
     public Date retornaData(Date ultimaData) {
         Calendar c = Calendar.getInstance();
         c.setTime(ultimaData);
-        c.set(Calendar.MONTH, 1);
+        c.add(Calendar.MONTH, 1);
         
         return c.getTime();
     }
