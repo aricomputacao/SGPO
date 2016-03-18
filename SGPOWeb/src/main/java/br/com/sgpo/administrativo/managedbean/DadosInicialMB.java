@@ -13,6 +13,8 @@ import br.com.sgpo.engenharia.projeto.Controller.NotificacaoProjetoController;
 import br.com.sgpo.engenharia.projeto.Controller.ProjetoController;
 import br.com.sgpo.engenharia.projeto.modelo.NotificacaoProjeto;
 import br.com.sgpo.engenharia.projeto.modelo.Projeto;
+import br.com.sgpo.financeiro.controller.FaturaController;
+import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.IndexMB;
 import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
@@ -49,7 +51,10 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     private ObraController obraController;
     @Inject
     private IndexMB indexMB;
+    @Inject
+    private FaturaController faturaController;
 
+    private List<FaturaOperacao> listaDeFaturas;
     private List<Projeto> listaDeProjetos;
     private List<NotificacaoProjeto> listaDeNotificacaoProjetos;
     private List<Obra> listaDeObras;
@@ -60,6 +65,7 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
 
     private NotificacaoProjeto notificacaoProjeto;
     private Projeto projeto;
+    private FaturaOperacao fatura;
 
 
     @PostConstruct
@@ -72,6 +78,7 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             
             listaDeObras = obraController.consultarObrasEmAndamento();
             
+            listaDeFaturas = faturaController.consultarTodosOrdenadorPor("id");
           
             listaColaboradorSource = colaboradorController.consultarTodosOrdenadorPor("nome");
             listaColaboradorTarget = new ArrayList<>();
@@ -136,6 +143,10 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
 
     public void setListDualColaboradores(DualListModel<Colaborador> listDualColaboradores) {
         this.listDualColaboradores = listDualColaboradores;
+    }
+
+    public List<FaturaOperacao> getListaDeFaturas() {
+        return listaDeFaturas;
     }
 
     

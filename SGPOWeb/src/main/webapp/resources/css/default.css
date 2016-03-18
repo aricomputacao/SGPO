@@ -15,7 +15,7 @@
     -moz-border-radius:5px !important;
 
     background: #cdf3cd !important;
-  
+
 
     /*    filter:alpha(opacity=50) ! important;
         opacity: 0.5 ! important;
@@ -202,9 +202,9 @@
 .ui-messages-info,
 .ui-message-info,
 .ui-growl-message{
-    background-color: #F2FCFA  !important;
+    background-color: #F2FCFA  ! important;
     color: #339957 ! important;
-    border-color: #A6EDDB !important
+    border-color: #A6EDDB ! important;
 
 }
 
@@ -220,12 +220,55 @@
 
 .pnl-index{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,cccccc+100;Gren+3D */
-    background: rgb(238,238,238); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+    background: rgb(238,238,238) ! important; /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%) ! important; /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%) ! important; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%) ! important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ) ! important; /* IE6-9 */
     padding: 3px;
+}
+
+.pnl-fatura{
+    -webkit-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+
+}
+
+.img-index{
+    filter:alpha(opacity=30) ! important;
+    opacity: 0.3 ! important;
+    -moz-opacity:0.3 ! important;
+    -webkit-opacity:0.3 ! important;
+
+}
+.img-index:hover{
+    filter:alpha(opacity=70) ! important;
+    opacity: 0.7 ! important;
+    -moz-opacity:0.7 ! important;
+    -webkit-opacity:0.7 ! important;
+
+}
+
+
+
+
+.redBack {
+    background-color: #E53935;
+    border-color: #E53935;
+}
+.orangeBack {
+    background-color: #EF6C00;
+    border-color: #EF6C00;
+}
+
+.greenBack {
+    background-color: #43A047;
+    border-color: #43A047;
+}
+.blueBack {
+    background-color: #0277BD;
+    border-color: #0277BD;
 }
 
 @media (max-width: 500px) {

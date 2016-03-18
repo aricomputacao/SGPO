@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:output="http://xmlns.jcp.org/jsf/composite/componentes">
+    <composite:interface>
+
+
+    </composite:interface>
+    <composite:implementation id="compo">
+
+        <div class="Container100 ">
+            <p:panel>
+
+                <i class="icon-building Fleft Fs30 yellow "></i>
+                <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.faturas}</div>                                       
+            </p:panel>
+            <p:panel class="Container47  " >
+                <p:panel>
+                    <i class="icon-building Fleft  Fs30 yellow "> </i>
+                    <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.receita}</div>                                       
+
+
+                </p:panel>
+                <p:dataGrid var="ftRec" value="#{dadosInicialMB.listaDeFaturas}" columns="4" layout="grid"
+                            rows="6" paginator="true" id="ftRec" 
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16">
+
+                    <div  class="pnl-fatura BordRad4 #{ftRec.operacao.categoriaOperacao.cor.descricao}">
+                        <p:commandLink title="#{ftRec.operacao.descricao}" >
+                            <h:outputText class="Container100   TexAlCenter Fs25" style="color: white" value="#{ftRec.operacao.categoriaOperacao.nome}"  />
+                            <p:separator class="Container100" />
+                            <h:panelGroup layout="block" class="Container100" >
+                                <h:panelGrid columns="2">
+                                    <i class="icon-anchor-1 Fs40  Container100 TexAlLeft" style="color: white" />
+                                    <h:outputText class="Container100  TexAlLeft Fs20 fontItalic" style="color: white" value="#{ftRec.dataVencimento}"  >
+                                        <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </h:panelGrid>
+                                <h:outputText class="TexAlCenter  Container100 Fs23  " style="color: white" value="#{ftRec.valor}"  >
+                                    <f:convertNumber type="currency" />
+                                </h:outputText>
+                            </h:panelGroup>
+                        </p:commandLink>
+                        <p:separator class="Container100" />
+                        <h:panelGrid    columns="3" >
+                            <p:commandLink  class="img-index" title="#{label.editar}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
+                            </p:commandLink>
+                            <p:commandLink class="img-index" title="#{label.informacoes}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                                <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
+                            </p:commandLink>
+                            <p:commandLink class="img-index" title="#{label.excluir}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
+                            </p:commandLink>
+
+                        </h:panelGrid>
+                    </div>
+
+
+
+                </p:dataGrid>
+            </p:panel>
+            <p:panel class="Container47  " >
+                <p:panel>
+                    <i class="icon-building Fleft  Fs30 yellow "> </i>
+                    <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.despesa}</div>                                       
+
+
+                </p:panel>
+                <p:dataGrid var="ftDes" value="#{dadosInicialMB.listaDeFaturas}" columns="4" layout="grid"
+                            rows="6" paginator="true" id="ftDes" 
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16">
+
+                    <div  class="pnl-fatura BordRad4 #{ftDes.operacao.categoriaOperacao.cor.descricao}">
+                        <p:commandLink title="#{ftDes.operacao.descricao}" >
+                            <h:outputText class="Container100   TexAlCenter Fs25" style="color: white" value="#{ftDes.operacao.categoriaOperacao.nome}"  />
+                            <p:separator class="Container100" />
+                            <h:panelGroup layout="block" class="Container100" >
+                                <h:panelGrid columns="2">
+                                    <i class="icon-anchor-1 Fs40  Container100 TexAlLeft" style="color: white" />
+                                    <h:outputText class="Container100  TexAlLeft Fs20 fontItalic" style="color: white" value="#{ftDes.dataVencimento}"  >
+                                        <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </h:panelGrid>
+                                <h:outputText class="TexAlCenter  Container100 Fs23  " style="color: white" value="#{ftDes.valor}"  >
+                                    <f:convertNumber type="currency" />
+                                </h:outputText>
+                            </h:panelGroup>
+                        </p:commandLink>
+                        <p:separator class="Container100" />
+                        <h:panelGrid    columns="3" >
+                            <p:commandLink  class="img-index" title="#{label.editar}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
+                            </p:commandLink>
+                            <p:commandLink class="img-index" title="#{label.informacoes}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                                <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
+                            </p:commandLink>
+                            <p:commandLink class="img-index" title="#{label.excluir}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
+                            </p:commandLink>
+
+                        </h:panelGrid>
+                    </div>
+
+
+
+                </p:dataGrid>
+            </p:panel>
+        </div>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+
