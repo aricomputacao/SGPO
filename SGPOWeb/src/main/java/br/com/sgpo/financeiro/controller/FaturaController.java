@@ -35,8 +35,8 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
 
     public void addFaturaReceita(Operacao operacao, BigDecimal valor) throws Exception {
         Date ultimaData = operacao.getDateOperacao();
-        if (operacao.isRecorrencia()) {
-            for (int i = 0; i < operacao.getTempoRecorrencia(); i++) {
+        if (operacao.isParcelamento()) {
+            for (int i = 0; i < operacao.getNumeroParcelas(); i++) {
                 FaturaOperacao fatura = new FaturaOperacao();
                 fatura.setDataVencimento(ultimaData);
                 fatura.setOperacao(operacao);
@@ -56,6 +56,12 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
     public List<FaturaOperacao> consultarFaturaDa(Operacao o) {
         return dao.consultarFaturaDa(o);
 
+    }
+    
+    @Override
+    public void excluir(FaturaOperacao fo) throws Exception{
+        fo = dao.gerenciar(fo.getId());
+        dao.excluir(fo);
     }
 
 }

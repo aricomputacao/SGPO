@@ -27,18 +27,18 @@ import javax.inject.Inject;
  */
 @Stateless
 public class OperacaoController extends ControllerGenerico<Operacao, Long> implements Serializable {
-
+    
     @Inject
     private OperacaoDAO dao;
     @Inject
     private FaturaController faturaController;
-
+    
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
-
+    
     private void addOperacaoComParcelamento(Operacao operacao, BigDecimal valor) throws Exception {
         Calendar c = Calendar.getInstance();
         c.setTime(operacao.getDateOperacao());
@@ -49,29 +49,29 @@ public class OperacaoController extends ControllerGenerico<Operacao, Long> imple
             fatura.setOperacao(operacao);
             fatura.setDataVencimento(datasVencimento.get(i));
             fatura.setValor(valores.get(i));
-
+            
             faturaController.salvar(fatura);
-
+            
         }
     }
-
+    
     private void addOperacaoSemParcelamento(Operacao operacao, BigDecimal valor) throws Exception {
         FaturaOperacao fatura = new FaturaOperacao();
         fatura.setOperacao(operacao);
         fatura.setDataVencimento(operacao.getDateOperacao());
         fatura.setValor(valor);
-
+        
         faturaController.salvar(fatura);
-
+        
     }
-
+    
     private List<Operacao> processarOperacao(Operacao operacao, BigDecimal valor) throws Exception {
         List<Operacao> list = new ArrayList<>();
         Date ultimaData = operacao.getDateOperacao();
-
+        
         if (operacao.isRecorrencia()) {
             for (int i = 0; i < operacao.getTempoRecorrencia(); i++) {
-
+                
                 Operacao op = new Operacao();
                 op.setCategoriaOperacao(operacao.getCategoriaOperacao());
                 op.setDateOperacao(ultimaData);
@@ -81,26 +81,26 @@ public class OperacaoController extends ControllerGenerico<Operacao, Long> imple
                 op.setPeriodoRecorrencia(operacao.getPeriodoRecorrencia());
                 op.setRecorrencia(operacao.isRecorrencia());
                 op.setTempoRecorrencia(operacao.getTempoRecorrencia());
-
+                
                 dao.salvar(op);
                 list.add(op);
-
+                
                 ultimaData = operacao.getPeriodoRecorrencia().processaData(ultimaData);
-
+                
             }
         } else {
             dao.salvar(operacao);
             list.add(operacao);
         }
         return list;
-
+        
     }
-
+    
     public void addOperacao(Operacao operacao, BigDecimal valor) throws Exception {
         List<Operacao> list = processarOperacao(operacao, valor);
         switch (operacao.getCategoriaOperacao().getTipoDeOperacao()) {
             case DESPESA: {
-
+                
                 for (Operacao op : list) {
                     if (op.isParcelamento()) {
                         addOperacaoComParcelamento(op, valor);
@@ -110,16 +110,30 @@ public class OperacaoController extends ControllerGenerico<Operacao, Long> imple
                 }
                 break;
             }
-
+            
             case RECEITA: {
                 for (Operacao op : list) {
                     faturaController.addFaturaReceita(op, valor);
                 }
                 break;
-
+                
             }
         }
-
+        
     }
-
+    
+    public List<Operacao> consultarOperacoesDoDia(Date date) {
+        return dao.consultarOperacoesDoDia(date);
+    }
+    
+    @Override
+    public void excluir(Operacao op) throws Exception {
+        List<FaturaOperacao> fos = faturaController.consultarFaturaDa(op);
+        op = gerenciar(op.getId());
+        for (FaturaOperacao fo : fos) {
+            faturaController.excluir(fo);
+        }
+        dao.excluir(op);
+        
+    }
 }

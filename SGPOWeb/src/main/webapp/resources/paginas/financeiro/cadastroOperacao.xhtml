@@ -8,7 +8,8 @@
                 xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:cb="http://xmlns.jcp.org/jsf/composite/componentes/botoes">
 
     <composite:interface id="interCon">
 
@@ -34,37 +35,47 @@
                 </inputs:selectOneLabe_btn_mais>
             </h:panelGroup>
         </p:fieldset>
-        <p:fieldset legend="#{label.complementos}" id="fieldComp" toggleable="true" >
+        <p:fieldset legend="#{label.complementos}" class="MarTop5" id="fieldComp" toggleable="true" >
             <h:panelGroup layout="block" id="recorrencia" class="Container50 Responsive softGrayBack BordRad10" >
                 <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.recorrencia}" sel_update=":pnlPadrao:compCadastro:recorrencia" inp_class_tamanho="100" action="#{operacaoMB.processarRecorrencia()}"  lab_valor="#{label.recorrencia}"  />
                 <inputs:input_label_number  inp_valor="#{operacaoMB.operacao.tempoRecorrencia}"  lab_valor="#{label.ocorre} #{label.em}:" inp_disable="#{operacaoMB.renderRecorrencia}"  inp_class_tamanho="20"  /> 
-                <inputs:selectOneLabel inp_valor="#{operacaoMB.operacao.periodoRecorrencia}" lab_valor="#{label.periodo}" inp_class_tamanho="20" inp_disable="#{operacaoMB.renderRecorrencia}">
+                <inputs:selectOneLabel inp_valor="#{operacaoMB.operacao.periodoRecorrencia}" lab_valor="#{label.periodo}" inp_class_tamanho="30" inp_disable="#{operacaoMB.renderRecorrencia}">
                     <f:selectItems value="#{operacaoMB.listaPeriodoRecorrencia}" var="pr" itemLabel="#{pr.descricao}" itemValue="#{pr}" />
                 </inputs:selectOneLabel>
             </h:panelGroup>
             <h:panelGroup   layout="block" id="pnlDadPes" class="Container50 Responsive softGrayBack BordRad10" rendered="#{not operacaoMB.renderReceita}"  >
                 <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.parcelamento}" inp_class_tamanho="100" action="#{operacaoMB.processarParcelamento()}"   sel_update=":pnlPadrao:compCadastro:pnlDadPes" lab_valor="#{label.parcelamento}"  />
                 <inputs:input_label_number id="inputNumero" inp_valor="#{operacaoMB.operacao.numeroParcelas}"  lab_valor="#{label.numero} #{label.de} #{label.parcelas}:" 
-                                            inp_disable="#{operacaoMB.renderParcelamento}"  inp_class_tamanho="30"  /> 
-                
+                                           inp_disable="#{operacaoMB.renderParcelamento}"  inp_class_tamanho="30"  /> 
+
             </h:panelGroup>
         </p:fieldset>
-        <p:fieldset class="MarTopPerc5" legend="#{label.categoria}s #{label.registradas}" toggleable="true">
-            <p:dataTable value="#{categoriaOperacaoMB.listaDeCategoriaOperacaos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+        <p:fieldset class="MarTopPerc5" legend="#{label.operacao} #{label.registradas}" toggleable="true">
+            <p:dataTable value="#{operacaoMB.listaDeOperacaos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="op" rows="10"
                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  reflow="true">
 
 
-                <p:column headerText="#{label.operacao}">
-                    <componentes:outputText value="#{p.tipoDeOperacao}"/>
+                <p:column headerText="#{label.data}">
+                    <componentes:outputText value="#{op.dateOperacao}" tipo="d"/>
                 </p:column>
-                <p:column headerText="#{label.nome}">
-                    <componentes:outputText value="#{p.nome}"/>
+                <p:column headerText="#{label.tipo}">
+                    <componentes:outputText value="#{op.categoriaOperacao.tipoDeOperacao} "/>
+                </p:column>
+                <p:column headerText="#{label.categoria}">
+                    <componentes:outputText value="#{op.categoriaOperacao.nome} "/>
+                </p:column>
+                <p:column headerText="#{label.descricao}">
+                    <componentes:outputText value="#{op.descricao}"/>
                 </p:column>
 
-                <p:column headerText="#{label.acao}">
+                <p:column headerText="#{label.faturas}">
+                    <p:commandButton title="#{label.consulta} #{label.faturas}"  update=":frm_con_fatura" immediate="true" class="btnForm" 
+                                     actionListener="#{operacaoMB.consultarFatura(op)}" oncomplete="PF('dialogConFatura').show()"   icon="fa fa-list"/>
+                    
+                    <cb:commandButtonExcluir renderizar_btn="true" componente_to_update=":pnlPadrao:compCadastro:tabela" immediate="true" acao_butao="#{operacaoMB.excluirOperacao(op)}" />  
                     <composite:insertChildren />
                 </p:column>
 

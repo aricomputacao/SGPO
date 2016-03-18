@@ -17,7 +17,7 @@ import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +65,6 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
                 operacao = new Operacao();
                 valor = BigDecimal.ZERO;
                 tipoDeOperacao = TipoDeOperacao.RECEITA;
-                listaDeFaturas = new ArrayList<>();
                 renderReceita = false;
 
             } else {
@@ -76,7 +75,7 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
             processarRecorrencia();
             processarParcelamento();
             processarTipoOperacao();
-            listaDeOperacaos = new ArrayList<>();
+            listaDeOperacaos = operacaoController.consultarOperacoesDoDia(new Date());
         } catch (Exception ex) {
             Logger.getLogger(OperacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,6 +91,30 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
             Logger.getLogger(OperacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void excluirFatura(FaturaOperacao ft){
+        try {
+            Operacao o = ft.getOperacao();
+            faturaController.excluir(ft);
+            listaDeFaturas = faturaController.consultarFaturaDa(o);
+            MensagensUtil.enviarMessageInfo(MensagensUtil.EXCLUIR_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.EXCLUIR_FALHA);
+            Logger.getLogger(OperacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void excluirOperacao(Operacao op){
+        try {
+            operacaoController.excluir(op);
+            init();
+            MensagensUtil.enviarMessageInfo(MensagensUtil.EXCLUIR_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.EXCLUIR_FALHA);
+            Logger.getLogger(OperacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     public void consulta() {
         try {
@@ -101,6 +124,10 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
         }
     }
 
+    public void consultarFatura(Operacao op){
+        listaDeFaturas = faturaController.consultarFaturaDa(op);
+    }
+    
     public void processarTipoOperacao() {
         listaCategoriaOperacaos = categoriaOperacaoController.consultar(tipoDeOperacao);
         renderReceita = tipoDeOperacao.equals(TipoDeOperacao.RECEITA);

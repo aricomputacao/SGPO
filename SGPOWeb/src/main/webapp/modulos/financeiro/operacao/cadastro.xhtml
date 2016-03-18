@@ -7,12 +7,13 @@
                 xmlns:tip="http://xmlns.jcp.org/jsf/composite/paginas/financeiro/"
 
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:cb="http://xmlns.jcp.org/jsf/composite/componentes/botoes">
 
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.operacao_cadastro)}" >
             <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
-                                     acao_cancelar="#{operacaoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                     acao_cancelar="#{operacaoMB.init()}" btn_dialog_rel="false" render_sep_3="true" btn_salvar_update="@form :frm_cad:pnlPadrao:compCadastro:tabela"
                                      acao_excluir="#{operacaoMB.init()}"  acao_salvar="#{operacaoMB.salvar()}"
                                      btn_limpar="false" cabecalho="#{label.cadastro} #{label.operacao}" >
                 <tip:cadastroOperacao id="compCadastro"/>
@@ -28,6 +29,13 @@
                                          btn_limpar="false" cabecalho="#{label.cadastro} #{label.categoria}" >
                     <tip:cadastroCategoriaOperacao id="compCadastroCategoria"/>
                 </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" dynamic="true"  width="40%"   header="#{label.consulta} #{label.faturas} " id="dialogConFatura" modal="true" hideEffect="fade" widgetVar="dialogConFatura">
+            <h:form id="frm_con_fatura" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.categoria_operacao_cadastro)}" >
+                <tip:consultaFatura id="compConFatura">
+                    <cb:commandButtonExcluir componente_to_update=":frm_con_fatura" renderizar_btn="true" acao_butao="#{operacaoMB.excluirFatura(ft)}" />
+                </tip:consultaFatura>
             </h:form>
         </p:dialog>
     </ui:define>
