@@ -20,38 +20,35 @@
         <div class="Container100 ">
             <p:panel>
 
-                <i class="icon-building Fleft Fs30 yellow "></i>
+                <i class="icon-bookmark-1 Fleft Fs30 yellow "></i>
                 <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.faturas}</div>                                       
             </p:panel>
-            <p:panel class="Container47  " >
+            <p:panel class="Container50  " >
                 <p:panel>
-                    <i class="icon-building Fleft  Fs30 yellow "> </i>
+                    <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="receita.png" />
                     <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.receita}</div>                                       
 
 
                 </p:panel>
-                <p:dataGrid var="ftRec" value="#{dadosInicialMB.listaDeFaturas}" columns="4" layout="grid"
+                <p:dataGrid var="ftRec" value="#{dadosInicialMB.demonstrativoFinanceiro.listaDeReceitas}" columns="4" layout="grid"
                             rows="6" paginator="true" id="ftRec" 
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="6,12,16">
 
                     <div  class="pnl-fatura BordRad4 #{ftRec.operacao.categoriaOperacao.cor.descricao}">
                         <p:commandLink title="#{ftRec.operacao.descricao}" >
-                            <h:outputText class="Container100   TexAlCenter Fs25" style="color: white" value="#{ftRec.operacao.categoriaOperacao.nome}"  />
-                            <p:separator class="Container100" />
+                            <h:outputText class="Container100   TexAlCenter Fs20 label-pnl-index FontBold" style="color: black" value="#{ftRec.operacao.categoriaOperacao.nome}"  />
+                            <p:separator class="Container100 label-pnl-index" />
                             <h:panelGroup layout="block" class="Container100" >
-                                <h:panelGrid columns="2">
-                                    <i class="icon-anchor-1 Fs40  Container100 TexAlLeft" style="color: white" />
-                                    <h:outputText class="Container100  TexAlLeft Fs20 fontItalic" style="color: white" value="#{ftRec.dataVencimento}"  >
-                                        <f:convertDateTime  pattern="dd/MM/yyyy"/>
-                                    </h:outputText>
-                                </h:panelGrid>
-                                <h:outputText class="TexAlCenter  Container100 Fs23  " style="color: white" value="#{ftRec.valor}"  >
+                                <h:outputText class="Container100  TexAlCenter Fs20  label-pnl-index" style="color: white" value="#{ftRec.dataVencimento}"  >
+                                    <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                                <h:outputText class="TexAlCenter  Container100 Fs20  MarTop5 FontBold" style="color: white" value="#{ftRec.valor}"  >
                                     <f:convertNumber type="currency" />
                                 </h:outputText>
                             </h:panelGroup>
                         </p:commandLink>
-                        <p:separator class="Container100" />
+                        <p:separator class="Container100 label-pnl-index" />
                         <h:panelGrid    columns="3" >
                             <p:commandLink  class="img-index" title="#{label.editar}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
                                 <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
@@ -70,35 +67,33 @@
 
                 </p:dataGrid>
             </p:panel>
-            <p:panel class="Container47  " >
+            <p:panel class="Container49  " >
                 <p:panel>
-                    <i class="icon-building Fleft  Fs30 yellow "> </i>
+                    <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="despesa.png" />
+
                     <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.despesa}</div>                                       
 
 
                 </p:panel>
-                <p:dataGrid var="ftDes" value="#{dadosInicialMB.listaDeFaturas}" columns="4" layout="grid"
+                <p:dataGrid var="ftDes" value="#{dadosInicialMB.demonstrativoFinanceiro.listaDeDespesas}" columns="4" layout="grid"
                             rows="6" paginator="true" id="ftDes" 
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="6,12,16">
 
                     <div  class="pnl-fatura BordRad4 #{ftDes.operacao.categoriaOperacao.cor.descricao}">
                         <p:commandLink title="#{ftDes.operacao.descricao}" >
-                            <h:outputText class="Container100   TexAlCenter Fs25" style="color: white" value="#{ftDes.operacao.categoriaOperacao.nome}"  />
-                            <p:separator class="Container100" />
+                            <h:outputText class="Container100   TexAlCenter Fs20 label-pnl-index FontBold" style="color: black" value="#{ftDes.operacao.categoriaOperacao.nome}"  />
+                            <p:separator class="Container100 label-pnl-index" />
                             <h:panelGroup layout="block" class="Container100" >
-                                <h:panelGrid columns="2">
-                                    <i class="icon-anchor-1 Fs40  Container100 TexAlLeft" style="color: white" />
-                                    <h:outputText class="Container100  TexAlLeft Fs20 fontItalic" style="color: white" value="#{ftDes.dataVencimento}"  >
-                                        <f:convertDateTime  pattern="dd/MM/yyyy"/>
-                                    </h:outputText>
-                                </h:panelGrid>
-                                <h:outputText class="TexAlCenter  Container100 Fs23  " style="color: white" value="#{ftDes.valor}"  >
+                                <h:outputText class="Container100  TexAlCenter Fs20  label-pnl-index" style="color: white" value="#{ftDes.dataVencimento}"  >
+                                    <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                                <h:outputText class="TexAlCenter  Container100 Fs20  MarTop5 FontBold" style="color: white" value="#{ftDes.valor}"  >
                                     <f:convertNumber type="currency" />
                                 </h:outputText>
                             </h:panelGroup>
                         </p:commandLink>
-                        <p:separator class="Container100" />
+                        <p:separator class="Container100 label-pnl-index" />
                         <h:panelGrid    columns="3" >
                             <p:commandLink  class="img-index" title="#{label.editar}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
                                 <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
