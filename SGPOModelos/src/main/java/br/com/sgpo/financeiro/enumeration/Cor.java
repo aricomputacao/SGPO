@@ -12,9 +12,9 @@ package br.com.sgpo.financeiro.enumeration;
 public enum Cor {
     VERDE("greenBack"),
     AZUL("blueBack"),
-    AMARELO("orangeBack"),
-    VERMELHO("redBack");
-    
+    AMARELO("yellowBack"),
+    VERMELHO("redBack"),
+    LARANJA("orangeBack");
     private final String descricao;
 
     private Cor(String cor) {
