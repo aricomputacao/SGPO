@@ -19,11 +19,11 @@ import java.util.List;
  */
 public class DemonstrativoFinanceiroDTO implements Serializable {
 
-    public DemonstrativoFinanceiroDTO(List<FaturaOperacao> listaDeFaturas) {
+    public DemonstrativoFinanceiroDTO(List<FaturaOperacao> listaDeFaturas,Date dataReferencia) {
         this.listaDeFaturas = listaDeFaturas;
+        this.dataReferencia = dataReferencia;
         listaDeDespesas = new ArrayList<>();
         listaDeReceitas = new ArrayList<>();
-        dataReferencia = new Date();
         receitaDia = BigDecimal.ZERO;
         despesaDia = BigDecimal.ZERO;
         receitaMes = BigDecimal.ZERO;
@@ -42,32 +42,31 @@ public class DemonstrativoFinanceiroDTO implements Serializable {
     }
 
     private List<FaturaOperacao> listaDeFaturas;
-    private List<FaturaOperacao> listaDeReceitas;
-    private List<FaturaOperacao> listaDeDespesas;
+    private final List<FaturaOperacao> listaDeReceitas;
+    private final List<FaturaOperacao> listaDeDespesas;
 
     private BigDecimal receitaDia;
     private BigDecimal despesaDia;
     private BigDecimal receitaMes;
     private BigDecimal despesaMes;
-    private Date dataReferencia;
+    private final Date dataReferencia;
 
     public final void processarFaturas() {
-        Calendar referencia = Calendar.getInstance();
-        referencia.setTime(dataReferencia);
+       
 
         for (FaturaOperacao fat : listaDeFaturas) {
-            calcularValoresDia(fat, referencia);
+            calcularValoresDia(fat);
 
         }
     }
 
-    private void calcularValoresDia(FaturaOperacao fa, Calendar dataReferencia) {
+    private void calcularValoresDia(FaturaOperacao fa) {
         switch (fa.getOperacao().getCategoriaOperacao().getTipoDeOperacao()) {
             case DESPESA: {
-                if (fa.getDataVencimento().compareTo(dataReferencia.getTime()) == 0) {
+                if (fa.getDataVencimento().compareTo(dataReferencia) == 0) {
                     despesaDia = despesaDia.add(fa.getValor());
                     listaDeDespesas.add(fa);
-                } else if (fa.getDataVencimento().compareTo(dataReferencia.getTime()) > 0) {
+                } else if (fa.getDataVencimento().compareTo(dataReferencia) > 0) {
                     listaDeDespesas.add(fa);
                 }
                 despesaMes = despesaMes.add(fa.getValor());
@@ -77,10 +76,10 @@ public class DemonstrativoFinanceiroDTO implements Serializable {
 
             case RECEITA: {
 
-                if (fa.getDataVencimento().compareTo(dataReferencia.getTime()) == 0) {
+                if (fa.getDataVencimento().compareTo(dataReferencia) == 0) {
                     receitaDia = receitaDia.add(fa.getValor());
                     listaDeReceitas.add(fa);
-                } else if (fa.getDataVencimento().compareTo(dataReferencia.getTime()) > 0) {
+                } else if (fa.getDataVencimento().compareTo(dataReferencia) > 0) {
                     listaDeReceitas.add(fa);
 
                 }
@@ -95,9 +94,7 @@ public class DemonstrativoFinanceiroDTO implements Serializable {
         return dataReferencia;
     }
 
-    public void setDataReferencia(Date dataReferencia) {
-        this.dataReferencia = dataReferencia;
-    }
+   
 
     public BigDecimal getReceitaDia() {
         return receitaDia;
