@@ -64,4 +64,8 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
         dao.excluir(fo);
     }
 
+    public List<FaturaOperacao> consultarPor(Date dataReferencia) {
+        return dao.consultarFaturaPor(dataReferencia);
+    }
+
 }

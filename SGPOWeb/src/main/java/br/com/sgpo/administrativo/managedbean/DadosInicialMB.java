@@ -67,7 +67,8 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     private NotificacaoProjeto notificacaoProjeto;
     private Projeto projeto;
     private DemonstrativoFinanceiroDTO demonstrativoFinanceiro;
-
+    
+    private Date dataReferencia;
 
     @PostConstruct
     @Override
@@ -76,16 +77,17 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             listaDeProjetos = projetoController.consultarTodosAtivos();
             notificacaoProjeto = new NotificacaoProjeto();
             projeto = new Projeto();
-            
+
             listaDeObras = obraController.consultarObrasEmAndamento();
-            
-            listaDeFaturas = faturaController.consultarTodosOrdenadorPor("dataVencimento");
-            demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas);
-            
-          
+
+            dataReferencia = new Date();
+            listaDeFaturas = faturaController.consultarPor(dataReferencia);
+            demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas,dataReferencia);
+
             listaColaboradorSource = colaboradorController.consultarTodosOrdenadorPor("nome");
             listaColaboradorTarget = new ArrayList<>();
             listDualColaboradores = new DualListModel<>(listaColaboradorSource, listaColaboradorTarget);
+            
         } catch (Exception ex) {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,7 +98,7 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             notificacaoProjeto.setColaborador(navegacaoMB.getUsuarioLogado().getColaborador());
             notificacaoProjeto.setData(new Date());
             notificacaoProjeto.setProjeto(projeto);
-            notificacaoProjetoController.salvar(notificacaoProjeto,listDualColaboradores.getTarget());
+            notificacaoProjetoController.salvar(notificacaoProjeto, listDualColaboradores.getTarget());
             notificacaoProjeto = new NotificacaoProjeto();
             listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(projeto);
             indexMB.init();
@@ -105,23 +107,23 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
         }
     }
 
+    public void consultarDemonstrativoFinanceiro() {
+        listaDeFaturas = faturaController.consultarPor(dataReferencia);
+        demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas,dataReferencia);
+    }
+
     public void consultarNotificacoes(Projeto p) {
         listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(p);
         projeto = p;
     }
 
-   
     public List<Projeto> getListaDeProjetos() {
         return listaDeProjetos;
     }
 
- 
     public List<Obra> getListaDeObras() {
         return listaDeObras;
     }
-
-   
-
 
     public List<NotificacaoProjeto> getListaDeNotificacaoProjetos() {
         return listaDeNotificacaoProjetos;
@@ -152,7 +154,13 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
         return demonstrativoFinanceiro;
     }
 
-  
+    public Date getDataReferencia() {
+        return dataReferencia;
+    }
+
+    public void setDataReferencia(Date dataReferencia) {
+        this.dataReferencia = dataReferencia;
+    }
 
     
 }

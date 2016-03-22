@@ -22,11 +22,40 @@
 
                 <i class="icon-bookmark-1 Fleft Fs30 yellow "></i>
                 <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.faturas}</div>                                       
+                <h:panelGroup layout="block" class="Fright ">
+
+                    <p:calendar widgetVar="data"   class="Fright Container40 MarRight20"    timeControlType="select"  value="#{dadosInicialMB.dataReferencia}" id="input" 
+                                effect="fade"  showButtonPanel="true" navigator="true" yearRange="c-80:c+10" pattern="dd/MM/yyyy"/>
+
+                    <p:commandButton label="#{label.pesquisar}" class="Fright Container50 " value="#{label.consulta}" 
+                                     actionListener="#{dadosInicialMB.consultarDemonstrativoFinanceiro()}" 
+                                     update="@form"   icon="fa fa-search Fs14 " /> 
+                </h:panelGroup>
             </p:panel>
-            <p:panel class="Container50  " >
+
+
+            <p:panel class="Container49  " >
                 <p:panel>
                     <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="receita.png" />
-                    <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.receita}</div>                                       
+                    <div class="Fs20 Fleft   hardblue fontItalic MarRight10">#{label.receita} &rarr;</div>                                       
+                    <div class="Fs20 Fleft   orange fontItalic MarRight10"> 
+                        <h:outputText class="Fleft" value="(Dia: &zwnj; " />
+
+                        <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.receitaDia}"  >
+                            <f:convertNumber type="currency" />
+                        </h:outputText>
+                        <h:outputText class="Fleft" value=")" />
+
+                    </div>                                       
+                    <div class="Fs20  Fleft   orange fontItalic"> 
+                        <h:outputText class="Fleft" value="(#{label.mes}: &zwnj; " />
+
+                        <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.receitaMes}"  >
+                            <f:convertNumber type="currency" />
+                        </h:outputText>
+                        <h:outputText class="Fleft" value=")" />
+
+                    </div>                                       
 
 
                 </p:panel>
@@ -35,7 +64,9 @@
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="6,12,16">
 
-                    <div  class="pnl-fatura BordRad4 #{ftRec.operacao.categoriaOperacao.cor.descricao}">
+
+
+                    <div  class="pnl-fatura   BordRad4 #{ftRec.operacao.categoriaOperacao.cor.descricao}" >
                         <p:commandLink title="#{ftRec.operacao.descricao}" >
                             <h:outputText class="Container100   TexAlCenter Fs20 label-pnl-index FontBold" style="color: black" value="#{ftRec.operacao.categoriaOperacao.nome}"  />
                             <p:separator class="Container100 label-pnl-index" />
@@ -71,7 +102,25 @@
                 <p:panel>
                     <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="despesa.png" />
 
-                    <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.despesa}</div>                                       
+                    <div class="Fs20 Fleft   hardblue fontItalic MarRight10">#{label.despesa} &rarr;</div>                                       
+                    <div class="Fs20 Fleft   orange fontItalic MarRight10"> 
+                        <h:outputText class="Fleft" value="(Dia: &zwnj; " />
+
+                        <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.despesaDia}"  >
+                            <f:convertNumber type="currency" />
+                        </h:outputText>
+                        <h:outputText class="Fleft" value=")" />
+
+                    </div>                                       
+                    <div class="Fs20  Fleft   orange fontItalic"> 
+                        <h:outputText class="Fleft" value="(#{label.mes}: &zwnj; " />
+
+                        <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.despesaMes}"  >
+                            <f:convertNumber type="currency" />
+                        </h:outputText>
+                        <h:outputText class="Fleft" value=")" />
+
+                    </div>                                              
 
 
                 </p:panel>
