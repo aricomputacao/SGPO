@@ -133,6 +133,37 @@
                 </p:dataTable>
             </h:form>
         </p:dialog>
+        <p:dialog showEffect="fade" position="center center"  width="50%"  header="#{label.informacoes} #{label.fatura}" id="dialogoFat" modal="true" 
+                  hideEffect="fade" widgetVar="dialogoFat">
+
+            <h:form  prependId="false" id="frm_info_fat">
+                <panels:panel  titulo="#{label.dados}"   >
+                    <h:panelGroup class="Container100" layout="block" >
+                        <comp:input_label inp_readonly="true" inp_valor="#{dadosInicialMB.faturaOperacao.operacao.categoriaOperacao.nome}" lab_valor="#{label.categoria}"/>
+                        <comp:textarea_label inp_class_tamanho="100"    inp_valor="#{dadosInicialMB.faturaOperacao.operacao.descricao}" lab_valor="#{label.descricao}"/>
+                    </h:panelGroup>
+                </panels:panel>
+
+                
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center"  width="30%"  header="#{label.editar} #{label.fatura}" id="dialogoEditFat" modal="true" 
+                  hideEffect="fade" widgetVar="dialogoEditFat">
+
+            <h:form  prependId="false" id="frm_edit_fat">
+                <panels:panel  titulo="#{label.dados}"   >
+                    <h:panelGroup class="Container100" layout="block" >
+                        <comp:input_label_data inp_valor="#{dadosInicialMB.faturaOperacao.dataVencimento}" lab_valor="#{label.data}" inp_class_tamanho="33"/>
+                        <comp:input_label_money inp_valor="#{dadosInicialMB.faturaOperacao.valor}" lab_valor="#{label.valor}" inp_class_tamanho="33" />
+                        <p:commandButton icon="fa fa-floppy-o" class="Container100 MarTopPerc5" value="#{label.salvar}" actionListener="#{dadosInicialMB.salvarFatura()}" update="@(form)" >
+                            <p:confirm message="#{msg.confirmacao}" />
+                        </p:commandButton>
+                    </h:panelGroup>
+                </panels:panel>
+
+                
+            </h:form>
+        </p:dialog>
      
     </ui:define>
 

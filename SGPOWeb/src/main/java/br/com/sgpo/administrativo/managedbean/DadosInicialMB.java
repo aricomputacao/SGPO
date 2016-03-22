@@ -19,6 +19,7 @@ import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.IndexMB;
 import br.com.sgpo.utilitario.UtilitarioNavegacaoMB;
+import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,7 +68,8 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     private NotificacaoProjeto notificacaoProjeto;
     private Projeto projeto;
     private DemonstrativoFinanceiroDTO demonstrativoFinanceiro;
-    
+    private FaturaOperacao faturaOperacao;
+
     private Date dataReferencia;
 
     @PostConstruct
@@ -82,12 +84,12 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
 
             dataReferencia = new Date();
             listaDeFaturas = faturaController.consultarPor(dataReferencia);
-            demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas,dataReferencia);
+            demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas, dataReferencia);
 
             listaColaboradorSource = colaboradorController.consultarTodosOrdenadorPor("nome");
             listaColaboradorTarget = new ArrayList<>();
             listDualColaboradores = new DualListModel<>(listaColaboradorSource, listaColaboradorTarget);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,7 +111,30 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
 
     public void consultarDemonstrativoFinanceiro() {
         listaDeFaturas = faturaController.consultarPor(dataReferencia);
-        demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas,dataReferencia);
+        demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas, dataReferencia);
+    }
+
+    public void salvarFatura(){
+        try {
+            faturaController.atualizar(faturaOperacao);
+            consultarDemonstrativoFinanceiro();
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageInfo(MensagensUtil.REGISTRO_FALHA);
+            Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void excluirFatura(FaturaOperacao fo) {
+        try {
+            demonstrativoFinanceiro.removerFatura(fo);
+            faturaController.excluir(fo);
+            consultarDemonstrativoFinanceiro();
+            MensagensUtil.enviarMessageInfo(MensagensUtil.EXCLUIR_SUCESSO);
+        } catch (Exception ex) {
+            MensagensUtil.enviarMessageErro(MensagensUtil.EXCLUIR_FALHA);
+            Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void consultarNotificacoes(Projeto p) {
@@ -162,5 +187,12 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
         this.dataReferencia = dataReferencia;
     }
 
-    
+    public FaturaOperacao getFaturaOperacao() {
+        return faturaOperacao;
+    }
+
+    public void setFaturaOperacao(FaturaOperacao faturaOperacao) {
+        this.faturaOperacao = faturaOperacao;
+    }
+
 }

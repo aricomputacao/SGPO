@@ -15,6 +15,7 @@ import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -207,6 +208,10 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
 
     public boolean isRenderParcelamento() {
         return renderParcelamento;
+    }
+    
+    public Mes[] getListaDeMeses(){
+        return Mes.values();
     }
 
 }

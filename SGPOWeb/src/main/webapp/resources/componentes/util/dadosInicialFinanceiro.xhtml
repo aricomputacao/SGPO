@@ -22,19 +22,19 @@
 
                 <i class="icon-bookmark-1 Fleft Fs30 yellow "></i>
                 <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.faturas}</div>                                       
-                <h:panelGroup layout="block" class="Fright ">
+                <h:panelGroup layout="block" class="Fright " >
 
                     <p:calendar widgetVar="data"   class="Fright Container40 MarRight20"    timeControlType="select"  value="#{dadosInicialMB.dataReferencia}" id="input" 
                                 effect="fade"  showButtonPanel="true" navigator="true" yearRange="c-80:c+10" pattern="dd/MM/yyyy"/>
 
-                    <p:commandButton label="#{label.pesquisar}" class="Fright Container50 " value="#{label.consulta}" 
+                    <p:commandButton label="#{label.pesquisar}" class="Fright Container50 " value="#{label.pesquisar}" 
                                      actionListener="#{dadosInicialMB.consultarDemonstrativoFinanceiro()}" 
-                                     update="@form"   icon="fa fa-search Fs14 " /> 
+                                     update=":tabView:compDadosFinan:pnlReceita :tabView:compDadosFinan:pnlDespesa"   icon="fa fa-search Fs14 " /> 
                 </h:panelGroup>
             </p:panel>
 
 
-            <p:panel class="Container49  " >
+            <p:panel class="Container49 " id="pnlReceita" >
                 <p:panel>
                     <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="receita.png" />
                     <div class="Fs20 Fleft   hardblue fontItalic MarRight10">#{label.receita} &rarr;</div>                                       
@@ -81,13 +81,14 @@
                         </p:commandLink>
                         <p:separator class="Container100 label-pnl-index" />
                         <h:panelGrid    columns="3" >
-                            <p:commandLink  class="img-index" title="#{label.editar}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                            <p:commandLink  class="img-index" title="#{label.editar}" oncomplete="PF('dialogoEditFat').show()" update=":frm_edit_fat" onclick="#{dadosInicialMB.setFaturaOperacao(ftRec)}" >
                                 <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
                             </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.informacoes}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                            <p:commandLink class="img-index" title="#{label.informacoes}" update=":frm_info_fat" oncomplete="PF('dialogoFat').show()" onclick="#{dadosInicialMB.setFaturaOperacao(ftRec)}">
                                 <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
                             </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.excluir}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                            <p:commandLink class="img-index" title="#{label.excluir}" update="@form" actionListener="#{dadosInicialMB.excluirFatura(ftRec)}" >
+                                <p:confirm message="#{msg.confirmacao}" />
                                 <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
                             </p:commandLink>
 
@@ -98,7 +99,7 @@
 
                 </p:dataGrid>
             </p:panel>
-            <p:panel class="Container49  " >
+            <p:panel class="Container49  " id="pnlDespesa" >
                 <p:panel>
                     <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="despesa.png" />
 
@@ -144,13 +145,14 @@
                         </p:commandLink>
                         <p:separator class="Container100 label-pnl-index" />
                         <h:panelGrid    columns="3" >
-                            <p:commandLink  class="img-index" title="#{label.editar}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                            <p:commandLink  class="img-index" title="#{label.editar}" oncomplete="PF('dialogoEditFat').show()" update=":frm_edit_fat" onclick="#{dadosInicialMB.setFaturaOperacao(ftDes)}" >
                                 <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
                             </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.informacoes}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                            <p:commandLink class="img-index" title="#{label.informacoes}" update=":frm_info_fat" oncomplete="PF('dialogoFat').show()" onclick="#{dadosInicialMB.setFaturaOperacao(ftDes)}">
                                 <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
                             </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.excluir}" onclick="PF('blk').show()" oncomplete="popup('/sisdelta/RelatorioServlet.pdf'); PF('blk').hide()">
+                            <p:commandLink class="img-index" title="#{label.excluir}" update="@form" actionListener="#{dadosInicialMB.excluirFatura(ftDes)}" >
+                                <p:confirm message="#{msg.confirmacao}" />
                                 <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
                             </p:commandLink>
 

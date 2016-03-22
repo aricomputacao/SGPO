@@ -76,7 +76,8 @@
                         <p:menuitem value="#{label.gerenciar}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(financeiro.categoria_operacao_cadastro)}"  outcome="#{financeiro.categoria_operacao_cadastro}"/>
                     </p:submenu>
                     <p:submenu label="#{label.operacao}" icon="icon-retweet-1" rendered="#{utilitarioNavegacaoMB.permissaoExiste(financeiro.operacao_cadastro)}" >
-                        <p:menuitem value="#{label.gerenciar}" icon="icon-th-list-outline" rendered="#{utilitarioNavegacaoMB.permissaoExiste(financeiro.operacao_cadastro)}"  outcome="#{financeiro.operacao_cadastro}"/>
+                        <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" rendered="#{utilitarioNavegacaoMB.permissaoExiste(financeiro.operacao_cadastro)}"  outcome="#{financeiro.operacao_cadastro}"/>
+
                     </p:submenu>
                 </p:submenu>
                 <p:submenu label="#{label.modulo_seguranca}" icon="icon-lock-open-alt" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloSeguranca()}" >
