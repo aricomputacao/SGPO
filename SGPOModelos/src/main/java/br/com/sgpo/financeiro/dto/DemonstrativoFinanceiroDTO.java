@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class DemonstrativoFinanceiroDTO implements Serializable {
 
-    public DemonstrativoFinanceiroDTO(List<FaturaOperacao> listaDeFaturas,Date dataReferencia) {
+    public DemonstrativoFinanceiroDTO(List<FaturaOperacao> listaDeFaturas, Date dataReferencia) {
         this.listaDeFaturas = listaDeFaturas;
         this.dataReferencia = dataReferencia;
         listaDeDespesas = new ArrayList<>();
@@ -36,7 +37,7 @@ public class DemonstrativoFinanceiroDTO implements Serializable {
         despesaDia = BigDecimal.ZERO;
         receitaMes = BigDecimal.ZERO;
         despesaMes = BigDecimal.ZERO;
-         listaDeDespesas = new ArrayList<>();
+        listaDeDespesas = new ArrayList<>();
         listaDeReceitas = new ArrayList<>();
         dataReferencia = new Date();
     }
@@ -52,8 +53,8 @@ public class DemonstrativoFinanceiroDTO implements Serializable {
     private final Date dataReferencia;
 
     public final void processarFaturas() {
-       
-
+        listaDeDespesas.clear();
+        listaDeReceitas.clear();
         for (FaturaOperacao fat : listaDeFaturas) {
             calcularValoresDia(fat);
 
@@ -90,11 +91,18 @@ public class DemonstrativoFinanceiroDTO implements Serializable {
         }
     }
 
+    public void removerFatura(FaturaOperacao fo) {
+        if (listaDeDespesas.contains(fo)) {
+            listaDeDespesas.remove(fo);
+        }
+        if (listaDeReceitas.contains(fo)) {
+            listaDeReceitas.remove(fo);
+        }
+    }
+
     public Date getDataReferencia() {
         return dataReferencia;
     }
-
-   
 
     public BigDecimal getReceitaDia() {
         return receitaDia;
@@ -129,11 +137,11 @@ public class DemonstrativoFinanceiroDTO implements Serializable {
     }
 
     public List<FaturaOperacao> getListaDeReceitas() {
-        return listaDeReceitas;
+        return Collections.unmodifiableList(listaDeReceitas);
     }
 
     public List<FaturaOperacao> getListaDeDespesas() {
-        return listaDeDespesas;
+        return Collections.unmodifiableList(listaDeDespesas);
     }
 
 }
