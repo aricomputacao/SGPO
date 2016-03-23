@@ -77,7 +77,9 @@
                     </p:submenu>
                     <p:submenu label="#{label.operacao}" icon="icon-retweet-1" rendered="#{utilitarioNavegacaoMB.permissaoExiste(financeiro.operacao_cadastro)}" >
                         <p:menuitem value="#{label.cadastro}" icon="icon-doc-text-1" rendered="#{utilitarioNavegacaoMB.permissaoExiste(financeiro.operacao_cadastro)}"  outcome="#{financeiro.operacao_cadastro}"/>
-
+                    </p:submenu>
+                    <p:submenu label="#{label.relatorio}" icon="icon-paste" rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_projeto_colaborador)}" >
+                        <p:menuitem value="#{label.projeto} #{label.colaborador}" icon="icon-list-alt"  outcome="#{engenharia.relatorio_projeto_colaborador}"/>
                     </p:submenu>
                 </p:submenu>
                 <p:submenu label="#{label.modulo_seguranca}" icon="icon-lock-open-alt" rendered="#{utilitarioNavegacaoMB.existePermissaoModuloSeguranca()}" >
