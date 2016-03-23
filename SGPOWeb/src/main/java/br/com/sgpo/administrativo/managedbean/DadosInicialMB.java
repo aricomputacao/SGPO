@@ -80,6 +80,7 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             notificacaoProjeto = new NotificacaoProjeto();
             projeto = new Projeto();
 
+            
             listaDeObras = obraController.consultarObrasEmAndamento();
 
             dataReferencia = new Date();

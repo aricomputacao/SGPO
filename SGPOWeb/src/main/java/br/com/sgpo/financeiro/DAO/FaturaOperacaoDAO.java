@@ -5,6 +5,9 @@
  */
 package br.com.sgpo.financeiro.DAO;
 
+import br.com.sgpo.financeiro.dto.AnosRegistradosDTO;
+import br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO;
+import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
 import br.com.sgpo.utilitario.DAOGenerico;
@@ -41,9 +44,31 @@ public class FaturaOperacaoDAO extends DAOGenerico<FaturaOperacao, Long> impleme
         TypedQuery tq;
 
         tq = getEm().createQuery("SELECT f FROM FaturaOperacao f WHERE (month(f.dataVencimento) = :mes and year(f.dataVencimento) = :ano) ORDER BY f.dataVencimento", FaturaOperacao.class)
-                .setParameter("mes", c.get(Calendar.MONTH)+1)
+                .setParameter("mes", c.get(Calendar.MONTH) + 1)
                 .setParameter("ano", c.get(Calendar.YEAR));
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 
+ 
+
+
+    public List<DemonatrativoFinanceiroAnualDTO> consultarDemonstrativoAnual(int ano) {
+        TypedQuery tq;
+
+        tq = getEm().createQuery("SELECT new br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO(f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento),SUM(f.valor))  "
+                + "FROM FaturaOperacao f where year(f.dataVencimento) = :ano  GROUP BY f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento) order by year(f.dataVencimento)", DemonatrativoFinanceiroAnualDTO.class)
+                .setParameter("ano", ano)
+                ;
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+
+    public List<DemonatrativoFinanceiroAnualDTO> consultarDemonstrativoAnualTipo(TipoDeOperacao operacao) {
+         TypedQuery tq;
+
+        tq = getEm().createQuery("SELECT new br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO(f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento),SUM(f.valor))  "
+                + "FROM FaturaOperacao f where f.operacao.categoriaOperacao.tipoDeOperacao = :operacao  GROUP BY f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento) order by year(f.dataVencimento)", DemonatrativoFinanceiroAnualDTO.class)
+                .setParameter("operacao", operacao)
+                ;
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
 }
