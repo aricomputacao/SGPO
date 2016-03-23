@@ -43,41 +43,41 @@ public class Operacao implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Column(name = "ope_descricao", nullable = false,length = 1024)
+    @Column(name = "ope_descricao", nullable = false, length = 1024)
     private String descricao;
 
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "ope_data", nullable = false)
     private Date dateOperacao;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "cop_id",referencedColumnName = "cop_id",nullable = false)
+    @JoinColumn(name = "cop_id", referencedColumnName = "cop_id", nullable = false)
     private CategoriaOperacao categoriaOperacao;
-    
+
     @Column(name = "ope_recorrencia")
     private boolean recorrencia;
-    
+
     @Column(name = "ope_tempo_recorrencia")
-    private int  tempoRecorrencia;
-    
+    private int tempoRecorrencia;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "ope_periodo_recorrencia")
     private PeriodoRecorrencia periodoRecorrencia;
-    
+
     @Column(name = "ope_parcelamento")
     private boolean parcelamento;
-    
+
     @Column(name = "ope_numero_parcelas")
-    private int  numeroParcelas;
-    
-    
-    public BigDecimal getValorDaOperacao(List<FaturaOperacao> fos){
+    private int numeroParcelas;
+
+    public BigDecimal getValorDaOperacao(List<FaturaOperacao> fos) {
         BigDecimal valor = BigDecimal.ZERO;
         for (FaturaOperacao fo : fos) {
             valor = valor.add(fo.getValor());
         }
-        
+
         return valor;
     }
 
@@ -153,8 +153,6 @@ public class Operacao implements Serializable {
         this.numeroParcelas = numeroParcelas;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -179,8 +177,5 @@ public class Operacao implements Serializable {
         }
         return true;
     }
-    
-    
-    
-    
+
 }
