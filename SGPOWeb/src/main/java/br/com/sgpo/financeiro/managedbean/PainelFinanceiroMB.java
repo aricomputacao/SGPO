@@ -7,7 +7,6 @@ package br.com.sgpo.financeiro.managedbean;
 
 import br.com.sgpo.financeiro.controller.FaturaController;
 import br.com.sgpo.financeiro.dto.AnosRegistradosDTO;
-import br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 
 /**
@@ -30,47 +27,51 @@ public class PainelFinanceiroMB implements Serializable {
     @Inject
     private FaturaController faturaController;
 
-    private List<DemonatrativoFinanceiroAnualDTO> listaDemonatrativoFinanceiroAnual;
-    private List<AnosRegistradosDTO> listaAnosRegistados;
+    private List<Integer> listaAnosRegistados;
 
-    private BarChartModel barModel;
+    private BarChartModel visaoOperacaoAnual;
+    private BarChartModel visaoOperacaoMes;
+
+    private int ano;
 
     @PostConstruct
     public void init() {
-        createBarModels();
+        listaAnosRegistados = faturaController.consultarAnosRegistrados();
+        ano = 2016;
+        criarVisaoOperacoesAnual();
+        criarVisaoOperacoesMensal();
     }
 
-   
-
-    private BarChartModel initBarModel() {
-        listaAnosRegistados = new ArrayList<>();
-        listaAnosRegistados.add(new AnosRegistradosDTO(2015));
-        listaAnosRegistados.add(new AnosRegistradosDTO(2016));
-
-        return faturaController.graficoReceitaDespesaAnual(listaAnosRegistados);
+    private void criarVisaoOperacoesAnual() {
+        visaoOperacaoAnual = faturaController.graficoReceitaDespesaAnual();
     }
 
-    private void createBarModels() {
-        createBarModel();
+    public void criarVisaoOperacoesMensal() {
+        visaoOperacaoMes = faturaController.graficoReceitaDespesaMensal(ano);
     }
 
-    private void createBarModel() {
-        barModel = initBarModel();
+    public BarChartModel getVisaoOperacaoAnual() {
+        return visaoOperacaoAnual;
+    }
 
-        barModel.setTitle("Visão das Operações Anuais");
-        barModel.setLegendPosition("ne");
-        
-        Axis xAxis = barModel.getAxis(AxisType.X);
-        xAxis.setLabel("Ano");
+    public BarChartModel getVisaoOperacaoMes() {
+        return visaoOperacaoMes;
+    }
 
-        Axis yAxis = barModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Tipo de Operaçao");
-        yAxis.setMin(150);
-        yAxis.setMax(15000);
+    
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public List<Integer> getListaAnosRegistados() {
+        return listaAnosRegistados;
     }
     
-     public BarChartModel getBarModel() {
-        return barModel;
-    }
+    
 
 }

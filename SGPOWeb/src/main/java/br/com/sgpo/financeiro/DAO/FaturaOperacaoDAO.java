@@ -7,6 +7,7 @@ package br.com.sgpo.financeiro.DAO;
 
 import br.com.sgpo.financeiro.dto.AnosRegistradosDTO;
 import br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO;
+import br.com.sgpo.financeiro.dto.DemonstrativoFinanceiroMensalDTO;
 import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -49,26 +51,38 @@ public class FaturaOperacaoDAO extends DAOGenerico<FaturaOperacao, Long> impleme
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 
- 
-
-
     public List<DemonatrativoFinanceiroAnualDTO> consultarDemonstrativoAnual(int ano) {
         TypedQuery tq;
 
         tq = getEm().createQuery("SELECT new br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO(f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento),SUM(f.valor))  "
                 + "FROM FaturaOperacao f where year(f.dataVencimento) = :ano  GROUP BY f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento) order by year(f.dataVencimento)", DemonatrativoFinanceiroAnualDTO.class)
-                .setParameter("ano", ano)
-                ;
+                .setParameter("ano", ano);
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 
     public List<DemonatrativoFinanceiroAnualDTO> consultarDemonstrativoAnualTipo(TipoDeOperacao operacao) {
-         TypedQuery tq;
+        TypedQuery tq;
 
         tq = getEm().createQuery("SELECT new br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO(f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento),SUM(f.valor))  "
                 + "FROM FaturaOperacao f where f.operacao.categoriaOperacao.tipoDeOperacao = :operacao  GROUP BY f.operacao.categoriaOperacao.tipoDeOperacao,year(f.dataVencimento) order by year(f.dataVencimento)", DemonatrativoFinanceiroAnualDTO.class)
+                .setParameter("operacao", operacao);
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+
+    public List<DemonstrativoFinanceiroMensalDTO> consultarDemonstrativoMensaTipo(TipoDeOperacao operacao, int ano) {
+        TypedQuery tq;
+
+        tq = getEm().createQuery("SELECT new br.com.sgpo.financeiro.dto.DemonstrativoFinanceiroMensalDTO(f.operacao.categoriaOperacao.tipoDeOperacao,month(f.dataVencimento),SUM(f.valor))  "
+                + "FROM FaturaOperacao f where f.operacao.categoriaOperacao.tipoDeOperacao = :operacao and  year(f.dataVencimento) = :ano GROUP BY f.operacao.categoriaOperacao.tipoDeOperacao,month(f.dataVencimento) order by month(f.dataVencimento)", DemonstrativoFinanceiroMensalDTO.class)
                 .setParameter("operacao", operacao)
-                ;
+                .setParameter("ano", ano);
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+
+    public List<Integer> consultarAnosRegistrados() {
+        TypedQuery tq;
+
+        tq = getEm().createQuery("select distinct(year(f.dataVencimento)) from FaturaOperacao f", Integer.class);
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 }

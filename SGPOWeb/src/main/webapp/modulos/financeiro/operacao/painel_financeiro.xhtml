@@ -8,16 +8,25 @@
 
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:cb="http://xmlns.jcp.org/jsf/composite/componentes/botoes">
+                xmlns:cb="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="corpo">
-        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.operacao_cadastro)}" >
-            
+        <p:panel id="panelPrincipal" class="ContainerIndent cabecalho"    >
+
+            <f:facet name="header" id="fieldMenu">
+                <i class="Fleft  icon-chart-pie Fs30" />
+                <p:outputLabel value="- Painel Financeiro" class="FontTitilliumBoldItalic cabecalho Fleft"/>
+                
+            </f:facet>
+            <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.operacao_cadastro)}" >
+
                 <tip:painelFinanceiro id="compCadastro"/>
-        </h:form>
+            </h:form>
+        </p:panel>
     </ui:define>
     <ui:define name="dialog">
-    
+
     </ui:define>
 
 </ui:composition>

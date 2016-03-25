@@ -6,20 +6,22 @@
 package br.com.sgpo.financeiro.controller;
 
 import br.com.sgpo.financeiro.DAO.FaturaOperacaoDAO;
-import br.com.sgpo.financeiro.dto.AnosRegistradosDTO;
 import br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO;
+import br.com.sgpo.financeiro.dto.DemonstrativoFinanceiroMensalDTO;
 import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
 import br.com.sgpo.utilitario.ControllerGenerico;
+import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
@@ -63,6 +65,10 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
         return dao.consultarFaturaDa(o);
 
     }
+    public List<Integer> consultarAnosRegistrados() {
+        return dao.consultarAnosRegistrados();
+
+    }
 
     @Override
     public void excluir(FaturaOperacao fo) throws Exception {
@@ -82,55 +88,110 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
         return dao.consultarDemonstrativoAnualTipo(operacao);
     }
 
-    public BarChartModel graficoReceitaDespesaAnual(List<AnosRegistradosDTO> listaAnosRegistados) {
-        BarChartModel model = new BarChartModel();
-//
-//        ChartSeries despesa = new ChartSeries();
-//        despesa.setLabel("Depesa");
-//        ChartSeries receita = new ChartSeries();
-//        receita.setLabel("Receita");
-//
-//      
+    public BarChartModel graficoReceitaDespesaAnual() {
+        BigDecimal maior = BigDecimal.ZERO;
+        BigDecimal menor = BigDecimal.valueOf(500);
+        BarChartModel barModel = new BarChartModel();
+
         List<DemonatrativoFinanceiroAnualDTO> listaDemonatrativoFinanceiroAnual = consultarDemonstrativoTipo(TipoDeOperacao.RECEITA);
-//
-//        for (AnosRegistradosDTO ano : listaAnosRegistados) {
-//            for (DemonatrativoFinanceiroAnualDTO d : listaDemonatrativoFinanceiroAnual) {
-//                switch (d.getTipo()) {
-//                    case DESPESA: {
-//                        despesa.setLabel(TipoDeOperacao.DESPESA.toString());
-//                        despesa.set(ano.getAno(), d.getValor());
-//                        break;
-//                    }
-//                    case RECEITA: {
-//                        receita.setLabel(TipoDeOperacao.RECEITA.toString());
-//                        receita.set(ano.getAno(), d.getValor());
-//                        break;
-//                    }
-//                }
-//
-//            }
-//        }
-//        model.addSeries(receita);
-//        model.addSeries(despesa);
+
         ChartSeries receita = new ChartSeries();
         receita.setLabel("Receita");
         for (DemonatrativoFinanceiroAnualDTO dem : listaDemonatrativoFinanceiroAnual) {
-            receita.set( Integer.toString(dem.getAno()), dem.getValor());
+            receita.set(Integer.toString(dem.getAno()), dem.getValor());
+            if (dem.getValor().compareTo(menor) < 0) {
+                menor = dem.getValor();
+            }
+            if (dem.getValor().compareTo(maior) > 0) {
+                maior = dem.getValor();
+            }
 
         }
-        
+
         listaDemonatrativoFinanceiroAnual = consultarDemonstrativoTipo(TipoDeOperacao.DESPESA);
         ChartSeries despesa = new ChartSeries();
         despesa.setLabel("Despesa");
         for (DemonatrativoFinanceiroAnualDTO dem : listaDemonatrativoFinanceiroAnual) {
             despesa.set(Integer.toString(dem.getAno()), dem.getValor());
+            if (dem.getValor().compareTo(menor) < 0) {
+                menor = dem.getValor();
+            }
+            if (dem.getValor().compareTo(maior) > 0) {
+                maior = dem.getValor();
+            }
+        }
+
+        barModel.addSeries(receita);
+        barModel.addSeries(despesa);
+
+        barModel.setTitle("Operações Anuais");
+        barModel.setLegendPosition("ne");
+        barModel.setAnimate(true);
+
+        Axis xAxis = barModel.getAxis(AxisType.X);
+        xAxis.setLabel("Ano");
+
+        Axis yAxis = barModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Tipo de Operaçao");
+        yAxis.setMin(menor.subtract(new BigDecimal(10)));
+        yAxis.setMax(maior.add(new BigDecimal(100)));
+
+        return barModel;
+
+    }
+    
+    
+    public BarChartModel graficoReceitaDespesaMensal(Integer ano) {
+        BigDecimal maior = BigDecimal.ZERO;
+        BigDecimal menor = BigDecimal.valueOf(500);
+        BarChartModel barModel = new BarChartModel();
+
+        List<DemonstrativoFinanceiroMensalDTO> listaDemonatrativoFinanceiroMensal = dao.consultarDemonstrativoMensaTipo(TipoDeOperacao.RECEITA,ano);
+
+        ChartSeries receita = new ChartSeries();
+        receita.setLabel("Receita");
+        for (DemonstrativoFinanceiroMensalDTO dem : listaDemonatrativoFinanceiroMensal) {
+            receita.set(Mes.retornarMes(dem.getMes()), dem.getValor());
+            if (dem.getValor().compareTo(menor) < 0) {
+                menor = dem.getValor();
+            }
+            if (dem.getValor().compareTo(maior) > 0) {
+                maior = dem.getValor();
+            }
 
         }
 
-        model.addSeries(receita);
-        model.addSeries(despesa);
+        listaDemonatrativoFinanceiroMensal = dao.consultarDemonstrativoMensaTipo(TipoDeOperacao.DESPESA,ano);
+        ChartSeries despesa = new ChartSeries();
+        despesa.setLabel("Despesa");
+        for (DemonstrativoFinanceiroMensalDTO dem : listaDemonatrativoFinanceiroMensal) {
+            despesa.set(Mes.retornarMes(dem.getMes()), dem.getValor());
+            if (dem.getValor().compareTo(menor) < 0) {
+                menor = dem.getValor();
+            }
+            if (dem.getValor().compareTo(maior) > 0) {
+                maior = dem.getValor();
+            }
+        }
 
-        return model;
+        barModel.addSeries(receita);
+        barModel.addSeries(despesa);
+
+        barModel.setTitle("Operações Mensais");
+        barModel.setLegendPosition("ne");
+        barModel.setAnimate(true);
+
+        Axis xAxis = barModel.getAxis(AxisType.X);
+        xAxis.setLabel(ano.toString());
+
+        Axis yAxis = barModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Tipo de Operaçao");
+        yAxis.setMin(menor.subtract(new BigDecimal(10)));
+        yAxis.setMax(maior.add(new BigDecimal(100)));
+
+        return barModel;
 
     }
+    
+    
 }

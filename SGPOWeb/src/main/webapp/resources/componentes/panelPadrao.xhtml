@@ -38,8 +38,8 @@
         <p:panel id="panelPrincipal" class="ContainerIndent cabecalho"   header="#{cc.attrs.cabecalho}"  >
 
             <f:facet name="header" id="fieldMenu">
-
-                <p:outputLabel value="#{cc.attrs.cabecalho}" class="FontTitilliumBoldItalic cabecalho"/>
+                <composite:insertFacet name="icone" />
+                <p:outputLabel value="#{cc.attrs.cabecalho}" class="FontTitilliumBoldItalic cabecalho Fleft"/>
                 <div id="full" style="height: auto;float: right;font-size: 14px;" >
                     <p:toolbar class="toobarMenu"  style="border: none">
                         <f:facet name="left">

@@ -22,9 +22,27 @@
     </composite:interface>
     <composite:implementation>
 
-        <p:fieldset class="Container33 MarTopPerc5">
-            <p:chart type="bar" model="#{painelFinanceiroMB.barModel}"/>
-           
+        <p:fieldset class="Container33 " style="min-height: 400px">
+            <p:chart type="bar" responsive="true" model="#{painelFinanceiroMB.visaoOperacaoAnual}"/>
+
+        </p:fieldset>
+        <p:fieldset class="Container60"  style="min-height: 400px" >
+            <h:panelGroup layout="block"  class="ContainerIndent">
+                <div class="ContainerIndent Fright" >
+
+                    <p:outputLabel value="Ano"  />
+                    <div>
+                        <p:selectOneMenu class="Container90 "     value="#{painelFinanceiroMB.ano}" id="input"  >
+                            <f:selectItems value="#{painelFinanceiroMB.listaAnosRegistados}" var="an" />
+                            <p:ajax event="change" update=":compCadastro:grafMes"    listener="#{painelFinanceiroMB.criarVisaoOperacoesMensal()}"/>
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </h:panelGroup>
+
+
+            <p:chart type="bar" responsive="true" class="MarTop5" id="grafMes" model="#{painelFinanceiroMB.visaoOperacaoMes}"/>
+
         </p:fieldset>
     </composite:implementation>
 </ui:composition>
