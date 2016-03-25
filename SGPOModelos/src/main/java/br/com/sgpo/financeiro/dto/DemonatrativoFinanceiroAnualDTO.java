@@ -10,17 +10,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
 
-/**
- *
- * @author ari
- * CREATE view demostrativo_anual_view as
-SELECT  cop.cop_tipo,EXTRACT(YEAR from fo.fto_vencimento) as ano,EXTRACT(MONTH from fo.fto_vencimento) as mes, sum(fo.fto_valor) from financeiro.fatura_operacao fo 
-			INNER JOIN financeiro.operacao op on op.ope_id = fo.ope_id
-            INNER JOIN financeiro.categoria_operacao cop on cop.cop_id = op.cop_id
-GROUP by cop.cop_tipo, EXTRACT(YEAR from fo.fto_vencimento),EXTRACT(MONTH from fo.fto_vencimento)            
- 
-ORDER BY cop.cop_tipo, EXTRACT(YEAR from fo.fto_vencimento),EXTRACT(MONTH from fo.fto_vencimento)
- */
 
 public class DemonatrativoFinanceiroAnualDTO implements Serializable{
     

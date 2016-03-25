@@ -10,7 +10,7 @@ package br.com.sgpo.utilitarios.enumeration;
  * @author ari
  */
 public enum Mes {
-      JAN(1),
+    JAN(1),
     FEV(2),
     MAR(3),
     ABR(4),
@@ -22,7 +22,7 @@ public enum Mes {
     OUT(10),
     NOV(11),
     DEZ(12);
-    
+
     private final int referencia;
 
     private Mes(int referencia) {
@@ -32,5 +32,55 @@ public enum Mes {
     public int getReferencia() {
         return referencia;
     }
-    
+
+    public static Mes retornarMes(int mes) {
+        switch (mes) {
+            case 1: {
+                return Mes.JAN;
+            }
+            case 2: {
+                return Mes.FEV;
+            }
+            case 3: {
+                return Mes.MAR;
+            }
+            case 4: {
+                return Mes.ABR;
+
+            }
+            case 5: {
+                return Mes.MAI;
+
+            }
+            case 6: {
+                return Mes.JUN;
+
+            }
+            case 7: {
+                return Mes.JUL;
+
+            }
+            case 8: {
+                return Mes.AGO;
+
+            }
+            case 9: {
+                return Mes.SET;
+
+            }
+            case 10: {
+                return Mes.OUT;
+            }
+            case 11: {
+                return Mes.NOV;
+            }
+            case 12: {
+                return Mes.DEZ;
+            }
+            default:{
+                return null;
+            }
+        }
+    }
+
 }
