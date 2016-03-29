@@ -9,7 +9,7 @@
 
     <name>SGPOWeb</name>
 
-   <properties>
+    <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -51,7 +51,7 @@
         </dependency>
         
         <!--Spring Security-->
-       <!--Spring Security-->
+        <!--Spring Security-->
         
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -77,6 +77,11 @@
         <!--Fim Spring Securyti-->
         <!--Fim Spring Securyti-->
       
+        <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>primefaces-extensions</artifactId>
+            <version>3.2.0</version>
+        </dependency>
 
         
     </dependencies>

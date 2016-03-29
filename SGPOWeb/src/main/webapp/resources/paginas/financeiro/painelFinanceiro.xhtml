@@ -5,6 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 xmlns:composite="http://java.sun.com/jsf/composite"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
@@ -21,6 +22,7 @@
 
     </composite:interface>
     <composite:implementation>
+        <p:growl id="growl" showDetail="true" />
 
         <p:fieldset class="Container33 " style="min-height: 400px">
             <p:chart type="bar" responsive="true" model="#{painelFinanceiroMB.visaoOperacaoAnual}"/>
@@ -41,8 +43,11 @@
             </h:panelGroup>
 
 
-            <p:chart type="bar" responsive="true" class="MarTop5" id="grafMes" model="#{painelFinanceiroMB.visaoOperacaoMes}"/>
+            <p:chart  type="bar" responsive="true"   id="grafMes"  model="#{painelFinanceiroMB.visaoOperacaoMes}">
+                <p:ajax event="itemSelect" listener="#{painelFinanceiroMB.itemSelect}" update="growl" />
+            </p:chart>
 
+            
         </p:fieldset>
     </composite:implementation>
 </ui:composition>
