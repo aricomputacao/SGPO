@@ -6,10 +6,7 @@
 package br.com.sgpo.financeiro.managedbean;
 
 import br.com.sgpo.financeiro.controller.FaturaController;
-import br.com.sgpo.financeiro.dto.AnosRegistradosDTO;
-import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,10 +15,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.ItemSelectEvent;
-import org.primefaces.extensions.component.gchart.model.GChartModel;
-import org.primefaces.extensions.component.gchart.model.GChartModelBuilder;
-import org.primefaces.extensions.component.gchart.model.GChartModelRow;
-import org.primefaces.extensions.component.gchart.model.GChartType;
 import org.primefaces.model.chart.BarChartModel;
 
 /**
@@ -37,7 +30,6 @@ public class PainelFinanceiroMB implements Serializable {
     
     private List<Integer> listaAnosRegistados;
     
-      private GChartModel chartModel; 
     
     private BarChartModel visaoOperacaoAnual;
     private BarChartModel visaoOperacaoMes;
@@ -93,10 +85,7 @@ public class PainelFinanceiroMB implements Serializable {
         return listaAnosRegistados;
     }
 
-    public GChartModel getChartModel() {
-        return chartModel;
-    }
-    
+   
     
     
 }

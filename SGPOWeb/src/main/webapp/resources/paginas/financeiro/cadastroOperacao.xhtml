@@ -23,6 +23,9 @@
                                        lab_valor="#{label.tipo}" >
                     <f:selectItems value="#{operacaoMB.listaDeTiposDeOperacao}" var="tp" itemValue="#{tp}" itemLabel="#{tp}" />
                 </inputs:selectOneRadio>
+                 <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCategoria').show()" btn_onclick_atualizar="@this" inp_valor="#{operacaoMB.operacao.categoriaOperacao}" id="sele_cat"  sel_converter="indexConverter"  inp_class_tamanho="50" lab_valor="#{label.categoria}" >
+                    <f:selectItems value="#{operacaoMB.listaCategoriaOperacaos}" var="ca" itemValue="#{ca}" itemLabel="#{ca.nome}" />
+                </inputs:selectOneLabe_btn_mais>
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive">
 
@@ -30,9 +33,7 @@
                 <inputs:input_label_money  inp_valor="#{operacaoMB.valor}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
                 <inputs:input_label_data inp_valor="#{operacaoMB.operacao.dateOperacao}" inp_class_tamanho="20" lab_valor="#{label.data} #{label.operacao}" inp_require="true"/>
 
-                <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCategoria').show()" btn_onclick_atualizar="@this" inp_valor="#{operacaoMB.operacao.categoriaOperacao}" id="sele_cat"  sel_converter="indexConverter"  inp_class_tamanho="50" lab_valor="#{label.categoria}" >
-                    <f:selectItems value="#{operacaoMB.listaCategoriaOperacaos}" var="ca" itemValue="#{ca}" itemLabel="#{ca.nome}" />
-                </inputs:selectOneLabe_btn_mais>
+               
             </h:panelGroup>
         </p:fieldset>
         <p:fieldset legend="#{label.complementos}" class="MarTop5" id="fieldComp" toggleable="true" >
