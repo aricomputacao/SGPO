@@ -68,6 +68,12 @@ public class Operacao implements Serializable {
 
     @Column(name = "ope_parcelamento")
     private boolean parcelamento;
+ 
+    @Column(name = "ope_nota_fiscal")
+    private boolean possuiNota;
+ 
+    @Column(name = "ope_numero_nota")
+    private String numeroNota;
 
     @Column(name = "ope_numero_parcelas")
     private int numeroParcelas;
@@ -152,6 +158,24 @@ public class Operacao implements Serializable {
     public void setNumeroParcelas(int numeroParcelas) {
         this.numeroParcelas = numeroParcelas;
     }
+
+    public boolean isPossuiNota() {
+        return possuiNota;
+    }
+
+    public void setPossuiNota(boolean possuiNota) {
+        this.possuiNota = possuiNota;
+    }
+
+    public String getNumeroNota() {
+        return numeroNota;
+    }
+
+    public void setNumeroNota(String numeroNota) {
+        this.numeroNota = numeroNota;
+    }
+    
+    
 
     @Override
     public int hashCode() {
