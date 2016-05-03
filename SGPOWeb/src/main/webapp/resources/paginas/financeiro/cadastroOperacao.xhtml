@@ -18,20 +18,27 @@
         <p:fieldset legend="#{label.dados}" id="fieldDados"  toggleable="true">
             <h:panelGroup layout="block"  id="pnlTipo" class="Container100 Responsive">
 
-                <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input :pnlPadrao:compCadastro:fieldComp"  
+                <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input :pnlPadrao:compCadastro:pnlTipo :pnlPadrao:compCadastro:fieldComp"  
                                        ajax_render="true" ajax_listener="#{operacaoMB.processarTipoOperacao()}" inp_class_tamanho="30" 
                                        lab_valor="#{label.tipo}" >
                     <f:selectItems value="#{operacaoMB.listaDeTiposDeOperacao}" var="tp" itemValue="#{tp}" itemLabel="#{tp}" />
                 </inputs:selectOneRadio>
-                 <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCategoria').show()" btn_onclick_atualizar="@this" inp_valor="#{operacaoMB.operacao.categoriaOperacao}" id="sele_cat"  sel_converter="indexConverter"  inp_class_tamanho="50" lab_valor="#{label.categoria}" >
+                <inputs:selectOneRadio inp_valor="#{operacaoMB.operacao.possuiNota}" rendered="#{operacaoMB.renderReceita}"  inp_class_tamanho="30" 
+                                       lab_valor="#{label.nota}" > 
+                    <f:selectItem itemValue="#{true}"  itemLabel="Sim"  />
+                    <f:selectItem itemValue="#{false}"  itemLabel="Não"  />
+                </inputs:selectOneRadio>
+            </h:panelGroup>
+            <h:panelGroup layout="block"  class="Container100 Responsive">
+                <inputs:input_label_data inp_valor="#{operacaoMB.operacao.dateOperacao}" inp_class_tamanho="10" lab_valor="#{label.data} #{label.operacao}" inp_require="true"/>
+                <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCategoria').show()" btn_onclick_atualizar="@this" inp_valor="#{operacaoMB.operacao.categoriaOperacao}" id="sele_cat"  sel_converter="indexConverter"  inp_class_tamanho="30" lab_valor="#{label.categoria}" >
                     <f:selectItems value="#{operacaoMB.listaCategoriaOperacaos}" var="ca" itemValue="#{ca}" itemLabel="#{ca.nome}" />
                 </inputs:selectOneLabe_btn_mais>
+                <inputs:input_label_money  inp_valor="#{operacaoMB.valor}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive">
 
-                <inputs:input_label id="inpDescricao" inp_class_tamanho="50" inp_require="true" inp_valor="#{operacaoMB.operacao.descricao}" lab_valor="#{label.descricao}"/>
-                <inputs:input_label_money  inp_valor="#{operacaoMB.valor}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
-                <inputs:input_label_data inp_valor="#{operacaoMB.operacao.dateOperacao}" inp_class_tamanho="20" lab_valor="#{label.data} #{label.operacao}" inp_require="true"/>
+                <inputs:textarea_label id="inpDescricao" inp_class_tamanho="50" inp_require="true" inp_valor="#{operacaoMB.operacao.descricao}" lab_valor="#{label.descricao}"/>
 
                
             </h:panelGroup>

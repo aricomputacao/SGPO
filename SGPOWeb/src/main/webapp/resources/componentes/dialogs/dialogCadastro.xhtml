@@ -22,7 +22,7 @@
                     <p:outputLabel value="#{cc.attrs.cabecalho}" class="FontTitilliumRegular"/>
                 </f:facet>
                 <f:facet name="footer">
-                    <p:commandButton style="float: right; margin-right: 10px; margin-bottom: 5px" escape="true" class="ui-button" onclick="PF('dialogCadastro').hide()" value="#{label['salvar']}" rendered="#{cc.attrs.btn_salvar}" title="#{label['salvar']}" icon="fa fa-floppy-o fa-lg " actionListener="#{cc.attrs.acao_salvar}" />
+                    <p:commandButton style="float: right; margin-right: 10px; margin-bottom: 5px" escape="true" class="ui-button" onclick="PF('dialogCadastro').hide()" value="#{label['salvar']}" rendered="#{cc.attrs.btn_salvar}" title="#{label['salvar']}" icon="fa fa-floppy-o  " actionListener="#{cc.attrs.acao_salvar}" />
                 </f:facet>
                 <composite:insertChildren id="filhoDialogCadastro" />
             </p:dialog>

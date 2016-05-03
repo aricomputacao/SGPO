@@ -29,7 +29,7 @@
         <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho} Responsive">
             <h:panelGroup layout="block" class="ContainerIndent " style="margin-top: 2px" >
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" style="margin-left: 5px" />
-                <p:panelGrid  layout="grid"  columns="2" style="border-color: white; margin-right: 0px" >
+                <p:panelGrid  layout="grid"  columns="2" style="border-color: white; margin-right: -10px" >
                     <c:if test="#{cc.attrs.sel_converter == 'none'}">
                         <p:selectOneMenu  value="#{cc.attrs.inp_valor}" style="width: 100%" id="input"  required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />

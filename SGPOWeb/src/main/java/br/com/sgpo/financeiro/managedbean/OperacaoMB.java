@@ -132,6 +132,7 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
     public void processarTipoOperacao() {
         listaCategoriaOperacaos = categoriaOperacaoController.consultar(tipoDeOperacao);
         renderReceita = tipoDeOperacao.equals(TipoDeOperacao.RECEITA);
+        
     }
 
     public void processarRecorrencia() {
