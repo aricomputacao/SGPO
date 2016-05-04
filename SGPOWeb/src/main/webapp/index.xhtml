@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 template="/modelo/template.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -147,12 +147,13 @@
                 
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="center center"  width="20%"  header="#{label.editar} #{label.fatura}" id="dialogoEditFat" modal="true" 
+        <p:dialog showEffect="fade" position="center center"  width="40%"  header="#{label.editar} #{label.fatura}" id="dialogoEditFat" modal="true" 
                   hideEffect="fade" widgetVar="dialogoEditFat">
 
             <h:form  prependId="false" id="frm_edit_fat">
                 <panels:panel  titulo="#{label.dados}"   >
                     <h:panelGroup class="Container100" layout="block" >
+                        
                         <comp:input_label_data inp_valor="#{dadosInicialMB.faturaOperacao.dataVencimento}" lab_valor="#{label.data}" inp_class_tamanho="33"/>
                         <comp:input_label_money inp_valor="#{dadosInicialMB.faturaOperacao.valor}" lab_valor="#{label.valor}" inp_class_tamanho="33" />
                         <p:commandButton icon="fa fa-floppy-o" class="Container100 MarTopPerc5" value="#{label.salvar}" actionListener="#{dadosInicialMB.salvarFatura()}" update="@(form)" >

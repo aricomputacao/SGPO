@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -23,10 +22,10 @@
 
     </composite:interface>
     <composite:implementation id="compConsulta">
-        <div class="Container#{cc.attrs.inp_class_tamanho} Responsive componenteSelectRadio" >
-            <div class="ContainerIndent">
+        <div class="Container#{cc.attrs.inp_class_tamanho} Responsive " >
+            <div class="ContainerIndent ">
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
-                <div>
+                <div  class="BordRad4" style="border: solid 1px #D1D3D4">
                     <p:selectOneRadio style="width: 90%"   value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
                         <composite:insertChildren />
                         <f:ajax event="click" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>

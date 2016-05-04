@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -26,26 +26,31 @@
 
     </composite:interface>
     <composite:implementation id="compConsulta">
-        <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho} Responsive">
-            <h:panelGroup layout="block" class="ContainerIndent " style="margin-top: 2px" >
-                <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" style="margin-left: 5px" />
-                <p:panelGrid  layout="grid"  columns="2" style="border-color: white; margin-right: -10px" >
+        <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho}">
+            <div class="ContainerIndent Responsive">
+
+                <p:outputLabel class="Container100" value="#{cc.attrs.lab_valor}" for="input" style="margin-left: 5px" />
+                <div class="Container70 Responsive">
+
                     <c:if test="#{cc.attrs.sel_converter == 'none'}">
-                        <p:selectOneMenu  value="#{cc.attrs.inp_valor}" style="width: 100%" id="input"  required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu  value="#{cc.attrs.inp_valor}" style="width: 90%"  id="input"  required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
                         </p:selectOneMenu>
                     </c:if>
 
                     <c:if test="#{cc.attrs.sel_converter != 'none'}">
-                        <p:selectOneMenu style="width: 100%" converter="#{indexConverter}"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu  converter="#{indexConverter}"  style="width: 90%"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
                         </p:selectOneMenu>
                     </c:if>
-                    <p:commandButton  icon="fa fa-plus-circle" title="#{label.adicionar}" class="btnForm " onclick="#{cc.attrs.btn_onclick_plus}" immediate="true" />
-                </p:panelGrid>
-            </h:panelGroup>
+
+                </div>
+                <div class="Container20 Responsive">
+                    <p:commandButton  icon="fa fa-plus-circle" title="#{label.adicionar}" class="btnForm  Container10" onclick="#{cc.attrs.btn_onclick_plus}" immediate="true" />
+                </div>
+            </div>
         </div>
     </composite:implementation>
 </ui:composition>

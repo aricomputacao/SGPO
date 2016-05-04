@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -37,9 +37,9 @@
             <p:panel class="Container49 " id="pnlReceita" >
                 <p:panel>
                     <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="receita.png" />
-                    <div class="Fs20 Fleft   hardblue fontItalic MarRight10">#{label.receita} &rarr;</div>                                       
+                    <div class="Fs20 Fleft   hardblue fontItalic MarRight10">#{label.receita} &#8658;</div>                                       
                     <div class="Fs20 Fleft   orange fontItalic MarRight10"> 
-                        <h:outputText class="Fleft" value="(Dia: &zwnj; " />
+                        <h:outputText class="Fleft" value="(Dia: &#8204; " />
 
                         <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.receitaDia}"  >
                             <f:convertNumber type="currency" />
@@ -48,7 +48,7 @@
 
                     </div>                                       
                     <div class="Fs20  Fleft   orange fontItalic"> 
-                        <h:outputText class="Fleft" value="(#{label.mes}: &zwnj; " />
+                        <h:outputText class="Fleft" value="(#{label.mes}: &#8204; " />
 
                         <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.receitaMes}"  >
                             <f:convertNumber type="currency" />
@@ -64,36 +64,32 @@
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="6,12,16">
 
-
-
-                    <div  class="pnl-fatura   BordRad4 #{ftRec.operacao.categoriaOperacao.cor.descricao}" >
-                        <p:commandLink title="#{ftRec.operacao.descricao}" >
-                            <h:outputText class="Container100   TexAlCenter Fs20 label-pnl-index FontBold" style="color: black" value="#{ftRec.operacao.categoriaOperacao.nome}"  />
-                            <p:separator class="Container100 label-pnl-index" />
-                            <h:panelGroup layout="block" class="Container100" >
-                                <h:outputText class="Container100  TexAlCenter Fs20  label-pnl-index" style="color: white" value="#{ftRec.dataVencimento}"  >
-                                    <f:convertDateTime  pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                                <h:outputText class="TexAlCenter  Container100 Fs20  MarTop5 FontBold" style="color: white" value="#{ftRec.valor}"  >
-                                    <f:convertNumber type="currency" />
-                                </h:outputText>
-                            </h:panelGroup>
-                        </p:commandLink>
+                    <p:panel   class="Container100 pnl-fatura   BordRad4 #{ftRec.operacao.categoriaOperacao.cor.descricao}" >
+                        <h:outputText class="Container100   TexAlCenter Fs20  FontBold" style="color: white" value="#{ftRec.operacao.categoriaOperacao.nome}"  />
                         <p:separator class="Container100 label-pnl-index" />
-                        <h:panelGrid    columns="3" >
-                            <p:commandLink  class="img-index" title="#{label.editar}" oncomplete="PF('dialogoEditFat').show()" update=":frm_edit_fat" onclick="#{dadosInicialMB.setFaturaOperacao(ftRec)}" >
-                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
-                            </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.informacoes}" update=":frm_info_fat" oncomplete="PF('dialogoFat').show()" onclick="#{dadosInicialMB.setFaturaOperacao(ftRec)}">
-                                <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
-                            </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.excluir}" update="@form" actionListener="#{dadosInicialMB.excluirFatura(ftRec)}" >
-                                <p:confirm message="#{msg.confirmacao}" />
-                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
-                            </p:commandLink>
-
-                        </h:panelGrid>
-                    </div>
+                        <h:panelGroup layout="block" class="Container100" >
+                            <h:outputText class="Container100  TexAlCenter Fs20  " style="color: white" value="#{ftRec.dataVencimento}"  >
+                                <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                            <h:outputText class="TexAlCenter  Container100 Fs20  MarTop5 FontBold" style="color: white" value="#{ftRec.valor}"  >
+                                <f:convertNumber type="currency" />
+                            </h:outputText>
+                        </h:panelGroup>
+                        <f:facet name="footer" >
+                            <h:panelGrid class="Responsive"  columns="3" >
+                                <p:commandLink  class="img-index" title="#{label.editar}" oncomplete="PF('dialogoEditFat').show()" update=":frm_edit_fat" actionListener="#{dadosInicialMB.setFaturaOperacao(ftRec)}" >
+                                    <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
+                                </p:commandLink>
+                                <p:commandLink class="img-index" title="#{label.informacoes}" update=":frm_info_fat" oncomplete="PF('dialogoFat').show()" actionListener="#{dadosInicialMB.setFaturaOperacao(ftRec)}">
+                                    <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
+                                </p:commandLink>
+                                <p:commandLink class="img-index" title="#{label.excluir}" update="@form" actionListener="#{dadosInicialMB.excluirFatura(ftRec)}" >
+                                    <p:confirm message="#{msg.confirmacao}" />
+                                    <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:panel>
 
 
 
@@ -103,9 +99,9 @@
                 <p:panel>
                     <p:graphicImage class="Fleft BordRad10" library="images" width="36" height="36" name="despesa.png" />
 
-                    <div class="Fs20 Fleft   hardblue fontItalic MarRight10">#{label.despesa} &rarr;</div>                                       
+                    <div class="Fs20 Fleft   hardblue fontItalic MarRight10">#{label.despesa} &#8658;</div>                                       
                     <div class="Fs20 Fleft   orange fontItalic MarRight10"> 
-                        <h:outputText class="Fleft" value="(Dia: &zwnj; " />
+                        <h:outputText class="Fleft" value="(Dia: &#8204; " />
 
                         <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.despesaDia}"  >
                             <f:convertNumber type="currency" />
@@ -114,7 +110,7 @@
 
                     </div>                                       
                     <div class="Fs20  Fleft   orange fontItalic"> 
-                        <h:outputText class="Fleft" value="(#{label.mes}: &zwnj; " />
+                        <h:outputText class="Fleft" value="(#{label.mes}: &#8204; " />
 
                         <h:outputText class="Fleft" value="#{dadosInicialMB.demonstrativoFinanceiro.despesaMes}"  >
                             <f:convertNumber type="currency" />
@@ -130,34 +126,32 @@
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="6,12,16">
 
-                    <div  class="pnl-fatura BordRad4 #{ftDes.operacao.categoriaOperacao.cor.descricao}">
-                        <p:commandLink title="#{ftDes.operacao.descricao}" >
-                            <h:outputText class="Container100   TexAlCenter Fs20 label-pnl-index FontBold" style="color: black" value="#{ftDes.operacao.categoriaOperacao.nome}"  />
-                            <p:separator class="Container100 label-pnl-index" />
-                            <h:panelGroup layout="block" class="Container100" >
-                                <h:outputText class="Container100  TexAlCenter Fs20  label-pnl-index" style="color: white" value="#{ftDes.dataVencimento}"  >
-                                    <f:convertDateTime  pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                                <h:outputText class="TexAlCenter  Container100 Fs20  MarTop5 FontBold" style="color: white" value="#{ftDes.valor}"  >
-                                    <f:convertNumber type="currency" />
-                                </h:outputText>
-                            </h:panelGroup>
-                        </p:commandLink>
+                      <p:panel   class="Container100 pnl-fatura   BordRad4 #{ftDes.operacao.categoriaOperacao.cor.descricao}" >
+                        <h:outputText class="Container100   TexAlCenter Fs20  FontBold" style="color: white" value="#{ftDes.operacao.categoriaOperacao.nome}"  />
                         <p:separator class="Container100 label-pnl-index" />
-                        <h:panelGrid    columns="3" >
-                            <p:commandLink  class="img-index" title="#{label.editar}" oncomplete="PF('dialogoEditFat').show()" update=":frm_edit_fat" onclick="#{dadosInicialMB.setFaturaOperacao(ftDes)}" >
-                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
-                            </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.informacoes}" update=":frm_info_fat" oncomplete="PF('dialogoFat').show()" onclick="#{dadosInicialMB.setFaturaOperacao(ftDes)}">
-                                <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
-                            </p:commandLink>
-                            <p:commandLink class="img-index" title="#{label.excluir}" update="@form" actionListener="#{dadosInicialMB.excluirFatura(ftDes)}" >
-                                <p:confirm message="#{msg.confirmacao}" />
-                                <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
-                            </p:commandLink>
-
-                        </h:panelGrid>
-                    </div>
+                        <h:panelGroup layout="block" class="Container100" >
+                            <h:outputText class="Container100  TexAlCenter Fs20  " style="color: white" value="#{ftDes.dataVencimento}"  >
+                                <f:convertDateTime  pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                            <h:outputText class="TexAlCenter  Container100 Fs20  MarTop5 FontBold" style="color: white" value="#{ftDes.valor}"  >
+                                <f:convertNumber type="currency" />
+                            </h:outputText>
+                        </h:panelGroup>
+                        <f:facet name="footer" >
+                            <h:panelGrid  class="Responsive"  columns="3" >
+                                <p:commandLink  class="img-index" title="#{label.editar}" oncomplete="PF('dialogoEditFat').show()" update=":frm_edit_fat" actionListener="#{dadosInicialMB.setFaturaOperacao(ftDes)}" >
+                                    <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="edit.png" />
+                                </p:commandLink>
+                                <p:commandLink class="img-index" title="#{label.informacoes}" update=":frm_info_fat" oncomplete="PF('dialogoFat').show()" actionListener="#{dadosInicialMB.setFaturaOperacao(ftDes)}">
+                                    <p:graphicImage class="BordRad5" library="images" width="20" height="20" name="info.png" />
+                                </p:commandLink>
+                                <p:commandLink class="img-index" title="#{label.excluir}" update="@form" actionListener="#{dadosInicialMB.excluirFatura(ftDes)}" >
+                                    <p:confirm message="#{msg.confirmacao}" />
+                                    <p:graphicImage class="BordRad5  " library="images" width="20" height="20" name="trash.png" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:panel>
 
 
 

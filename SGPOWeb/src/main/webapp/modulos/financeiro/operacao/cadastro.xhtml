@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 template="/modelo/template.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:tip="http://xmlns.jcp.org/jsf/composite/paginas/financeiro/"
+                xmlns:adm="http://xmlns.jcp.org/jsf/composite/paginas/administrativo/"
 
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
                 xmlns:p="http://primefaces.org/ui"
@@ -36,6 +36,31 @@
                 <tip:consultaFatura id="compConFatura">
                     <cb:commandButtonExcluir componente_to_update=":frm_con_fatura" renderizar_btn="true" acao_butao="#{operacaoMB.excluirFatura(ft)}" />
                 </tip:consultaFatura>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog showEffect="fade" position="center center" width="70%" positionType="absolute" header="#{label.cliente} " id="dialogCliente" modal="true" hideEffect="fade"
+                  widgetVar="dialogCliente">
+            <h:form id="frm_usr" >
+                <adm:consultaCliente id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{operacaoMB.operacao.setCliente(p)}" icon="fa fa-check-square-o" 
+                                     update=":frm_cad:pnlPadrao:compCadastro:inp_cli:input" onclick="PF('dialogCliente').hide()" />
+                </adm:consultaCliente>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" class="Responsive MarTopPerc5"  width="70%" height="50%" positionType="absolute" header="#{label.cliente} " id="dialogCadCliente"
+                    modal="true" hideEffect="scale"  widgetVar="dialogCadCliente"  >
+            <h:form id="frm_cad_cli" >
+                <componentes:panelPadraoDialog id="pnlPadrao" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
+                                               acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
+
+                                               btn_limpar="true" cabecalho="#{label.cadastro} #{label.cliente}" btn_imprimir="false" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{clienteMB.init()}" >
+                    <adm:cadastroCliente id="compCadastro" form=":frm_cad_cli"  />
+                </componentes:panelPadraoDialog>
+
+
             </h:form>
         </p:dialog>
     </ui:define>

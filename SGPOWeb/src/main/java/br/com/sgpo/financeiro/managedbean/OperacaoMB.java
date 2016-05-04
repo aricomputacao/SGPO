@@ -43,6 +43,7 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
     private FaturaController faturaController;
     @Inject
     private CategoriaOperacaoController categoriaOperacaoController;
+    
 
     private Operacao operacao;
     private TipoDeOperacao tipoDeOperacao;
@@ -52,6 +53,7 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
     private List<CategoriaOperacao> listaCategoriaOperacaos;
 
     private boolean renderReceita;
+    private boolean renderNumeroNota;
     private boolean renderRecorrencia;
     private boolean renderParcelamento;
     private BigDecimal valor;
@@ -132,6 +134,10 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
     public void processarTipoOperacao() {
         listaCategoriaOperacaos = categoriaOperacaoController.consultar(tipoDeOperacao);
         renderReceita = tipoDeOperacao.equals(TipoDeOperacao.RECEITA);
+        renderNumeroNota = renderReceita && operacao.isPossuiNota();
+        if (!renderReceita) {
+            operacao.setPossuiNota(false);
+        }
         
     }
 
@@ -215,4 +221,9 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
         return Mes.values();
     }
 
+    public boolean isRenderNumeroNota() {
+        return renderNumeroNota;
+    }
+
+    
 }

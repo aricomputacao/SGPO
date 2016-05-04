@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -16,31 +15,37 @@
     </composite:interface>
     <composite:implementation>
         <p:fieldset legend="#{label.dados}" id="fieldDados"  toggleable="true">
-            <h:panelGroup layout="block"  id="pnlTipo" class="Container100 Responsive">
-
-                <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input :pnlPadrao:compCadastro:pnlTipo :pnlPadrao:compCadastro:fieldComp"  
+            <h:panelGroup layout="block"  id="pnl-tipo" class="Container100 Responsive">
+                <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input :pnlPadrao:compCadastro:pnl-tipo :pnlPadrao:compCadastro:pnl-valor :pnlPadrao:compCadastro:pnlTipo :pnlPadrao:compCadastro:fieldComp"  
                                        ajax_render="true" ajax_listener="#{operacaoMB.processarTipoOperacao()}" inp_class_tamanho="30" 
                                        lab_valor="#{label.tipo}" >
                     <f:selectItems value="#{operacaoMB.listaDeTiposDeOperacao}" var="tp" itemValue="#{tp}" itemLabel="#{tp}" />
                 </inputs:selectOneRadio>
-                <inputs:selectOneRadio inp_valor="#{operacaoMB.operacao.possuiNota}" rendered="#{operacaoMB.renderReceita}"  inp_class_tamanho="30" 
-                                       lab_valor="#{label.nota}" > 
-                    <f:selectItem itemValue="#{true}"  itemLabel="Sim"  />
-                    <f:selectItem itemValue="#{false}"  itemLabel="Não"  />
-                </inputs:selectOneRadio>
+                <inputs:input_label_btn_click_btn_mais inp_valor="#{operacaoMB.operacao.cliente.nome}" id="inp_cli" lab_valor="#{label.cliente}" inp_readonly="true" inp_require="true" 
+                                                       btn_immediate="true" btn_onclick="PF('dialogCliente').show()" btn_process="@this" inp_class_tamanho="50" 
+                                                       btn_onclick_plus="PF('dialogCadCliente').show()"  rendered="#{operacaoMB.renderReceita}" />
             </h:panelGroup>
-            <h:panelGroup layout="block"  class="Container100 Responsive">
-                <inputs:input_label_data inp_valor="#{operacaoMB.operacao.dateOperacao}" inp_class_tamanho="10" lab_valor="#{label.data} #{label.operacao}" inp_require="true"/>
+            <h:panelGroup layout="block"  id="pnlTipo" class="Container100 Responsive">
+
+                <inputs:input_label_data inp_valor="#{operacaoMB.operacao.dateOperacao}" inp_class_tamanho="20" lab_valor="#{label.data} #{label.operacao}" inp_require="true"/>
                 <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCategoria').show()" btn_onclick_atualizar="@this" inp_valor="#{operacaoMB.operacao.categoriaOperacao}" id="sele_cat"  sel_converter="indexConverter"  inp_class_tamanho="30" lab_valor="#{label.categoria}" >
                     <f:selectItems value="#{operacaoMB.listaCategoriaOperacaos}" var="ca" itemValue="#{ca}" itemLabel="#{ca.nome}" />
                 </inputs:selectOneLabe_btn_mais>
+            </h:panelGroup>
+            <h:panelGroup layout="block"  id="pnl-valor" class="Container100 Responsive">
+                <inputs:selectOneRadio inp_valor="#{operacaoMB.operacao.possuiNota}" id="sel-nota" rendered="#{operacaoMB.renderReceita}"  
+                                       inp_class_tamanho="30" ajax_listener="#{operacaoMB.processarTipoOperacao()}" ajax_render="true" sel_update=":pnlPadrao:compCadastro:pnl-valor"  lab_valor="#{label.nota}" > 
+                    <f:selectItem itemValue="#{true}"  itemLabel="Sim"  />
+                    <f:selectItem itemValue="#{false}"  itemLabel="Não"  />
+                </inputs:selectOneRadio>
+                <inputs:input_label inp_valor="#{operacaoMB.operacao.numeroNota}" rendered="#{operacaoMB.renderNumeroNota}" lab_valor="#{label.numero} #{label.nota}" inp_class_tamanho="20" />
                 <inputs:input_label_money  inp_valor="#{operacaoMB.valor}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
             </h:panelGroup>
             <h:panelGroup layout="block"  class="Container100 Responsive">
 
-                <inputs:textarea_label id="inpDescricao" inp_class_tamanho="50" inp_require="true" inp_valor="#{operacaoMB.operacao.descricao}" lab_valor="#{label.descricao}"/>
+                <inputs:textarea_label id="inpDescricao" inp_class_tamanho="90" inp_require="true" inp_valor="#{operacaoMB.operacao.descricao}" lab_valor="#{label.descricao}"/>
 
-               
+
             </h:panelGroup>
         </p:fieldset>
         <p:fieldset legend="#{label.complementos}" class="MarTop5" id="fieldComp" toggleable="true" >
@@ -82,7 +87,7 @@
                 <p:column headerText="#{label.faturas}">
                     <p:commandButton title="#{label.consulta} #{label.faturas}"  update=":frm_con_fatura" immediate="true" class="btnForm" 
                                      actionListener="#{operacaoMB.consultarFatura(op)}" oncomplete="PF('dialogConFatura').show()"   icon="fa fa-list"/>
-                    
+
                     <cb:commandButtonExcluir renderizar_btn="true" componente_to_update=":pnlPadrao:compCadastro:tabela" immediate="true" acao_butao="#{operacaoMB.excluirOperacao(op)}" />  
                     <composite:insertChildren />
                 </p:column>

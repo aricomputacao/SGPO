@@ -137,6 +137,8 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+   
 
     public void consultarNotificacoes(Projeto p) {
         listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(p);

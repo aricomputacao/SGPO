@@ -58,12 +58,11 @@ and open the template in the editor.
     -webkit-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
     box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+   
 
 }
 .pnl-fatura:hover{
-   -webkit-box-shadow: inset 6px 3px 71px -5px rgba(0,0,0,0.75);
--moz-box-shadow: inset 6px 3px 71px -5px rgba(0,0,0,0.75);
-box-shadow: inset 6px 3px 71px -5px rgba(0,0,0,0.75);
+ 
 }
 
 .label-pnl-index{
