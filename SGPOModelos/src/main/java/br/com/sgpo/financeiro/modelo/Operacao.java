@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.financeiro.modelo;
 
+import br.com.sgpo.administrativo.modelo.Cliente;
 import br.com.sgpo.financeiro.enumeration.PeriodoRecorrencia;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -55,6 +56,10 @@ public class Operacao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cop_id", referencedColumnName = "cop_id", nullable = false)
     private CategoriaOperacao categoriaOperacao;
+    
+    @ManyToOne
+    @JoinColumn(name = "cli_id", referencedColumnName = "cli_id")
+    private Cliente cliente;
 
     @Column(name = "ope_recorrencia")
     private boolean recorrencia;
@@ -173,6 +178,14 @@ public class Operacao implements Serializable {
 
     public void setNumeroNota(String numeroNota) {
         this.numeroNota = numeroNota;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
     
