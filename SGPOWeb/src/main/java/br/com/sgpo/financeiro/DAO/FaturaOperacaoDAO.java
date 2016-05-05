@@ -12,6 +12,7 @@ import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
 import br.com.sgpo.utilitario.DAOGenerico;
+import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,4 +86,18 @@ public class FaturaOperacaoDAO extends DAOGenerico<FaturaOperacao, Long> impleme
         tq = getEm().createQuery("select distinct(year(f.dataVencimento)) from FaturaOperacao f", Integer.class);
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
+
+    public List<FaturaOperacao> consultarFaturaDa(Mes mesReferencia, int ano,TipoDeOperacao tp) {
+        TypedQuery tq;
+
+        tq = getEm().createQuery("SELECT f FROM FaturaOperacao f where month(f.dataVencimento) = :mes and  year(f.dataVencimento) = :ano and f.operacao.categoriaOperacao.tipoDeOperacao = :tp"
+                + "                  order by f.operacao.categoriaOperacao.tipoDeOperacao,f.operacao.categoriaOperacao,month(f.dataVencimento)", FaturaOperacao.class)
+                .setParameter("mes", mesReferencia.getReferencia())
+                .setParameter("tp", tp)
+                .setParameter("ano", ano);
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+
+
+    }
+
 }

@@ -16,6 +16,7 @@ import br.com.sgpo.utilitario.ControllerGenerico;
 import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -219,6 +220,10 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
             eventModel.addEvent(agendaFinanceira); //o evento e adicionado na lista
         }
         return eventModel;
+    }
+
+    public List<FaturaOperacao> consultarPor(Mes mesReferencia,int ano,TipoDeOperacao tipoDeOperacao) {
+        return dao.consultarFaturaDa(mesReferencia,ano,tipoDeOperacao);
     }
 
 }

@@ -23,7 +23,6 @@
                 <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.index_financeiro)}" id="tabDashFin" title="#{label.faturas}" class="Container100 Responsive">
                     <h:form id="frm_dash_finan"  class="Container100" prependId="false" >
                         <div class="Container100">
-                            <btn:commandButton_imprimir acao_butao="#{operacaoMB.geraImpressaoClientes()}" componente_to_update="@form"/>
                             <util:dadosInicialFinanceiro id="compDadosFinan"/>
                         </div>
                     </h:form>

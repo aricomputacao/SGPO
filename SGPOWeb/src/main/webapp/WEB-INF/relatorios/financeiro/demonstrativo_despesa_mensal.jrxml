@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demonstrativo_despesa_mensal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="840" leftMargin="1" rightMargin="1" topMargin="1" bottomMargin="1" uuid="6e8efd31-d946-445f-a791-9b628a6e0190">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demonstrativo_despesa_mensal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="840" leftMargin="1" rightMargin="1" topMargin="2" bottomMargin="1" uuid="6e8efd31-d946-445f-a791-9b628a6e0190">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -12,8 +12,16 @@
 	<parameter name="img" class="java.lang.String"/>
 	<parameter name="mes" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/WEB-INF/relatorios/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Users\\ari\\Documents\\Projetos\\SGPO\\SGPOWeb\\src\\main\\webapp\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="img_sub" class="java.lang.String"/>
+	<parameter name="RODAPE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\ari\\Documents\\Projetos\\SGPO\\SGPOWeb\\src\\main\\webapp\\WEB-INF\\relatorios\\sub_relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="email_sub" class="java.lang.String"/>
+	<parameter name="tel_sub" class="java.lang.String"/>
+	<parameter name="rua_sub" class="java.lang.String"/>
+	<parameter name="comp_sub" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -66,8 +74,8 @@
 			<frame>
 				<reportElement x="0" y="0" width="840" height="92" uuid="0a56b200-ad2d-4451-8bac-ca0ce601efd5"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineColor="#666666"/>
+					<bottomPen lineWidth="0.25" lineColor="#666666"/>
 				</box>
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement x="629" y="76" width="200" height="16" uuid="20c1ad93-3e30-4c7a-a5e6-29aea528caca"/>
@@ -154,42 +162,26 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="59" splitType="Stretch">
-			<frame>
-				<reportElement x="0" y="0" width="840" height="59" uuid="e15b85d5-b30d-45c3-a81d-420a37d62c07"/>
-				<image hAlign="Center">
-					<reportElement x="0" y="0" width="52" height="59" uuid="375a0f17-5451-4e92-b556-c10c7111431d"/>
-					<imageExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/resources/images/oiti_opacit.png"]]></imageExpression>
-				</image>
-				<staticText>
-					<reportElement x="52" y="0" width="343" height="15" uuid="d8f4755d-c5c3-4790-ab18-b64347cb1c80"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Rua Jornalista Deolindo Barrreto,]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="52" y="15" width="343" height="15" uuid="2f10028b-f65f-4f5f-927f-b9d7d8b360b5"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Nº 136, Bairro Centro, Sobral/CE CEP: 62.011-170]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="52" y="30" width="420" height="15" uuid="62e650ce-d8d5-47fd-a1cc-d1e387e089f9"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[contato@oitiengenharia.com  | tecnica@oitiengenharia.com]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="52" y="45" width="420" height="14" uuid="f873f28c-888c-47b3-baf7-af58b34a2a44"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Tel:  55-88-3613.1005  | 55-88-9696.0803]]></text>
-				</staticText>
-			</frame>
+		<band height="37" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="2" width="840" height="35" uuid="8e570f63-2fb9-4758-b064-4dfeb42df972"/>
+				<subreportParameter name="comp_sub">
+					<subreportParameterExpression><![CDATA[$P{comp_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img_sub">
+					<subreportParameterExpression><![CDATA[$P{img_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="email_sub">
+					<subreportParameterExpression><![CDATA[$P{email_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rua_sub">
+					<subreportParameterExpression><![CDATA[$P{rua_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tel_sub">
+					<subreportParameterExpression><![CDATA[$P{tel_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{RODAPE} + "rodape_horizontal.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</pageFooter>
 </jasperReport>

@@ -36,7 +36,7 @@
                     <div>
                         <p:selectOneMenu class="Container90 "     value="#{painelFinanceiroMB.ano}" id="input"  >
                             <f:selectItems value="#{painelFinanceiroMB.listaAnosRegistados}" var="an" />
-                            <p:ajax event="change" update=":compCadastro:grafMes"    listener="#{painelFinanceiroMB.criarVisaoOperacoesMensal()}"/>
+                            <p:ajax event="change" update="pnlPadrao:compCadastro:grafMes"    listener="#{painelFinanceiroMB.criarVisaoOperacoesMensal()}"/>
                         </p:selectOneMenu>
                     </div>
                 </div>

@@ -6,9 +6,16 @@
 package br.com.sgpo.financeiro.managedbean;
 
 import br.com.sgpo.financeiro.controller.FaturaController;
+import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
+import br.com.sgpo.utilitario.relatorio.RelatorioSession;
+import br.com.sgpo.utilitarios.enumeration.Mes;
+import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
+import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -18,7 +25,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.ItemSelectEvent;
-import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.chart.BarChartModel;
 
 /**
@@ -33,20 +39,21 @@ public class PainelFinanceiroMB implements Serializable {
     private FaturaController faturaController;
 
     private List<Integer> listaAnosRegistados;
-    
+    private List<FaturaOperacao> listaDeFaturas;
 
     private BarChartModel visaoOperacaoAnual;
     private BarChartModel visaoOperacaoMes;
 
     private int ano;
+    private Mes mesReferencia;
+    private TipoDeOperacao tipoDeOperacao;
 
     @PostConstruct
     public void init() {
         try {
             listaAnosRegistados = faturaController.consultarAnosRegistrados();
             ano = 2016;
-            
-            
+
             criarVisaoOperacoesAnual();
             criarVisaoOperacoesMensal();
         } catch (Exception ex) {
@@ -55,9 +62,19 @@ public class PainelFinanceiroMB implements Serializable {
 
     }
 
-    
-    
-    
+    public void gerarImpressaoDespesaMensa() {
+        try {
+
+            listaDeFaturas = faturaController.consultarPor(mesReferencia,ano,TipoDeOperacao.DESPESA);
+            Map<String, Object> m = new HashMap<>();
+            m.put("mes", " "+mesReferencia.toString()+" / "+String.valueOf(ano));
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFaturas, m, PastasRelatorio.RESOURCE_FINANCEIRO, PastasRelatorio.REL_DEMONSTRATIVO_SINTETICO_DESPESA_MENSA, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
+
     private void criarVisaoOperacoesAnual() {
         visaoOperacaoAnual = faturaController.graficoReceitaDespesaAnual();
     }
@@ -92,7 +109,30 @@ public class PainelFinanceiroMB implements Serializable {
     public List<Integer> getListaAnosRegistados() {
         return listaAnosRegistados;
     }
+    
+    public Mes[] getListaDeMeses(){
+        return Mes.values();
+    }
+
+    public Mes getMesReferencia() {
+        return mesReferencia;
+    }
+
+    public void setMesReferencia(Mes mesReferencia) {
+        this.mesReferencia = mesReferencia;
+    }
+
+    public List<FaturaOperacao> getListaDeFaturas() {
+        return listaDeFaturas;
+    }
+
+    public TipoDeOperacao getTipoDeOperacao() {
+        return tipoDeOperacao;
+    }
+
+    public void setTipoDeOperacao(TipoDeOperacao tipoDeOperacao) {
+        this.tipoDeOperacao = tipoDeOperacao;
+    }
 
     
-
 }

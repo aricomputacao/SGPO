@@ -8,25 +8,44 @@
 
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:cb="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:input="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="corpo">
-        <p:panel id="panelPrincipal" class="ContainerIndent cabecalho"    >
 
-            <f:facet name="header" id="fieldMenu">
-                <i class="Fleft  icon-chart-pie Fs30" />
-                <p:outputLabel value="- #{label.painel} #{label.financeiro}" class="FontTitilliumBoldItalic cabecalho Fleft"/>
-                
-            </f:facet>
-            <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.operacao_cadastro)}" >
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.operacao_cadastro)}" >
+            <componentes:panelPadrao id="pnlPadrao" icone="icon-chart-pie" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                     acao_cancelar="#{painelFinanceiroMB.init()}" btn_dialog_rel="true" render_sep_3="true" btn_salvar_update="@form"
+                                     acao_excluir="#{operacaoMB.init()}" btn_cancelar="false" btn_salvar="false" render_sep_1="false" render_sep_2="false" 
+                                     acao_salvar="#{painelFinanceiroMB.init()}" dialog_rel="dialogRel"
+                                     btn_limpar="false" cabecalho="#{label.painel} #{label.financeiro}" >
+
+
+
 
                 <tip:painelFinanceiro id="compCadastro"/>
-            </h:form>
-        </p:panel>
+            </componentes:panelPadrao>
+        </h:form>
     </ui:define>
     <ui:define name="dialog">
+        <p:dialog showEffect="fade" position="center center" class="Responsive MarTopPerc5"  width="50%" height="50%" positionType="absolute" header="#{label.relatorios} "
+                  id="dialogRel" modal="true" hideEffect="scale"  widgetVar="dialogRel"  >
+            <h:form id="frm_rel_desp" >
+            
+                <input:selectOneLabel inp_valor="#{painelFinanceiroMB.mesReferencia}" lab_valor="#{label.mes}" >
+                    <f:selectItems value="#{painelFinanceiroMB.listaDeMeses}" var="m" />
+                </input:selectOneLabel>
+                
+                <input:selectOneLabel inp_valor="#{painelFinanceiroMB.ano}" lab_valor="#{label.ano}" >
+                    <f:selectItems value="#{painelFinanceiroMB.listaAnosRegistados}" var="a" />
+                </input:selectOneLabel>
+                
+                <btn:commandButton_imprimir acao_butao="#{painelFinanceiroMB.gerarImpressaoDespesaMensa()}" componente_to_update="@this" />
+                
 
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>
