@@ -11,6 +11,9 @@ package br.com.sgpo.utilitarios.relatorios;
  */
 public abstract class PastasRelatorio {
 
+    //sub rels do módulo administrativo
+    public static final String RESOURCE_SUB_RELATORIOS = "WEB-INF/relatorios/sub_relatorios";
+
     //relatórios do módulo administrativo
     public static final String RESOURCE_ADMINISTRATIVO = "WEB-INF/relatorios/administrativo";
     public static final String REL_ADMINISTRATIVO_CLIENTE = "/WEB-INF/relatorios/administrativo/rel_clientes.jasper";
@@ -19,7 +22,7 @@ public abstract class PastasRelatorio {
     public static final String REL_ADMINISTRATIVO_COLABORADOR = "/WEB-INF/relatorios/administrativo/rel_colaborador.jasper";
     public static final String REL_ADMINISTRATIVO_FALTA_COLABORADOR = "/WEB-INF/relatorios/administrativo/rel_falta_colaborador.jasper";
 
-  //relatórios do módulo engenharia
+    //relatórios do módulo engenharia
     public static final String RESOURCE_ENGENHARIA = "WEB-INF/relatorios/engenharia";
     public static final String REL_PROJETO_COLABORADOR = "/WEB-INF/relatorios/engenharia/rel_projeto_colaborador.jasper";
     public static final String REL_ITENS_OBRA_QUINZENA = "/WEB-INF/relatorios/engenharia/rel_itens_obra_quinzena.jasper";
@@ -28,6 +31,9 @@ public abstract class PastasRelatorio {
     public static final String REL_ITENS_ETAPA_TIPO = "/WEB-INF/relatorios/engenharia/rel_itens_obra_etapa_tipo.jasper";
     public static final String REL_EQUIPAMENTOS_OBRA = "/WEB-INF/relatorios/engenharia/rel_equipamento_obra.jasper";
     public static final String REL_COLABORADOR_OBRA = "/WEB-INF/relatorios/engenharia/rel_colaborador_obra.jasper";
-    
+
+    //relatórios do módulo engenharia
+    public static final String RESOURCE_FINANCEIRO = "WEB-INF/relatorios/financeiro";
+    public static final String REL_DEMONSTRATIVO_SINTETICO_DESPESA_MENSA = "/WEB-INF/relatorios/financeiro/demonstrativo_despesa_mensal.jasper";
 
 }

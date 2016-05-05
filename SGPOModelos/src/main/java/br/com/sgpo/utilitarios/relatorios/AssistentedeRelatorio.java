@@ -49,7 +49,7 @@ public class AssistentedeRelatorio implements Serializable {
             
             parametros.put("img", getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti.png"));
             parametros.put("relatorio", nomeRelatorio);
-            parametros.put("SUBREPORT_DIR", getDiretorioReal(pastaRelatorio) + separator);
+            parametros.put("SUBREPORT_DIR", getDiretorioReal(PastasRelatorio.RESOURCE_SUB_RELATORIOS) + separator);
             parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
            
             String rel = getDiretorioReal(arquivo);
