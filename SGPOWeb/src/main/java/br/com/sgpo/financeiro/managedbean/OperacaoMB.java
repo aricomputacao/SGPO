@@ -15,7 +15,10 @@ import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
 import br.com.sgpo.utilitario.BeanGenerico;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
+import br.com.sgpo.utilitario.relatorio.RelatorioSession;
 import br.com.sgpo.utilitarios.enumeration.Mes;
+import br.com.sgpo.utilitarios.relatorios.AssistentedeRelatorio;
+import br.com.sgpo.utilitarios.relatorios.PastasRelatorio;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -141,6 +144,18 @@ public class OperacaoMB extends BeanGenerico implements Serializable {
         
     }
 
+    
+     public void geraImpressaoClientes() {
+        try {
+            listaDeFaturas= faturaController.consultarTodosOrdenadorPor("id");
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFaturas, m, PastasRelatorio.RESOURCE_FINANCEIRO, PastasRelatorio.REL_DEMONSTRATIVO_SINTETICO_DESPESA_MENSA, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
+    
     public void processarRecorrencia() {
         renderRecorrencia = operacao.isRecorrencia() == false;
     }

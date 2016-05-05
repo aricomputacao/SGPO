@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 template="/modelo/template.xhtml"
@@ -14,7 +13,7 @@
     <ui:define name="corpo">
 
         <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(seguranca.gerenciar_permissao)}" >
-            <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{gerenciarPermissaoMB.init()}" 
+            <componentes:panelPadrao id="pnlPadrao" icone="#{icones.gerenciar}" class="Responsive" acao_cancelar="#{gerenciarPermissaoMB.init()}" 
                                      acao_excluir="#{gerenciarPermissaoMB.init()}" btn_excluir="false"  btn_salvar="false" render_sep_1="false" render_sep_2="false"
                                      render_sep_3="false" btn_limpar="false" acao_salvar="#{gerenciarPermissaoMB.init()}" 
                                      cabecalho="#{label.gerenciar} #{label.permissao_usuario} " btn_imprimir="false" btn_ativar="false"

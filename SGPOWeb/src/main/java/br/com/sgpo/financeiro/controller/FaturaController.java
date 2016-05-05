@@ -5,6 +5,7 @@
  */
 package br.com.sgpo.financeiro.controller;
 
+import br.com.sgpo.administrativo.modelo.Evento;
 import br.com.sgpo.financeiro.DAO.FaturaOperacaoDAO;
 import br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO;
 import br.com.sgpo.financeiro.dto.DemonstrativoFinanceiroMensalDTO;
@@ -20,6 +21,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
@@ -65,6 +69,7 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
         return dao.consultarFaturaDa(o);
 
     }
+
     public List<Integer> consultarAnosRegistrados() {
         return dao.consultarAnosRegistrados();
 
@@ -139,14 +144,13 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
         return barModel;
 
     }
-    
-    
+
     public BarChartModel graficoReceitaDespesaMensal(Integer ano) {
         BigDecimal maior = BigDecimal.ZERO;
         BigDecimal menor = BigDecimal.valueOf(500);
         BarChartModel barModel = new BarChartModel();
 
-        List<DemonstrativoFinanceiroMensalDTO> listaDemonatrativoFinanceiroMensal = dao.consultarDemonstrativoMensaTipo(TipoDeOperacao.RECEITA,ano);
+        List<DemonstrativoFinanceiroMensalDTO> listaDemonatrativoFinanceiroMensal = dao.consultarDemonstrativoMensaTipo(TipoDeOperacao.RECEITA, ano);
 
         ChartSeries receita = new ChartSeries();
         receita.setLabel("Receita");
@@ -161,7 +165,7 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
 
         }
 
-        listaDemonatrativoFinanceiroMensal = dao.consultarDemonstrativoMensaTipo(TipoDeOperacao.DESPESA,ano);
+        listaDemonatrativoFinanceiroMensal = dao.consultarDemonstrativoMensaTipo(TipoDeOperacao.DESPESA, ano);
         ChartSeries despesa = new ChartSeries();
         despesa.setLabel("Despesa");
         for (DemonstrativoFinanceiroMensalDTO dem : listaDemonatrativoFinanceiroMensal) {
@@ -192,6 +196,29 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
         return barModel;
 
     }
-    
-    
+
+    public ScheduleModel construirCalendarioFinanceiro() throws Exception {
+        List<FaturaOperacao> listaDeFaturaOperacaos = consultarTodosOrdenadorPor("id");
+        ScheduleModel eventModel = new DefaultScheduleModel();
+
+        //percorre a lista de eventos e popula o calendario
+        for (FaturaOperacao fa : listaDeFaturaOperacaos) {
+
+            DefaultScheduleEvent agendaFinanceira = new DefaultScheduleEvent();
+            agendaFinanceira.setAllDay(true);
+            agendaFinanceira.setEndDate(fa.getDataVencimento());
+            agendaFinanceira.setStartDate(fa.getDataVencimento());
+            agendaFinanceira.setTitle(fa.getOperacao().getCategoriaOperacao().getNome());
+            agendaFinanceira.setDescription(fa.getOperacao().getCategoriaOperacao().getTipoDeOperacao().toString()+"( R$ "+
+                    fa.getValor().toPlainString()+" ) : " +fa.getOperacao().getDescricao());
+            agendaFinanceira.setData(fa.getId());
+            agendaFinanceira.setEditable(false); //pertir que o usuario edite
+
+            agendaFinanceira.setStyleClass(fa.getOperacao().getCategoriaOperacao().getCor().getDescricao());
+
+            eventModel.addEvent(agendaFinanceira); //o evento e adicionado na lista
+        }
+        return eventModel;
+    }
+
 }

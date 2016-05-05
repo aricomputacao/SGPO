@@ -1,22 +1,19 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 template="/modelo/template.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:carg="http://xmlns.jcp.org/jsf/composite/paginas/administrativo/"
-                xmlns:dialogs="http://xmlns.jcp.org/jsf/composite/componentes/dialogs"
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
 
 
 
     <ui:define name="corpo">
-        <h:form id="frm_cons" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoConsultar(administrativo.cargo_consulta)}" >
-            <componentes:panelPadrao id="pnlPadrao" cabecalho="#{label.consulta} #{label.cargo}" acao_limpar="#{cargoMB.init()}" render_sep_1="false" btn_excluir="false" 
+        <h:form id="frm_cons"  prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoConsultar(administrativo.cargo_consulta)}" >
+            <componentes:panelPadrao id="pnlPadrao" icone="#{icones.consulta}" cabecalho="#{label.consulta} #{label.cargo}" acao_limpar="#{cargoMB.init()}" render_sep_1="false" btn_excluir="false" 
                                      btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{cargoMB.init()}" render_sep_2="false" render_sep_3="false"
                                      dialog_cadastro="dialogCadastro" btn_imprimir="false" btn_dialog_rel="false" btn_salvar_update="false">
-                <carg:consultaCargo id="compConsulta" componente_to_update="@form:pnlPadrao:compConsulta:tabela" renderizar_btn_selecionar="false" />
+                <carg:consultaCargo id="compConsulta"  componente_to_update="@form:pnlPadrao:compConsulta:tabela" renderizar_btn_selecionar="false" />
             </componentes:panelPadrao>
         </h:form>
     </ui:define>

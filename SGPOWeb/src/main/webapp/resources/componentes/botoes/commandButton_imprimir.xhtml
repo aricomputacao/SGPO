@@ -13,14 +13,12 @@
         <composite:attribute id="inp_class" name="inp_class_tamanho" shortDescription="Tamanho do input pela classe Container" default="100"/>
     </composite:interface>
     <composite:implementation id="compConsulta">
-        <p:blockUI block="@form" trigger="btnPrint" >
-            <p:graphicImage library="images" name="carregar.gif"/>
-        </p:blockUI>
+        
         <h:panelGroup layout="block" class="Container#{cc.attrs.inp_class_tamanho} Responsive">
             <h:panelGroup layout="block" class="ContainerIndent">
                 <div class="EmptyBox20"></div>
                 <div>
-                    <p:commandButton icon="fa fa-print Fs14 "  id="btnPrint" class="Wid90" value="#{label.imprimir}" oncomplete="popup('/sgpo/RelatorioServlet.pdf');"
+                    <p:commandButton icon="fa fa-print Fs14 " onclick="start()" id="btnPrint" class="Wid90" value="#{label.imprimir}" oncomplete="popup('/sgpo/RelatorioServlet.pdf');stop()"
                                      title="#{label.imprimir}" update="#{cc.attrs.componente_to_update}" actionListener="#{cc.attrs.acao_butao}"/>
                 </div>
             </h:panelGroup>

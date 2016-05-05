@@ -32,6 +32,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.DualListModel;
+import org.primefaces.model.ScheduleModel;
 
 /**
  *
@@ -70,6 +71,8 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     private DemonstrativoFinanceiroDTO demonstrativoFinanceiro;
     private FaturaOperacao faturaOperacao;
 
+    private ScheduleModel eventModel;
+
     private Date dataReferencia;
 
     @PostConstruct
@@ -80,7 +83,6 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             notificacaoProjeto = new NotificacaoProjeto();
             projeto = new Projeto();
 
-            
             listaDeObras = obraController.consultarObrasEmAndamento();
 
             dataReferencia = new Date();
@@ -90,6 +92,9 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             listaColaboradorSource = colaboradorController.consultarTodosOrdenadorPor("nome");
             listaColaboradorTarget = new ArrayList<>();
             listDualColaboradores = new DualListModel<>(listaColaboradorSource, listaColaboradorTarget);
+            
+                        eventModel = faturaController.construirCalendarioFinanceiro();
+
 
         } catch (Exception ex) {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,11 +116,16 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
     }
 
     public void consultarDemonstrativoFinanceiro() {
-        listaDeFaturas = faturaController.consultarPor(dataReferencia);
-        demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas, dataReferencia);
+        try {
+            listaDeFaturas = faturaController.consultarPor(dataReferencia);
+            demonstrativoFinanceiro = new DemonstrativoFinanceiroDTO(listaDeFaturas, dataReferencia);
+            eventModel = faturaController.construirCalendarioFinanceiro();
+        } catch (Exception ex) {
+            Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void salvarFatura(){
+    public void salvarFatura() {
         try {
             faturaController.atualizar(faturaOperacao);
             consultarDemonstrativoFinanceiro();
@@ -125,7 +135,7 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void excluirFatura(FaturaOperacao fo) {
         try {
             demonstrativoFinanceiro.removerFatura(fo);
@@ -137,8 +147,6 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
             Logger.getLogger(DadosInicialMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-   
 
     public void consultarNotificacoes(Projeto p) {
         listaDeNotificacaoProjetos = notificacaoProjetoController.consultarTodos(p);
@@ -198,4 +206,9 @@ public class DadosInicialMB extends BeanGenerico implements Serializable {
         this.faturaOperacao = faturaOperacao;
     }
 
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
+
+    
 }

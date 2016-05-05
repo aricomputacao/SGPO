@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 template="/modelo/template.xhtml"
@@ -14,7 +13,7 @@
     <ui:define name="corpo">
         <h:form id="frm_cons" prependId="false"  rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.colaborador_consulta)}">
 
-            <componentes:panelPadrao id="pnlPadrao" cabecalho=" #{label.consulta} #{label.colaborador}" acao_limpar="#{colaboradorMB.init()}" render_sep_1="false" btn_excluir="false" 
+            <componentes:panelPadrao id="pnlPadrao"  icone="#{icones.consulta}" cabecalho=" #{label.consulta} #{label.colaborador}" acao_limpar="#{colaboradorMB.init()}" render_sep_1="false" btn_excluir="false" 
                                      btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{colaboradorMB.geraImpressaoColaborador()}" 
                                      dialog_cadastro="dialogCadastro" btn_imprimir="true" dialog_rel="dialogRel" btn_dialog_rel="true" btn_salvar_update="false">
 

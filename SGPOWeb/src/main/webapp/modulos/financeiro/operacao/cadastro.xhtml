@@ -8,7 +8,8 @@
 
                 xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:cb="http://xmlns.jcp.org/jsf/composite/componentes/botoes">
+                xmlns:cb="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="corpo">
         <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.operacao_cadastro)}" >
@@ -16,6 +17,7 @@
                                      acao_cancelar="#{operacaoMB.init()}" btn_dialog_rel="false" render_sep_3="true" btn_salvar_update="@form :frm_cad:pnlPadrao:compCadastro:tabela"
                                      acao_excluir="#{operacaoMB.init()}"  acao_salvar="#{operacaoMB.salvar()}"
                                      btn_limpar="false" cabecalho="#{label.cadastro} #{label.operacao}" >
+               
                 <tip:cadastroOperacao id="compCadastro"/>
             </componentes:panelPadrao>
         </h:form>
@@ -38,7 +40,7 @@
                 </tip:consultaFatura>
             </h:form>
         </p:dialog>
-        
+
         <p:dialog showEffect="fade" position="center center" width="70%" positionType="absolute" header="#{label.cliente} " id="dialogCliente" modal="true" hideEffect="fade"
                   widgetVar="dialogCliente">
             <h:form id="frm_usr" >
@@ -50,7 +52,7 @@
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="center center" class="Responsive MarTopPerc5"  width="70%" height="50%" positionType="absolute" header="#{label.cliente} " id="dialogCadCliente"
-                    modal="true" hideEffect="scale"  widgetVar="dialogCadCliente"  >
+                  modal="true" hideEffect="scale"  widgetVar="dialogCadCliente"  >
             <h:form id="frm_cad_cli" >
                 <componentes:panelPadraoDialog id="pnlPadrao" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
                                                acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 

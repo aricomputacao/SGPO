@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demonstrativo_despesa_mensal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="840" leftMargin="1" rightMargin="1" topMargin="1" bottomMargin="1" uuid="6e8efd31-d946-445f-a791-9b628a6e0190">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/WEB-INF/relatorios/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="dataVencimento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataVencimento]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="operacao" class="br.com.sgpo.financeiro.modelo.Operacao">
+		<fieldDescription><![CDATA[operacao]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<variable name="valor_1" class="java.math.BigDecimal" resetType="Group" resetGroup="categoria" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<group name="categoria">
+		<groupExpression><![CDATA[$F{operacao}.getCategoriaOperacao()]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="840" height="20" backcolor="#E9E65F" uuid="eda1f77e-93a5-43f5-b15b-046ad9a313ed"/>
+					<textField>
+						<reportElement x="9" y="0" width="601" height="20" uuid="310853ee-5084-4760-9889-a790425e3013"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isItalic="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{operacao}.getCategoriaOperacao().getNome()]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="685" y="0" width="44" height="20" uuid="ed67c41f-398d-4a39-9009-9a521090fcfe"/>
+						<textElement verticalAlignment="Middle">
+							<font size="14" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Total:]]></text>
+					</staticText>
+					<textField evaluationTime="Group" evaluationGroup="categoria" pattern="¤ #,##0.00">
+						<reportElement x="729" y="0" width="111" height="20" uuid="60d7116e-a585-4f8e-bac1-dfba36c63639"/>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$V{valor_1}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="92" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="840" height="92" uuid="0a56b200-ad2d-4451-8bac-ca0ce601efd5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="629" y="76" width="200" height="16" uuid="20c1ad93-3e30-4c7a-a5e6-29aea528caca"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="9" y="0" width="372" height="65" uuid="1ef0f59d-4517-4aa7-a99a-378160c89ec3"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="9" y="65" width="372" height="27" uuid="83e60cbb-2299-413b-997c-92d31d5f51c4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Demonstrativo Despesa Mensal --"+ $P{mes}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement mode="Transparent" x="0" y="0" width="840" height="20" backcolor="#E2DF2C" uuid="e2a4e07b-cc7b-4aaf-b5ba-8e2faa50db59"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="49" y="0" width="59" height="20" uuid="8bc2265b-796d-4146-bb12-03ca0fedeb8e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="108" y="0" width="569" height="20" uuid="422f32e5-81ab-495c-a453-98750566c35a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descrição]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="729" y="0" width="103" height="20" uuid="200253ae-cd65-4819-ad0d-86e1ae30236a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement style="zebra" x="49" y="0" width="791" height="20" uuid="0c85bb48-f52a-4f79-800c-33258462f25c"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="dd/MM">
+				<reportElement x="49" y="0" width="59" height="20" uuid="b3aab9c9-fec1-48ae-afa3-bbc327f2f8e8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataVencimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="0" width="618" height="20" uuid="e6a802f0-3313-4825-a166-9159c89b7542"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operacao}.getDescricao()]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="729" y="0" width="111" height="20" uuid="625c05ec-badc-47f7-94a1-73644f199cd0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="59" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="840" height="59" uuid="e15b85d5-b30d-45c3-a81d-420a37d62c07"/>
+				<image hAlign="Center">
+					<reportElement x="0" y="0" width="52" height="59" uuid="375a0f17-5451-4e92-b556-c10c7111431d"/>
+					<imageExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/resources/images/oiti_opacit.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="52" y="0" width="343" height="15" uuid="d8f4755d-c5c3-4790-ab18-b64347cb1c80"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Rua Jornalista Deolindo Barrreto,]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="52" y="15" width="343" height="15" uuid="2f10028b-f65f-4f5f-927f-b9d7d8b360b5"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Nº 136, Bairro Centro, Sobral/CE CEP: 62.011-170]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="52" y="30" width="420" height="15" uuid="62e650ce-d8d5-47fd-a1cc-d1e387e089f9"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[contato@oitiengenharia.com  | tecnica@oitiengenharia.com]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="52" y="45" width="420" height="14" uuid="f873f28c-888c-47b3-baf7-af58b34a2a44"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Tel:  55-88-3613.1005  | 55-88-9696.0803]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rodape_horizontal" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fc1c4811-92f4-4536-a04a-301b5448240e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<noData>
+		<band height="59">
+			<frame>
+				<reportElement x="0" y="0" width="802" height="59" uuid="6c621539-0348-49ca-8f4d-baf110a24573"/>
+				<image hAlign="Center">
+					<reportElement x="0" y="0" width="52" height="59" uuid="e487dda0-168b-4095-86d1-b770d119e9ba"/>
+					<imageExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/resources/images/oiti_opacit.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="52" y="0" width="343" height="15" uuid="2f02844a-60d1-4525-93d3-cb94bf4841e2"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Rua Jornalista Deolindo Barrreto,]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="52" y="15" width="343" height="15" uuid="0149ef7e-2318-440b-9c80-00cf3a6a4b31"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Nº 136, Bairro Centro, Sobral/CE CEP: 62.011-170]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="52" y="30" width="420" height="15" uuid="aff46e6e-c55a-472d-8ecb-8b0e89c2a111"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[contato@oitiengenharia.com  | tecnica@oitiengenharia.com]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="52" y="45" width="420" height="14" uuid="6bcee335-fd32-4054-8b54-7ec5743ff064"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Tel:  55-88-3613.1005  | 55-88-9696.0803]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>
