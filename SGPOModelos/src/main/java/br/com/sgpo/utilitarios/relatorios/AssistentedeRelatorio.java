@@ -48,8 +48,16 @@ public class AssistentedeRelatorio implements Serializable {
 
             
             parametros.put("img", getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti.png"));
+            
+            parametros.put("img_sub", getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti_opacit.png"));
+            parametros.put("email_sub","Email: contato@oitiengenharia.com  | tecnica@oitiengenharia.com");
+            parametros.put("tel_sub", "Telefones:  55-88-3613.1005  | 55-88-9696.0803");
+            parametros.put("rua_sub","Rua Jornalista Deolindo Barrreto," );
+            parametros.put("comp_sub", "Nº 136, Bairro Centro, Sobral/CE CEP: 62.011-170");
+            
             parametros.put("relatorio", nomeRelatorio);
-            parametros.put("SUBREPORT_DIR", getDiretorioReal(PastasRelatorio.RESOURCE_SUB_RELATORIOS) + separator);
+            parametros.put("SUBREPORT_DIR", getDiretorioReal(pastaRelatorio) + separator);
+            parametros.put("RODAPE", getDiretorioReal(PastasRelatorio.RESOURCE_SUB_RELATORIOS) + separator);
             parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
            
             String rel = getDiretorioReal(arquivo);
