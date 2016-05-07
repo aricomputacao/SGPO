@@ -34,6 +34,11 @@ public abstract class PastasRelatorio {
 
     //relatórios do módulo engenharia
     public static final String RESOURCE_FINANCEIRO = "WEB-INF/relatorios/financeiro";
-    public static final String REL_DEMONSTRATIVO_SINTETICO_DESPESA_MENSA = "/WEB-INF/relatorios/financeiro/demonstrativo_despesa_mensal.jasper";
+    public static final String REL_DEMONSTRATIVO_ANALITICO_MENSAL = "/WEB-INF/relatorios/financeiro/demonstrativo_analitico_mensal.jasper";
+    public static final String REL_DEMONSTRATIVO_SINTETICO_MENSAL = "/WEB-INF/relatorios/financeiro/demonstrativo_sintetico_mensal.jasper";
+    public static final String REL_DEMONSTRATIVO_ANALITICO_ANUAL = "/WEB-INF/relatorios/financeiro/demonstrativo_analitico_anual.jasper";
+    public static final String REL_DEMONSTRATIVO_SINTETICO_ANUAL = "/WEB-INF/relatorios/financeiro/demonstrativo_sintetico_anual.jasper";
+    public static final String REL_RESULTADO_MENSAL = "/WEB-INF/relatorios/financeiro/resultado_mensal.jasper";
+    public static final String REL_RESULTADO_ANUAL = "/WEB-INF/relatorios/financeiro/resultado_anual.jasper";
 
 }

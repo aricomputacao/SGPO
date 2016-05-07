@@ -8,7 +8,6 @@ package br.com.sgpo.financeiro.dto;
 import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Entity;
 
 
 public class DemonatrativoFinanceiroAnualDTO implements Serializable{

@@ -49,7 +49,7 @@ public class AssistentedeRelatorio implements Serializable {
             
             parametros.put("img", getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti.png"));
             
-            parametros.put("img_sub", getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti_opacit.png"));
+            parametros.put("img_sub", getDiretorioReal("resources"+File.separator+"images"+File.separator+"oiti_opac.png"));
             parametros.put("email_sub","Email: contato@oitiengenharia.com  | tecnica@oitiengenharia.com");
             parametros.put("tel_sub", "Telefones:  55-88-3613.1005  | 55-88-9696.0803");
             parametros.put("rua_sub","Rua Jornalista Deolindo Barrreto," );
