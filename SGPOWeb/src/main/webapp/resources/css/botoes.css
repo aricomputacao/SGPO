@@ -356,6 +356,9 @@
     color: white ! important;
 }
 
+
+
+
 .atalho{
     border: none ! important;
     text-decoration: none ! important;
@@ -403,6 +406,27 @@
 
 
 
+
+}
+
+
+.atalho-link{
+    background: #e6dd00 ! important;
+    border: none ! important;
+    text-decoration: none ! important;
+    color: #0e2704 ! important;
+    border-radius: 10px ! important;
+    margin-bottom: 5px;
+    margin-right:  10px;
+    -webkit-box-shadow: 1px 11px 11px -6px rgba(86,94,79,1);
+    -moz-box-shadow: 1px 11px 11px -6px rgba(86,94,79,1);
+    box-shadow: 1px 11px 11px -6px rgba(86,94,79,1);
+
+
+
+}
+.atalho-link:hover{
+    background: #b3ac00 ! important;
 
 }
 

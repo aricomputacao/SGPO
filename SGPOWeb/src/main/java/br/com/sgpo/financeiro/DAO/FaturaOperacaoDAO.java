@@ -8,6 +8,7 @@ package br.com.sgpo.financeiro.DAO;
 import br.com.sgpo.financeiro.dto.AnosRegistradosDTO;
 import br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO;
 import br.com.sgpo.financeiro.dto.DemonstrativoFinanceiroMensalDTO;
+import br.com.sgpo.financeiro.dto.ResultadoFinanceiroMensalDTO;
 import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
@@ -87,7 +88,7 @@ public class FaturaOperacaoDAO extends DAOGenerico<FaturaOperacao, Long> impleme
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 
-    public List<FaturaOperacao> consultarFaturaDa(Mes mesReferencia, int ano,TipoDeOperacao tp) {
+    public List<FaturaOperacao> consultarFaturaDa(Mes mesReferencia, int ano, TipoDeOperacao tp) {
         TypedQuery tq;
 
         tq = getEm().createQuery("SELECT f FROM FaturaOperacao f where month(f.dataVencimento) = :mes and  year(f.dataVencimento) = :ano and f.operacao.categoriaOperacao.tipoDeOperacao = :tp"
@@ -97,7 +98,26 @@ public class FaturaOperacaoDAO extends DAOGenerico<FaturaOperacao, Long> impleme
                 .setParameter("ano", ano);
         return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
 
+    }
 
+    public List<FaturaOperacao> consultarPor(int ano,TipoDeOperacao tp) {
+        TypedQuery tq;
+
+        tq = getEm().createQuery("SELECT f FROM FaturaOperacao f where  year(f.dataVencimento) = :ano and f.operacao.categoriaOperacao.tipoDeOperacao = :tp"
+                + "                  order by month(f.dataVencimento),f.operacao.categoriaOperacao", FaturaOperacao.class)
+                .setParameter("tp", tp)
+                .setParameter("ano", ano);
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
+    }
+    
+    public List<FaturaOperacao> consultarResultadoFinanceiro(int ano) {
+        TypedQuery tq;
+
+
+        tq = getEm().createQuery("SELECT f FROM FaturaOperacao f where  year(f.dataVencimento) = :ano "
+                + "                  order by month(f.dataVencimento)", FaturaOperacao.class)
+                .setParameter("ano", ano);
+        return tq.getResultList().isEmpty() ? new ArrayList<>() : tq.getResultList();
     }
 
 }

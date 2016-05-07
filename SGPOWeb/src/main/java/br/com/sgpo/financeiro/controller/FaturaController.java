@@ -5,10 +5,10 @@
  */
 package br.com.sgpo.financeiro.controller;
 
-import br.com.sgpo.administrativo.modelo.Evento;
 import br.com.sgpo.financeiro.DAO.FaturaOperacaoDAO;
 import br.com.sgpo.financeiro.dto.DemonatrativoFinanceiroAnualDTO;
 import br.com.sgpo.financeiro.dto.DemonstrativoFinanceiroMensalDTO;
+import br.com.sgpo.financeiro.dto.ResultadoFinanceiroMensalDTO;
 import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.financeiro.modelo.Operacao;
@@ -16,6 +16,7 @@ import br.com.sgpo.utilitario.ControllerGenerico;
 import br.com.sgpo.utilitarios.enumeration.Mes;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -210,8 +211,8 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
             agendaFinanceira.setEndDate(fa.getDataVencimento());
             agendaFinanceira.setStartDate(fa.getDataVencimento());
             agendaFinanceira.setTitle(fa.getOperacao().getCategoriaOperacao().getNome());
-            agendaFinanceira.setDescription(fa.getOperacao().getCategoriaOperacao().getTipoDeOperacao().toString()+"( R$ "+
-                    fa.getValor().toPlainString()+" ) : " +fa.getOperacao().getDescricao());
+            agendaFinanceira.setDescription(fa.getOperacao().getCategoriaOperacao().getTipoDeOperacao().toString() + "( R$ "
+                    + fa.getValor().toPlainString() + " ) : " + fa.getOperacao().getDescricao());
             agendaFinanceira.setData(fa.getId());
             agendaFinanceira.setEditable(false); //pertir que o usuario edite
 
@@ -222,8 +223,27 @@ public class FaturaController extends ControllerGenerico<FaturaOperacao, Long> i
         return eventModel;
     }
 
-    public List<FaturaOperacao> consultarPor(Mes mesReferencia,int ano,TipoDeOperacao tipoDeOperacao) {
-        return dao.consultarFaturaDa(mesReferencia,ano,tipoDeOperacao);
+    public List<FaturaOperacao> consultarPor(Mes mesReferencia, int ano, TipoDeOperacao tipoDeOperacao) {
+        return dao.consultarFaturaDa(mesReferencia, ano, tipoDeOperacao);
+    }
+
+    public List<FaturaOperacao> consultarPor(int ano, TipoDeOperacao tipoDeOperacao) {
+        return dao.consultarPor(ano, tipoDeOperacao);
+    }
+
+    public List<ResultadoFinanceiroMensalDTO> consultarResultadoFinanceiro(int ano) {
+        List<ResultadoFinanceiroMensalDTO> listaResultadoFinanceiro = new ArrayList<>();
+        List<FaturaOperacao> lista = dao.consultarResultadoFinanceiro(ano);
+        for (FaturaOperacao fa : lista) {
+            if (fa.getOperacao().getCategoriaOperacao().getTipoDeOperacao().equals(TipoDeOperacao.RECEITA)) {
+                listaResultadoFinanceiro.add(new ResultadoFinanceiroMensalDTO(fa.getDataVencimento(), fa.getValor(), BigDecimal.ZERO));
+
+            } else {
+                listaResultadoFinanceiro.add(new ResultadoFinanceiroMensalDTO(fa.getDataVencimento(), BigDecimal.ZERO, fa.getValor()));
+
+            }
+        }
+        return listaResultadoFinanceiro;
     }
 
 }

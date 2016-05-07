@@ -10,13 +10,13 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="img" class="java.lang.String"/>
-	<parameter name="mes" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\ari\\Documents\\Projetos\\SGPO\\SGPOWeb\\src\\main\\webapp\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="img_sub" class="java.lang.String"/>
 	<parameter name="RODAPE" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\ari\\Documents\\Projetos\\SGPO\\SGPOWeb\\src\\main\\webapp\\WEB-INF\\relatorios\\sub_relatorios\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/WEB-INF/relatorios/sub_relatorios/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="email_sub" class="java.lang.String"/>
 	<parameter name="tel_sub" class="java.lang.String"/>
@@ -38,6 +38,9 @@
 		<fieldDescription><![CDATA[valor]]></fieldDescription>
 	</field>
 	<variable name="valor_1" class="java.math.BigDecimal" resetType="Group" resetGroup="categoria" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_2" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
 	</variable>
 	<group name="categoria">
@@ -62,7 +65,9 @@
 					</staticText>
 					<textField evaluationTime="Group" evaluationGroup="categoria" pattern="¤ #,##0.00">
 						<reportElement x="729" y="0" width="111" height="20" uuid="60d7116e-a585-4f8e-bac1-dfba36c63639"/>
-						<textElement verticalAlignment="Middle"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
 						<textFieldExpression><![CDATA[$V{valor_1}]]></textFieldExpression>
 					</textField>
 				</frame>
@@ -71,31 +76,16 @@
 	</group>
 	<title>
 		<band height="92" splitType="Stretch">
-			<frame>
-				<reportElement x="0" y="0" width="840" height="92" uuid="0a56b200-ad2d-4451-8bac-ca0ce601efd5"/>
-				<box>
-					<topPen lineWidth="0.25" lineColor="#666666"/>
-					<bottomPen lineWidth="0.25" lineColor="#666666"/>
-				</box>
-				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="629" y="76" width="200" height="16" uuid="20c1ad93-3e30-4c7a-a5e6-29aea528caca"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-				</textField>
-				<image>
-					<reportElement x="9" y="0" width="372" height="65" uuid="1ef0f59d-4517-4aa7-a99a-378160c89ec3"/>
-					<imageExpression><![CDATA[$P{img}]]></imageExpression>
-				</image>
-				<textField>
-					<reportElement x="9" y="65" width="372" height="27" uuid="83e60cbb-2299-413b-997c-92d31d5f51c4"/>
-					<textElement verticalAlignment="Middle">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Demonstrativo Despesa Mensal --"+ $P{mes}]]></textFieldExpression>
-				</textField>
-			</frame>
+			<subreport>
+				<reportElement x="0" y="0" width="840" height="92" uuid="133a1308-eb94-4542-a114-600ef23df287"/>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA[$P{titulo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{RODAPE} + "cabecalho_rozontal.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</title>
 	<columnHeader>
@@ -164,7 +154,7 @@
 	<pageFooter>
 		<band height="37" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="2" width="840" height="35" uuid="8e570f63-2fb9-4758-b064-4dfeb42df972"/>
+				<reportElement x="0" y="1" width="840" height="35" uuid="8e570f63-2fb9-4758-b064-4dfeb42df972"/>
 				<subreportParameter name="comp_sub">
 					<subreportParameterExpression><![CDATA[$P{comp_sub}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -184,4 +174,29 @@
 			</subreport>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="20">
+			<frame>
+				<reportElement x="0" y="0" width="840" height="20" uuid="79bdb375-7218-4ebc-9ae0-8bc23bdd904f"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="729" y="0" width="111" height="20" uuid="24ab3408-e7be-4058-aa62-78e81b5100f9"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="610" y="0" width="119" height="20" uuid="d17b84b7-ddd4-4800-b922-a8dc17af525b"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Geral:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</summary>
 </jasperReport>

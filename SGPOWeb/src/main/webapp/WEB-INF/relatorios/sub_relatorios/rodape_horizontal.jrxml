@@ -31,13 +31,13 @@
 					<textFieldExpression><![CDATA[$P{comp_sub}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="540" y="2" width="300" height="15" forecolor="#999999" uuid="c692cc7c-eff7-47d5-8e8f-b0bab4e59c66"/>
-					<textElement verticalAlignment="Bottom"/>
+					<reportElement x="481" y="2" width="356" height="15" forecolor="#999999" uuid="c692cc7c-eff7-47d5-8e8f-b0bab4e59c66"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$P{tel_sub}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="540" y="17" width="300" height="15" forecolor="#999999" uuid="398a6383-636c-437d-a0b3-c69470a60305"/>
-					<textElement verticalAlignment="Bottom"/>
+					<reportElement x="481" y="17" width="356" height="15" forecolor="#999999" uuid="398a6383-636c-437d-a0b3-c69470a60305"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$P{email_sub}]]></textFieldExpression>
 				</textField>
 			</frame>

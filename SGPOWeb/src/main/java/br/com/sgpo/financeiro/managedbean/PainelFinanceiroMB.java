@@ -6,7 +6,9 @@
 package br.com.sgpo.financeiro.managedbean;
 
 import br.com.sgpo.financeiro.controller.FaturaController;
+import br.com.sgpo.financeiro.dto.ResultadoFinanceiroMensalDTO;
 import br.com.sgpo.financeiro.enumeration.TipoDeOperacao;
+import br.com.sgpo.financeiro.enumeration.TipoRelatorioFinanceiro;
 import br.com.sgpo.financeiro.modelo.FaturaOperacao;
 import br.com.sgpo.utilitario.relatorio.RelatorioSession;
 import br.com.sgpo.utilitarios.enumeration.Mes;
@@ -47,11 +49,16 @@ public class PainelFinanceiroMB implements Serializable {
     private int ano;
     private Mes mesReferencia;
     private TipoDeOperacao tipoDeOperacao;
+    private TipoRelatorioFinanceiro tipoRelatorio;
+    private boolean renderDespesa;
 
     @PostConstruct
     public void init() {
         try {
+            tipoDeOperacao = TipoDeOperacao.RECEITA;
+            tipoRelatorio = TipoRelatorioFinanceiro.SINTETICO;
             listaAnosRegistados = faturaController.consultarAnosRegistrados();
+
             ano = 2016;
 
             criarVisaoOperacoesAnual();
@@ -62,17 +69,49 @@ public class PainelFinanceiroMB implements Serializable {
 
     }
 
-    public void gerarImpressaoDespesaMensa() {
+    public void gerarImpressaoMensal() {
         try {
 
-            listaDeFaturas = faturaController.consultarPor(mesReferencia,ano,TipoDeOperacao.DESPESA);
+            listaDeFaturas = faturaController.consultarPor(mesReferencia, ano, tipoDeOperacao);
             Map<String, Object> m = new HashMap<>();
-            m.put("mes", " "+mesReferencia.toString()+" / "+String.valueOf(ano));
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFaturas, m, PastasRelatorio.RESOURCE_FINANCEIRO, PastasRelatorio.REL_DEMONSTRATIVO_SINTETICO_DESPESA_MENSA, "");
+            m.put("titulo", "DEMONSTRATIVO " + tipoDeOperacao.toString() + " MENSAL: " + mesReferencia.toString() + " | " + String.valueOf(ano));
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFaturas, m, PastasRelatorio.RESOURCE_FINANCEIRO,
+                    tipoRelatorio.equals(TipoRelatorioFinanceiro.SINTETICO) ? PastasRelatorio.REL_DEMONSTRATIVO_SINTETICO_MENSAL : PastasRelatorio.REL_DEMONSTRATIVO_ANALITICO_MENSAL, "");
             RelatorioSession.setBytesRelatorioInSession(rel);
         } catch (Exception e) {
 //            erroCliente.adicionaErro(e);
         }
+    }
+
+    public void gerarImpressaoAnual() {
+        try {
+
+            listaDeFaturas = faturaController.consultarPor(ano, tipoDeOperacao);
+            Map<String, Object> m = new HashMap<>();
+            m.put("titulo", "DEMONSTRATIVO " + tipoDeOperacao.toString() + " ANUAL: " + String.valueOf(ano));
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeFaturas, m, PastasRelatorio.RESOURCE_FINANCEIRO,
+                    tipoRelatorio.equals(TipoRelatorioFinanceiro.SINTETICO) ? PastasRelatorio.REL_DEMONSTRATIVO_SINTETICO_ANUAL : PastasRelatorio.REL_DEMONSTRATIVO_ANALITICO_ANUAL, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
+
+    public void gerarImpressaoResultadoMensal() {
+        try {
+            List<ResultadoFinanceiroMensalDTO> listaResultadoFinanceiroMensalDTOs;
+            listaResultadoFinanceiroMensalDTOs = faturaController.consultarResultadoFinanceiro(ano);
+            Map<String, Object> m = new HashMap<>();
+            m.put("titulo", "RESULTADO MENSAL: " + String.valueOf(ano));
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaResultadoFinanceiroMensalDTOs, m, PastasRelatorio.RESOURCE_FINANCEIRO, PastasRelatorio.REL_RESULTADO_MENSAL, "");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        } catch (Exception e) {
+//            erroCliente.adicionaErro(e);
+        }
+    }
+
+    public void processarCamposDespesa() {
+        renderDespesa = tipoDeOperacao.equals(TipoDeOperacao.DESPESA);
     }
 
     private void criarVisaoOperacoesAnual() {
@@ -86,7 +125,6 @@ public class PainelFinanceiroMB implements Serializable {
     public void itemSelect(ItemSelectEvent event) {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item selected",
                 "Item Index: " + event.getSource().getClass().getName() + ", Series Index:" + event.getSeriesIndex());
-        System.out.println(event.getSource().getClass().getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -109,9 +147,17 @@ public class PainelFinanceiroMB implements Serializable {
     public List<Integer> getListaAnosRegistados() {
         return listaAnosRegistados;
     }
-    
-    public Mes[] getListaDeMeses(){
+
+    public Mes[] getListaDeMeses() {
         return Mes.values();
+    }
+
+    public TipoRelatorioFinanceiro[] getListaTiposRelatorio() {
+        return TipoRelatorioFinanceiro.values();
+    }
+
+    public TipoDeOperacao[] getListaTipoOpeacao() {
+        return TipoDeOperacao.values();
     }
 
     public Mes getMesReferencia() {
@@ -134,5 +180,18 @@ public class PainelFinanceiroMB implements Serializable {
         this.tipoDeOperacao = tipoDeOperacao;
     }
 
-    
+    public TipoRelatorioFinanceiro getTipoRelatorio() {
+        return tipoRelatorio;
+    }
+
+    public void setTipoRelatorio(TipoRelatorioFinanceiro tipoRelatorio) {
+        this.tipoRelatorio = tipoRelatorio;
+    }
+
+    public boolean isRenderDespesa() {
+        return renderDespesa;
+    }
+
+   
+
 }

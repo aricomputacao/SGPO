@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cabecalho_rozontal" pageWidth="840" pageHeight="555" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="840" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="abe3ca8d-aee6-407d-9a4a-fb1a60193d8a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<noData>
+		<band height="92">
+			<frame>
+				<reportElement x="0" y="0" width="840" height="92" uuid="0a56b200-ad2d-4451-8bac-ca0ce601efd5"/>
+				<box>
+					<topPen lineWidth="0.25" lineColor="#666666"/>
+					<bottomPen lineWidth="0.25" lineColor="#666666"/>
+				</box>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="629" y="76" width="200" height="16" uuid="20c1ad93-3e30-4c7a-a5e6-29aea528caca"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="9" y="0" width="372" height="65" uuid="1ef0f59d-4517-4aa7-a99a-378160c89ec3"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="9" y="65" width="501" height="27" uuid="38219dd7-4bb7-4de1-8a89-47e5f63cdbf7"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>
