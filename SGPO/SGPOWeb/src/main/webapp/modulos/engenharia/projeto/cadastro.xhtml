@@ -21,7 +21,7 @@
                                      acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
                                      btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" btn_salvar_update="@(form)" >
 
-                    <p:panel class="ContainerIndent  Responsive pnl-menu"  >
+                    <p:panel class="ContainerIndent Container  Responsive pnl-menu"  >
 
                         <p:commandLink  rendered="#{projetoMB.renderAtalhoF1()}" update=":frm_doc"  title="#{label.adicionar} #{label.documento}" onclick="PF('dialogoDocum').show()" 
                                         class="Container10  Fleft texto-atalho atalho  TexAlCenter  Responsive atalho-f5">
@@ -121,7 +121,7 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="center center" width="40%"   header="#{label.projeto}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
             <h:form  prependId="false" id="frm_fim" class="TexAlCenter">
-                <p:panel class="MarBot10 TexAlCenter" >
+                <p:panel class="MarBot10 TexAlCenter Container" >
                     <i class="icon-info-circled Fleft Fs40   yellow "></i>
                     <div class="Fs22 Fleft  Wid70 hardblue fontItalic">#{msg.alterar_status}</div> 
                     <div class="Fs18 Fleft  Wid70 hardblue fontItalic">#{label.status} #{label.atual}: #{projetoMB.projeto.fase.descricao} </div> 

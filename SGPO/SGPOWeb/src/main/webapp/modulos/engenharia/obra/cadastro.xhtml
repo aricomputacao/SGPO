@@ -22,7 +22,7 @@
                                      btn_limpar="false" cabecalho="#{label.cadastro} #{label.obra}" btn_salvar_update="@(form)" >
 
 
-                <p:panel class="ContainerIndent  pnl-menu" rendered="#{obraMB.renderLink()}">
+                <p:panel class="ContainerIndent Container  pnl-menu" rendered="#{obraMB.renderLink()}">
 
                     <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "  
                                      title="#{label.adicionar} #{label.projeto}"  update=":frm_cons_proj"  
@@ -218,7 +218,7 @@
         <!-- ################################################################### Fim Dialogs referente a cadastros de itens ################################################################### -->
 
         <!-- ###################################################################Inicio Dialogs referente a cadastros de Equipamentos ################################################################### -->
-        <p:dialog showEffect="fade" position="200,50"  header="#{label.equipamento}s #{label.da} #{label.obra} " id="dialogCadEquipamentoObra" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamentoObra">
+        <p:dialog showEffect="fade" position="top top"  header="#{label.equipamento}s #{label.da} #{label.obra} " id="dialogCadEquipamentoObra" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamentoObra">
             <h:form id="frm_cad_equi_obra" >
                 <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
                                                acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addEquipamentoObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObraMes()}"
@@ -363,7 +363,7 @@
                         <h:panelGroup rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.relatorio_itens_obra_fornecedor)}"  class="Container33 Responsive " >
                             <div class="ContainerIndent  ">
                                 <p:commandLink     onclick="PF('dialogFornecedorRel').show()" >
-                                    <p:panel class="panel-index">
+                                    <p:panel class="panel-index Container">
                                         <div class="Wid100 TexAlCenter Fleft">
                                             <div class="ContainerIndent">
                                                 <i class="icon-link-ext Wid90  Fleft Fs25  hardblue "></i>
@@ -377,7 +377,7 @@
                         <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_itens_obra)}" >
                             <div class="ContainerIndent  ">
                                 <p:commandLink     onclick="start()"  actionListener="#{obraMB.geraImpressaoItensEtapaTipo()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
-                                    <p:panel class="panel-index">
+                                    <p:panel class="panel-index Container">
                                         <div class="Wid100 TexAlCenter Fleft">
                                             <div class="ContainerIndent">
                                                 <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
@@ -392,7 +392,7 @@
                         <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_itens_obra_mes)}">
                             <div class="ContainerIndent  ">
                                 <p:commandLink     onclick="start()"  actionListener="#{obraMB.geraImpressaoItensDaObraMes()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
-                                    <p:panel class="panel-index">
+                                    <p:panel class="panel-index Container">
                                         <div class="Wid100 TexAlCenter Fleft">
                                             <div class="ContainerIndent">
                                                 <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
@@ -406,7 +406,7 @@
                         <h:panelGroup class="Container33 Responsive "  >
                             <div class="ContainerIndent  ">
                                 <p:commandLink    onclick="PF('dialogMes').show()" >
-                                    <p:panel class="panel-index">
+                                    <p:panel class="panel-index Container">
                                         <div class="Wid100 TexAlCenter Fleft">
                                             <div class="ContainerIndent">
                                                 <i class="icon-link-ext Wid90  Fleft Fs25  hardblue "></i>
@@ -422,7 +422,7 @@
                         <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_equipamentos_obra)}">
                             <div class="ContainerIndent  ">
                                 <p:commandLink    onclick="start()"  actionListener="#{obraMB.geraImpressaoEquipamentoObra()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')" >
-                                    <p:panel class="panel-index">
+                                    <p:panel class="panel-index Container">
                                         <div class="Wid100 TexAlCenter Fleft">
                                             <div class="ContainerIndent">
                                                 <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
@@ -438,7 +438,7 @@
                         <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_colaborador_obra)}">
                             <div class="ContainerIndent  ">
                                 <p:commandLink    onclick="start()"  actionListener="#{obraMB.geraImpressaoColaboradorObra()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')" >
-                                    <p:panel class="panel-index">
+                                    <p:panel class="panel-index Container">
                                         <div class="Wid100 TexAlCenter Fleft">
                                             <div class="ContainerIndent">
                                                 <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>

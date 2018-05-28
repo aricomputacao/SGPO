@@ -59,10 +59,10 @@
 
             <h:form id="frm__relatorio" >
                 <h:panelGroup rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.relatorio_falta)}"  class="Container33 Responsive " >
-                    <div class="ContainerIndent  ">
+                    <div class="ContainerIndent   ">
                         <div class="ContainerIndent  ">
                             <p:commandLink     onclick="start()"  actionListener="#{colaboradorMB.geraImpressaoFaltas()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
-                                <p:panel class="panel-index">
+                                <p:panel class="panel-index Container">
                                     <div class="Wid100 TexAlCenter Fleft">
                                         <div class="ContainerIndent">
                                             <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>

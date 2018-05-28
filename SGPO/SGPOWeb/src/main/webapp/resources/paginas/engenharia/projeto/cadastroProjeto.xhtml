@@ -17,15 +17,15 @@
         <panels:panel titulo="#{label.dados} #{label.do} #{label.projeto} " id="pnlDadPes" class="fieldDad">
             <h:panelGroup id="pnlPro" layout="block"  class="Container100 Responsive" >
                 <inputs:input_label_data id="inpDt" inp_valor="#{projetoMB.projeto.dataInicio}" lab_valor="#{label.data_inicial}" inp_require="true"  inp_class_tamanho="20"/>
-                <inputs:selectOneLabel inp_valor="#{projetoMB.projeto.tipo}" id="sel_car" lab_valor="#{label.tipo}"  sel_converter="indexConverter" inp_class_tamanho="20">
+                <inputs:selectOneLabelSemAjax inp_valor="#{projetoMB.projeto.tipo}" id="sel_car" lab_valor="#{label.tipo}"  sel_converter="indexConverter" inp_class_tamanho="20">
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{projetoMB.listaTipoProjetos}" var="cg" itemLabel="#{cg.nome}" itemValue="#{cg}"/>
-                </inputs:selectOneLabel>
+                </inputs:selectOneLabelSemAjax>
 
-                <inputs:selectOneLabel inp_valor="#{projetoMB.projeto.empresa}" id="sel_emp" lab_valor="#{label.empresa}"  sel_converter="indexConverter" inp_class_tamanho="33">
+                <inputs:selectOneLabelSemAjax inp_valor="#{projetoMB.projeto.empresa}" id="sel_emp" lab_valor="#{label.empresa}"  sel_converter="indexConverter" inp_class_tamanho="33">
                     <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
                     <f:selectItems value="#{utilitarioNavegacaoMB.usuarioLogado.empresas}" var="em" itemLabel="#{em.nome}" itemValue="#{em}"/>
-                </inputs:selectOneLabel>
+                </inputs:selectOneLabelSemAjax>
 
                 <inputs:input_label inp_valor="#{projetoMB.projeto.numero}" lab_valor="#{label.numero}"   inp_class_tamanho="20" />
                 

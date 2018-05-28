@@ -16,7 +16,7 @@
     </composite:interface>
     <composite:implementation  >
 
-        <panels:panel titulo="#{label.dados} #{label.do} #{label.equipamento} " id="pnlDadPes" class="fieldDad">
+        <panels:panel titulo="#{label.dados} #{label.do} #{label.equipamento} " id="pnlDadPes" class="fieldDad ">
             <h:panelGroup id="pnlProC" layout="block"  class="Container100 Responsive" >
                 <div class="Container30 Responsive componenteSelectRadio" >
                     <div class="ContainerIndent">
@@ -52,7 +52,7 @@
 
         <panels:panel  titulo="#{label.equipamento} #{label.registrados}" id="pnlItens">
             <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
-                <p:tabView id="tabview" class="ContainerIndent">
+                <p:tabView id="tabview" class="ContainerIndent Container">
                     <p:tab id="tab-proprio" title="#{label.proprio}">
 
                         <p:dataTable value="#{obraMB.listaDeEquipamentoObrasProrios}" id="tabela-proprio" paginatorAlwaysVisible="false"  paginator="true" var="ep" rows="5"
