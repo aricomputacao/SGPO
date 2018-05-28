@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demonstrativo_analitivo_anual" pageWidth="612" pageHeight="792" columnWidth="610" leftMargin="1" rightMargin="1" topMargin="1" bottomMargin="1" uuid="7ecdb244-4a85-46a3-8d9b-dcab0367fa3d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $F{dataVencimento}.getMonth() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/WEB-INF/relatorios/sub_relatorios/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="img_sub" class="java.lang.String"/>
+	<parameter name="comp_sub" class="java.lang.String"/>
+	<parameter name="rua_sub" class="java.lang.String"/>
+	<parameter name="tel_sub" class="java.lang.String"/>
+	<parameter name="email_sub" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="RODAPE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/WEB-INF/relatorios/sub_relatorios/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="dataVencimento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataVencimento]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="operacao" class="br.com.sgpo.financeiro.modelo.Operacao">
+		<fieldDescription><![CDATA[operacao]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<variable name="valor_1" class="java.math.BigDecimal" resetType="Group" resetGroup="mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<group name="mes">
+		<groupExpression><![CDATA[$F{dataVencimento}.getMonth()]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<rectangle>
+					<reportElement style="zebra" x="0" y="0" width="610" height="20" uuid="36c8d7f5-661e-4e43-8351-6f43d3d8bd4e"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField pattern="MMMMM">
+					<reportElement x="14" y="0" width="192" height="20" uuid="62ee9202-7727-478f-9f75-2a82d1e49e63"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dataVencimento}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
+					<reportElement x="510" y="0" width="100" height="20" uuid="e2ac24f7-400f-4426-959a-f05a65f9f958"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="65" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="610" height="65" uuid="b3e4c2b9-224b-47be-a191-281783633d45"/>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA[$P{titulo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{RODAPE}+ "cabecalho_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<frame>
+				<reportElement mode="Transparent" x="0" y="0" width="610" height="20" backcolor="#E2DF2C" uuid="82f1f816-51f7-48f2-bd1e-d225809a70a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="14" y="0" width="94" height="20" uuid="a4ca6737-a950-4940-b5e3-6b15ab0d70dc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Mês]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="510" y="0" width="100" height="20" uuid="f885fddb-8a2d-4fcb-8746-e30de9e381f3"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="34" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="612" height="34" uuid="9cb056bc-d936-4739-adb8-d431d987882d"/>
+				<subreportParameter name="comp_sub">
+					<subreportParameterExpression><![CDATA[$P{comp_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img_sub">
+					<subreportParameterExpression><![CDATA[$P{img_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="email_sub">
+					<subreportParameterExpression><![CDATA[$P{email_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tel_sub">
+					<subreportParameterExpression><![CDATA[$P{tel_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rua_sub">
+					<subreportParameterExpression><![CDATA[$P{rua_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{RODAPE} + "rodape_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20">
+			<frame>
+				<reportElement x="0" y="0" width="610" height="20" uuid="6a4d772c-fc2c-4c0e-8b31-a2c6707efd37"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="510" y="0" width="100" height="20" uuid="f0f26834-e4ab-4d45-bab8-da04a2fa0c6e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="410" y="0" width="100" height="20" uuid="14f1685c-0187-4c87-bf24-490da2f50797"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>

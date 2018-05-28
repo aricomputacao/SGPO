@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:tip="http://xmlns.jcp.org/jsf/composite/paginas/financeiro"
+
+                xmlns:utl="http://xmlns.jcp.org/jsf/composite/componentes/util"
+                xmlns:pnl="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:input="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="corpo">
+
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.operacao_cadastro)}" >
+            <componentes:panelPadrao id="pnlPadrao" icone="icon-chart-pie" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                     acao_cancelar="#{painelFinanceiroMB.init()}" btn_dialog_rel="true" render_sep_3="true" btn_salvar_update="@form"
+                                     acao_excluir="#{operacaoMB.init()}" btn_cancelar="false" btn_salvar="false" render_sep_1="false" render_sep_2="false" 
+                                     acao_salvar="#{painelFinanceiroMB.init()}" dialog_rel="dialogRel"
+                                     btn_limpar="false" cabecalho="#{label.painel} #{label.financeiro}" >
+
+                <tip:painelFinanceiro id="compCadastro"/>
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" position="center top" class="Responsive MarTopPerc5"  width="50%" height="50%" positionType="absolute" header="#{label.relatorios} "
+                  id="dialogRel" modal="true" hideEffect="scale"  widgetVar="dialogRel"  >
+
+            <pnl:panel titulo="#{label.relatorios} #{label.financeiro}">
+                <h:form id="frm_rel_desp" >
+                    <h:panelGroup class="Container100 Responsive">
+                        <input:selectOneRadio inp_valor="#{painelFinanceiroMB.tipoDeOperacao}" lab_valor="#{label.tipo} #{label.de} #{label.operacao}"
+                                              ajax_listener="#{painelFinanceiroMB.processarCamposDespesa()}" ajax_render="true" sel_update="@form" inp_class_tamanho="45">
+                            <f:selectItems value="#{painelFinanceiroMB.listaTipoOpeacao}" />
+                        </input:selectOneRadio>
+                        <input:selectOneRadio lab_valor="#{label.tipo} #{label.de} #{label.relatorio}" inp_valor="#{painelFinanceiroMB.tipoRelatorio}" inp_class_tamanho="45">
+                            <f:selectItems value="#{painelFinanceiroMB.listaTiposRelatorio}" />
+                        </input:selectOneRadio>
+                        <input:selectOneLabel inp_class_tamanho="40" inp_valor="#{painelFinanceiroMB.ano}" lab_valor="#{label.ano}" >
+                            <f:selectItems value="#{painelFinanceiroMB.listaAnosRegistados}" var="a" />
+                        </input:selectOneLabel>
+                        <input:selectOneLabel inp_class_tamanho="40" inp_valor="#{painelFinanceiroMB.mesReferencia}" lab_valor="#{label.mes}" >
+                            <f:selectItems value="#{painelFinanceiroMB.listaDeMeses}" var="m" />
+                        </input:selectOneLabel>
+                    </h:panelGroup>
+                    <p:separator class="Container100 EmptyBox10" /> 
+                    <h:panelGroup id="pnl-btl-rel" class="Container100 Responsive">
+                        <utl:linkRel  acao_butao="#{painelFinanceiroMB.gerarImpressaoMensal()}"  title="#{label.mensal}" />
+                        <utl:linkRel  acao_butao="#{painelFinanceiroMB.gerarImpressaoAnual()}"  title="#{label.anual}" />
+                        <utl:linkRel  acao_butao="#{painelFinanceiroMB.gerarImpressaoResultadoMensal()}"  title="Resultado #{label.mensal}" />
+
+                    </h:panelGroup>
+
+
+
+
+                </h:form>
+            </pnl:panel>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

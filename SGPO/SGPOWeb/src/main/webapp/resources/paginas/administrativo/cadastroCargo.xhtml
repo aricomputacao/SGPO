@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <composite:interface id="interCon">
+
+    </composite:interface>
+    <composite:implementation>
+        <p:fieldset legend="#{label.dados}" toggleable="true">
+            <h:panelGroup layout="block" class="Container100 Responsive">
+                <inputs:selectOneRadio inp_valor="#{cargoMB.cargo.tipoCargo}" inp_class_tamanho="90" lab_valor="#{label.tipo} #{label.cargo}" inp_require="true">
+                    <f:selectItems value="#{cargoMB.listaDeTiposDeCargos}" var="tp" itemLabel="#{tp.descricao}" itemValue="#{tp}"/>
+                </inputs:selectOneRadio>
+                <inputs:input_label id="inpNom" inp_class_tamanho="60" inp_require="true" inp_valor="#{cargoMB.cargo.nome}" lab_valor="#{label.nome}"/>
+                <inputs:input_label id="inpAbr" inp_class_tamanho="40" inp_valor="#{cargoMB.cargo.descricao}" lab_valor="#{label.descricao}"/>
+            </h:panelGroup>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <composite:interface>
+
+        <composite:attribute id="lab_val" name="lab_valor" shortDescription="Valor do Label" required="true"/>
+        <composite:attribute id="inp_valor" name="inp_valor" shortDescription="Valor do input" required="true"/>
+        <composite:attribute id="inp_class" name="inp_class_tamanho" shortDescription="Tamanho do input pela classe Container" default="100"/>
+        <composite:attribute id="inp_require" name="inp_require" default="false" />
+        <composite:attribute id="sel_converter" name="sel_converter" default="none" shortDescription="Se for uma entidade e exigir converter passe o converter" />
+        <composite:attribute id="sel_update" name="sel_update" default="@this" shortDescription="Caso precise atualizar algo passar o componeten q precisa ser atualizado" />
+        <composite:attribute id="ajax_render" name="ajax_render" default="false" shortDescription="Caso queira executar alguma requisição ajax" />
+        <composite:attribute id="ajax_listener" name="ajax_listener" method-signature="java.lang.Void action()" default="none" shortDescription="Qual metodo executa no ajax" />
+        <composite:attribute id="btn_onclick_plus" name="btn_onclick_plus" required="true" shortDescription="Click para abrir a tela do btn mais" />
+        <composite:attribute id="btn_onclick_atualizar" name="btn_onclick_atualizar" required="true" shortDescription="Click para atualizar o selectone apos ter inserido um novo" />
+
+
+
+    </composite:interface>
+    <composite:implementation id="compConsulta">
+        <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho}">
+            <div class="ContainerIndent Responsive">
+
+                <p:outputLabel class="Container100" value="#{cc.attrs.lab_valor}" for="input" style="margin-left: 5px" />
+                <div class="Container70 Responsive">
+
+                    <c:if test="#{cc.attrs.sel_converter == 'none'}">
+                        <p:selectOneMenu  value="#{cc.attrs.inp_valor}" style="width: 90%"  id="input"  required="#{cc.attrs.inp_require}" >
+                            <composite:insertChildren />
+                            <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
+                        </p:selectOneMenu>
+                    </c:if>
+
+                    <c:if test="#{cc.attrs.sel_converter != 'none'}">
+                        <p:selectOneMenu  converter="#{indexConverter}"  style="width: 90%"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
+                            <composite:insertChildren />
+                            <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
+                        </p:selectOneMenu>
+                    </c:if>
+
+                </div>
+                <div class="Container20 Responsive">
+                    <p:commandButton  icon="fa fa-plus-circle" title="#{label.adicionar}" class="btnForm  Container10" onclick="#{cc.attrs.btn_onclick_plus}" immediate="true" />
+                </div>
+            </div>
+        </div>
+    </composite:implementation>
+</ui:composition>
+
+

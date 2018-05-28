@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:col="http://xmlns.jcp.org/jsf/composite/paginas/administrativo"
+                xmlns:p="http://primefaces.org/ui">
+
+
+
+    <ui:define name="corpo">
+        <h:form id="frm_cons" prependId="false"  rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.colaborador_consulta)}">
+
+            <componentes:panelPadrao id="pnlPadrao"  icone="#{icones.consulta}" cabecalho=" #{label.consulta} #{label.colaborador}" acao_limpar="#{colaboradorMB.init()}" render_sep_1="false" btn_excluir="false" 
+                                     btn_cancelar="false" btn_salvar="false" btn_ativar="false" acao_imprimir="#{colaboradorMB.geraImpressaoColaborador()}" 
+                                     dialog_cadastro="dialogCadastro" btn_imprimir="true" dialog_rel="dialogRel" btn_dialog_rel="true" btn_salvar_update="false">
+
+                <col:consultaColaborador id="compConsulta"  componente_to_update="@form:pnlPadrao:compConsulta:tabela"  >
+                    <p:commandButton actionListener="#{colaboradorMB.setarColaboradoConsultarFalta(c)}" rendered="#{utilitarioNavegacaoMB.permissaoExiste(administrativo.registrar_falta)}" class="btnLimpar" icon="fa fa-hand-o-down" update=":frm-colaborador-saida" oncomplete="PF('dialogDataFalta').show()" />
+                </col:consultaColaborador>
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" position="center center" width="50%"   header="#{label.falta} #{label.colaborador} " id="dialogDataFalta" modal="true" hideEffect="fade" widgetVar="dialogDataFalta">
+            <h:form id="frm-colaborador-saida" >
+                <componentes:panelPadrao id="pnlPadraoFalt" class="Responsive"   acao_cancelar="#{colaboradorMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
+                                         acao_excluir="#{colaboradorMB.init()}" btn_excluir="false"  acao_salvar="#{colaboradorMB.addFalta()}"  acao_imprimir="#{colaboradorMB.geraImpressaoFaltasDoColaborador()}"
+                                         btn_limpar="true" cabecalho="Registro #{label.de} #{label.falta}" btn_imprimir="true"  btn_ativar="false"
+                                         btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{colaboradorMB.init()}" btn_salvar_update=":frm-colaborador-saida" acao_limpar="#{colaboradorMB.init()}" >
+
+                    <h:panelGroup layout="block" class="Container100" >
+                        <inputs:input_label_data inp_valor="#{colaboradorMB.faltaColaborador.data}"   inp_class_tamanho="90" lab_valor="#{label.data}"  inp_require="true" />
+                        <inputs:textarea_label inp_valor="#{colaboradorMB.faltaColaborador.observacao}" lab_valor="#{label.observacao}" inp_class_tamanho="100" />
+                    </h:panelGroup>
+                    <p:dataTable value="#{colaboradorMB.listaDeFaltaColaboradors}" id="tabela"  paginatorAlwaysVisible="false"  paginator="true" var="fa" rows="5"
+                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }" class="Container100"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                        <p:column headerText="#{label.data}" class="TexAlCenter" >
+                            <componentes:outputText value="#{fa.data}" tipo="d" />
+                        </p:column>
+                        <p:column headerText="#{label.observacao} "  >
+                            <componentes:outputText value="#{fa.observacao} " />
+                        </p:column>
+                    </p:dataTable>
+                </componentes:panelPadrao>
+
+            </h:form>
+        </p:dialog>
+
+        <!-- ################################################################### Inicio Dialogs referente a relatorios ################################################################### -->
+        <p:dialog showEffect="fade" position="center center" width="50%"   header="#{label.relatorios} " id="dialogRel" modal="true" hideEffect="fade" widgetVar="dialogRel">
+
+            <h:form id="frm__relatorio" >
+                <h:panelGroup rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.relatorio_falta)}"  class="Container33 Responsive " >
+                    <div class="ContainerIndent  ">
+                        <div class="ContainerIndent  ">
+                            <p:commandLink     onclick="start()"  actionListener="#{colaboradorMB.geraImpressaoFaltas()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
+                                <p:panel class="panel-index">
+                                    <div class="Wid100 TexAlCenter Fleft">
+                                        <div class="ContainerIndent">
+                                            <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                            <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.faltas} #{label.registradas}</span>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                            </p:commandLink>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+        <!-- ################################################################### Fim Dialogs referente a relatorios ################################################################### -->
+
+
+    </ui:define>
+
+</ui:composition>
+
+

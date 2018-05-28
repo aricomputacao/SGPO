@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <composite:interface>
+        <!--<composite:attribute name="acao_butao" required="true"  method-signature="java.lang.Void action()"/>-->
+        <composite:attribute name="acao_click_F1"  default="click"  shortDescription="Ex: PF('dialog').show()" />
+        <composite:attribute name="title_F1"  default="Add"  shortDescription="Title com descrição da ação do atalho" />
+        <composite:attribute name="render_F1"  default="false"  shortDescription="Indicar se o atalho é renderizado" />
+        <composite:attribute name="immediate_F1"  default="false"  />
+        <composite:attribute name="update_F1"  default="@form" shortDescription="Qual componente vai ser atualizado"  />
+        <composite:attribute name="acao_click_F2"  default="click"  shortDescription="Ex: PF('dialog').show()" />
+        <composite:attribute name="title_F2"  default="Add"  shortDescription="Title com descrição da ação do atalho" />
+        <composite:attribute name="render_F2"  default="false"  shortDescription="Indicar se o atalho é renderizado" />
+        <composite:attribute name="immediate_F2"  default="false"  />
+        <composite:attribute name="update_F2"  default="@form" shortDescription="Qual componente vai ser atualizado"  />
+
+
+    </composite:interface>
+    <composite:implementation id="compAtalhos">       
+        <div class="ContainerIndent " >
+
+            <p:commandLink   class="atalho atalho-f1 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F1" 
+                             rendered="#{cc.attrs.render_F1}" title="#{cc.attrs.title_F1}" update="#{cc.attrs.update_F1}" 
+                             onclick="#{cc.attrs.acao_click_F1}" />
+
+
+            <p:commandLink class="atalho atalho-f2 BordRad5 Container5 TexAlCenter FontTitilliumBoldItalic Responsive Fs30" value="F2" rendered="#{cc.attrs.render_F2}" title="#{cc.attrs.title_F2}" 
+                           immediate="#{cc.attrs.immediate_F2}" update="#{cc.attrs.update_F2}" onclick="#{cc.attrs.acao_click_F2}">
+
+            </p:commandLink>
+
+        </div>
+
+
+    </composite:implementation>
+</ui:composition>
+
+

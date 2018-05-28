@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:botao="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <composite:interface>
+
+
+    </composite:interface>
+    <composite:implementation>
+        <panels:panel titulo="#{label.dados} #{label.da} #{label.nota}" id="pnlDadPes" class="fieldDad">
+            <h:panelGroup layout="block" id="divDoc" class="Container100 Responsive" >
+                <inputs:input_label inp_valor="#{obraMB.notaObra.numero}" lab_valor="#{label.numero}" inp_require="true" inp_class_tamanho="33" />
+                <inputs:input_label_btn_click inp_valor="#{obraMB.notaObra.fornecedor.nome}" id="inp_for" lab_valor="#{label.fornecedor}" inp_readonly="true" inp_require="true" 
+                                              btn_immediate="true" btn_onclick="PF('dialogFornecedorNota').show()" btn_process="@this" inp_class_tamanho="60" />
+                <inputs:textarea_label inp_valor="#{obraMB.notaObra.observacao}" lab_valor="#{label.observacao}" inp_class_tamanho="100" />
+
+            </h:panelGroup>
+            <h:panelGroup layout="block"  class="Container100 Responsive" >
+                <p:fileUpload id="carDoc"  class="Container96 Fright" mode="advanced"  fileLimit="1" fileUploadListener="#{obraMB.fileUploud}" 
+                              value="#{obraMB.arquivoUpload}" sizeLimit="90485760"  invalidSizeMessage="#{msg.limite_excediro}"
+                              cancelLabel="#{label.cancelar}" label="#{label.carregar_arquivo}" uploadLabel="#{label.enviar_arquivo}" 
+                              allowTypes="/(\.|\/)(pdf)$/" invalidFileMessage="#{msg.tipo_arquivo_invalido}" skinSimple="true"  previewWidth="100" />
+
+            </h:panelGroup>
+        </panels:panel>
+
+        <p:fieldset id="fieldCon">
+            <p:dataTable value="#{obraMB.listaDeNotas}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="nf" rows="5"
+                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                <p:column headerText="#{label.numero}" >
+                    <componentes:outputText value="#{nf.numero}"/>
+                </p:column>
+
+                <p:column headerText="#{label.fornecedor}" >
+                    <componentes:outputText value="#{nf.fornecedor.nome}"/>
+                </p:column>
+
+                <p:column headerText="#{label.observacao}" >
+                    <componentes:outputText value="#{nf.observacao}"/>
+                </p:column>
+
+                <p:column headerText="#{label.acao}" width="10%" >
+                    <p:commandButton title="#{label.download}" ajax="false" update=":frm_doc:compConDocProjeto:tabela" class="btnImprimir"  immediate="true" 
+                                     onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-download">
+                        <p:fileDownload value="#{nf.download()}"  />
+                    </p:commandButton>
+
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:p="http://primefaces.org/ui">
+
+    <composite:interface id="interCon">
+
+    </composite:interface>
+    <composite:implementation  >
+
+        <panels:panel titulo="#{label.dados} #{label.da} #{label.obra} " id="pnlDadPes" class="fieldDad">
+            <h:panelGroup id="pnlPro" layout="block"  class="Container100 Responsive" >
+                <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.obra.dataInicio}" lab_valor="#{label.data_inicial}" inp_require="true"  inp_class_tamanho="20"/>
+                <inputs:selectOneLabel inp_valor="#{obraMB.obra.empresa}" id="sel_emp" lab_valor="#{label.empresa}"  sel_converter="indexConverter" inp_class_tamanho="33">
+                    <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
+                    <f:selectItems value="#{utilitarioNavegacaoMB.usuarioLogado.empresas}" var="em" itemLabel="#{em.nome}" itemValue="#{em}"/>
+                </inputs:selectOneLabel>
+                <inputs:input_label inp_valor="#{obraMB.obra.numero}" lab_valor="#{label.numero}"   inp_class_tamanho="20" />
+            </h:panelGroup>
+
+            <h:panelGroup layout="block"  class="Container100 Responsive" >
+                <inputs:input_label inp_valor="#{obraMB.obra.descricao}" lab_valor="#{label.nome}" inp_require="true"   inp_class_tamanho="100" />
+            </h:panelGroup>
+            <h:panelGroup layout="block"  class="Container100 Responsive" >
+                <inputs:input_label_btn_click_btn_mais inp_valor="#{obraMB.obra.cliente.nome}" id="inp_cli" lab_valor="#{label.cliente}" inp_readonly="true" inp_require="true" 
+                                                       btn_immediate="true" btn_onclick="PF('dialogCliente').show()" btn_process="@this" inp_class_tamanho="50" 
+                                                       btn_onclick_plus="PF('dialogCadCliente').show()" />
+
+                <inputs:input_label_btn_click inp_valor="#{obraMB.obra.responsavel.nome}" id="inp_resp" lab_valor="#{label.responsavel}" inp_readonly="true" inp_require="true" 
+                                              btn_immediate="true" btn_onclick="PF('dialogResponsavel').show()" btn_process="@this" inp_class_tamanho="50" />
+            </h:panelGroup>
+            
+        </panels:panel>
+
+        <panels:panel  titulo="#{label.endereco} #{label.da} #{label.obra}" id="pnlEndereco">
+            <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
+                <inputs:inputMask_label inp_mascara="99.999-999" inp_valor="#{obraMB.obra.endereco.cep}" lab_valor="#{label.cep}" inp_class_tamanho="20" />
+                <inputs:selectOneLabel  inp_valor="#{obraMB.unidadeFederativa}" id="sel_uf" lab_valor="#{label.estado}"  ajax_render="true"
+                                        sel_converter="indexConverter" inp_class_tamanho="20" sel_update=":frm_cad:pnlPadrao:compCadastro:pnlEndereco:sel_mun:input" 
+                                        ajax_listener="#{obraMB.consultarMuncipioPorUf()}" >
+                    <f:selectItem noSelectionOption="true" itemLabel="-----Selecione-----" value="#{null}" itemValue="#{null}" />
+                    <f:selectItems value="#{obraMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>
+                </inputs:selectOneLabel>
+                <inputs:selectOneLabel  inp_valor="#{obraMB.obra.endereco.municipio}" inp_require="true" id="sel_mun" lab_valor="#{label.municipio}" 
+                                        sel_converter="indexConverter" inp_class_tamanho="20"  >
+                    <f:selectItems value="#{obraMB.listaDeMunicpios}" var="mu" itemLabel="#{mu.nome}" itemValue="#{mu}"/>
+                </inputs:selectOneLabel>
+
+                <inputs:input_label inp_valor="#{obraMB.obra.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{obraMB.obra.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
+                <inputs:input_label inp_valor="#{obraMB.obra.endereco.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="20" />
+                <inputs:input_label  inp_valor="#{obraMB.obra.endereco.complemento}" lab_valor="#{label.complemento}"  inp_class_tamanho="80" />
+            </h:panelGroup>
+        </panels:panel>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

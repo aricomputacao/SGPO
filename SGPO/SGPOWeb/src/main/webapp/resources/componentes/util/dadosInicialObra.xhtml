@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:output="http://xmlns.jcp.org/jsf/composite/componentes">
+    <composite:interface>
+
+
+    </composite:interface>
+    <composite:implementation id="compo">
+
+        <div class="Container100 ">
+            <p:panel class="Container">
+
+                <i class="icon-building Fleft Fs30 yellow "></i>
+                <div class="Fs27 Fleft  Wid70 hardblue fontItalic">#{label.obras_execucao}</div>                                       
+            </p:panel>
+            <p:dataGrid var="ob" value="#{dadosInicialMB.listaDeObras}" columns="2" layout="grid"
+                        rows="6" paginator="true" id="ob" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+
+
+                <p:panel header="&#187; #{ob.descricao}" style="text-align:left" class="pnl-obra ">
+                    <f:facet name="header" >
+                        <p:graphicImage class="BordRad10  pnl-index  " library="images" width="26" height="26" name="home.png" />
+                        <p:outputLabel value=" (#{ob.descricao})" class="FontTitilliumSemiBoldItalic Fs23"/>
+                    </f:facet>
+                    <p:panelGrid  columns="2" layout="grid" style="text-align: left" columnClasses="label,value" >
+
+                        <h:outputText value="&#8227;#{label.inicio}: " />
+                        <output:outputText value="#{ob.dataInicio}" tipo="d" />
+
+                        <h:outputText value="&#8227;#{label.cliente}: " />
+                        <h:outputText value="#{ob.nomeCliente}" />
+
+                        <h:outputText value="&#8227;#{label.responsavel}: " />
+                        <h:outputText value="#{ob.nomeResponsavel}" />
+
+                        <h:outputText value="&#8227;#{label.numero}: " />
+                        <h:outputText value="#{ob.numero}" />
+
+                        <h:outputText value="&#8227;#{label.editar} "/>
+                        <p:commandLink  styleClass="ui-icon ui-icon-pencil" update="@(form)" actionListener="#{dadosInicialMB.escreverRegistroNasessaoNavegarParaEditar(ob,engenharia.obra_cadastro,'obra')}" value="#{label.editar}"  />
+                    </p:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+        </div>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_colaborador_obra" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a65578a-be5f-4098-a7c7-de91c8cc6d69">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="colaborador" class="br.com.sgpo.administrativo.modelo.Colaborador">
+		<fieldDescription><![CDATA[colaborador]]></fieldDescription>
+	</field>
+	<field name="dataEntrada" class="java.util.Date">
+		<fieldDescription><![CDATA[dataEntrada]]></fieldDescription>
+	</field>
+	<field name="dataSaida" class="java.util.Date">
+		<fieldDescription><![CDATA[dataSaida]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="obra" class="br.com.sgpo.engenharia.obra.modelo.Obra">
+		<fieldDescription><![CDATA[obra]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[observacao]]></fieldDescription>
+	</field>
+	<field name="totalDeDiasTrabalhado" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalDeDiasTrabalhado]]></fieldDescription>
+	</field>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="40" uuid="eb6e9b2e-a83b-4e40-ba45-6c5bdd00c1d7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="22" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Colaboradores da Obra]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="24" width="200" height="16" uuid="d20e41f4-654c-4d15-800e-fee4eec2839f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="0" y="40" width="555" height="40" uuid="bfd31704-0374-4e4d-8d61-38c188931459"/>
+				<textField>
+					<reportElement x="109" y="0" width="187" height="20" uuid="8e0c4d80-7138-48c9-91f4-097e8f921943"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{obra}.getDescricao()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="9" y="0" width="100" height="20" uuid="40f4fe16-665c-4d6b-b08b-bacf75f6b15f"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Obra:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="9" y="20" width="100" height="20" uuid="6ddb16a2-8e0c-477a-863b-9c0d1d1e4e84"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Responsável:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="109" y="20" width="187" height="20" uuid="41763dfa-545b-4878-99fb-43f245b04441"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{obra}.getNomeResponsavel()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="360" y="2" width="195" height="35" uuid="b4cf8fec-c278-4106-81da-0ba99500380e"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{obra}.getNomeCliente()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="296" y="0" width="64" height="20" uuid="d6d772c2-b20d-426e-a99a-5bc93a0063e6"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Cliente:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="2" width="555" height="20" backcolor="#E9E65F" uuid="1bfec832-3a53-4333-b93d-9fa30ce9a4df"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="4" y="0" width="176" height="20" uuid="f80716f3-57c4-4639-bb4b-27931ef827d7"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Colaborador]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="182" y="0" width="100" height="20" uuid="d2695926-563e-4d6f-9145-17c6c63e6f64"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Entrada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="285" y="0" width="100" height="20" uuid="df8d7cb6-67dd-44a9-a033-eea9e1179101"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Saida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="385" y="0" width="33" height="20" uuid="0300408a-9432-4fc8-9556-9df49b3c7f41"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dias]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="419" y="0" width="135" height="20" uuid="96a98529-ffcc-432f-b426-833dc288ba79"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Observação]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement style="zebra" x="0" y="0" width="555" height="20" uuid="78157b17-21c6-449b-910e-09a21ef5ba1d"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="4" y="0" width="176" height="20" uuid="17bf074d-afd6-4788-a3aa-ddc0b18baca0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{colaborador}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="0" width="100" height="20" uuid="a1c2462c-300e-4004-a7a5-8f6d4f5b6045"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataEntrada}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="285" y="0" width="100" height="20" uuid="e0116221-01b3-4d57-9988-53bf174c23cd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataSaida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="0" width="33" height="20" uuid="d3997661-8b22-4560-a78e-3d1d61cce677"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalDeDiasTrabalhado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="0" width="135" height="20" uuid="cab1d066-a36f-4ce6-8c25-043561dfd48e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="2">
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="6f9cdeb7-4671-443d-8642-0665689e58bb"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:un="http://xmlns.jcp.org/jsf/composite/paginas/cadastro_basico/unidade_medida"
+                xmlns:fin="http://xmlns.jcp.org/jsf/composite/paginas/financeiro"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/componentes/util"
+                xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:input="http://xmlns.jcp.org/jsf/composite/componentes/inputs">
+
+    <ui:define name="corpo">
+        <div class="Container100">
+
+
+            <p:tabView class="Container  Responsive tabView-inicio" id="tabView">
+                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.index_financeiro)}" id="tabDashFin" title="#{label.faturas}" class="Container100 Responsive">
+                    <h:form id="frm_dash_finan"  class="Container100" prependId="false" >
+                        <div class="Container100">
+                            <util:dadosInicialFinanceiro id="compDadosFinan"/>
+                        </div>
+                    </h:form>
+
+
+                </p:tab>
+                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(financeiro.index_financeiro)}" id="tabAgenFin" title="#{label.agenda} #{label.financeira}" 
+                       class="Container100 Responsive">
+                    <h:form id="frm_age_finan"  class="Container100" prependId="false" >
+                        <div class="Container100">
+
+                            <fin:agendaFinanceira id="compAgendaFinan"/>
+                        </div>
+                    </h:form>
+
+
+                </p:tab>
+                <p:tab rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.index_projeto)}" id="tabDash" title="#{label.projetos}" class="Container100 Responsive">
+                    <h:form id="frm_dash"  prependId="false" >
+                        <div class="ContainerIndent">
+
+                            <util:dadosInicialProjeto id="compDadosPro"/>
+                        </div>
+                    </h:form>
+
+
+                </p:tab>
+                <p:tab id="tabObra" title="Obras" class="Container100 Responsive"  rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.index_obra)}">
+                    <h:form id="frm_obra" prependId="false" >
+                        <div class="ContainerIndent">
+
+                            <util:dadosInicialObra id="compObra"/>
+                        </div>
+                    </h:form>
+                </p:tab>
+                <p:tab id="tabAgenda" title="#{label.agenda}" class="Container100 Responsive">
+                    <h:form id="frm_c" prependId="false" >
+                        <div class="ContainerIndent">
+
+                            <util:agendaEventos id="compAgenda"/>
+                        </div>
+                    </h:form>
+                </p:tab>
+            </p:tabView>
+        </div>
+
+        <h:outputStylesheet name="dadosInicial.css" library="css" />
+
+
+    </ui:define>
+    <ui:define name="dialog">
+        <h:form prependId="false" id="frmDialog" >
+            <p:dialog widgetVar="caixaDialogo" id="dialogCaixa"
+                      header="Evento"  width="800"
+                      resizable="false"
+                      showEffect="clip" hideEffect="clip">  
+                <h:panelGroup id="eventDetails" layout="block" >
+                    <comp:selectOneLabel inp_valor="#{agendaDeEventosMB.evento.tipoEvento}" lab_valor="#{label.tipo_evento}" inp_class_tamanho="90" inp_require="true" >
+                        <f:selectItems value="#{agendaDeEventosMB.listaDeTiposDeEventos}" var="es" itemLabel="#{es.descricao}" itemValue="#{es}"/>
+                    </comp:selectOneLabel>
+
+                    <comp:input_label inp_valor="#{agendaDeEventosMB.evento.titulo}" lab_valor="#{label.titulo}" inp_class_tamanho="90" inp_require="true" />
+                    <comp:textarea_label  inp_valor="#{agendaDeEventosMB.evento.descricao}" lab_valor="#{label.descricao}"  inp_class_tamanho="90" inp_require="true" />
+                    <comp:input_label_data inp_valor="#{agendaDeEventosMB.evento.dataInicio}" inp_calendar_pattern="MM/dd/yyyy HH:mm" lab_valor="#{label.inicio}" inp_class_tamanho="30" inp_require="true"/>
+                    <comp:input_label_data inp_valor="#{agendaDeEventosMB.evento.dataFim}" inp_calendar_pattern="MM/dd/yyyy HH:mm" lab_valor="#{label.fim}" inp_class_tamanho="30" inp_require="true"/>
+                    <div class="EmptyBox20" />
+                    <div>
+                        <p:commandButton  class="Fright btnSalvar" value="#{label.salvar}"  icon="fa fa-floppy-o " actionListener="#{agendaDeEventosMB.salvar()}"  oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();" 
+                                          update="@(form)"   />  
+                        <p:commandButton  class="Fleft btnExcluir" value="#{label.excluir}"  icon="fa fa-trash-o " actionListener="#{agendaDeEventosMB.excluir()}"  oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();" 
+                                          update="@(form)"   >
+                            <p:confirm header="#{label.excluir}" message="#{msg.confirmacao}" icon="ui-icon-alert"  />
+
+                        </p:commandButton>  
+                    </div>
+                </h:panelGroup>
+            </p:dialog>  
+        </h:form>
+
+        <p:dialog showEffect="fade" position="400,50"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
+
+            <h:form  prependId="false" id="frm_noti">
+                <panels:panel  titulo="#{label.enviar} #{label.email}"  collapsed="true" >
+                    <h:panelGroup class="Container100" layout="block" >
+                        <p:pickList widgetVar="pickList" id="pickList" value="#{dadosInicialMB.listDualColaboradores}" var="col" itemLabel="#{col}" 
+                                    itemValue="#{col}"    responsive="true" showTargetFilter="true" showSourceFilter="true"  filterMatchMode="contains"
+                                    converter="primeFacesPickListConverter" >
+                            <f:facet name="sourceCaption">Disponíveis</f:facet> 
+                            <f:facet name="targetCaption">Selecionados</f:facet> 
+                            <p:column style="width:75%;"> 
+                                <h:outputText value="#{col.nome}" /> 
+                            </p:column>
+                        </p:pickList>
+                    </h:panelGroup>
+                </panels:panel>
+
+                <panels:panel titulo="#{label.adicionar} #{label.notificacao}" >
+                    <p:editor id="editor" widgetVar="editorWidget" value="#{dadosInicialMB.notificacaoProjeto.motivo}"   required="true"  />
+                   
+                    <p:commandButton class="TexAlCenter Container100"  value="#{label.salvar}" icon="fa fa-floppy-o" actionListener="#{dadosInicialMB.addNotificacaoProjeto()}" 
+                                     update="editor tabelaNotPro" onclick="start()" oncomplete="stop()" />
+                </panels:panel>
+                <p:dataTable value="#{dadosInicialMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+                    <p:column headerText="#{label.data}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.data}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.colaborador.nome}"/>
+                    </p:column>
+                    <p:column headerText="#{label.motivo}" class="TexAlCenter" >
+                        <componentes:outputText value="#{np.textoMotivo}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center"  width="50%"  header="#{label.informacoes} #{label.fatura}" id="dialogoFat" modal="true" 
+                  hideEffect="fade" widgetVar="dialogoFat">
+
+            <h:form  prependId="false" id="frm_info_fat">
+                <panels:panel  titulo="#{label.dados}"   >
+                    <h:panelGroup class="Container100" layout="block" >
+                        <comp:input_label inp_readonly="true" inp_valor="#{dadosInicialMB.faturaOperacao.operacao.categoriaOperacao.nome}" lab_valor="#{label.categoria}"/>
+                        <comp:textarea_label inp_class_tamanho="100"    inp_valor="#{dadosInicialMB.faturaOperacao.operacao.descricao}" lab_valor="#{label.descricao}"/>
+                    </h:panelGroup>
+                </panels:panel>
+
+                
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center"  width="40%"  header="#{label.editar} #{label.fatura}" id="dialogoEditFat" modal="true" 
+                  hideEffect="fade" widgetVar="dialogoEditFat">
+
+            <h:form  prependId="false" id="frm_edit_fat">
+                <panels:panel  titulo="#{label.dados}"   >
+                    <h:panelGroup class="Container100" layout="block" >
+                        
+                        <comp:input_label_data inp_valor="#{dadosInicialMB.faturaOperacao.dataVencimento}" lab_valor="#{label.data}" inp_class_tamanho="33"/>
+                        <comp:input_label_money inp_valor="#{dadosInicialMB.faturaOperacao.valor}" lab_valor="#{label.valor}" inp_class_tamanho="33" />
+                        <p:commandButton icon="fa fa-floppy-o" class="Container100 MarTopPerc5" value="#{label.salvar}" actionListener="#{dadosInicialMB.salvarFatura()}" update="@(form)" >
+                            <p:confirm message="#{msg.confirmacao}" />
+                        </p:commandButton>
+                    </h:panelGroup>
+                </panels:panel>
+
+                
+            </h:form>
+        </p:dialog>
+     
+    </ui:define>
+
+</ui:composition>
+

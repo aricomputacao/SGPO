@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:fornecedor="http://xmlns.jcp.org/jsf/composite/paginas/administrativo"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels">
+
+    <ui:define name="corpo">
+        <h:form id="frm_cad"  prependId="false"  rendered="#{utilitarioNavegacaoMB.permissaoIncluir(administrativo.fornecedor_cadastro)}" >
+
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" acao_cancelar="#{fornecedorMB.init()}" btn_salvar_update="@form" 
+                                     acao_excluir="#{fornecedorMB.init()}" btn_excluir="false"  acao_salvar="#{fornecedorMB.salvar()}" 
+                                     btn_limpar="true" acao_limpar="#{fornecedorMB.init()}" cabecalho="#{label.cadastro} #{label.fornecedor}" btn_imprimir="true" acao_imprimir="#{fornecedorMB.geraImpressaoDadosFornecedor()}" btn_ativar="false"
+                                     btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{fornecedorMB.init()}" >
+
+                <p:panel class="ContainerIndent  pnl-menu" rendered="#{fornecedorMB.renderizarAtalhos}">
+
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "  
+                                     title="#{label.adicionar} #{label.conta}"  update=":frm_conta"  
+                                     onclick="PF('dialogoAssinat').show()" >
+                        <div class="ContainerIndent">
+
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="48" height="48" name="contato.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+                </p:panel>
+                    <fornecedor:cadastroFornecedor id="compCadastro"/>
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog" id="dialogs">
+        <p:dialog showEffect="fade" position="center center"  class="Container50"  width="50%" header="#{label.gerenciar} #{label.conta}" id="dialogoAssinat" modal="true" 
+                  hideEffect="fade" widgetVar="dialogoAssinat">
+
+            <h:form id="frm_conta" prependId="false" >
+                <panels:panel titulo="#{label.dados} #{label.da} #{label.conta}" >
+                    <h:panelGroup layout="block" id="divConta">
+                        <p:focus context="divConta" />
+                        <inputs:input_label inp_valor="#{fornecedorMB.contaFornecedor.agencia}" inp_class_tamanho="20" lab_valor="#{label.agencia}" inp_require="true" /> 
+                        <inputs:input_label inp_valor="#{fornecedorMB.contaFornecedor.numero}" inp_class_tamanho="20" lab_valor="#{label.numero}" inp_require="true" /> 
+                        <inputs:input_label_number inp_valor="#{fornecedorMB.contaFornecedor.operacao}" inp_class_tamanho="20" lab_valor="#{label.operacao}" inp_require="true" /> 
+                        <inputs:input_label inp_valor="#{fornecedorMB.contaFornecedor.banco}" inp_class_tamanho="40" lab_valor="#{label.banco}" inp_require="true" /> 
+                    </h:panelGroup>
+                    <p:commandButton value="#{label.registrar} #{label.conta}" class="Container100 MarAuto " icon="fa fa-floppy-o" actionListener="#{fornecedorMB.addConta()}" update="@form" />
+                </panels:panel>
+
+
+                <panels:panel  titulo="#{label.conta}s #{label.registradas}">
+                    <p:dataTable value="#{fornecedorMB.listaDeContaFornecedor}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10"
+                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')  }"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                        <p:column headerText="#{label.agencia}">
+                            <componentes:outputText value="#{p.agencia}"/>
+                        </p:column>
+                        <p:column headerText="#{label.numero}">
+                            <componentes:outputText value="#{p.numero}"/>
+                        </p:column>
+                        <p:column headerText="#{label.banco}">
+                            <componentes:outputText value="#{p.banco}"/>
+                        </p:column>
+
+                        <p:column headerText="#{label.acao}" width="10%">
+
+                            <btn:commandButtonExcluir acao_butao="#{fornecedorMB.excluirConta(p)}" class="#{label.conta}" immediate="true" componente_to_update="@form" renderizar_btn="true" />
+
+                        </p:column>
+                    </p:dataTable>
+                </panels:panel>
+
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:inp="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:comp="http://xmlns.jcp.org/jsf/composite/componentes/inputs">
+    <composite:interface>
+
+
+    </composite:interface>
+    <composite:implementation id="compo">
+        <p:panel class="Container">
+            <i class="icon-calendar-outlilne Fleft Fs30   yellow "></i>
+            <div class="Fs30 Fleft  Wid70 hardblue fontItalic">#{label.agenda} #{label.financeira}</div>                                       
+        </p:panel>
+        <p:fieldset>
+            <p:schedule widgetVar="meuCalendarioFinanceiro" tooltip="true"  class="ContainerIndent Responsive"
+                        value="#{dadosInicialMB.eventModel}" id="sch" timeZone="#{initParam.timezone}" 
+                        clientTimeZone="false" locale="#{localeController.currentLocale}" centerHeaderTemplate="title" 
+                        >
+
+                <!-- eventos -->
+
+            </p:schedule>
+
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

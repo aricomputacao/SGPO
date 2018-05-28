@@ -1,0 +1,124 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/12/2015, 14:13:47
+    Author     : ari
+*/
+
+
+.pnl-projeto .ui-panel-titlebar {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6bba70+0,6bba70+100;Green+Flat+%234 */
+    background: rgb(75, 178, 197) ! important; /* Old browsers */
+
+    font-weight: normal ! important;
+    font-size: 15px ! important;
+    text-shadow : none ! important;
+    border: solid 1px #00AEEF ! important;
+    margin: 0px ! important;
+
+}
+.pnl-obra .ui-panel-titlebar {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6bba70+0,6bba70+100;Green+Flat+%234 */
+    background: rgb(234, 162, 40) ! important; /* Old browsers */
+
+    font-weight: normal ! important;
+    font-size: 15px ! important;
+    text-shadow : none ! important;
+    border: solid 1px #F9BB70 ! important;
+    margin: 0px ! important;
+
+}
+
+.tabView-inicio .ui-tabs-nav{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6bba70+0,6bba70+100;Green+Flat+%234 */
+    background: rgb(107,186,112) ! important; /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(107,186,112,1) 0%, rgba(107,186,112,1) 100%) ! important; /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(107,186,112,1) 0%,rgba(107,186,112,1) 100%) ! important; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(107,186,112,1) 0%,rgba(107,186,112,1) 100%) ! important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bba70', endColorstr='#6bba70',GradientType=0 ) ! important; /* IE6-9 */
+    border: solid 1px #4CAF50 ! important;
+
+}
+
+
+.pnl-index{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,cccccc+100;Gren+3D */
+    background: rgb(238,238,238) ! important; /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%) ! important; /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%) ! important; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%) ! important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ) ! important; /* IE6-9 */
+    padding: 3px;
+}
+
+.pnl-fatura{
+    -webkit-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+
+
+}
+.pnl-fatura:hover{
+
+}
+
+.label-pnl-index{
+    filter:alpha(opacity=50) ! important;
+    opacity: 0.5 ! important;
+    -moz-opacity:0.5 ! important;
+    -webkit-opacity:0.5 ! important;
+
+}
+.img-index{
+    filter:alpha(opacity=30) ! important;
+    opacity: 0.3 ! important;
+    -moz-opacity:0.3 ! important;
+    -webkit-opacity:0.3 ! important;
+
+}
+.img-index:hover{
+    filter:alpha(opacity=70) ! important;
+    opacity: 0.7 ! important;
+    -moz-opacity:0.7 ! important;
+    -webkit-opacity:0.7 ! important;
+
+}
+
+
+
+
+.redBack {
+    background-color: #E53935 !important;
+    border-color: #E53935 !important;
+    font-size: 100% !important;
+
+}
+.orangeBack {
+    background-color: #EF6C00 !important;
+    border-color: #EF6C00 !important;
+    font-size: 100% !important;
+
+}
+
+.greenBack {
+    background-color: #43A047 !important;
+    border-color: #43A047 !important;
+    font-size: 100% !important;
+
+}
+.blueBack {
+    background-color: #0277BD !important;
+    border-color: #0277BD !important;
+    font-size: 100% !important;
+
+}
+
+.yellowBack{
+    background-color: #fdc14a !important;
+    border-color: #fdc14a !important;
+    font-size: 100% !important;
+
+}

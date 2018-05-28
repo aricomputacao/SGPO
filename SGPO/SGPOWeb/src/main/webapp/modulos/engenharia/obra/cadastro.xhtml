@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:eng="http://xmlns.jcp.org/jsf/composite/paginas/engenharia/obra"
+                xmlns:adm="http://xmlns.jcp.org/jsf/composite/paginas/administrativo"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="corpo">
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.obra_cadastro)}" >
+
+
+
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                     acao_cancelar="#{obraMB.init()}" btn_dialog_rel="#{obraMB.renderLink()}" dialog_rel="dialogRel" render_sep_2="true" render_sep_1="true" render_sep_3="false"
+                                     acao_excluir="#{obraMB.init()}"  acao_salvar="#{obraMB.salvar()}"
+                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.obra}" btn_salvar_update="@(form)" >
+
+
+                <p:panel class="ContainerIndent  pnl-menu" rendered="#{obraMB.renderLink()}">
+
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "  
+                                     title="#{label.adicionar} #{label.projeto}"  update=":frm_cons_proj"  
+                                     onclick="PF('dialogConProj').show()" >
+                        <div class="ContainerIndent">
+                            
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="projeto.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "    update=":frm_cad_ite_obra" 
+                                     onclick="PF('dialogCadItemObra').show()"   title="#{label.adicionar} #{label.item}">
+                        <div class="ContainerIndent">
+                          
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="item_add.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "    update=":frm_cad_equi_obra" 
+                                     onclick="PF('dialogCadEquipamentoObra').show()"  title="#{label.adicionar} #{label.equipamento}">
+
+                        <div class="ContainerIndent">
+                      
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="equipamentos.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "   update=":frm_doc" 
+                                     onclick="PF('dialogoDocum').show()"  title="#{label.adicionar} #{label.nota}">
+                        <div class="ContainerIndent">
+                          
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="nota.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+
+                    <p:commandLink   class="texto-atalho atalho atalho-f5  Container10 Fs13 TexAlCenter   Responsive  "  update=":frm-cola-obra" 
+                                     onclick="PF('dialogColObra').show()"  title="#{label.adicionar} #{label.colaborador}">
+                        <div class="ContainerIndent">
+                           
+                            <h:panelGroup layout="block" class="TexAlCenter" >
+                                <p:graphicImage library="images"  width="45" height="45" name="colaborador.png" />
+
+                            </h:panelGroup>
+                        </div>
+
+                    </p:commandLink>
+                </p:panel>
+           
+                <eng:cadastroObra id="compCadastro"/>
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
+            <h:form id="frm_usr" >
+                <adm:consultaCliente id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{obraMB.obra.setCliente(p)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_cli:input" onclick="PF('dialogCliente').hide()" />
+                </adm:consultaCliente>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.usuario} " id="dialogResponsavel" modal="true" hideEffect="fade" widgetVar="dialogResponsavel">
+            <h:form id="frm_col" >
+                <adm:consultaColaborador id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{obraMB.obra.setResponsavel(c)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_resp:input" onclick="PF('dialogResponsavel').hide()" />
+                </adm:consultaColaborador>
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
+            <h:form id="frm_cad_cli" >
+                <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
+                                               acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
+
+                                               btn_limpar="true" cabecalho="#{label.cadastro} #{label.cliente}" btn_imprimir="false" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{clienteMB.init()}" btn_salvar_update=":frm_cad_cli" >
+                    <adm:cadastroCliente id="compCadastro" form=":frm_cad_cli"  />
+                </componentes:panelPadraoDialog>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.gerenciar} #{label.projetos} #{label.da} #{label.obra} " id="dialogConProj" modal="true" hideEffect="fade"
+                  widgetVar="dialogConProj">
+            <h:form id="frm_cons_proj" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.projeto_consulta)}">
+                <p:pickList id="ProjPickList" value="#{obraMB.listaDualProjetos}" var="pro" 
+                            itemValue="#{pro}" itemLabel="#{pro}"  responsive="true" showSourceFilter="true" 
+                            showTargetFilter="true" filterMatchMode="contains" converter="pickListProjetoConverter">
+
+                    <f:facet name="sourceCaption">#{label.projetos_andamento}</f:facet>
+                    <f:facet name="targetCaption">#{label.projetos} #{label.da} #{label.obra}</f:facet>
+
+                    <p:ajax event="transfer"   listener="#{obraMB.gerenciarProjeto()}"  />
+
+                    <p:column style="width:90%;">
+                        <h:outputText value="#{pro.nome} &#8658; (#{pro.tipo.nome})" />
+                    </p:column>
+                </p:pickList>
+
+            </h:form>
+        </p:dialog>
+
+        <!-- ###################################################################Inicio Dialogs referente a cadastros de itens################################################################### -->
+
+        <p:dialog showEffect="fade" position="200,50"  dynamic="true"  header="#{label.item} #{label.da} #{label.obra} " id="dialogCadItemObra" modal="true" 
+                  hideEffect="fade" widgetVar="dialogCadItemObra">
+            <h:form id="frm_cad_ite_obra" >
+                <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
+                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addItemObra()}"  acao_imprimir="#{obraMB.init()}"
+                                               btn_limpar="true" cabecalho="#{label.item} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_ite_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
+                    <eng:cadastroItemObra  id="compCadastro" form=":frm_cad_cli"  >
+                        <p:commandButton actionListener="#{obraMB.pagarItemObra(io)}" title="#{label.pagar}" class="btnForm" immediate="true" rendered="#{not io.pago}" update=":frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlItens:tabela"  
+                                         icon="fa fa-money "  >
+                            <p:confirm message="#{msg.confirmacao}" />
+                        </p:commandButton>
+                        <p:commandButton  class="btnEditar" actionListener="#{obraMB.setItemObra(io)}" title="#{label.editar}"  rendered="#{not io.pago}" immediate="true" update=":frm_cad_ite_obra"   icon="fa fa-pencil"  />
+                    </eng:cadastroItemObra>
+                </componentes:panelPadraoDialog>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="200,50" width="70%"   header="#{label.item} " id="dialogItem" modal="true" hideEffect="fade" widgetVar="dialogItem">
+            <h:form id="frm_item" >
+                <eng:consultaItem id="compConItem"  componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.itemObra.setItem(i)}" icon="fa fa-check-square-o" update="frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_ite:input" onclick="PF('dialogItem').hide()" />
+                </eng:consultaItem>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedor" modal="true" hideEffect="fade" widgetVar="dialogFornecedor">
+            <h:form id="frm_fornecedor" >
+                <adm:consultaFornecedor id="compConItem"  render_edit="false" componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.itemObra.setFornecedor(f)}" icon="fa fa-check-square-o" update="frm_cad_ite_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_for:input" onclick="PF('dialogFornecedor').hide()" />
+                </adm:consultaFornecedor>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="200,50" dynamic="true"  width="70%"   header="#{label.cadastro} #{label.item} " id="dialogCadItem" modal="true" hideEffect="fade" widgetVar="dialogCadItem">
+            <h:form id="frm_cad_item" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.item_cadastro)}" >
+                <componentes:panelPadrao id="pnlPadraoItem" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{itemMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_excluir="#{itemMB.init()}"  acao_salvar="#{itemMB.addItem()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.item}" >
+                    <eng:cadastroItem id="compCadastroItem"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.unidade_medida} " id="dialogCadUdm" modal="true" hideEffect="fade" widgetVar="dialogCadUdm">
+            <h:form id="frm_cad_udm" prependId="false"  >
+                <componentes:panelPadrao id="pnlPadraoUdm" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{unidadeDeMedidaMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_excluir="#{unidadeDeMedidaMB.init()}"  acao_salvar="#{unidadeDeMedidaMB.salvar()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.unidade_medida}" >
+                    <adm:cadastroUnidadeMedida id="compCadastroUdm"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.etapa} " id="dialogCadEtapa" modal="true" hideEffect="fade" widgetVar="dialogCadEtapa">
+            <h:form id="frm_cad_eta" prependId="false"  >
+                <componentes:panelPadrao id="pnlPadraoEta" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{etapaMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_excluir="#{etapaMB.init()}"  acao_salvar="#{etapaMB.addEtapa()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.etapa}" >
+                    <eng:cadastroEtapa id="compCadastroEta"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorRel" modal="true" hideEffect="fade" widgetVar="dialogFornecedorRel">
+            <h:form id="frm_fornecedor_rel" >
+                <adm:consultaFornecedor id="compConForRel"  render_edit="false" componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDoFornecedor(f)}" icon="fa fa-print"  onclick="start()"  
+                                     oncomplete="stop();PF('dialogFornecedorRel').hide();popup('/sgpo/RelatorioServlet.pdf')" />
+                </adm:consultaFornecedor>
+
+            </h:form>
+        </p:dialog>
+        <!-- ################################################################### Fim Dialogs referente a cadastros de itens ################################################################### -->
+
+        <!-- ###################################################################Inicio Dialogs referente a cadastros de Equipamentos ################################################################### -->
+        <p:dialog showEffect="fade" position="200,50"  header="#{label.equipamento}s #{label.da} #{label.obra} " id="dialogCadEquipamentoObra" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamentoObra">
+            <h:form id="frm_cad_equi_obra" >
+                <componentes:panelPadraoDialog id="pnlPadraoCli" class="Responsive"   acao_cancelar="#{obraMB.init()}"  render_sep_1="false" render_sep_2="true" render_sep_3="false"
+                                               acao_excluir="#{obraMB.init()}" btn_excluir="false"  acao_salvar="#{obraMB.addEquipamentoObra()}"  acao_imprimir="#{obraMB.geraImpressaoItensDaObraMes()}"
+                                               btn_limpar="true" cabecalho="#{label.equipamento} #{label.da} #{label.obra}" btn_imprimir="false" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{obraMB.init()}" btn_salvar_update=":frm_cad_equi_obra" acao_limpar="#{obraMB.resetarItemObra()}" >
+                    <eng:cadastroEquipamentoObra  id="compCadastro"   />
+
+                </componentes:panelPadraoDialog>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.equipamento} " id="dialogEquipamento" modal="true" hideEffect="fade" widgetVar="dialogEquipamento">
+            <h:form id="frm_equipamento" >
+                <eng:consultaEquipamento id="compConEqui"   componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.equipamentoObra.setEquipamento(ep)}" icon="fa fa-check-square-o" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_equ:input" onclick="PF('dialogEquipamento').hide()" />
+                </eng:consultaEquipamento>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.cadastro} #{label.equipamento} " id="dialogCadEquipamento" modal="true" hideEffect="fade" widgetVar="dialogCadEquipamento">
+            <h:form id="frm_cad_equipa" prependId="false"  >
+                <componentes:panelPadrao id="pnlPadraoEquipameto" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{equipamentoMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_excluir="#{equipamentoMB.init()}"  acao_salvar="#{equipamentoMB.salvar()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.equipamento}" >
+                    <eng:cadastroEquipamento id="compCadastroEquipamento"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorEqui" modal="true" hideEffect="fade" widgetVar="dialogFornecedorEqui">
+            <h:form id="frm_fornecedor_equi" >
+                <adm:consultaFornecedor id="compConForEqui"  render_edit="false" componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.equipamentoObra.setFornecedor(f)}" icon="fa fa-check-square-o" update="frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlDadPes:inp_for:input" onclick="PF('dialogFornecedorEqui').hide()" />
+                </adm:consultaFornecedor>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="30%"   header="#{label.fornecedor} " id="dialogDataEntrega" modal="true" hideEffect="fade" widgetVar="dialogDataEntrega">
+            <h:form id="frm-equipame-devolver" >
+                <p:fieldset>
+
+                    <h:panelGroup layout="block" class="Container100" >
+                        <inputs:input_label_data inp_valor="#{obraMB.equipamentoObra.dataSaida}"  inp_class_tamanho="100" lab_valor="#{label.data} #{label.entrega}"  inp_require="true" />
+                        <p:separator class="Container100" />
+                    </h:panelGroup>
+                    <p:commandButton icon="fa fa-floppy-o"  value="#{label.entrega}r" class="Container100" actionListener="#{obraMB.desativarEquipamentoObra(obraMB.equipamentoObra)}"  onclick="start()" oncomplete="stop();PF('dialogDataEntrega').hide()" update=":frm_cad_equi_obra:pnlPadraoCli:compCadastro:pnlItens:tabview:tabela-locado"  >
+                        <p:confirm message="#{msg.confirmacao}" />
+                    </p:commandButton>
+                </p:fieldset>
+
+            </h:form>
+        </p:dialog>
+        <!-- ################################################################### Fim Dialogs referente a cadastros de Equipamentos ################################################################### -->
+
+
+        <!-- ################################################################### Inicio Dialogs referente a cadastros de notas ################################################################### -->
+        <p:dialog showEffect="fade" position="center center"  width="85%"  header="#{label.gerenciar} #{label.nota}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
+            <h:form enctype="multipart/form-data" prependId="false" id="frm_doc">
+                <componentes:panelPadrao id="pnlPadraoNota" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{obraMB.init()}" btn_dialog_rel="false" render_sep_3="true" 
+                                         acao_excluir="#{obraMB.init()}"  acao_salvar="#{obraMB.addNota()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.nota}" >
+                    <eng:cadastroNotaFiscalObra id="compConDocProjeto"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+
+
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.fornecedor} " id="dialogFornecedorNota" modal="true" hideEffect="fade" widgetVar="dialogFornecedorNota">
+            <h:form id="frm-fornecedor-nota" >
+                <adm:consultaFornecedor id="compConForNot"  render_edit="false" componente_to_update="@form"  >
+                    <p:commandButton actionListener="#{obraMB.notaObra.setFornecedor(f)}" update=":frm_doc:pnlPadraoNota:compConDocProjeto:pnlDadPes:inp_for:input" icon="fa fa-check-square-o"  onclick="PF('dialogFornecedorNota').hide()"  />
+                </adm:consultaFornecedor>
+
+            </h:form>
+        </p:dialog>
+
+        <!-- ################################################################### Fim Dialogs referente a cadastros de notas ################################################################### -->
+
+        <!-- ################################################################### Inicio Dialogs referente a cadastros de colaborador ################################################################### -->
+        <p:dialog showEffect="fade" position="center center"  width="85%"  header="#{label.gerenciar} #{label.colaborador}" id="dialogColObra" modal="true" hideEffect="fade" widgetVar="dialogColObra">
+            <h:form  prependId="false" id="frm-cola-obra">
+                <componentes:panelPadrao id="pnlPadraoColaborador" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{obraMB.init()}" btn_dialog_rel="false" render_sep_3="false" 
+                                         acao_excluir="#{obraMB.init()}"  acao_salvar="#{obraMB.addFuncionario()}"
+                                         btn_limpar="false" cabecalho="#{label.cadastro} #{label.colaborador}" >
+                    <eng:cadastroColaboradorObra id="compCadColObra"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+
+
+        <p:dialog showEffect="fade" position="center center" width="70%"    header="#{label.colaborador} " id="dialogColaborador" modal="true" hideEffect="fade" widgetVar="dialogColaborador">
+            <h:form id="frm-col" >
+                <adm:consultaColaborador id="compUsr"  acao_butao="#{colaboradorMB.consultarColaboradorDisponivel()}" componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{obraMB.funcionarioObra.setColaborador(c)}" icon="fa fa-check-square-o" update=":frm-cola-obra:pnlPadraoColaborador:compCadColObra:pnlDadPes:inp_col:input" onclick="PF('dialogColaborador').hide()" />
+                </adm:consultaColaborador>
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="30%"   header="#{label.saida} #{label.colaborador} " id="dialogDataCol" modal="true" hideEffect="fade" widgetVar="dialogDataCol">
+            <h:form id="frm-colaborador-saida" >
+                <p:fieldset>
+
+                    <h:panelGroup layout="block" class="Container100" >
+                        <inputs:input_label_data inp_valor="#{obraMB.funcionarioObra.dataSaida}"   inp_class_tamanho="90" lab_valor="#{label.data} #{label.saida}"  inp_require="true" />
+                        <p:separator class="Container100" />
+                    </h:panelGroup>
+                    <p:commandButton icon="fa fa-floppy-o"  value="#{label.registrar} #{label.saida}" class="Container100" actionListener="#{obraMB.addFuncionario()}"  onclick="start()" 
+                                     oncomplete="stop();PF('dialogDataCol').hide()" update=":frm-cola-obra:pnlPadraoColaborador:compCadColObra:pnlItens:tabela"  >
+                        <p:confirm message="#{msg.confirmacao}" />
+                    </p:commandButton>
+                </p:fieldset>
+
+            </h:form>
+        </p:dialog>
+
+        <!-- ################################################################### Fim Dialogs referente a cadastros de colaborador ################################################################### -->
+
+
+        <!-- ################################################################### Inicio Dialogs referente a relatorios ################################################################### -->
+
+        <p:dialog showEffect="fade" position="center center" width="30%"   header="#{label.mes} " id="dialogMes" modal="true" hideEffect="fade" widgetVar="dialogMes">
+            <h:form id="frm__impimir_item" >
+                <h:panelGroup layout="block" class="Container100">
+
+                    <inputs:selectOneLabel inp_valor="#{obraMB.mesReferencia}" lab_valor="#{label.mes}" inp_require="true"  >
+                        <f:selectItem  itemLabel="-----Selecione-----" noSelectionOption="true" value="#{null}" itemValue="#{null}" />
+                        <f:selectItems value="#{obraMB.listaDeMeses}" var="me" itemValue="#{me}" />
+                    </inputs:selectOneLabel>
+                    <p:commandButton actionListener="#{obraMB.geraImpressaoItensDaObraQuinzena()}" onclick="start()" 
+                                     oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf') "  
+                                     immediate="true" icon="fa fa-print" value="#{label.imprimir}" class="Container100" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="50%"   header="#{label.relatorios} " id="dialogRel" modal="true" hideEffect="fade" widgetVar="dialogRel">
+
+            <h:form id="frm__relatorio" >
+                <p:tabView class="Container100 Responsive" >
+                    <p:tab title="#{label.itens}">
+                        <h:panelGroup rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.relatorio_itens_obra_fornecedor)}"  class="Container33 Responsive " >
+                            <div class="ContainerIndent  ">
+                                <p:commandLink     onclick="PF('dialogFornecedorRel').show()" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-link-ext Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens}  #{label.fornecedor}</span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_itens_obra)}" >
+                            <div class="ContainerIndent  ">
+                                <p:commandLink     onclick="start()"  actionListener="#{obraMB.geraImpressaoItensEtapaTipo()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.etapa} #{label.tipo}</span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_itens_obra_mes)}">
+                            <div class="ContainerIndent  ">
+                                <p:commandLink     onclick="start()"  actionListener="#{obraMB.geraImpressaoItensDaObraMes()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')">
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.da} #{label.obra} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup class="Container33 Responsive "  >
+                            <div class="ContainerIndent  ">
+                                <p:commandLink    onclick="PF('dialogMes').show()" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-link-ext Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.itens} #{label.do} #{label.mes} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                    </p:tab>
+                    <p:tab title="#{label.equipamento}s">
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_equipamentos_obra)}">
+                            <div class="ContainerIndent  ">
+                                <p:commandLink    onclick="start()"  actionListener="#{obraMB.geraImpressaoEquipamentoObra()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.equipamento}s #{label.da} #{label.obra} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                    </p:tab>
+                    <p:tab title="#{label.colaboradores}">
+                        <h:panelGroup class="Container33 Responsive "  rendered="#{utilitarioNavegacaoMB.permissaoConsultar(engenharia.relatorio_colaborador_obra)}">
+                            <div class="ContainerIndent  ">
+                                <p:commandLink    onclick="start()"  actionListener="#{obraMB.geraImpressaoColaboradorObra()}" oncomplete="stop();popup('/sgpo/RelatorioServlet.pdf')" >
+                                    <p:panel class="panel-index">
+                                        <div class="Wid100 TexAlCenter Fleft">
+                                            <div class="ContainerIndent">
+                                                <i class="icon-print-1 Wid90  Fleft Fs25  hardblue "></i>
+                                                <span class="Fs13 Wid100 FontTitilliumBoldItalic gray">#{label.colaboradores} #{label.da} #{label.obra} </span>
+                                            </div>
+                                        </div>
+                                    </p:panel>
+                                </p:commandLink>
+                            </div>
+                        </h:panelGroup>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+
+        </p:dialog>
+        <!-- ################################################################### fim Dialogs referente a relatorios ################################################################### -->
+
+    </ui:define>
+
+</ui:composition>

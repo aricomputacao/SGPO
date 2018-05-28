@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rodape_retrato" pageWidth="612" pageHeight="752" whenNoDataType="NoDataSection" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8bdb4e1b-7bd1-4c77-a221-9be146da7fd2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="img_sub" class="java.lang.String"/>
+	<parameter name="email_sub" class="java.lang.String"/>
+	<parameter name="tel_sub" class="java.lang.String"/>
+	<parameter name="rua_sub" class="java.lang.String"/>
+	<parameter name="comp_sub" class="java.lang.String"/>
+	<noData>
+		<band height="34">
+			<frame>
+				<reportElement x="0" y="0" width="612" height="34" uuid="90330f99-6a07-4349-82fe-489134665f2e"/>
+				<box>
+					<topPen lineWidth="0.15" lineColor="#666666"/>
+					<bottomPen lineWidth="0.15" lineColor="#666666"/>
+				</box>
+				<image hAlign="Center">
+					<reportElement x="0" y="2" width="52" height="30" uuid="3fd702af-a896-4a22-ab6c-33e931caf8f8"/>
+					<imageExpression><![CDATA[$P{img_sub}]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="52" y="2" width="202" height="15" forecolor="#999999" uuid="d7e01ca7-117d-4288-8ac2-faf2b7115bb8"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{rua_sub}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="52" y="17" width="202" height="15" forecolor="#999999" uuid="6d5bda28-481f-4b8f-a7c6-30dca2b1b5b4"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{comp_sub}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="254" y="2" width="356" height="15" forecolor="#999999" uuid="a030c86c-7b8c-4733-99ef-3c9adf0e97ae"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{tel_sub}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="254" y="17" width="356" height="15" forecolor="#999999" uuid="67b3dd61-0de4-4736-8c16-7a6573dfaab1"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{email_sub}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

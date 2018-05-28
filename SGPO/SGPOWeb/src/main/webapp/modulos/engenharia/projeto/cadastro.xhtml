@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:eng="http://xmlns.jcp.org/jsf/composite/paginas/engenharia/projeto"
+                xmlns:adm="http://xmlns.jcp.org/jsf/composite/paginas/administrativo"
+                xmlns:btn="http://xmlns.jcp.org/jsf/composite/componentes/botoes"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="corpo">
+        <h:form id="frm_cad" prependId="false" rendered="#{utilitarioNavegacaoMB.permissaoIncluir(engenharia.projeto_cadastro)}" >
+
+            <componentes:panelPadrao id="pnlPadrao" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                     acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
+                                     acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.salvar()}"
+                                     btn_limpar="false" cabecalho="#{label.cadastro} #{label.projeto}" btn_salvar_update="@(form)" >
+
+                    <p:panel class="ContainerIndent  Responsive pnl-menu"  >
+
+                        <p:commandLink  rendered="#{projetoMB.renderAtalhoF1()}" update=":frm_doc"  title="#{label.adicionar} #{label.documento}" onclick="PF('dialogoDocum').show()" 
+                                        class="Container10  Fleft texto-atalho atalho  TexAlCenter  Responsive atalho-f5">
+                            <div class="ContainerIndent">
+                               
+                                <h:panelGroup layout="block" class="TexAlCenter" >
+                                    <p:graphicImage library="images"  width="45" height="45" name="document_add.png" />
+
+                                </h:panelGroup>
+                            </div>
+
+                        </p:commandLink>
+                        <p:commandLink class="Container10  Fleft texto-atalho atalho   TexAlCenter  Responsive atalho-f5"  title="#{label.adicionar} #{label.notificacao}"
+                                       immediate="true" update=":frm_noti" onclick="PF('dialogoNotPro').show()" rendered="#{projetoMB.renderAtalhoF2()}" >
+                            <div class="ContainerIndent">
+                              
+                                <h:panelGroup layout="block" class="TexAlCenter" >
+                                    <p:graphicImage library="images"  width="45" height="45" name="notificacao.png" />
+
+                                </h:panelGroup>
+                            </div>
+                        </p:commandLink>
+
+                        <p:commandLink class=" texto-atalho atalho   TexAlCenter  Responsive Container10 Fs15 atalho-f5"  rendered="#{projetoMB.renderAtalhoF2()}"  
+                                       immediate="true" update=":frm_mov_pro" onclick="PF('dialogMovPro').show()" title="#{label.movimentacoes}">
+
+                            <div class="ContainerIndent">
+                               
+                                <h:panelGroup layout="block" class="TexAlCenter" >
+                                    <p:graphicImage library="images"  width="45" height="45" name="movimentacao.png" />
+
+                                </h:panelGroup>
+                            </div>
+
+                        </p:commandLink>
+                        <p:commandLink class="texto-atalho atalho    TexAlCenter  Responsive Container10 Fs15 atalho-f5"  rendered="#{projetoMB.renderAtalhoF2()}"  
+                                       immediate="true" update=":frm_fim" onclick="PF('dialogoFinalizar').show()" title="#{label.atualizar} #{label.status}">
+                            <div class="ContainerIndent">
+                              
+                                <h:panelGroup layout="block" class="TexAlCenter" >
+                                    <p:graphicImage library="images"  width="45" height="45" name="update.png" />
+
+                                </h:panelGroup>
+                            </div>
+
+                        </p:commandLink>
+                    </p:panel>
+
+
+
+
+
+                <eng:cadastroProjeto id="compCadastro"/>
+            </componentes:panelPadrao>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCliente" modal="true" hideEffect="fade" widgetVar="dialogCliente">
+            <h:form id="frm_usr" >
+                <adm:consultaCliente id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{projetoMB.projeto.setCliente(p)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_cli:input" onclick="PF('dialogCliente').hide()" />
+                </adm:consultaCliente>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"   header="#{label.usuario} " id="dialogResponsavel" modal="true" hideEffect="fade" widgetVar="dialogResponsavel">
+            <h:form id="frm_col" >
+                <adm:consultaColaborador id="compUsr"  componente_to_update="@form" render_edit="false" >
+                    <p:commandButton actionListener="#{projetoMB.projeto.setResponsavel(c)}" icon="fa fa-check-square-o" update=":frm_cad:pnlPadrao:compCadastro:pnlDadPes:inp_resp:input" onclick="PF('dialogResponsavel').hide()" />
+                </adm:consultaColaborador>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="70%"  header="#{label.cliente} " id="dialogCadCliente" modal="true" hideEffect="fade" widgetVar="dialogCadCliente">
+            <h:form id="frm_cad_cli" >
+                <componentes:panelPadraoDialog id="pnlPadrao" class="Responsive" acao_cancelar="#{clienteMB.init()}" 
+                                               acao_excluir="#{clienteMB.init()}" btn_excluir="false"  acao_salvar="#{clienteMB.salvar()}" 
+
+                                               btn_limpar="true" cabecalho="#{label.cadastro} #{label.cliente}" btn_imprimir="false" btn_ativar="false"
+                                               btn_dialog_rel="false" btn_cancelar="false" acao_ativar="#{clienteMB.init()}" >
+                    <adm:cadastroCliente id="compCadastro" form=":frm_cad_cli"  />
+                </componentes:panelPadraoDialog>
+
+
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="200,50"  width="85%"  header="#{label.gerenciar} #{label.documento}" id="dialogoDocum" modal="true" hideEffect="fade" widgetVar="dialogoDocum">
+            <h:form enctype="multipart/form-data" prependId="false" id="frm_doc">
+                <componentes:panelPadrao id="pnlPadraoDoc" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
+                                         acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.addDocumento()}"
+                                         btn_limpar="false" cabecalho="#{label.adicionar} #{label.documento}" btn_salvar_update="@form" >
+
+                    <eng:consultaDocumentoProjeto id="compConDocProjeto"/>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="40%"   header="#{label.projeto}" id="dialogoFinalizar" modal="true" hideEffect="fade" widgetVar="dialogoFinalizar">
+            <h:form  prependId="false" id="frm_fim" class="TexAlCenter">
+                <p:panel class="MarBot10 TexAlCenter" >
+                    <i class="icon-info-circled Fleft Fs40   yellow "></i>
+                    <div class="Fs22 Fleft  Wid70 hardblue fontItalic">#{msg.alterar_status}</div> 
+                    <div class="Fs18 Fleft  Wid70 hardblue fontItalic">#{label.status} #{label.atual}: #{projetoMB.projeto.fase.descricao} </div> 
+                </p:panel>
+                <div class="Container100">
+                    <p:commandButton value="#{label.nao}" class="Fleft " onclick="PF('dialogoFinalizar').hide()" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times "/>
+                    <p:commandButton value="#{label.sim}" class="Fright" update="@(form)" actionListener="#{projetoMB.alterarStatusProjeto()}" oncomplete="PF('dialogoFinalizar').hide()"  style="margin-left: 100px"  styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle-o " />
+                </div>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center center" width="75%"  header="#{label.movimentacoes}" id="dialogMov" modal="true" hideEffect="fade" widgetVar="dialogMov">
+            <h:form id="frm_mov" prependId="false">
+
+                <p:dataTable value="#{movimentacaoDocumentoMB.listaMovimentacao}" id="tabelaMov" paginatorAlwaysVisible="false"  paginator="true" var="m" rows="5"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                    <p:column headerText="#{label.data}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.data}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="#{label.acao}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.tipo}"/>
+                    </p:column>
+                    <p:column headerText="#{label.descricao}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.descricao}"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador} #{label.anterior}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.colaboradorAntigo.nome}"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador} #{label.novo}" class="TexAlCenter" >
+                        <componentes:outputText value="#{m.colaboradorNovo.nome}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center center" width="50%"  header="#{label.movimentacoes} #{label.do} #{label.projeto}" id="dialogMovPro" modal="true" hideEffect="fade" widgetVar="dialogMovPro">
+            <h:form id="frm_mov_pro" prependId="false">
+
+                <p:dataTable value="#{projetoMB.listaMovimentacaoProjetos}" id="tabelaMovPro" paginatorAlwaysVisible="false"  paginator="true" var="mp" rows="5"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                    <p:column headerText="#{label.data}" class="TexAlCenter" >
+                        <componentes:outputText value="#{mp.data}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="#{label.colaborador}" class="TexAlCenter" >
+                        <componentes:outputText value="#{mp.colaborador.nome}"/>
+                    </p:column>
+                    <p:column headerText="#{label.fase}" class="TexAlCenter" >
+                        <componentes:outputText value="#{mp.fase.descricao}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="400,50"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
+            <h:form  prependId="false" id="frm_noti">
+                <componentes:panelPadrao id="pnlPadraoNotf" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
+                                         acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
+                                         acao_excluir="#{projetoMB.init()}"  acao_salvar="#{projetoMB.addNotificacao()}" 
+                                         btn_limpar="false" cabecalho="#{label.adicionar} #{label.notificacao}" btn_salvar_update="@form" >
+                    <panels:panel  titulo="#{label.enviar} #{label.email}"  collapsed="true" >
+                        <h:panelGroup class="Container100" layout="block" >
+                            <p:pickList widgetVar="pickList" id="pickList" value="#{projetoMB.listDualColaboradores}" var="col" itemLabel="#{col}" 
+                                        itemValue="#{col}"    responsive="true" showTargetFilter="true" showSourceFilter="true"  filterMatchMode="contains"
+                                        converter="primeFacesPickListConverter" >
+
+
+                                <f:facet name="sourceCaption">Disponíveis</f:facet> 
+                                <f:facet name="targetCaption">Selecionados</f:facet> 
+                                <p:column style="width:75%;"> 
+                                    <h:outputText value="#{col.nome}" /> 
+                                </p:column>
+
+
+
+                            </p:pickList>
+
+                        </h:panelGroup>
+                    </panels:panel>
+                    <panels:panel titulo=" #{label.notificacao}" >
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{projetoMB.notificacaoProjeto.motivo}"  maxlength="1024" required="true"  />
+
+
+                    </panels:panel>
+                    <p:dataTable value="#{projetoMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"
+                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"  reflow="true">
+
+
+                        <p:column headerText="#{label.data}" class="TexAlCenter" >
+                            <componentes:outputText value="#{np.data}" tipo="dt"/>
+                        </p:column>
+                        <p:column headerText="#{label.colaborador}" class="TexAlCenter" >
+                            <componentes:outputText value="#{np.colaborador.nome}"/>
+                        </p:column>
+                        <p:column headerText="#{label.motivo}" class="TexAlCenter" >
+                            <componentes:outputText value="#{np.textoMotivo}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </componentes:panelPadrao>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

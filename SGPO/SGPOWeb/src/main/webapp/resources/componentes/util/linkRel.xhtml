@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="title" required="true" />
+        <composite:attribute name="acao_butao" required="true"  method-signature="java.lang.Void action()"/>
+
+    </composite:interface>
+    <composite:implementation>
+
+        
+        <p:commandLink  class="texto-atalho atalho-link  Container25 Fs13 TexAlCenter   Responsive  "  
+                        title="#{cc.attrs.title}" onclick="start()"  oncomplete="popup('/sgpo/RelatorioServlet.pdf');stop()" actionListener="#{cc.attrs.acao_butao}" update="@this"  
+                         >
+            <div class="ContainerIndent" style="min-height: 50%; " >
+                <h:panelGroup layout="block" class="TexAlCenter" >
+                    <i class="icon-print Fs30 Container96"></i>
+                    <span class="Fs15 Container96">#{cc.attrs.title}</span>
+                </h:panelGroup>
+            </div>
+        </p:commandLink>
+    </composite:implementation>
+</ui:composition>
+
+

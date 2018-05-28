@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.transparencia {
+    filter:alpha(opacity=70) ! important;
+    opacity: 0.7 ! important;
+    -moz-opacity:0.7 ! important;
+    -webkit-opacity:0.7 ! important;
+}
+
+
+
+.back-login{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,7db9e8+100&1+0,0+100;Blue+to+Transparent */
+    /* background: url("#{resource['images/imgB0.jpg']}") no-repeat center center fixed;
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+    
+        background: url("#{resource['images/noise.png']}") ,#e5efe5;
+
+
+}
+
+.icones-login{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+0,596a72+100;Grey+3D+%231 */
+    background: rgb(206,220,231); /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(206,220,231,1) 0%, rgba(89,106,114,1) 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    border-radius: 7px;
+
+}
+
+.circulo {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f8ffe8+0,e3f5ab+33,b7df2d+100;Green+3D+%234 */
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100;White+to+Transparent */
+    background: url("#{resource['images/user-2.png']}") no-repeat center center,#e5efe5;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#32a48d+0,94e0c9+100&1+0,0+100 */
+
+
+    filter:alpha(opacity=95) ! important;
+    opacity: 0.9 ! important;
+    -moz-opacity:0.9 ! important;
+    -webkit-opacity:0.9 ! important;
+
+    border-radius: 60px;
+    /*border: solid 1px wheat;*/
+    padding: 45px; 
+    width: 7px;
+    height: 1px; 
+
+}
+
+.lg{
+
+    background: white;
+    -webkit-box-shadow: 10px 10px 8px -10px rgba(38,41,38,1);
+    -moz-box-shadow: 10px 10px 8px -10px rgba(38,41,38,1);
+    box-shadow: 10px 10px 8px -10px rgba(38,41,38,1);
+
+
+    border-top: 1px solid #e1f2e2;
+    border-left: 1px solid #e1f2e2;
+    border-right: 1px solid #e1f2e2;
+    border-bottom:  1px solid #e1f2e2;
+}

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resultado_mensal" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="1" bottomMargin="1" uuid="8a79b1bb-8dd5-4878-8713-b6481205c4d3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($F{mes}.getMonth() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/WEB-INF/relatorios/sub_relatorios/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="RODAPE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/SGPO/SGPOWeb/src/main/webapp/WEB-INF/relatorios/sub_relatorios/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="email_sub" class="java.lang.String"/>
+	<parameter name="tel_sub" class="java.lang.String"/>
+	<parameter name="rua_sub" class="java.lang.String"/>
+	<parameter name="comp_sub" class="java.lang.String"/>
+	<parameter name="img_sub" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="despesa" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[despesa]]></fieldDescription>
+	</field>
+	<field name="mes" class="java.util.Date">
+		<fieldDescription><![CDATA[mes]]></fieldDescription>
+	</field>
+	<field name="receita" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[receita]]></fieldDescription>
+	</field>
+	<field name="saldo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[saldo]]></fieldDescription>
+	</field>
+	<variable name="receita_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{receita}]]></variableExpression>
+	</variable>
+	<variable name="despesa_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{despesa}]]></variableExpression>
+	</variable>
+	<variable name="saldo_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo}]]></variableExpression>
+	</variable>
+	<variable name="receita_2" class="java.math.BigDecimal" resetType="Group" resetGroup="mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{receita}]]></variableExpression>
+	</variable>
+	<variable name="despesa_2" class="java.math.BigDecimal" resetType="Group" resetGroup="mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{despesa}]]></variableExpression>
+	</variable>
+	<variable name="saldo_2" class="java.math.BigDecimal" resetType="Group" resetGroup="mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo}]]></variableExpression>
+	</variable>
+	<group name="mes">
+		<groupExpression><![CDATA[$F{mes}.getMonth()]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<rectangle>
+					<reportElement style="zebra" x="0" y="0" width="610" height="20" uuid="fbc26766-c366-46fa-bb82-44c2abec6ad7"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField pattern="MMMMM">
+					<reportElement x="6" y="0" width="100" height="20" uuid="643668c7-d6ed-4c9e-9763-7e734c354ed2"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
+					<reportElement x="125" y="0" width="100" height="20" uuid="4f0f92f3-7d3f-4742-b0f3-c93855013c78"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{receita_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
+					<reportElement x="250" y="0" width="100" height="20" uuid="0407de33-16ec-48c3-9653-068589649b95"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{despesa_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="mes" pattern="¤ #,##0.00">
+					<reportElement x="416" y="0" width="100" height="20" uuid="28e1529b-93bc-4d6e-ae13-69dba281155f"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{saldo_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="65" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="610" height="65" uuid="3fdfee42-c429-4c10-b4ea-d719b8f3bc1c"/>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA[$P{titulo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{RODAPE}+ "cabecalho_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="610" height="20" uuid="357ef5b7-8478-4a52-aa4a-82e632e9e88a"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<staticText>
+					<reportElement x="125" y="0" width="100" height="20" uuid="5bbda32e-490a-47c0-b5a9-40f78c43e177"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Receita]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="250" y="0" width="100" height="20" uuid="986d8787-9be3-411b-b276-eff0c4f3cbbe"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Despesa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="416" y="0" width="100" height="20" uuid="7596663e-0f46-4fc1-8995-18a8f9f455b5"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Saldo]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="34" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="612" height="34" uuid="c4fccd77-412f-44b7-8595-0fdae1682618"/>
+				<subreportParameter name="img_sub">
+					<subreportParameterExpression><![CDATA[$P{img_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="email_sub">
+					<subreportParameterExpression><![CDATA[$P{email_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tel_sub">
+					<subreportParameterExpression><![CDATA[$P{tel_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rua_sub">
+					<subreportParameterExpression><![CDATA[$P{rua_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="comp_sub">
+					<subreportParameterExpression><![CDATA[$P{comp_sub}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{RODAPE} + "rodape_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20">
+			<frame>
+				<reportElement x="0" y="0" width="610" height="20" uuid="a67ef577-0b44-4af0-bca0-157585d04d54"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="125" y="0" width="100" height="20" uuid="780b02d5-631b-4e35-b814-f195e92af9c3"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{receita_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="250" y="0" width="100" height="20" uuid="d8f1d26a-8c91-4f8b-9c28-64febd9edc54"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{despesa_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="416" y="0" width="100" height="20" uuid="0447b53a-4977-4bf5-88d9-33219a8ecf4d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{saldo_1}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:panels="http://xmlns.jcp.org/jsf/composite/componentes/panels"
+                xmlns:inputs="http://xmlns.jcp.org/jsf/composite/componentes/inputs"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:componentes="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    <composite:interface id="interCon">
+
+    </composite:interface>
+    <composite:implementation  >
+
+        <panels:panel titulo="#{label.dados} #{label.do} #{label.item} " id="pnlDadPes" class="fieldDad">
+            <h:panelGroup id="pnlProD" layout="block"  class="Container100 Responsive" >
+                <inputs:input_label_data id="inpDt" inp_valor="#{obraMB.funcionarioObra.dataEntrada}" lab_valor="#{label.data} #{label.entrada}" inp_require="true"  inp_class_tamanho="25"/>
+
+
+                <inputs:input_label_btn_click inp_valor="#{obraMB.funcionarioObra.colaborador.nome}" id="inp_col" lab_valor="#{label.colaborador}" inp_readonly="true" inp_require="true" 
+                                              btn_immediate="true" btn_onclick="PF('dialogColaborador').show()" btn_process="@this" inp_class_tamanho="50"/>
+            </h:panelGroup>
+
+            <h:panelGroup id="pnlVal" layout="block"  class="Container100 Responsive" >
+                <inputs:textarea_label   inp_valor="#{obraMB.funcionarioObra.observacao}" lab_valor="#{label.observacao}" inp_class_tamanho="100"  />
+            </h:panelGroup>
+
+
+
+        </panels:panel>
+
+        <panels:panel  titulo="#{label.colaborador}es #{label.registrados}" id="pnlItens">
+            <h:panelGroup layout="block" class="Container100 Responsive" id="grdEnd">
+                <p:dataTable value="#{obraMB.listaDeFuncionariosObra}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="fo" rows="5"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row') }" class="Container100"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  reflow="true">
+
+                   
+                    <p:column headerText="#{label.data} #{label.entrada}"  >
+                        <componentes:outputText value="#{fo.dataEntrada}" tipo="d" />
+                    </p:column>
+                    <p:column headerText="#{label.nome}" class="TexAlCenter" >
+                        <componentes:outputText value="#{fo.colaborador.nome}" />
+                    </p:column>
+                    <p:column headerText="#{label.cargo}" class="TexAlCenter" >
+                        <componentes:outputText value="#{fo.colaborador.cargo.nome}" />
+                    </p:column>
+                    <p:column headerText="#{label.data} #{label.saida}" class="TexAlCenter" >
+                        <componentes:outputText value="#{fo.dataSaida}" tipo="d" />
+                    </p:column>
+                    
+                    <p:column headerText="#{label.dias_trabalhado}" class="TexAlCenter" >
+                        <componentes:outputText value="#{fo.totalDeDiasTrabalhado}"  />
+                    </p:column>
+                    
+                <p:column headerText="#{label.acao}" width="10%" >
+                    <p:commandButton title="#{label.saida}" update="@form" class="btnOutro" actionListener="#{obraMB.setFuncionarioObra(fo)}"  immediate="true" 
+                                     oncomplete="PF('dialogDataCol').show()" icon="fa fa-thumbs-up">
+                    </p:commandButton>
+
+                </p:column>
+                    
+                   
+                </p:dataTable>
+            </h:panelGroup>
+        </panels:panel>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+
