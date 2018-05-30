@@ -14,8 +14,8 @@
 
     </composite:interface>
     <composite:implementation>
-        <p:fieldset legend="#{label.dados}" id="fieldDados"  toggleable="true">
-            <h:panelGroup layout="block"  id="pnl-tipo" class="Container100 Responsive">
+        <p:fieldset legend="#{label.dados}" id="fieldDados" class="Responsive100" toggleable="true">
+            <h:panelGroup layout="block"  id="pnl-tipo" class="Container100 Responsive Responsive100">
                 <inputs:selectOneRadio inp_valor="#{operacaoMB.tipoDeOperacao}"   sel_update=":frm_cad:pnlPadrao:compCadastro:sele_cat:input :pnlPadrao:compCadastro:pnl-tipo :pnlPadrao:compCadastro:pnl-valor :pnlPadrao:compCadastro:pnlTipo :pnlPadrao:compCadastro:fieldComp"  
                                        ajax_render="true" ajax_listener="#{operacaoMB.processarTipoOperacao()}" inp_class_tamanho="30" 
                                        lab_valor="#{label.tipo}" >
@@ -25,7 +25,7 @@
                                                        btn_immediate="true" btn_onclick="PF('dialogCliente').show()" btn_process="@this" inp_class_tamanho="50" 
                                                        btn_onclick_plus="PF('dialogCadCliente').show()"  rendered="#{operacaoMB.renderReceita}" />
             </h:panelGroup>
-            <h:panelGroup layout="block"  id="pnlTipo" class="Container100 Responsive">
+            <h:panelGroup layout="block"  id="pnlTipo" class="Container100 Responsive Responsive100">
 
                 <inputs:input_label_data inp_valor="#{operacaoMB.operacao.dateOperacao}" inp_class_tamanho="20" lab_valor="#{label.data} #{label.operacao}" inp_require="true"/>
                 <inputs:selectOneLabe_btn_mais btn_onclick_plus="PF('dialogCategoria').show()" btn_onclick_atualizar="@this" inp_valor="#{operacaoMB.operacao.categoriaOperacao}" id="sele_cat"  sel_converter="indexConverter"  inp_class_tamanho="30" lab_valor="#{label.categoria}" >
@@ -41,15 +41,15 @@
                 <inputs:input_label inp_valor="#{operacaoMB.operacao.numeroNota}" rendered="#{operacaoMB.renderNumeroNota}" lab_valor="#{label.numero} #{label.nota}" inp_class_tamanho="20" />
                 <inputs:input_label_money  inp_valor="#{operacaoMB.valor}" lab_valor="#{label.valor}" inp_class_tamanho="20" inp_require="true" />
             </h:panelGroup>
-            <h:panelGroup layout="block"  class="Container100 Responsive">
+            <h:panelGroup layout="block"  class="Container100 Responsive Responsive100">
 
                 <inputs:textarea_label id="inpDescricao" inp_class_tamanho="90" inp_require="true" inp_valor="#{operacaoMB.operacao.descricao}" lab_valor="#{label.descricao}"/>
 
 
             </h:panelGroup>
         </p:fieldset>
-        <p:fieldset legend="#{label.complementos}" class="MarTop5" id="fieldComp" toggleable="true" >
-            <h:panelGroup layout="block" id="recorrencia" class="Container50 Responsive softGrayBack BordRad10" >
+        <p:fieldset legend="#{label.complementos}" class="MarTop5 Responsive100" id="fieldComp" toggleable="true" >
+            <h:panelGroup layout="block" id="recorrencia" class="Container50 Responsive softGrayBack BordRad10 Responsive100" >
                 <inputs:selectBooleanCheckBox inp_valor="#{operacaoMB.operacao.recorrencia}" sel_update=":pnlPadrao:compCadastro:recorrencia" inp_class_tamanho="100" action="#{operacaoMB.processarRecorrencia()}"  lab_valor="#{label.recorrencia}"  />
                 <inputs:input_label_number  inp_valor="#{operacaoMB.operacao.tempoRecorrencia}"  lab_valor="#{label.ocorre} #{label.em}:" inp_disable="#{operacaoMB.renderRecorrencia}"  inp_class_tamanho="20"  /> 
                 <inputs:selectOneLabel inp_valor="#{operacaoMB.operacao.periodoRecorrencia}" lab_valor="#{label.periodo}" inp_class_tamanho="30" inp_disable="#{operacaoMB.renderRecorrencia}">

@@ -186,7 +186,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog showEffect="fade" position="400,50"  width="50%"  header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
+        <p:dialog showEffect="fade" position="400,50"  width="50%"  positionType="absolute" header="#{label.gerenciar} #{label.notificacao}" id="dialogoNotPro" modal="true" hideEffect="fade" widgetVar="dialogoNotPro">
             <h:form  prependId="false" id="frm_noti">
                 <componentes:panelPadrao id="pnlPadraoNotf" class="Responsive" btn_excluir="false" btn_ativar="false" btn_imprimir="false"
                                          acao_cancelar="#{projetoMB.init()}" btn_dialog_rel="false" render_sep_2="true" render_sep_1="false" render_sep_3="false"
@@ -204,16 +204,12 @@
                                 <p:column style="width:75%;"> 
                                     <h:outputText value="#{col.nome}" /> 
                                 </p:column>
-
-
-
                             </p:pickList>
 
                         </h:panelGroup>
                     </panels:panel>
                     <panels:panel titulo=" #{label.notificacao}" >
                         <p:editor id="editor" widgetVar="editorWidget" value="#{projetoMB.notificacaoProjeto.motivo}"  maxlength="1024" required="true"  />
-
 
                     </panels:panel>
                     <p:dataTable value="#{projetoMB.listaDeNotificacaoProjetos}" id="tabelaNotPro" paginatorAlwaysVisible="false"  paginator="true" var="np" rows="5"

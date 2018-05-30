@@ -55,9 +55,9 @@ and open the template in the editor.
 }
 
 .pnl-fatura{
-    -webkit-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
-    box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75) ! important;
+    -moz-box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75) ! important;
+    box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.75) ! important;
 
 
 }

@@ -25,13 +25,13 @@
 
     </composite:interface>
     <composite:implementation id="compConsulta">
-        <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho} Responsive">
-            <h:panelGroup layout="block" class="ContainerIndent">
+        <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho} Responsive Responsive100">
+            <h:panelGroup layout="block" class="ContainerIndent Container100 Responsive100">
                 <p:outputLabel value="#{cc.attrs.lab_valor}" for="input" />
                 <div>
                     <c:if test="#{cc.attrs.sel_converter == 'none'}">
 
-                        <p:selectOneMenu style="width: 90%" disabled="#{cc.attrs.inp_disable}" value="#{cc.attrs.inp_valor}" id="input"  required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu  class="Container100" disabled="#{cc.attrs.inp_disable}" value="#{cc.attrs.inp_valor}" id="input"  required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
 
@@ -39,7 +39,7 @@
                     </c:if>
                     <c:if test="#{cc.attrs.sel_converter != 'none'}">
 
-                        <p:selectOneMenu style="width: 90%" disabled="#{cc.attrs.inp_disable}" converter="#{indexConverter}"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu  class="Container100"  disabled="#{cc.attrs.inp_disable}" converter="#{indexConverter}"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
                         </p:selectOneMenu>

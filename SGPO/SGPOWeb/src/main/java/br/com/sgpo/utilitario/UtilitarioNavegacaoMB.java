@@ -14,6 +14,7 @@ import br.com.sgpo.seguranca.modelo.Usuario;
 import br.com.sgpo.utilitario.mensagens.MensagensUtil;
 import br.com.sgpo.utilitarios.CriptografiaSenha;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.MessagingException;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -42,7 +44,9 @@ public class UtilitarioNavegacaoMB implements Serializable {
     private UsuarioController usuarioController;
     @Inject
     private PermissaoController permissaoController;
-   
+    @Inject
+    private Mail mail;
+
     private Usuario usuarioLogado;
     private List<Permissao> listaDePermissaoDoUsuario;
     private final Map<String, Permissao> menu;
@@ -51,7 +55,7 @@ public class UtilitarioNavegacaoMB implements Serializable {
     private String novaSenha;
     private String confirmaSenha;
     private Date dataAtual;
-    
+
     public UtilitarioNavegacaoMB() {
         menu = new HashMap<>();
     }
@@ -65,13 +69,28 @@ public class UtilitarioNavegacaoMB implements Serializable {
                 logout();
             } else {
                 listaDePermissaoDoUsuario = permissaoController.consultarTodos("id", "usuario.colaborador.nome", getUsuarioLogado().getNomeDoColaborador());
-                
+
                 popularMenu();
             }
         } catch (Exception ex) {
             Logger.getLogger(UtilitarioNavegacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void teste() {
+       
+        try {
+            List<String> destinos = new ArrayList<>();
+            destinos.add("aricomputacao@gmail.com");
+            destinos.add("ariaguiarfilho@gmail.com");
+            mail.enviarEmailHtml(destinos, "testeddd", "testeddd");
+        } catch (MessagingException ex) {
+            Logger.getLogger(UtilitarioNavegacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+
+   
 
     private void popularMenu() {
         for (Permissao p : listaDePermissaoDoUsuario) {
@@ -87,9 +106,6 @@ public class UtilitarioNavegacaoMB implements Serializable {
         }
     }
 
-
-
-
     public boolean existePermissaoModuloAdministrativo() {
         for (Permissao p : listaDePermissaoDoUsuario) {
             if (p.getTarefa().getModulo().getNome().equals("ADMINISTRATIVO")) {
@@ -98,6 +114,7 @@ public class UtilitarioNavegacaoMB implements Serializable {
         }
         return false;
     }
+
     public boolean existePermissaoModuloSeguranca() {
         for (Permissao p : listaDePermissaoDoUsuario) {
             if (p.getTarefa().getModulo().getNome().equals("SEGURANÇA")) {
@@ -106,6 +123,7 @@ public class UtilitarioNavegacaoMB implements Serializable {
         }
         return false;
     }
+
     public boolean existePermissaoModuloEngenharia() {
         for (Permissao p : listaDePermissaoDoUsuario) {
             if (p.getTarefa().getModulo().getNome().equals("ENGENHARIA")) {
@@ -114,6 +132,7 @@ public class UtilitarioNavegacaoMB implements Serializable {
         }
         return false;
     }
+
     public boolean existePermissaoModuloFinanceiro() {
         for (Permissao p : listaDePermissaoDoUsuario) {
             if (p.getTarefa().getModulo().getNome().equals("FINANCEIRO")) {
@@ -226,5 +245,5 @@ public class UtilitarioNavegacaoMB implements Serializable {
     public Date getDataAtual() {
         return dataAtual;
     }
-   
+
 }

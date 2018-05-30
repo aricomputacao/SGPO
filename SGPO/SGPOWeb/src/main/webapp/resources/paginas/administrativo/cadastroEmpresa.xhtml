@@ -47,10 +47,10 @@
                         <f:selectItem value="#{null}" itemLabel="-----Selecione-----" itemValue="#{null}" noSelectionOption="true"/>
                         <f:selectItems value="#{empresaMB.listaDeUnidadeFederativas}" var="uf" itemLabel="#{uf.sigla.toUpperCase()}" itemValue="#{uf}"/>
                     </inputs:selectOneLabel>
-                    <inputs:selectOneLabel  inp_valor="#{empresaMB.empresa.endereco.municipio}" id="sel_mun" lab_valor="#{label.municipio}" 
+                    <inputs:selectOneLabelSemAjax  inp_valor="#{empresaMB.empresa.endereco.municipio}" id="sel_mun" lab_valor="#{label.municipio}" 
                                             sel_converter="indexConverter" inp_class_tamanho="20"  >
                         <f:selectItems value="#{empresaMB.listaDeMunicipios}" var="mu" itemLabel="#{mu.nome}" itemValue="#{mu}"/>
-                    </inputs:selectOneLabel>
+                    </inputs:selectOneLabelSemAjax>
                     <inputs:input_label inp_valor="#{empresaMB.empresa.endereco.bairro}" lab_valor="#{label.bairro}" inp_require="true" inp_class_tamanho="40" />
                     <inputs:input_label inp_valor="#{empresaMB.empresa.endereco.nome}" lab_valor="#{label.rua}" inp_require="true" inp_class_tamanho="50" />
                     <inputs:input_label inp_valor="#{empresaMB.empresa.endereco.numero}" lab_valor="#{label.numero}"  inp_class_tamanho="20" />

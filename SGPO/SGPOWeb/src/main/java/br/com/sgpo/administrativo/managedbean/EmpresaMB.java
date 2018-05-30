@@ -68,6 +68,8 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
             empresa = (Empresa) lerRegistroDaSessao("empresa");
             contaEmail = new ContaEmail();
             uf = new UnidadeFederativa();
+            listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
+            listaDeMunicipios = municipioController.consultarTodosOrdenadorPor("nome");
             if (empresa == null) {
                 empresa = new Empresa();
                 empresa.setAtivo(true);
@@ -82,7 +84,6 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
 
             }
             listaDeClientes = new ArrayList<>();
-            listaDeUnidadeFederativas = unidadeFederativaController.consultarTodosOrdenadorPor("sigla");
         } catch (Exception ex) {
             Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,9 +104,9 @@ public class EmpresaMB extends BeanGenerico implements Serializable {
     
     public void addContaEmail(){
         try {
+            contaEmail.setEmpresa(empresa);
             contaEmailController.salvar(contaEmail);
             contaEmail =  new ContaEmail();
-            contaEmail.setEmpresa(empresa);
             listaDeEmails = contaEmailController.cosultar(empresa);
         } catch (Exception ex) {
             Logger.getLogger(EmpresaMB.class.getName()).log(Level.SEVERE, null, ex);

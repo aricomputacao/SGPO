@@ -26,29 +26,29 @@
 
     </composite:interface>
     <composite:implementation id="compConsulta">
-        <div id="selOne"  class="Container#{cc.attrs.inp_class_tamanho}">
-            <div class="ContainerIndent Responsive">
+        <div id="selOne"  class="Responsive100 Container#{cc.attrs.inp_class_tamanho}">
+            <div class="ContainerIndent Responsive Responsive100">
 
                 <p:outputLabel class="Container100" value="#{cc.attrs.lab_valor}" for="input" style="margin-left: 5px" />
-                <div class="Container70 Responsive">
+                <div class="Container70 Responsive Responsive100">
 
                     <c:if test="#{cc.attrs.sel_converter == 'none'}">
-                        <p:selectOneMenu  value="#{cc.attrs.inp_valor}" style="width: 90%"  id="input"  required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu  value="#{cc.attrs.inp_valor}"  class="Container80 Responsive100"  id="input"  required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
                         </p:selectOneMenu>
                     </c:if>
 
                     <c:if test="#{cc.attrs.sel_converter != 'none'}">
-                        <p:selectOneMenu  converter="#{indexConverter}"  style="width: 90%"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
+                        <p:selectOneMenu  converter="#{indexConverter}"  class="Container80 Responsive100"  value="#{cc.attrs.inp_valor}" id="input" required="#{cc.attrs.inp_require}" >
                             <composite:insertChildren />
                             <f:ajax event="change" rendered="#{cc.attrs.ajax_render}" render="#{cc.attrs.sel_update}"    listener="#{cc.attrs.ajax_listener}"/>
                         </p:selectOneMenu>
                     </c:if>
 
                 </div>
-                <div class="Container20 Responsive">
-                    <p:commandButton  icon="fa fa-plus-circle" title="#{label.adicionar}" class="btnForm  Container10" onclick="#{cc.attrs.btn_onclick_plus}" immediate="true" />
+                <div class="Container20 Responsive Responsive100">
+                    <p:commandButton  icon="fa fa-plus-circle" title="#{label.adicionar}" class="btnForm Responsive100 Container10" onclick="#{cc.attrs.btn_onclick_plus}" immediate="true" />
                 </div>
             </div>
         </div>

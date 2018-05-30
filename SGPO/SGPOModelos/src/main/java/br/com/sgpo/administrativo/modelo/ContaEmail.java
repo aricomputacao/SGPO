@@ -6,20 +6,17 @@
 package br.com.sgpo.administrativo.modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.Column;
@@ -166,98 +163,136 @@ public class ContaEmail implements Serializable {
         this.porta = 465;
     }
 
-    public void enviarEmail(List<String> destinos, String mensagem, String titulo) throws EmailException {
-        SimpleEmail email = new SimpleEmail();
+    
 
-        email.setHostName(this.host);
-        //Quando a porta utilizada não é a padrão (gmail = 465)
-        email.setSmtpPort(this.porta);
-
-        //Adicione os destinatários
-        for (String destino : destinos) {
-            email.addTo(destino, "", "UTF-8");
-        }
-        email.setSentDate(new Date());
-
-        //Configure o seu Email do qual enviará
-        email.setFrom(this.email, this.empresa.getNome());
-        //Adicione um assunto
-        email.setSubject(titulo);
-        //Adicione a mensagem do Email
-        email.setMsg(Jsoup.parse(mensagem).text());
-        //Para autenticar no servidor é necessário chamar os dois métodos abaixo
-        email.setTLS(true);
-        email.setSSL(true);
-
-        email.setAuthentication(this.email, this.senha);
-        email.send();
-    }
-
-    public void enviarEmailHtml(List<String> destinos, String msg, String titulo) {
-//       Recipient's email ID needs to be mentioned.
-        String to = "" ;
+    public void enviarEmail(List<String> destinos, String mensagem, String titulo) throws EmailException, AddressException, MessagingException {
+          //       Recipient's email ID needs to be mentioned.
+        String destinatarios = "";
         String rodape = "<br/><br/><br/><br/>  <div style=\"border-top: 1px dashed #c8cdbe;border-top: 1px dashed #c8cdbe \">"
-                + "Esta mensagem é uma notificação enviada automaticamente por tanto não deve ser respondida. <br/> "
+                + "<br/> "
                 + "<span style=\"font-style: italic; font-family: Narrow; font-size: large; color: rgb(0, 153, 0);\">Sistema de Gestão de Projetos e Obras - SGPO</span><br/>"
-                +"<span style=\"font-size: large; font-style: italic; color: rgb(0, 153, 0); font-family: Narrow;\">Oiti Engenharia e Gestão Ambiental</span>"
+                + "<span style=\"font-size: large; font-style: italic; color: rgb(0, 153, 0); font-family: Narrow;\">Oiti Engenharia e Gestão Ambiental</span>"
                 + "</div>";
+        
+        
+        
+        
+       
         for (String d : destinos) {
-            if (d.equals(destinos.get(destinos.size()-1))) {
-                to = to.concat(d);
+            if (d.equals(destinos.get(destinos.size() - 1))) {
+                destinatarios = destinatarios.concat(d);
             } else {
-                to = to.concat(d.concat(","));
+                destinatarios = destinatarios.concat(d.concat(","));
             }
         }
-
-        // Sender's email ID needs to be mentioned
-        String from = this.email;
-        final String username = this.email;//change accordingly
-        final String password = this.senha;//change accordingly
-
- 
-        Properties props = new Properties();
+        
+        
+         Properties props = new Properties();
+        /**
+         * Parâmetros de conexão com servidor Gmail
+         */
+        props.put("mail.smtp.host", this.host);
+        props.put("mail.smtp.socketFactory.port", this.porta);
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", this.host);
-        props.put("mail.smtp.port", "25");
+        props.put("mail.smtp.port", this.porta);
 
-        // Get the Session object.
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-            @Override
+        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(email, senha);
             }
         });
 
-        try {
+        /**
+         * Ativa Debug para sessão
+         */
+        session.setDebug(true);
 
-            // Create a default MimeMessage object.
-            Message message = new MimeMessage(session);
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(email)); //Remetente
 
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
+        Address[] toUser = InternetAddress.parse(destinatarios);
+        message.setRecipients(Message.RecipientType.TO, toUser);
+        message.setSubject(titulo);//Assunto
+        message.setContent(mensagem + rodape, "text/html");
+        /**
+         * Método para enviar a mensagem criada
+         */
+        Transport t = session.getTransport("smtps");
+        t.connect(this.host, this.email, this.senha);
 
-            // Set To: header field of the header.
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to));
+//        t.sendMessage(message, new Address[]{new InternetAddress("aricomputacao@gmail.com")});
+        t.sendMessage(message, message.getAllRecipients());
 
-            // Set Subject: header field
-            message.setSubject(titulo);
-
-            // Send the actual HTML message, as big as you like
-            message.setContent(msg+rodape,"text/html");
-
-            // Send message
-            Transport.send(message);
-
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+//        Transport.send(message);
+        System.out.println("Feito!!!");
     }
     
-   
+    
+
+    public void enviarEmailHtml(List<String> destinos, String msg, String titulo) throws AddressException, MessagingException {
+        //       Recipient's email ID needs to be mentioned.
+        String destinatarios = "";
+        String rodape = "<br/><br/><br/><br/>  <div style=\"border-top: 1px dashed #c8cdbe;border-top: 1px dashed #c8cdbe \">"
+                + "Esta mensagem é uma notificação enviada automaticamente por tanto não deve ser respondida. <br/> "
+                + "<span style=\"font-style: italic; font-family: Narrow; font-size: large; color: rgb(0, 153, 0);\">Sistema de Gestão de Projetos e Obras - SGPO</span><br/>"
+                + "<span style=\"font-size: large; font-style: italic; color: rgb(0, 153, 0); font-family: Narrow;\">Oiti Engenharia e Gestão Ambiental</span>"
+                + "</div>";
+        
+        
+        
+        
+       
+        for (String d : destinos) {
+            if (d.equals(destinos.get(destinos.size() - 1))) {
+                destinatarios = destinatarios.concat(d);
+            } else {
+                destinatarios = destinatarios.concat(d.concat(","));
+            }
+        }
+        
+        
+         Properties props = new Properties();
+        /**
+         * Parâmetros de conexão com servidor Gmail
+         */
+        props.put("mail.smtp.host", this.host);
+        props.put("mail.smtp.socketFactory.port", this.porta);
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.port", this.porta);
+
+        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(email, senha);
+            }
+        });
+
+        /**
+         * Ativa Debug para sessão
+         */
+        session.setDebug(true);
+
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(email)); //Remetente
+
+        Address[] toUser = InternetAddress.parse(destinatarios);
+        message.setRecipients(Message.RecipientType.TO, toUser);
+        message.setSubject(titulo);//Assunto
+        message.setContent(msg + rodape, "text/html");
+        /**
+         * Método para enviar a mensagem criada
+         */
+        Transport t = session.getTransport("smtps");
+        t.connect(this.host, this.email, this.senha);
+
+//        t.sendMessage(message, new Address[]{new InternetAddress("aricomputacao@gmail.com")});
+        t.sendMessage(message, message.getAllRecipients());
+
+//        Transport.send(message);
+        System.out.println("Feito!!!");
+    }
 
 }

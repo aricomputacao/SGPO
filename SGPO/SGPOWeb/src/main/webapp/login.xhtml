@@ -14,12 +14,11 @@
 
 
         </script>  
-
     </h:head>
 
     <h:body class="fontRegular back-login"  onload="setarFocu('login')">
 
-        
+
         <div  id="divLog"     class="MarTopPerc5 "  >
             <div class="Container100 MaxWid500 Fnone MarAuto TexAlCenter  ">
 
@@ -60,13 +59,17 @@
                         </div>
                         <div class="EmptyBox5"></div>
                     </div>
-                    <div class="MarTopPerc5">
-                        <h:commandButton id="btnLogin"    styleClass=" Fs19 btn-login FontLight"   value="Entrar"  />
+                    <div class="MarTopPerc5 Container Responsive100">
+                        <h:commandButton id="btnLogin" value="#{label.login}"    class="Container100  Fs26 btn-login FontLight"     >
+
+
+                        </h:commandButton>
 
                     </div>
                     <div class="EmptyBox10"></div>
 
                 </form>
+              
             </p:panel>
         </div>
         <!-- LOGIN BOX COVER END -->
